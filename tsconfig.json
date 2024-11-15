@@ -24,7 +24,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@api/*": ["./src/api/*"],
-      "@pages/*": ["./src/pages/*"],
+      "@app/*": ["./src/app/*"],
       "@components/*": ["./src/components/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@hooks/*": ["./src/hooks/*"],
