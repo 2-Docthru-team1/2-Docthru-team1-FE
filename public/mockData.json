@@ -1,0 +1,398 @@
+[
+  {
+    "title": "딸기우유",
+    "ingredients": ["딸기", "우유", "콩"],
+    "benefits": {
+      "intro": "딸기우유의 효능",
+      "content": ["그런게 있을거라고 생각했습니까?", "맛있으면 그만이죠"]
+    },
+    "likeCount": 0,
+    "category": "디저트",
+    "direction": "우선 근처 편의점에 갑니다. 그리고 냉장칸을 찾아주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 350,
+      "carbs": 50,
+      "protein": 10,
+      "fat": 10,
+      "sugars": 50,
+      "sodium": 21,
+      "fiber": 50
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "초코우유",
+    "ingredients": ["초콜릿 시럽", "우유"],
+    "benefits": {
+      "intro": "초코우유의 효능",
+      "content": ["에너지를 줍니다.", "아이들이 좋아합니다."]
+    },
+    "likeCount": 5,
+    "category": "디저트",
+    "direction": "우유에 초콜릿 시럽을 섞어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 300,
+      "carbs": 45,
+      "protein": 8,
+      "fat": 7,
+      "sugars": 30,
+      "sodium": 50,
+      "fiber": 0
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "바나나우유",
+    "ingredients": ["바나나", "우유"],
+    "benefits": {
+      "intro": "바나나우유의 효능",
+      "content": ["포만감을 줍니다.", "영양가가 높습니다."]
+    },
+    "likeCount": 8,
+    "category": "디저트",
+    "direction": "바나나를 우유에 넣고 갈아주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 400,
+      "carbs": 60,
+      "protein": 9,
+      "fat": 8,
+      "sugars": 25,
+      "sodium": 30,
+      "fiber": 3
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "망고주스",
+    "ingredients": ["망고", "물", "설탕"],
+    "benefits": {
+      "intro": "망고주스의 효능",
+      "content": ["비타민이 풍부합니다.", "상큼한 맛이 일품입니다."]
+    },
+    "likeCount": 10,
+    "category": "음료",
+    "direction": "망고를 갈아서 물과 설탕을 섞어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 200,
+      "carbs": 45,
+      "protein": 2,
+      "fat": 0,
+      "sugars": 35,
+      "sodium": 5,
+      "fiber": 1
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "오렌지주스",
+    "ingredients": ["오렌지", "물", "설탕"],
+    "benefits": {
+      "intro": "오렌지주스의 효능",
+      "content": ["면역력 강화에 좋습니다.", "신선한 맛이 좋습니다."]
+    },
+    "likeCount": 7,
+    "category": "음료",
+    "direction": "오렌지를 짜서 물과 섞어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 150,
+      "carbs": 35,
+      "protein": 1,
+      "fat": 0,
+      "sugars": 25,
+      "sodium": 0,
+      "fiber": 1
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "사과주스",
+    "ingredients": ["사과", "물", "설탕"],
+    "benefits": {
+      "intro": "사과주스의 효능",
+      "content": ["소화를 돕습니다.", "영양가가 높습니다."]
+    },
+    "likeCount": 6,
+    "category": "음료",
+    "direction": "사과를 갈아서 물과 섞어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 120,
+      "carbs": 30,
+      "protein": 1,
+      "fat": 0,
+      "sugars": 20,
+      "sodium": 1,
+      "fiber": 2
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "딸기 스무디",
+    "ingredients": ["딸기", "요거트", "꿀"],
+    "benefits": {
+      "intro": "딸기 스무디의 효능",
+      "content": ["상큼하고 건강합니다.", "간편하게 만들 수 있습니다."]
+    },
+    "likeCount": 9,
+    "category": "디저트",
+    "direction": "모든 재료를 갈아주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 250,
+      "carbs": 40,
+      "protein": 5,
+      "fat": 3,
+      "sugars": 25,
+      "sodium": 15,
+      "fiber": 4
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "바나나 스무디",
+    "ingredients": ["바나나", "요거트", "우유"],
+    "benefits": {
+      "intro": "바나나 스무디의 효능",
+      "content": ["포만감이 좋습니다.", "영양가가 높습니다."]
+    },
+    "likeCount": 4,
+    "category": "디저트",
+    "direction": "모든 재료를 갈아주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 300,
+      "carbs": 50,
+      "protein": 8,
+      "fat": 5,
+      "sugars": 20,
+      "sodium": 10,
+      "fiber": 3
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "청포도 주스",
+    "ingredients": ["청포도", "물", "설탕"],
+    "benefits": {
+      "intro": "청포도 주스의 효능",
+      "content": ["맛있고 상큼합니다.", "비타민이 풍부합니다."]
+    },
+    "likeCount": 3,
+    "category": "음료",
+    "direction": "청포도를 갈아서 물과 섞어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 180,
+      "carbs": 40,
+      "protein": 1,
+      "fat": 0,
+      "sugars": 30,
+      "sodium": 5,
+      "fiber": 1
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "코코넛 주스",
+    "ingredients": ["코코넛", "물"],
+    "benefits": {
+      "intro": "코코넛 주스의 효능",
+      "content": ["수분 보충에 좋습니다.", "상큼한 맛이 일품입니다."]
+    },
+    "likeCount": 5,
+    "category": "음료",
+    "direction": "코코넛을 갈아서 물과 섞어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 100,
+      "carbs": 20,
+      "protein": 1,
+      "fat": 2,
+      "sugars": 10,
+      "sodium": 0,
+      "fiber": 1
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "블루베리 스무디",
+    "ingredients": ["블루베리", "요거트", "우유"],
+    "benefits": {
+      "intro": "블루베리 스무디의 효능",
+      "content": ["항산화 성분이 많습니다.", "상큼하고 건강합니다."]
+    },
+    "likeCount": 6,
+    "category": "디저트",
+    "direction": "모든 재료를 갈아주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 220,
+      "carbs": 35,
+      "protein": 6,
+      "fat": 2,
+      "sugars": 15,
+      "sodium": 10,
+      "fiber": 3
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "피치주스",
+    "ingredients": ["복숭아", "물", "설탕"],
+    "benefits": {
+      "intro": "피치주스의 효능",
+      "content": ["여름에 시원하게 즐길 수 있습니다.", "비타민 C가 풍부합니다."]
+    },
+    "likeCount": 4,
+    "category": "음료",
+    "direction": "복숭아를 갈아서 물과 섞어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 130,
+      "carbs": 30,
+      "protein": 1,
+      "fat": 0,
+      "sugars": 20,
+      "sodium": 5,
+      "fiber": 1
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "레몬에이드",
+    "ingredients": ["레몬", "설탕", "물"],
+    "benefits": {
+      "intro": "레몬에이드의 효능",
+      "content": ["비타민 C가 풍부합니다.", "더위를 식혀줍니다."]
+    },
+    "likeCount": 8,
+    "category": "음료",
+    "direction": "레몬을 짜서 설탕과 물을 섞어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 90,
+      "carbs": 22,
+      "protein": 1,
+      "fat": 0,
+      "sugars": 20,
+      "sodium": 0,
+      "fiber": 0
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "요거트 스무디",
+    "ingredients": ["요거트", "바나나", "꿀"],
+    "benefits": {
+      "intro": "요거트 스무디의 효능",
+      "content": ["소화에 좋습니다.", "상큼하고 맛있습니다."]
+    },
+    "likeCount": 7,
+    "category": "디저트",
+    "direction": "모든 재료를 갈아주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 250,
+      "carbs": 40,
+      "protein": 8,
+      "fat": 5,
+      "sugars": 15,
+      "sodium": 40,
+      "fiber": 1
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "커피",
+    "ingredients": ["커피 가루", "물"],
+    "benefits": {
+      "intro": "커피의 효능",
+      "content": ["집중력을 높여줍니다.", "기분을 좋게 합니다."]
+    },
+    "likeCount": 10,
+    "category": "음료",
+    "direction": "커피 가루에 뜨거운 물을 부어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 5,
+      "carbs": 0,
+      "protein": 0,
+      "fat": 0,
+      "sugars": 0,
+      "sodium": 5,
+      "fiber": 0
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "녹차",
+    "ingredients": ["녹차 가루", "물"],
+    "benefits": {
+      "intro": "녹차의 효능",
+      "content": ["항산화 성분이 많습니다.", "신진대사를 촉진합니다."]
+    },
+    "likeCount": 9,
+    "category": "음료",
+    "direction": "녹차 가루에 뜨거운 물을 부어주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 2,
+      "carbs": 0,
+      "protein": 0,
+      "fat": 0,
+      "sugars": 0,
+      "sodium": 3,
+      "fiber": 0
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "초코 스무디",
+    "ingredients": ["초콜릿", "우유", "바나나"],
+    "benefits": {
+      "intro": "초코 스무디의 효능",
+      "content": ["달콤하고 맛있습니다.", "에너지를 줍니다."]
+    },
+    "likeCount": 5,
+    "category": "디저트",
+    "direction": "모든 재료를 갈아주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 350,
+      "carbs": 55,
+      "protein": 10,
+      "fat": 12,
+      "sugars": 40,
+      "sodium": 50,
+      "fiber": 3
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  },
+  {
+    "title": "피넛버터 스무디",
+    "ingredients": ["피넛버터", "바나나", "우유"],
+    "benefits": {
+      "intro": "피넛버터 스무디의 효능",
+      "content": ["단백질이 풍부합니다.", "맛있고 건강합니다."]
+    },
+    "likeCount": 4,
+    "category": "디저트",
+    "direction": "모든 재료를 갈아주세요.",
+    "servings": 1,
+    "nutrition": {
+      "calories": 400,
+      "carbs": 45,
+      "protein": 15,
+      "fat": 20,
+      "sugars": 10,
+      "sodium": 150,
+      "fiber": 5
+    },
+    "images": ["/temporaryAssets/food.svg"]
+  }
+]
