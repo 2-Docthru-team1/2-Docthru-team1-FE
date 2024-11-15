@@ -35,6 +35,10 @@
   color: var(--gray-600);
 }
 
+.active_button {
+  color: var(--primary-blue);
+}
+
 .nav_toggle_options {
   display: flex;
   gap: 16px;

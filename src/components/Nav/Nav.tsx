@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import bell from '@/../public/assets/icon_bell_default.png';
 import translate from '@/../public/assets/icon_translate.png';
@@ -15,8 +16,14 @@ export default function Nav() {
         <div className={styles.nav_page_options}>
           <Image src={logo} alt="로고" width={146} height={29.2} />
           <div className={styles.options}>
-            <p className={`${styles.recipe_option}`}>Recipe</p>
-            <p className={styles.challenge_option}>Challenge</p>
+            <Link href="/RecipeList">
+              <p className={`${styles.recipe_option} ${router.pathname === '/RecipeList' ? styles.active_button : ''}`}>Recipe</p>
+            </Link>
+            <Link href="/Challenge">
+              <p className={`${styles.challenge_option}  ${router.pathname.includes('/Challenge') ? styles.active_button : ''}`}>
+                Challenge
+              </p>
+            </Link>
           </div>
         </div>
         <div className={styles.nav_toggle_options}>
