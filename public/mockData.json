@@ -18,5 +18,5 @@
     "sodium": 21,
     "fiber": 50
   },
-  "images": ["/public/temporaryAssets/Food.svg"]
+  "images": ["/temporaryAssets/food.svg"]
 }

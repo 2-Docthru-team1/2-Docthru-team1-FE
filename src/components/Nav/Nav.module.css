@@ -1,0 +1,43 @@
+.nav_bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.nav_bar_wrapper {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav_page_options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.options {
+  display: flex;
+}
+
+.recipe_option,
+.challenge_option {
+  padding: 21px 17px;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 17.9px;
+  color: var(--gray-600);
+}
+
+.nav_toggle_options {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,7 +1,8 @@
+import axios from 'axios';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import inactiveHeart from '@/../public/assets/icon_heart_inact_small.png';
-import foodImg from '@/../public/temporaryAssets/Food.svg';
-import data from '@/api/mockData.json';
+import foodImg from '@/../public/temporaryAssets/food.svg';
 import styles from './RecipeCard.module.css';
 
 /**
@@ -10,12 +11,25 @@ import styles from './RecipeCard.module.css';
  * 추후 수정예정입니다.
  */
 
-export default function RecipeCard() {
-  console.log(data);
+interface RecipeData {
+  title: string;
+  likeCount: number;
+  category: string;
+  images: string[];
+}
+
+interface RecipeCardProps {
+  data: RecipeData;
+}
+
+export default function RecipeCard({ data }: RecipeCardProps) {
+  if (!data) {
+    return <div>로딩 중...</div>;
+  }
 
   return (
     <div className={styles.card}>
-      <Image src={foodImg} alt="음식 이미지" />
+      <Image src={data.images[0]} alt="음식 이미지" width={278} height={167} />
       <div className={styles.info}>
         <p className={styles.category}>{data.category}</p>
         <p className={styles.food_name}>{data.title}</p>
