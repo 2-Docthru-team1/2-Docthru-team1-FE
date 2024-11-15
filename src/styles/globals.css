@@ -1,0 +1,31 @@
+@import url(reset.css);
+@import url(colors.css);
+
+html,
+body {
+  font-family: Pretendard;
+  color: var(--gray-700);
+}
+
+.container {
+  width: 100%;
+  max-width: 120rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  gap: 2.4rem;
+  margin-top: 10rem;
+}
+
+@media (max-width: 1199px) and (min-width: 744px) {
+  .container {
+    max-width: 69.6rem;
+  }
+}
+
+@media (max-width: 743px) {
+  .container {
+    max-width: 34.3rem;
+  }
+}
