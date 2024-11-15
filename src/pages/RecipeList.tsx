@@ -1,5 +1,6 @@
 import axios from 'axios';
 import RecipeCard from '@/components/Card/RecipeCard';
+import SearchBar from '@/components/SearchBar/SearchBar';
 
 export async function getStaticProps() {
   const res = await axios.get('http://localhost:3000/mockData.json');
@@ -25,6 +26,7 @@ interface RecipeListProps {
 export default function RecipeList({ initialData }: RecipeListProps) {
   return (
     <div>
+      <SearchBar />
       {initialData.map((data, index) => (
         <RecipeCard key={index} data={data} />
       ))}
