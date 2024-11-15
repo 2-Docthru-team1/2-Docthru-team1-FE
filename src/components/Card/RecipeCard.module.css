@@ -1,0 +1,41 @@
+.card {
+  width: 278px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--gray-100);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding: 13px 15px;
+  gap: 6px;
+}
+
+.category {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--gray-600);
+}
+
+.food_name {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  color: var(--gray-700);
+}
+
+.heart_info {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.heart_count {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--gray-700);
+}
