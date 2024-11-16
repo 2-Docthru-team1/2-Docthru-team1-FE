@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "../styles/globals.css";
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import Nav from '@/components/Nav/Nav';
+import '../styles/globals.css';
 
 const pretendard = localFont({
-  src: "../../public/fonts/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920"
+  src: '../../public/fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920'
 });
 
 export const metadata: Metadata = {
-  title: "HanCook",
-  description: "The web that you can share your korean food cooking"
+  title: 'HanCook',
+  description: 'The web that you can share your korean food cooking'
 };
 
 export default function RootLayout({
@@ -23,7 +24,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={pretendard.className}>{children}</body>
+      <body className={pretendard.className}>
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }

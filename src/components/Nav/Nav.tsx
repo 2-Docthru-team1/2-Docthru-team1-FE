@@ -1,20 +1,35 @@
+'use client';
+
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 import bell from '@/../public/assets/icon_bell_default.png';
 import translate from '@/../public/assets/icon_translate.png';
 import logo from '@/../public/assets/img_logo_pc.png';
 import profile from '@/../public/assets/img_profile_member.png';
 
 export default function Nav() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const isRecipe = pathname.includes('recipe');
+  const isChallenge = pathname.includes('challenge');
+
   return (
     <div className="flex w-full h-[6rem] justify-center items-center border-b border-gray-100">
       <div className="w-[120rem] flex justify-between items-center">
         <div className="w-[35rem] gap-[2.4rem] flex items-center justify-center">
           <Image className="w-[14.6rem] h-[2.92rem]" src={logo} alt="로고" />
           <div className="flex">
-            <p className="flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] ">
+            <p
+              className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] ${isRecipe ? 'text-primary-blue' : 'text-gray-600'}`}
+              onClick={() => router.push('/recipeList')}
+            >
               Recipe
             </p>
-            <p className="flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem]">
+            <p
+              className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] ${isChallenge ? 'text-primary-blue' : 'text-gray-600'}`}
+              onClick={() => router.push('/challenge')}
+            >
               Challenge
             </p>
           </div>
