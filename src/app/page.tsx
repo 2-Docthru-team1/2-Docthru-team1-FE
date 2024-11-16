@@ -15,11 +15,6 @@ export default async function Home() {
   return (
     <div>
       <Header>HanCook</Header>
-      <div className="grid grid-cols-4 gap-[2.9rem] w-[120rem]">
-        {initialData.map((data, index) => (
-          <RecipeCard key={index} data={data} />
-        ))}
-      </div>
     </div>
   );
 }
