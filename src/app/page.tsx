@@ -1,12 +1,10 @@
-import { fetchMenu } from '@/api/recipeService';
-import { RecipeData } from '@/interfaces/cardInterface';
+import Nav from '@/components/Nav/Nav';
 import Header from '../components/Header';
 
 export default async function Home() {
-  const initialData: RecipeData[] = await fetchMenu();
-
   return (
     <div>
+      <Nav />
       <Header>HanCook</Header>
     </div>
   );
