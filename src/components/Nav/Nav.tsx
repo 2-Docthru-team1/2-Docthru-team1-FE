@@ -9,7 +9,6 @@ import logo from '@/../public/assets/img_logo_pc.png';
 import adminProfile from '@/../public/assets/img_profile_admin.png';
 import userProfile from '@/../public/assets/img_profile_member.png';
 import type { NavProps } from '@/interfaces/navInterface';
-import XModal from '../XModal/XModal';
 
 export default function Nav({ userStatus = 'loggedOut', setIsModalOpen }: NavProps) {
   const router = useRouter();

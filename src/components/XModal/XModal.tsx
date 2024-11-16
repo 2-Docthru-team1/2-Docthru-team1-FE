@@ -1,21 +1,19 @@
 import Image from 'next/image';
-import toggleDown from '@/../public/assets/ic_toggle_down.png';
 import close from '@/../public/assets/icon_close.png';
 import type { XModalProps } from '@/interfaces/modalInterface';
 
-export default function XModal({ isOpen, onClose }: XModalProps) {
+export default function XModal({ isOpen, onClose, title, children }: XModalProps) {
   if (!isOpen) return null;
+
   return (
-    <div>
-      <div>
-        <p>Select your language</p>
-        <Image src={close} alt="X" />
+    <div className="fixed inset-0 flex flex-col justify-center items-center bg-[#000000] bg-opacity-50">
+      <div className="rounded-[0.8rem] border-2 border-gray-200 py-[2.4rem] px-[2.4rem] bg-[#ffffff]">
+        <div className="flex justify-between items-center w-[44.8rem]">
+          <p className="font-bold text-[1.8rem] leading-[2.6rem] text-gray-700">{title}</p>
+          <Image src={close} alt="X" onClick={onClose} />
+        </div>
+        <div>{children}</div>
       </div>
-      <div>
-        <p>Language</p>
-        <Image src={toggleDown} alt="아래 화살표" />
-      </div>
-      <button>Apply</button>
     </div>
   );
 }
