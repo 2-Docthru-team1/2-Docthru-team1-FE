@@ -1,15 +1,9 @@
-import type { ReactNode } from 'react';
-import styled from 'styled-components';
-
-const HeaderStyled = styled.h1`
-  font-size: 2rem;
-  font-weight: 600;
-`;
+import type { ReactNode } from "react";
 
 interface HeaderProps {
   children: ReactNode;
 }
 
 export default function Header({ children }: HeaderProps) {
-  return <HeaderStyled>{children}</HeaderStyled>;
+  return <h1 className="text-[1rem] font-semibold">{children}</h1>;
 }
