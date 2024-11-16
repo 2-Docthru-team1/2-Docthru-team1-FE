@@ -6,6 +6,7 @@ import { useState } from 'react';
 import toggleDown from '@/../public/assets/ic_toggle_down.png';
 import ClosableModal from '@/components/ClosableModal/ClosableModal';
 import Dropdown from '@/components/Dropdown/Dropdown';
+import FilterBar from '@/components/FilterBar/FilterBar';
 import Nav from '@/components/Nav/Nav';
 import '../styles/globals.css';
 import { metadata } from './metadata';
@@ -79,6 +80,7 @@ export default function RootLayout({
             Apply
           </button>
         </ClosableModal>
+        <FilterBar type="recipe" />
       </body>
     </html>
   );

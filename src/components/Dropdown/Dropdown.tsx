@@ -2,7 +2,7 @@ import type { DropdownProps } from '@/interfaces/dropdownInterface';
 
 const dropdownWidths = {
   language: 'w-[44.8rem]',
-  recipe: 'w-[13.9rem]',
+  recipe: 'w-[15.1rem]',
   admin: 'w-[16.3rem]'
 };
 
