@@ -10,19 +10,18 @@ const filterBarWidths = {
   admin: 'w-[99.2rem]'
 };
 
-const searchBarWidths = {
-  recipe: 'w-[52.5rem]',
-  admin: 'w-[82.1rem]'
+const sortBarWidths = {
+  recipe: 'w-[15.1rem]',
+  admin: 'w-[18.1rem]'
 };
 
-export default function FilterBar({ type }: FilterBarProps) {
-  const filterBarType = filterBarWidths[type] || '';
-  const searchBarType = searchBarWidths[type] || '';
+const searchBarWidths = {
+  recipe: 'w-[52.5rem]',
+  admin: 'w-[80.1rem]'
+};
 
-  const [selectedSort, setSelectedSort] = useState<string | null>(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const options = [
+const optionsByType = {
+  recipe: [
     { label: 'Like Highest', value: '좋아요 높은순' },
     { label: 'Like Lowest', value: '좋아요 낮은순' },
     { label: 'School Food', value: '스쿨푸드' },
@@ -30,7 +29,26 @@ export default function FilterBar({ type }: FilterBarProps) {
     { label: 'Noodle', value: '면' },
     { label: 'Dessert', value: '디저트' },
     { label: 'BanChan', value: '반찬' }
-  ];
+  ],
+  admin: [
+    { label: 'Pending', value: '승인 대기' },
+    { label: 'Approved', value: '신청 승인' },
+    { label: 'Denied', value: '신청 거절' },
+    { label: 'Earliest First', value: '신청 시간 빠른순' },
+    { label: 'Latest First', value: '신청 시간 느린순' },
+    { label: 'Deadline Earliest', value: '마감 기한 빠른순' },
+    { label: 'Deadline Latest', value: '마감 기한 느린순' }
+  ]
+};
+
+export default function FilterBar({ type }: FilterBarProps) {
+  const filterBarType = filterBarWidths[type] || '';
+  const sortBarType = sortBarWidths[type] || '';
+  const searchBarType = searchBarWidths[type] || '';
+  const options = optionsByType[type] || '';
+
+  const [selectedSort, setSelectedSort] = useState<string | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
@@ -50,7 +68,7 @@ export default function FilterBar({ type }: FilterBarProps) {
     <>
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
         <div
-          className="flex justify-between items-center w-[15.1rem] h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem]"
+          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}`}
           onClick={toggleDropdown}
         >
           <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-400">{getSelectedSortLabel()}</p>

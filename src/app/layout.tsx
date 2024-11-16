@@ -80,7 +80,6 @@ export default function RootLayout({
             Apply
           </button>
         </ClosableModal>
-        <FilterBar type="recipe" />
       </body>
     </html>
   );
