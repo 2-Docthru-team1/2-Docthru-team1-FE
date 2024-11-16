@@ -1,4 +1,4 @@
-export interface XModalProps {
+export interface ClosableModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;

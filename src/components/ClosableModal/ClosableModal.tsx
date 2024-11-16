@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import close from '@/../public/assets/icon_close.png';
-import type { XModalProps } from '@/interfaces/modalInterface';
+import type { ClosableModalProps } from '@/interfaces/modalInterface';
 
-export default function XModal({ isOpen, onClose, title, children }: XModalProps) {
+export default function ClosableModal({ isOpen, onClose, title, children }: ClosableModalProps) {
   if (!isOpen) return null;
 
   return (

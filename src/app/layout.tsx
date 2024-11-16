@@ -4,9 +4,9 @@ import localFont from 'next/font/local';
 import Image from 'next/image';
 import { useState } from 'react';
 import toggleDown from '@/../public/assets/ic_toggle_down.png';
+import ClosableModal from '@/components/ClosableModal/ClosableModal';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Nav from '@/components/Nav/Nav';
-import XModal from '@/components/XModal/XModal';
 import '../styles/globals.css';
 import { metadata } from './metadata';
 
@@ -61,7 +61,7 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <Nav userStatus="loggedOut" setIsModalOpen={setIsModalOpen} />
         {children}
-        <XModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Select your language">
+        <ClosableModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Select your language">
           <div
             className="w-[44.8rem] h-[5.6rem] flex justify-between items-center mt-[2.4rem] gap-[1rem] rounded-[0.8rem] border border-gray-200 py-[0.4rem] px-[1.6rem]"
             onClick={toggleDropdown}
@@ -78,7 +78,7 @@ export default function RootLayout({
           >
             Apply
           </button>
-        </XModal>
+        </ClosableModal>
       </body>
     </html>
   );
