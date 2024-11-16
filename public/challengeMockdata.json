@@ -1,0 +1,26 @@
+[
+  {
+    "status": "On going",
+    "title": "Healthy Korean Food Challenge",
+    "tags": ["Traditional", "Recipe Web"],
+    "closingDate": "2024-12-31"
+  },
+  {
+    "status": "On going",
+    "title": "Modern Cooking Challenge",
+    "tags": ["Traditional", "Recipe Web"],
+    "closingDate": "2024-11-15"
+  },
+  {
+    "status": "On going",
+    "title": "Dessert Creation Challenge",
+    "tags": ["Traditional", "Recipe Web"],
+    "closingDate": "2025-01-20"
+  },
+  {
+    "status": "On going",
+    "title": "test",
+    "tags": ["Traditional", "Recipe Web"],
+    "closingDate": "2025-11-28"
+  }
+]
