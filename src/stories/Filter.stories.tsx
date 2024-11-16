@@ -6,6 +6,6 @@ export default {
   component: FilterBar
 };
 
-const Template = () => <FilterBar />;
+const Template = () => <FilterBar type="admin" />;
 
 export const Default = Template.bind({});
