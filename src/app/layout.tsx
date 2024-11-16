@@ -59,7 +59,7 @@ export default function RootLayout({
         <meta name="description" content={metadata.description!} />
       </head>
       <body className={pretendard.className}>
-        <Nav userStatus="adminUser" setIsModalOpen={setIsModalOpen} />
+        <Nav userStatus="loggedOut" setIsModalOpen={setIsModalOpen} />
         {children}
         <XModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Select your language">
           <div
