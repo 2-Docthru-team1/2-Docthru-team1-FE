@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import inactiveHeart from "@/../public/assets/icon_heart_inact_small.png";
 

@@ -6,13 +6,13 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}"
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     screens: {
       sm: "343px",
       md: "696px",
-      lg: "1200px"
+      lg: "1200px",
     },
     colors: {
       "primary-dark-gray": "#262626",
@@ -28,15 +28,15 @@ const config: Config = {
       "gray-200": "#e5e7eb",
       "gray-100": "#f3f4f6",
       "gray-50": "#f9fafb",
-      "error-red": "#f74747"
+      "error-red": "#f74747",
     },
     extend: {
       textColor: {
-        DEFAULT: "#374151"
-      }
-    }
+        DEFAULT: "#374151",
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 };
 
 export default config;
