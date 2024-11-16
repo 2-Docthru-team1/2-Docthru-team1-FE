@@ -1,9 +1,11 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 interface HeaderProps {
   children: ReactNode;
 }
 
-export default function Header({ children }: HeaderProps) {
-  return <h1 className="text-[1rem] font-semibold">{children}</h1>;
-}
+const Header = ({ children }: HeaderProps) => {
+  return <h2 className="lg:text-[2rem] md:text-[2rem] sm:text-[1.6rem] font-semibold">{children}</h2>;
+};
+
+export default Header;

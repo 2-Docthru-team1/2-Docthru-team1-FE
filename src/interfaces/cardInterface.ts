@@ -1,5 +1,5 @@
 export interface RecipeCardProps {
-  data: RecipeData;
+  data: RecipeData | null;
 }
 
 export interface RecipeData {
