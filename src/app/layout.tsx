@@ -1,7 +1,11 @@
-import type { Metadata } from 'next';
+'use client';
+
 import localFont from 'next/font/local';
+import { useState } from 'react';
 import Nav from '@/components/Nav/Nav';
+import XModal from '@/components/XModal/XModal';
 import '../styles/globals.css';
+import { metadata } from './metadata';
 
 const pretendard = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',
@@ -9,24 +13,21 @@ const pretendard = localFont({
   weight: '45 920'
 });
 
-export const metadata: Metadata = {
-  title: 'HanCook',
-  description: 'The web that you can share your korean food cooking'
-};
-
 export default function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={pretendard.className}>
-        <Nav />
+        <Nav userStatus="adminUser" setIsModalOpen={setIsModalOpen} />
         {children}
+        <XModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </body>
     </html>
   );
