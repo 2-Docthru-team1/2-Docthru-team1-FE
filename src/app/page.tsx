@@ -1,13 +1,6 @@
-import RecipeCard from "@/components/Card/RecipeCard";
-import Header from "../components/Header";
-import { fetchMenu } from "@/api/recipeService";
-
-interface RecipeData {
-  title: string;
-  likeCount: number;
-  category: string;
-  images: string[];
-}
+import { fetchMenu } from '@/api/recipeService';
+import { RecipeData } from '@/interfaces/cardInterface';
+import Header from '../components/Header';
 
 export default async function Home() {
   const initialData: RecipeData[] = await fetchMenu();
