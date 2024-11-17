@@ -45,7 +45,7 @@ export default function FilterBar({ type }: FilterBarProps) {
   const filterBarType = filterBarWidths[type] || '';
   const sortBarType = sortBarWidths[type] || '';
   const searchBarType = searchBarWidths[type] || '';
-  const options = optionsByType[type] || '';
+  const options = optionsByType[type] || [];
 
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
