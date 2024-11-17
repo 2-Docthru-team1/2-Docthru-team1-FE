@@ -29,7 +29,7 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
     <div className="flex flex-col mt-[2rem] w-full items-center justify-center">
       <div className="flex flex-col w-[120rem] gap-[4rem]">
         <div className="flex flex-col gap-[1.6rem] justify-center">
-          <p className="font-semibold text-[2rem] leading-[2.387rem]">This Month's Challenge</p>
+          <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">This Month's Challenge</p>
           <p>This is ChallengeCard Component Seat</p>
         </div>
         <div className="flex flex-col gap-[1.6rem]">
