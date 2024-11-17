@@ -9,7 +9,7 @@ import type { RecipeData } from '@/interfaces/cardInterface';
 // TODO: 페이지네이션은 머지 바로 될 수 있는 상황이 아니므로, 임시 페이지네이션입니다.
 // TODO: 페이지네이션은 컴포넌트로 다시 제작할 예정입니다.
 
-export default function Home() {
+export default function recipeList() {
   const [medium, setMedium] = useState<RecipeData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
