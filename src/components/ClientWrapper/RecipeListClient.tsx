@@ -1,22 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { fetchMenu } from '@/api/recipeService';
+import { useState } from 'react';
 import RecipeCard from '@/components/Card/RecipeCard';
 import type { RecipeData } from '@/interfaces/cardInterface';
 
-export default function RecipeListClient() {
-  const [medium, setMedium] = useState<RecipeData[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(8);
+interface RecipeListClientProps {
+  initialData: RecipeData[];
+}
 
-  useEffect(() => {
-    const getMenu = async () => {
-      const data: RecipeData[] = await fetchMenu();
-      setMedium(data);
-    };
-    getMenu();
-  }, []);
+export default function RecipeListClient({ initialData }: RecipeListClientProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  const [medium, setMedium] = useState<RecipeData[]>(initialData);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -33,18 +29,12 @@ export default function RecipeListClient() {
       <div className="flex flex-col w-[120rem] gap-[4rem]">
         <div className="flex flex-col gap-[1.6rem] justify-center">
           <p className="font-semibold text-[2rem] leading-[2.387rem]">This Month's Challenge</p>
-          <p>
-            This is ChallengeCard Component Seat
-            {/* <Challenge /> */}
-          </p>
+          <p>This is ChallengeCard Component Seat</p>
         </div>
         <div className="flex flex-col gap-[1.6rem]">
           <div className="flex justify-between items-center">
             <p className="font-bold text-[2rem] leading-[3.2rem] text-gray-700">Recipe</p>
-            <p>
-              This is FilterBar Component Seat
-              {/* <FilterBar /> */}
-            </p>
+            <p>This is FilterBar Component Seat</p>
           </div>
           <div className="grid grid-cols-4 grid-rows-2 gap-[2.4rem]">
             {currentItems.map((data, index) => (
