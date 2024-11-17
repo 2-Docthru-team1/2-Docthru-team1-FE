@@ -11,7 +11,7 @@ interface ChallengeCardProps {
 
 export default function ChallengeCard({ data }: ChallengeCardProps) {
   if (!data) {
-    return <div className="text-center">Loading...</div>;
+    return <div className="text-center">로딩중...</div>;
   }
 
   return (

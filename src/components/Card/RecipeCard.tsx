@@ -4,6 +4,7 @@ import type { RecipeCardProps } from '@/interfaces/cardInterface';
 
 // TODO: 백엔드쪽에서 데이터 넘어오면 추후 목데이터 수정 예정입니다.
 
+
 export default function RecipeCard({ data }: RecipeCardProps) {
   if (!data) {
     return <div>로딩 중...</div>;
