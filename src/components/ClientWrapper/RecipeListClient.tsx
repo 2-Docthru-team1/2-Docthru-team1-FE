@@ -27,7 +27,7 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
   };
 
   const handleRecipeClick = (id: string) => {
-    router.push(`/recipe/${id}`);
+    router.push(`/recipeList/${id}`);
   };
 
   return (
