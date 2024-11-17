@@ -65,7 +65,7 @@ export default function FilterBar({ type }: FilterBarProps) {
   };
 
   return (
-    <>
+    <div>
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
         <div
           className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}`}
@@ -85,6 +85,6 @@ export default function FilterBar({ type }: FilterBarProps) {
         </div>
       </div>
       {isDropdownOpen && <Dropdown isOpen={isDropdownOpen} items={options} onSelect={handleSelectSort} type={type} />}
-    </>
+    </div>
   );
 }
