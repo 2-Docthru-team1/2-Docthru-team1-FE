@@ -10,8 +10,8 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'HanCooks',
-  description: 'HanCook is the web that introducing new tastes'
+  title: 'HanCook',
+  description: 'The web that you can share your korean food cooking'
 };
 
 export default function RootLayout({
@@ -23,7 +23,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <meta name="description" content={metadata.description!} />
       </head>
       <body className={pretendard.className}>
         <Nav userStatus="loggedOut" />
