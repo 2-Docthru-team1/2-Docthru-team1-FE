@@ -1,10 +1,5 @@
 import Link from 'next/link';
-import type { ReactNode } from 'react';
-
-interface CtaProps {
-  children: ReactNode;
-  url: string;
-}
+import type { CtaProps } from '@/interfaces/buttonInterface';
 
 const Cta = ({ children, url }: CtaProps) => {
   return (
