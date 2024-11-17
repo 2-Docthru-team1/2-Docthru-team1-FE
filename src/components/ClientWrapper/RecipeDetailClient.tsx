@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import inactiveHeart from '@/../public/assets/icon_heart_inact_small.png';
 import { fetchRecipe } from '@/api/recipeService';
 import type { RecipeDetailData } from '@/interfaces/recipelistInterface';
+import DetailTextCard from '../Card/DetailTextCard';
 
 export default function RecipeDetailClient() {
   const { id } = useParams();
@@ -44,6 +45,16 @@ export default function RecipeDetailClient() {
         </div>
       </div>
       <div className="border border-gray-200 w-[120rem] mt-[2rem]"></div>
+      <div className="flex flex-col w-[120rem] mt-[2rem]">
+        <div className="flex justify-between">
+          <DetailTextCard type="ingredient" content={recipe.ingredients} />
+          <DetailTextCard type="nutrition" content={recipe.nutrition} />
+        </div>
+        <div className="flex justify-between mt-[2rem]">
+          <DetailTextCard type="direction" content={recipe.direction} />
+          <DetailTextCard type="benefit" content={recipe.benefits} />
+        </div>
+      </div>
     </div>
   );
 }

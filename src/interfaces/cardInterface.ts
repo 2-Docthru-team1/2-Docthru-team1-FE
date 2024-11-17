@@ -16,11 +16,16 @@ export interface DetailTextCardProps {
 }
 
 export interface NutritionContent {
-  calories: string;
-  carbs: string;
-  protein: string;
-  fat: string;
-  sugars: string;
-  sodium: string;
-  fiber: string;
+  calories: number;
+  carbs: number;
+  protein: number;
+  fat: number;
+  sugars: number;
+  sodium: number;
+  fiber: number;
+}
+
+export interface BenefitContent {
+  intro: string;
+  content: string[];
 }

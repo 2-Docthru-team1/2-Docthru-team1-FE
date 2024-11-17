@@ -7,7 +7,7 @@ export interface RecipeListClientProps {
 export interface RecipeDetailData {
   benefits: string[];
   category: string;
-  direction: string;
+  direction: string[];
   id: number;
   images: string[];
   ingredients: string[];
