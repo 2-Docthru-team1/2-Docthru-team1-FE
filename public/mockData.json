@@ -9,7 +9,7 @@
     },
     "likeCount": 0,
     "category": "디저트",
-    "direction": "우선 근처 편의점에 갑니다. 그리고 냉장칸을 찾아주세요.",
+    "direction": ["우선 근처 편의점에 갑니다.", "그리고 냉장칸을 찾아주세요."],
     "servings": 1,
     "nutrition": {
       "calories": 350,

@@ -1,3 +1,9 @@
+import RecipeDetailClient from '@/components/ClientWrapper/RecipeDetailClient';
+
 export default function RecipeDetail() {
-  return <div>THIS IS RECIPE DETAIL PAGE</div>;
+  return (
+    <div>
+      <RecipeDetailClient />
+    </div>
+  );
 }
