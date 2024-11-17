@@ -3,6 +3,7 @@ export interface RecipeCardProps {
 }
 
 export interface RecipeData {
+  id: string;
   title: string;
   likeCount: number;
   category: string;

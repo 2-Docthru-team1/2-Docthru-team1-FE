@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "title": "딸기우유",
     "ingredients": ["딸기", "우유", "콩"],
     "benefits": {
@@ -22,6 +23,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 2,
     "title": "초코우유",
     "ingredients": ["초콜릿 시럽", "우유"],
     "benefits": {
@@ -44,6 +46,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 3,
     "title": "바나나우유",
     "ingredients": ["바나나", "우유"],
     "benefits": {
@@ -66,6 +69,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 4,
     "title": "망고주스",
     "ingredients": ["망고", "물", "설탕"],
     "benefits": {
@@ -88,6 +92,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 5,
     "title": "오렌지주스",
     "ingredients": ["오렌지", "물", "설탕"],
     "benefits": {
@@ -110,6 +115,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 6,
     "title": "사과주스",
     "ingredients": ["사과", "물", "설탕"],
     "benefits": {
@@ -132,6 +138,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 7,
     "title": "딸기 스무디",
     "ingredients": ["딸기", "요거트", "꿀"],
     "benefits": {
@@ -154,6 +161,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 8,
     "title": "바나나 스무디",
     "ingredients": ["바나나", "요거트", "우유"],
     "benefits": {
@@ -176,6 +184,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 9,
     "title": "청포도 주스",
     "ingredients": ["청포도", "물", "설탕"],
     "benefits": {
@@ -198,6 +207,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 10,
     "title": "코코넛 주스",
     "ingredients": ["코코넛", "물"],
     "benefits": {
@@ -220,6 +230,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 11,
     "title": "블루베리 스무디",
     "ingredients": ["블루베리", "요거트", "우유"],
     "benefits": {
@@ -242,6 +253,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 12,
     "title": "피치주스",
     "ingredients": ["복숭아", "물", "설탕"],
     "benefits": {
@@ -264,6 +276,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 13,
     "title": "레몬에이드",
     "ingredients": ["레몬", "설탕", "물"],
     "benefits": {
@@ -286,6 +299,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 14,
     "title": "요거트 스무디",
     "ingredients": ["요거트", "바나나", "꿀"],
     "benefits": {
@@ -308,6 +322,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 15,
     "title": "커피",
     "ingredients": ["커피 가루", "물"],
     "benefits": {
@@ -330,6 +345,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 16,
     "title": "녹차",
     "ingredients": ["녹차 가루", "물"],
     "benefits": {
@@ -352,6 +368,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 17,
     "title": "초코 스무디",
     "ingredients": ["초콜릿", "우유", "바나나"],
     "benefits": {
@@ -374,6 +391,7 @@
     "images": ["/temporaryAssets/food.svg"]
   },
   {
+    "id": 18,
     "title": "피넛버터 스무디",
     "ingredients": ["피넛버터", "바나나", "우유"],
     "benefits": {
