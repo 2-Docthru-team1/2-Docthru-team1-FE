@@ -50,7 +50,7 @@ export default function RecipeDetailClient() {
           <DetailTextCard type="ingredient" content={recipe.ingredients} />
           <DetailTextCard type="nutrition" content={recipe.nutrition} />
         </div>
-        <div className="flex justify-between mt-[2rem]">
+        <div className="flex justify-between mt-[4rem]">
           <DetailTextCard type="direction" content={recipe.direction} />
           <DetailTextCard type="benefit" content={recipe.benefits} />
         </div>

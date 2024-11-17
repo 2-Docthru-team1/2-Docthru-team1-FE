@@ -1,4 +1,4 @@
-import type { RecipeData } from './cardInterface';
+import type { BenefitContent, NutritionContent, RecipeData } from './cardInterface';
 
 export interface RecipeListClientProps {
   initialData: RecipeData[];
@@ -12,6 +12,6 @@ export interface RecipeDetailData {
   images: string[];
   ingredients: string[];
   likeCount: number;
-  nutrition: string[];
+  nutrition: NutritionContent;
   title: string;
 }
