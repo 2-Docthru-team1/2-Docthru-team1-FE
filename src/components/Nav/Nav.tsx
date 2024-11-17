@@ -10,6 +10,8 @@ import adminProfile from '@/../public/assets/img_profile_admin.png';
 import userProfile from '@/../public/assets/img_profile_member.png';
 import type { NavProps } from '@/interfaces/navInterface';
 
+
+//TODO: Modal 띄우는 로직 추가 필요
 export default function Nav({ userStatus = 'loggedOut', setIsModalOpen }: NavProps) {
   const router = useRouter();
   const pathname = usePathname();
