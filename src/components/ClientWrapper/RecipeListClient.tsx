@@ -56,6 +56,7 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
         currentPage={currentPage}
         onPageChange={handlePageChange}
         hasNext={currentPage < totalPages}
+        type="default"
       />
     </div>
   );
