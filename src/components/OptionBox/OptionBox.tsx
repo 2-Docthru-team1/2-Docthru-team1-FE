@@ -10,7 +10,7 @@ export default function OptionBox({ type }: OptionBoxProps) {
 
   return (
     <div className="w-[28.5rem] h-[17.6rem] rounded-[1.6rem] border-2 border-gray-100 flex items-center justify-center">
-      <div className="w-[25.3] flex flex-col gap-[1.6rem]">
+      <div className="w-[25.3rem] flex flex-col gap-[1.6rem]">
         <div className="flex items-center justify-center gap-[0.4rem]">
           <Image src={clock} alt="시계" />
           <p className="font-normal text-[1.3rem] leading-[1.551rem] text-gray-600">Closing on 2024-03-03</p>
