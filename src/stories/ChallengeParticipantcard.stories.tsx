@@ -14,15 +14,17 @@ const mockData: ChallengeParticipantStatusData[] = [
     title: 'Challenge 1',
     Feedback: ['Great challenge!', 'Very engaging!'],
     likeCount: 15,
-    userName: 'BoB',
-    images: ['/temporaryAssets/food.svg']
+    nickname: 'BoB',
+    images: ['/temporaryAssets/food.svg'],
+    role: 'normal'
   },
   {
     title: 'Challenge 2',
     Feedback: ['Could be better.', 'Loved the experience!'],
     likeCount: 145,
-    userName: 'BobbbbbbbbbB',
-    images: ['/temporaryAssets/food.svg']
+    nickname: 'BobbbbbbbbbB',
+    images: ['/temporaryAssets/food.svg'],
+    role: 'admin'
   }
 ];
 
