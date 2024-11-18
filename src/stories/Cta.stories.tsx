@@ -1,13 +1,9 @@
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
+// Story 타입을 import
 import Cta from '@/components/Button/Cta';
 
 const meta: Meta<typeof Cta> = {
-  title: 'Button/Cta',
-  component: Cta
-};
-
-export default {
-  title: 'Components/Cta',
+  title: 'Components/Cta', // 컴포넌트의 위치를 올바르게 설정
   component: Cta,
   argTypes: {
     url: {
@@ -19,9 +15,11 @@ export default {
       description: 'The text or elements displayed inside the button.'
     }
   }
-} as Meta;
+};
 
-const Template: Story = args => <Cta {...args} />;
+export default meta; // meta 객체를 export
+
+const Template: StoryFn<typeof Cta> = args => <Cta {...args} />; // Story 타입을 명확히 지정
 
 export const Default = Template.bind({});
 Default.args = {
