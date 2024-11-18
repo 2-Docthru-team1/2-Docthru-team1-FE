@@ -25,7 +25,15 @@ export interface NutritionContent {
   fiber: number;
 }
 
-export interface BenefitContent {
-  intro: string;
-  content: string[];
+export interface ChallengeParticipantStatusProps {
+  initialData: ChallengeParticipantStatusData[];
+}
+
+export interface ChallengeParticipantStatusData {
+  title: string;
+  Feedback: string[];
+  likeCount: number;
+  nickname: string;
+  images: string[];
+  role: string;
 }
