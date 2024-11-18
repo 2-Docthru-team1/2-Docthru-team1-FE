@@ -1,7 +1,7 @@
 // src/components/ChipCard.stories.tsx
 import type { Meta, StoryFn } from '@storybook/react';
 import ChipCard from '@/components/Chip/ChipCard';
-import type { ChipCardProps } from '@/interfaces/chipcardInterface';
+import type { ChipCardProps } from '@/interfaces/chipInterface';
 
 export default {
   title: 'Components/ChipCard',

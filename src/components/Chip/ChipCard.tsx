@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import clock from '@/../public/assets/icon_deadline_clock_small_white.png';
-import type { ChipCardProps } from '@/interfaces/chipcardInterface';
+import type { ChipCardProps } from '@/interfaces/chipInterface';
 
 export default function ChipCard({ type }: ChipCardProps) {
   return (
