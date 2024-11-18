@@ -27,6 +27,7 @@ export interface NutritionContent {
 
 export interface ChallengeParticipantStatusProps {
   initialData: ChallengeParticipantStatusData[];
+  type: 'first' | 'etc';
 }
 
 export interface ChallengeParticipantStatusData {

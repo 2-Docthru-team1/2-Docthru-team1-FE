@@ -9,7 +9,7 @@ import food from '@/../public/temporaryAssets/Food.svg';
 import { fetchChallengeStatus } from '@/api/ChallengeService';
 import type { ChallengeParticipantStatusData, ChallengeParticipantStatusProps } from '@/interfaces/cardInterface';
 
-export default function ChallengeParticipantCard({ initialData }: ChallengeParticipantStatusProps) {
+export default function ChallengeParticipantCard({ initialData, type }: ChallengeParticipantStatusProps) {
   const [data, setData] = useState<ChallengeParticipantStatusData | null>(initialData ? initialData[0] : null);
   const [loading, setLoading] = useState(true);
 
@@ -40,9 +40,11 @@ export default function ChallengeParticipantCard({ initialData }: ChallengeParti
 
   const rol = data.role === 'normal' ? 'koo-koo' : data.role === 'admin' ? 'admin' : '';
 
+  const borderClass = type === 'first' ? 'border-2 border-primary-beige' : 'border border-gray-200';
+
   return (
-    <div className="relative w-[27.8rem] h-[34.6rem]">
-      <div className="relative w-[27.8rem] h-[23.9rem]">
+    <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`}>
+      <div className="relative w-[27.45rem] h-[23.9rem]">
         {data.images.length > 0 && <Image src={food} alt="음식 이미지" layout="fill" objectFit="cover" />}
       </div>
       <div className="flex flex-col w-full h-[11rem] py-[1.3rem] px-[1.5rem] gap-[1.4rem]">

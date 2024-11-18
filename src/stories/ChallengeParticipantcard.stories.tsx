@@ -8,7 +8,6 @@ export default {
   component: ChallengeParticipantCard
 } as Meta;
 
-// Mock data for the story
 const mockData: ChallengeParticipantStatusData[] = [
   {
     title: 'Challenge 1',
@@ -28,18 +27,22 @@ const mockData: ChallengeParticipantStatusData[] = [
   }
 ];
 
-// Create a properly typed story template
 const Template: StoryFn<ChallengeParticipantStatusProps> = (args: ChallengeParticipantStatusProps) => (
   <ChallengeParticipantCard {...args} />
 );
 
-// Default story
 export const Default = Template.bind({});
 Default.args = {
-  initialData: mockData
+  initialData: mockData,
+  type: 'first'
 };
 
-// Loading state story
+export const Etc = Template.bind({});
+Etc.args = {
+  initialData: mockData,
+  type: 'etc'
+};
+
 export const Loading = Template.bind({});
 Loading.args = {
   initialData: []
