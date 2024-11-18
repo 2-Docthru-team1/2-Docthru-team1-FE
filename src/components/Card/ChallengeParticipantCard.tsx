@@ -45,23 +45,25 @@ export default function ChallengeParticipantCard({ initialData }: ChallengeParti
       <div className="relative w-[27.8rem] h-[23.9rem]">
         {data.images.length > 0 && <Image src={food} alt="음식 이미지" layout="fill" objectFit="cover" />}
       </div>
-      <h2>{data.title}</h2>
-      <div>
-        <div>
-          <Image src={profile} alt="프로필" />
-          <div>
-            <p>{data.nickname}</p>
-            <p>{rol}</p>
+      <div className="flex flex-col w-full h-[11rem] py-[1.3rem] px-[1.5rem] gap-[1.4rem]">
+        <p className="font-bold text-[2rem] leading-[2.6rem] text-gray-700">{data.title}</p>
+        <div className="flex justify-between">
+          <div className="flex items-center gap-[1rem]">
+            <Image src={profile} alt="프로필" width={24} height={24} />
+            <div className="flex flex-col gap-[0.2rem]">
+              <p className="font-medium text-[1.4rem] leading-[1.671rem] text-gray-800">{data.nickname}</p>
+              <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-500">{rol}</p>
+            </div>
           </div>
-        </div>
-        <div>
-          <div>
-            <Image src={comment} alt="댓글" />
-            <p>{data.Feedback.length}</p>
-          </div>
-          <div>
-            <Image src={heart} alt="하트" />
-            <p>{data.likeCount}</p>
+          <div className="flex flex-col">
+            <div className="flex gap-[0.4rem]">
+              <Image src={comment} alt="댓글" />
+              <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.Feedback.length}</p>
+            </div>
+            <div className="flex gap-[0.4rem]">
+              <Image src={heart} alt="하트" />
+              <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.likeCount}</p>
+            </div>
           </div>
         </div>
       </div>
