@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import RecipeCard from '@/components/Card/RecipeCard';
 import type { RecipeData } from '@/interfaces/cardInterface';
@@ -8,6 +9,8 @@ import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
 export default function RecipeListClient({ initialData }: RecipeListClientProps) {
+  const router = useRouter();
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
@@ -21,6 +24,10 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const handleRecipeClick = (id: string) => {
+    router.push(`/recipeList/${id}`);
   };
 
   return (
@@ -37,7 +44,9 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
           </div>
           <div className="grid grid-cols-4 grid-rows-2 gap-[2.4rem]">
             {currentItems.map((data, index) => (
-              <RecipeCard key={index} data={data} />
+              <div key={index} onClick={() => handleRecipeClick(data.id)} className="cursor-pointer">
+                <RecipeCard data={data} />
+              </div>
             ))}
           </div>
         </div>
