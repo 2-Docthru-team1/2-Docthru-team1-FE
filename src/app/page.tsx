@@ -14,7 +14,7 @@ export default async function Home() {
       <div className="flex flex-col items-center text-center gap-[8rem] relative">
         <div className="flex flex-col items-center text-center">
           <Image src={pcLogo} alt="HanCook Logo" width={462} height={92.4} />
-          <p className="text-[2rem] font-semibold">Capture and share your Hansik(Korean Food) cooking!</p>
+          <p className="text-[2rem] font-semibold text-color-700">Capture and share your Hansik(Korean Food) cooking!</p>
         </div>
         <Cta url="/signin">Go to Sign-in</Cta>
       </div>
