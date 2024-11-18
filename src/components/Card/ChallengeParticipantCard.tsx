@@ -19,14 +19,15 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
       if (fetchedData && fetchedData.length > 0) {
         setData(fetchedData[0]);
       }
-      setLoading(false);
     };
 
     if (!initialData || initialData.length === 0) {
       fetchData();
     } else {
-      setLoading(false);
+      setData(initialData[0]);
     }
+
+    setLoading(false);
   }, [initialData]);
 
   if (loading) {
