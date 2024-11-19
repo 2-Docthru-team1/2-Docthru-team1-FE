@@ -46,10 +46,9 @@ export interface MonthlyChallengeCardProps {
 export interface MonthlyChallengeCard {
   id: string;
   title: string;
-  cuisineType: 'Traditional' | 'School Food' | 'Noodle' | 'BanChan' | 'Dessert';
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
   status: 'ongoing' | 'finished';
-  closingDate: string;
+  deadline: string;
 }
 
 export interface ChallengeParticipateStatusProps {

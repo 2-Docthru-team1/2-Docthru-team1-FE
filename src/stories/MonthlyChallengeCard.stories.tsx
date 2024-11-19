@@ -1,7 +1,11 @@
 import type { StoryFn } from '@storybook/react';
 import MonthlyChallengeCard from '@/components/Card/MonthlyChallengeCard';
-import RecipeCard from '@/components/Card/RecipeCard';
 import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
+
+export default {
+  title: 'Components/MonthlyChallengeCard',
+  component: MonthlyChallengeCard
+};
 
 const Template: StoryFn<MonthlyChallengeCardProps> = args => <MonthlyChallengeCard {...args} />;
 
@@ -10,10 +14,9 @@ Default.args = {
   data: {
     id: '1',
     title: 'Traditional Challenge 1',
-    cuisineType: 'Traditional',
     mediaType: 'Blog',
     status: 'ongoing',
-    closingDate: '2024-12-31T23:59:59.000Z'
+    deadline: '2024-12-31T23:59:59.000Z'
   }
 };
 
@@ -22,10 +25,9 @@ ClosedChallenge.args = {
   data: {
     id: '2',
     title: 'Banchan Challenge 1',
-    cuisineType: 'BanChan',
     mediaType: 'Social Media',
     status: 'finished',
-    closingDate: '2024-11-30T23:59:59.000Z'
+    deadline: '2024-11-30T23:59:59.000Z'
   }
 };
 
@@ -34,9 +36,8 @@ TestChallenge.args = {
   data: {
     id: '3',
     title: 'Noodle Challenge 1',
-    cuisineType: 'Noodle',
     mediaType: 'Recipe Web',
     status: 'ongoing',
-    closingDate: '2024-11-01T23:59:59.000Z'
+    deadline: '2024-11-01T23:59:59.000Z'
   }
 };
