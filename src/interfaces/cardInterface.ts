@@ -29,3 +29,16 @@ export interface BenefitContent {
   intro: string;
   content: string[];
 }
+
+export interface MonthlyChallengeCardProps {
+  data: MonthlyChallengeCard | null;
+}
+
+export interface MonthlyChallengeCard {
+  id: string;
+  title: string;
+  category: string;
+  mediaType: string;
+  status: 'ongoing' | 'closed';
+  closingDate: string; // 마감 날짜 (ISO 형식)
+}
