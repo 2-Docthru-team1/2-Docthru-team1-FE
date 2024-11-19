@@ -12,6 +12,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   }
 
   const formattedDate = format(new Date(data.createdAt), 'yy/MM/dd HH:mm');
+  const formattedNumber = data.likeCount.toLocaleString();
 
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem]">
@@ -24,7 +25,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           <p className="text-[1.4rem] font-medium text-gray-800">{user.name}</p>
           <p className="text-[1.2rem] font-medium text-gray-500 mr-[0.5rem]">{user.role}</p>
           <Image src={inactiveHeart} alt="비활성 하트" width={24} height={24} />
-          <p className="text-[1.4rem] font-medium text-gray-800">{data.likeCount}</p>
+          <p className="text-[1.4rem] font-medium text-gray-800">{formattedNumber}</p>
         </div>
         <div>
           <p className="text-[1.4rem] font-medium text-gray-400">{formattedDate}</p>
