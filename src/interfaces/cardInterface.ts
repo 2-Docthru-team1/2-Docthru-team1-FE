@@ -51,3 +51,24 @@ export interface MonthlyChallengeCard {
   status: 'ongoing' | 'closed';
   closingDate: string;
 }
+
+export interface ChallengeParticipateStatusProps {
+  data: ParticipantStatusData[];
+}
+
+export interface ParticipantStatusData {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  deleteAt: string | null;
+  title: string;
+  content: string;
+  likeCount: number;
+  likeUsers: string[];
+  Feedback: string[];
+  ownerId: string;
+  challengeId: string;
+  images: string[];
+  nickname: string;
+  role: string;
+}
