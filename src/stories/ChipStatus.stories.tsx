@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react';
+import type { StoryFn } from '@storybook/react';
 import React from 'react';
 import ChipStatus from '@/components/Chip/ChipStatus';
 import type { ChipStatusProps } from '@/interfaces/chipInterface';
@@ -14,7 +14,7 @@ export default {
       }
     }
   }
-} as Meta;
+};
 
 const Template: StoryFn<ChipStatusProps> = args => <ChipStatus {...args} />;
 
