@@ -1,5 +1,6 @@
 import type { StoryFn } from '@storybook/react';
 import MonthlyChallengeCard from '@/components/Card/MonthlyChallengeCard';
+import RecipeCard from '@/components/Card/RecipeCard';
 import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
 
 const Template: StoryFn<MonthlyChallengeCardProps> = args => <MonthlyChallengeCard {...args} />;
@@ -23,7 +24,7 @@ ClosedChallenge.args = {
     title: 'Banchan Challenge 1',
     cuisineType: 'BanChan',
     mediaType: 'Social Media',
-    status: 'closed',
+    status: 'finished',
     closingDate: '2024-11-30T23:59:59.000Z'
   }
 };
