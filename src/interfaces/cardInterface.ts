@@ -37,7 +37,7 @@ export interface MonthlyChallengeCardProps {
 export interface MonthlyChallengeCard {
   id: string;
   title: string;
-  category: string;
+  cuisineType: string;
   mediaType: string;
   status: 'ongoing' | 'closed';
   closingDate: string; // 마감 날짜 (ISO 형식)
