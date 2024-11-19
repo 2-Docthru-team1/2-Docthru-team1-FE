@@ -8,7 +8,7 @@ export const Default = Template.bind({});
 Default.args = {
   data: {
     id: '1',
-    title: 'Recipe Challenge 1',
+    title: 'Traditional Challenge 1',
     cuisineType: 'Traditional',
     mediaType: 'Blog',
     status: 'ongoing',
@@ -20,7 +20,7 @@ export const ClosedChallenge = Template.bind({});
 ClosedChallenge.args = {
   data: {
     id: '2',
-    title: 'Social Media Challenge 1',
+    title: 'Banchan Challenge 1',
     cuisineType: 'BanChan',
     mediaType: 'Social Media',
     status: 'closed',
@@ -28,11 +28,11 @@ ClosedChallenge.args = {
   }
 };
 
-export const ExpiredChallenge = Template.bind({});
-ExpiredChallenge.args = {
+export const TestChallenge = Template.bind({});
+TestChallenge.args = {
   data: {
     id: '3',
-    title: 'Expired Challenge',
+    title: 'Noodle Challenge 1',
     cuisineType: 'Noodle',
     mediaType: 'Recipe Web',
     status: 'ongoing',
