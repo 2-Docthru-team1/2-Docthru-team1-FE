@@ -25,7 +25,8 @@ export default function MonthlyChallengeCard({ data }: MonthlyChallengeCardProps
       <div className="p-[2.4rem]">
         <div className="flex items-center gap-[1.2rem]">
           <Image src={crownIcon} alt="Recommended" />
-          <div className="">
+          <div>
+            {/* className="" - 사용 예정 */}
             <ChipCard type={status} />
           </div>
         </div>
@@ -34,7 +35,8 @@ export default function MonthlyChallengeCard({ data }: MonthlyChallengeCardProps
           {title}
         </h2>
 
-        <div className="">
+        <div>
+          {/* className="" - 사용 예정 */}
           <ChipType category={cuisineType} />
           <ChipCategory category={mediaType} />
         </div>
