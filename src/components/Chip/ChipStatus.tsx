@@ -1,19 +1,38 @@
 import type { ChipStatusProps } from '@/interfaces/chipInterface';
 
 export default function ChipStatus({ type }: ChipStatusProps) {
-  const backgroundColor =
-    type === 'pend' ? 'bg-[#FFFDE7]' : type === 'deny' ? 'bg-[#FFF0F0]' : type === 'approve' ? 'bg-[#DFF0FF]' : 'bg-[#E5E5E5]';
+  enum ChipType {
+    Pending = 'pend',
+    Denied = 'deny',
+    Approved = 'approve',
+    Canceled = 'cancel'
+  }
 
-  const textColor =
-    type === 'pend'
-      ? 'text-[#F2BC00]'
-      : type === 'deny'
-        ? 'text-[#E54946]'
-        : type === 'approve'
-          ? 'text-[#4095DE]'
-          : 'text-[#737373]';
+  let backgroundColor: string;
+  let textColor: string;
+  let text: string;
 
-  const text = type === 'pend' ? 'Pending' : type === 'deny' ? 'Denied' : type === 'approve' ? 'Approved' : 'Canceled';
+  switch (type) {
+    case ChipType.Pending:
+      backgroundColor = 'bg-[#FFFDE7]';
+      textColor = 'text-[#F2BC00]';
+      text = 'Pending';
+      break;
+    case ChipType.Denied:
+      backgroundColor = 'bg-[#FFF0F0]';
+      textColor = 'text-[#E54946]';
+      text = 'Denied';
+      break;
+    case ChipType.Approved:
+      backgroundColor = 'bg-[#DFF0FF]';
+      textColor = 'text-[#4095DE]';
+      text = 'Approved';
+      break;
+    default:
+      backgroundColor = 'bg-[#E5E5E5]';
+      textColor = 'text-[#737373]';
+      text = 'Canceled';
+  }
 
   return (
     <div className="flex">
