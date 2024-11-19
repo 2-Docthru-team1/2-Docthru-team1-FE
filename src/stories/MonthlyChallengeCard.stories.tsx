@@ -23,7 +23,7 @@ ClosedChallenge.args = {
     title: 'Banchan Challenge 1',
     cuisineType: 'BanChan',
     mediaType: 'Social Media',
-    status: 'closed',
+    status: 'finished',
     closingDate: '2024-11-30T23:59:59.000Z'
   }
 };

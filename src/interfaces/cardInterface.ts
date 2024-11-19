@@ -48,6 +48,6 @@ export interface MonthlyChallengeCard {
   title: string;
   cuisineType: 'Traditional' | 'School Food' | 'Noodle' | 'BanChan' | 'Dessert';
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  status: 'ongoing' | 'closed';
+  status: 'ongoing' | 'finished';
   closingDate: string;
 }
