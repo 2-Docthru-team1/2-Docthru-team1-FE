@@ -11,10 +11,9 @@ export default function MonthlyChallengeCard({ data }: MonthlyChallengeCardProps
     return <div>로딩 중...</div>;
   }
 
-  const { id, title, cuisineType, mediaType, status, closingDate } = data;
-  const formattedClosingDate = new Date(closingDate).toISOString().split('T')[0];
+  const { id, title, mediaType, status, deadline } = data;
+  const formattedClosingDate = new Date(deadline).toISOString().split('T')[0];
 
-  // NOTE css 나중에 다시 수정 예정.
   return (
     <div className="w-[38.4rem] h-[21.2rem] pt-[2.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-brand_yellow">
       <div className="absolute top-0 right-0">
