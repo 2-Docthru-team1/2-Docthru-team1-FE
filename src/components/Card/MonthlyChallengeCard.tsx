@@ -4,7 +4,6 @@ import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
 import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
 import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';
-import ChipType from '@/components/Chip/ChipType';
 import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
 
 export default function MonthlyChallengeCard({ data }: MonthlyChallengeCardProps) {
@@ -37,8 +36,7 @@ export default function MonthlyChallengeCard({ data }: MonthlyChallengeCardProps
 
         <div>
           {/* className="" - 사용 예정 */}
-          <ChipType category={cuisineType} />
-          <ChipCategory category={mediaType} />
+          <ChipCategoryCard mediaType={mediaType} />
         </div>
 
         <div className="w-[295px] border-b border-gray-200 pt-[2rem] pb-[1.2rem]" />

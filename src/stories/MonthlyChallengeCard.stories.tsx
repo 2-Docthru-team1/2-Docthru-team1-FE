@@ -1,5 +1,6 @@
 import type { StoryFn } from '@storybook/react';
 import MonthlyChallengeCard from '@/components/Card/MonthlyChallengeCard';
+import RecipeCard from '@/components/Card/RecipeCard';
 import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
 
 const Template: StoryFn<MonthlyChallengeCardProps> = args => <MonthlyChallengeCard {...args} />;

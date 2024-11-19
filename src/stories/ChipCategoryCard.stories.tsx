@@ -1,6 +1,20 @@
-import type { Meta, StoryFn } from '@storybook/react';
+import type { StoryFn } from '@storybook/react';
 import ChipCategory from '@/components/Chip/ChipCategory';
 import type { ChipCategoryProps } from '@/interfaces/chipInterface';
+
+export default {
+  title: 'Components/ChipCategory',
+  component: ChipCategory,
+  argTypes: {
+    mediaType: {
+      control: {
+        type: 'select',
+        options: ['Youtube', 'Blog', 'Recipe Web', 'Social Media'] // type에 대한 옵션
+      },
+      description: 'Chip'
+    }
+  }
+};
 
 const Template: StoryFn<typeof ChipCategory> = (args: ChipCategoryProps) => <ChipCategory {...args} />;
 
