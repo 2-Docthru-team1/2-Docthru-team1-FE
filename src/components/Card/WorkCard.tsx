@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import Image from 'next/image';
 import nextImage from '@/../public/assets/btn_photo_swipe.png';
 import inactiveHeart from '@/../public/assets/icon_heart_inactive_large.png';
@@ -9,6 +10,9 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   if (!data) {
     return <div>로딩 중...</div>;
   }
+
+  const formattedDate = format(new Date(data.createdAt), 'yy/MM/dd HH:mm');
+
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem]">
       <div className="border-b border-b-gray-200 pb-[1.5rem]">
@@ -23,7 +27,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           <p className="text-[1.4rem] font-medium text-gray-800">{data.likeCount}</p>
         </div>
         <div>
-          <p className="text-[1.4rem] font-medium text-gray-400">{data.createdAt}</p>
+          <p className="text-[1.4rem] font-medium text-gray-400">{formattedDate}</p>
         </div>
       </div>
       <div className="flex">

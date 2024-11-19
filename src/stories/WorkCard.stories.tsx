@@ -7,7 +7,7 @@ import type { WorkDataProps } from '@/interfaces/workInterface';
 const data = {
   id: '1',
   title: 'My first Bibimbap!',
-  createdAt: '2024-11-19',
+  createdAt: '2024-11-19T04:44:08.912Z',
   likeCount: 1934,
   images: ['/temporaryAssets/food.svg'],
   content: 'I did it for like one hour!! Look at thissss! I finally made it!'
@@ -41,5 +41,10 @@ Default.args = {
 
 export const Loading = Template.bind({});
 Loading.args = {
-  data: null
+  data: null,
+  user: {
+    id: 'u123',
+    name: 'Loading User',
+    role: 'Loading Role'
+  }
 };
