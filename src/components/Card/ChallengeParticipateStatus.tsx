@@ -23,7 +23,7 @@ export default function ChallengeParticipateStatus({ data }: ChallengeParticipat
   };
 
   return (
-    <div className="w-[102.4rem] rounded-[0.8rem] border border-gray-200 gap-[2rem] py-[1.9rem] px-[1.6rem]">
+    <div className="w-[120.4rem] rounded-[0.8rem] border border-gray-200 gap-[2rem] py-[1.9rem] px-[1.6rem]">
       <div className="flex items-center justify-between gap-[2rem]">
         <p className="font-semibold	text-[1.6rem] leading-[1.909rem] text-gray-800">Participant Status</p>
         <Pagination
@@ -38,24 +38,31 @@ export default function ChallengeParticipateStatus({ data }: ChallengeParticipat
         {currentItems.map((participant, index) => {
           const rank = index + 1 + (currentPage - 1) * itemsPerPage;
           return (
-            <div key={participant.id} className="flex flex-col">
-              <div className="bg-gray-700 inline-flex items-center py-[0.2rem] px-[0.7rem] rounded-[1.6rem] inline-box gap-[0.2rem]">
+            <div key={participant.id} className="flex flex-col gap-[2rem]">
+              <div className="inline-flex items-center gap-[2rem]">
                 {rank === 1 ? (
-                  <div className="flex flex-shrink-0 w-[3.7rem] justify-cneter">
-                    <div className="flex">
+                  <div className="flex justify-center flex-col mt-[2rem] w-[27.8rem]">
+                    <div className="bg-gray-700 rounded-[1.6rem] py-[0.2rem] px-[0.7rem] flex items-center justify-center w-[5.1rem]">
                       <Image src={crown} alt="Crown" />
                       <p className="font-medium text-[1.4rem] leading-[1.671rem] text-primary-beige flex items-center">
                         {formatRank(rank)}
                       </p>
                     </div>
-                    <div>
+                    <div className="flex mt-[2rem]">
                       <ChallengeParticipantCard initialData={participant} type="first" />
                     </div>
                   </div>
                 ) : (
-                  <p className="w-[3.7rem] flex justify-center font-medium text-[1.4rem] leading-[1.671rem] text-[#F1F2F5] flex items-center">
-                    {formatRank(rank)}
-                  </p>
+                  <div className="flex justify-center flex-col mt-[2rem]">
+                    <div className="bg-gray-700 rounded-[1.6rem] py-[0.2rem] px-[0.7rem] flex items-center justify-center w-[5.1rem]">
+                      <p className="w-[3.7rem] flex justify-center font-medium text-[1.4rem] leading-[1.671rem] text-[#F1F2F5] flex items-center">
+                        {formatRank(rank)}
+                      </p>
+                    </div>
+                    <div className="flex mt-[2rem]">
+                      <ChallengeParticipantCard initialData={participant} type="etc" />
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
