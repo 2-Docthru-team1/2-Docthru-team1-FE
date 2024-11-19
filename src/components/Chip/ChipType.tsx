@@ -11,7 +11,6 @@ export default function ChipType({ type }: ChipTypeProps) {
           : type === 'banchan'
             ? 'BanChan'
             : 'Dessert';
-
   const backgroundColor =
     type === 'traditional'
       ? 'bg-[#F0C9D8]'
@@ -24,8 +23,12 @@ export default function ChipType({ type }: ChipTypeProps) {
             : 'bg-[#EFEAAD]';
 
   return (
-    <div className={`w-auto py-[0.3rem] px-[1.2rem] flex gap-[1rem] rounded-[0.8rem] ${backgroundColor}`}>
-      <p className="font-normal text-[1.4rem] leading-[1.855rem] text-gray-600">{text}</p>
+    <div className="flex items-center">
+      <div
+        className={`w-auto py-[0.3rem] px-[1.2rem] items-center flex inline-block flex-shrink-0 gap-[1rem] rounded-[0.8rem] ${backgroundColor}`}
+      >
+        <p className="font-normal text-[1.4rem] leading-[1.855rem] text-gray-600 w-auto">{text}</p>
+      </div>
     </div>
   );
 }
