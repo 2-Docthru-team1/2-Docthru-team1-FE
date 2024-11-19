@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "title": "Challenge 1",
+    "cuisineType": "Fitness",
+    "mediaType": "Recipe Web",
+    "status": "ongoing",
+    "closingDate": "2024-12-31T23:59:59.000Z"
+  },
+  {
+    "id": "2",
+    "title": "Challenge 2",
+    "cuisineType": "Cooking",
+    "mediaType": "Blog",
+    "status": "closed",
+    "closingDate": "2024-11-30T23:59:59.000Z"
+  }
+]

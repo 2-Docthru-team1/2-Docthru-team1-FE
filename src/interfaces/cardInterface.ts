@@ -38,3 +38,16 @@ export interface ChallengeParticipantStatusData {
   images: string[];
   role: string;
 }
+
+export interface MonthlyChallengeCardProps {
+  data: MonthlyChallengeCard | null;
+}
+
+export interface MonthlyChallengeCard {
+  id: string;
+  title: string;
+  cuisineType: 'Traditional' | 'School Food' | 'Noodle' | 'BanChan' | 'Dessert';
+  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
+  status: 'ongoing' | 'closed';
+  closingDate: string;
+}
