@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import crownIcon from '@/../public/assets/icon_crown.png';
+import colckIcon from '@/../public/assets/icon_deadline_clock_large.png';
+import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
 import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategory from '@/components/Chip/ChipCategory';
 import ChipType from '@/components/Chip/ChipType';
@@ -11,43 +13,38 @@ export default function MonthlyChallengeCard({ data }: MonthlyChallengeCardProps
   }
 
   const { id, title, cuisineType, mediaType, status, closingDate } = data;
+  const formattedClosingDate = new Date(closingDate).toISOString().split('T')[0];
 
-  // 마감 날짜 형식
-  const formattedClosingDate = new Date(closingDate).toLocaleDateString('en-CA', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-
+  // NOTE css 나중에 다시 수정 예정.
   return (
-    <div className="w-[38.4rem] h-[21.2rem] pt-[2.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-[#D5BDA6]">
-      <div className="">
-        {/* 왕관 아이콘과 상태표시 */}
+    <div className="w-[38.4rem] h-[21.2rem] pt-[2.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-brand_yellow">
+      <div className="absolute top-0 right-0">
+        <Image src={kebabToggle} alt="More Options" />
+      </div>
+
+      <div className="p-[2.4rem]">
         <div className="flex items-center gap-[1.2rem]">
-          <div className="w-[1.7rem] h-[1.7rem]">
-            <Image src={crownIcon} alt="Recommended" />
-          </div>
-          <div className="mb-4">
+          <Image src={crownIcon} alt="Recommended" />
+          <div className="">
             <ChipCard type={status} />
           </div>
         </div>
 
-        {/* 챌린지 타이틀 */}
-        <h2 className="text-[2rem] font-semibold leading-[2.39rem] text-left underline decoration-skip-ink-none text-gray-700">
+        <h2 className="text-[2rem] pt-[1.2rem] pb-[1.4rem] font-semibold leading-[2.39rem] text-left underline decoration-skip-ink-none text-gray-700">
           {title}
         </h2>
 
-        {/* 카테고리 및 미디어 유형 */}
         <div className="">
           <ChipType category={cuisineType} />
           <ChipCategory category={mediaType} />
         </div>
 
-        {/* 1px, gray-200 가로 선 */}
-        <div className="w-[295px] border-b border-gray-200" />
+        <div className="w-[295px] border-b border-gray-200 pt-[2rem] pb-[1.2rem]" />
 
-        {/* 마감일 */}
-        <div className="text-sm text-gray-500">Closing on {formattedClosingDate}</div>
+        <div className="flex items-center gap-[1.2rem]">
+          <Image src={colckIcon} alt="Deadline" />
+          <div className="text-sm text-gray-500">Closing on {formattedClosingDate}</div>
+        </div>
       </div>
     </div>
   );
