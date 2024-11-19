@@ -12,12 +12,20 @@ export default function WorkCard({ data, user }: WorkDataProps) {
     return <div>로딩 중...</div>;
   }
 
+  enum ImgOrder {
+    first = 0,
+    second
+  }
   const formattedDate = format(new Date(data.createdAt), 'yy/MM/dd HH:mm');
   const formattedNumber = data.likeCount.toLocaleString();
   const [isOpen, setIsOpen] = useState(false);
+  const [currentOrder, setCurrentOrder] = useState<ImgOrder>(ImgOrder.first);
 
   const openImg = () => setIsOpen(true);
   const closeImg = () => setIsOpen(false);
+  const handleNext = () => {
+    setCurrentOrder(prevOrder => (prevOrder === ImgOrder.first ? ImgOrder.second : ImgOrder.first));
+  };
 
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem]">
@@ -38,10 +46,11 @@ export default function WorkCard({ data, user }: WorkDataProps) {
       </div>
       <div className="flex">
         <div className="mr-[0.3rem] w-[47.6rem] h-[47.9rem] relative cursor-pointer">
-          <Image src={food} alt="작업물 이미지" fill className="object-cover" onClick={openImg} /> {/* src={data.images} */}
+          <Image src={food} alt="작업물 이미지" fill className="object-cover" onClick={openImg} />{' '}
+          {/* src={data.images[currentOrder]} */}
         </div>
         <div className="flex items-center">
-          <Image src={nextImage} alt="다음 이미지 버튼" />
+          <Image src={nextImage} alt="다음 이미지 버튼" onClick={handleNext} className="cursor-pointer" />
         </div>
         <p className="text-[1.6rem] font-normal text-gray-800">{data.content}</p>
       </div>
@@ -51,7 +60,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
             className="releative fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[70.7rem] h-[74.1rem]"
             onClick={e => e.stopPropagation()}
           >
-            <Image src={food} alt="작업물 확대 이미지" fill className="object-cover" /> {/* src={data.images} */}
+            <Image src={food} alt="작업물 확대 이미지" fill className="object-cover" /> {/* src={data.images[currentOrder]} */}
           </div>
         </div>
       )}
