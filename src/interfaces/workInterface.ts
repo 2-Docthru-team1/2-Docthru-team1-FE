@@ -7,6 +7,7 @@ export interface WorkDetailData {
   likeCount: number;
   createdAt: string;
   images: string[];
+  ownerId: string;
 }
 
 export interface WorkDataProps {

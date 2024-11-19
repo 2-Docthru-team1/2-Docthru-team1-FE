@@ -29,8 +29,9 @@ export default function WorkCard({ data, user }: WorkDataProps) {
 
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem]">
-      <div className="border-b border-b-gray-200 pb-[1.5rem]">
+      <div className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center">
         <p className="text-[2.4rem] font-bold text-left text-gray-700">{data.title}</p>
+        {user.id === data.ownerId && <div>드롭다운</div>}
       </div>
       <div className="flex items-center justify-between border-b border-b-gray-200 pb-[1.5rem] mb-[1rem]">
         <div className="flex items-center gap-[0.5rem]">
