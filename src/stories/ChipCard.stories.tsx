@@ -1,5 +1,4 @@
-// src/components/ChipCard.stories.tsx
-import type { Meta, StoryFn } from '@storybook/react';
+import type { StoryFn } from '@storybook/react';
 import ChipCard from '@/components/Chip/ChipCard';
 import type { ChipCardProps } from '@/interfaces/chipInterface';
 
@@ -10,12 +9,12 @@ export default {
     type: {
       control: {
         type: 'select',
-        options: ['success', 'error', 'info'] // type에 대한 옵션
+        options: ['success', 'error', 'info']
       },
       description: 'Chip type to determine the color.'
     }
   }
-} as Meta;
+};
 
 const Template: StoryFn<ChipCardProps> = args => <ChipCard {...args} />;
 

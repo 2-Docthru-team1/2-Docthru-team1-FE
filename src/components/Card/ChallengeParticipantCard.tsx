@@ -6,7 +6,7 @@ import comment from '@/../public/assets/icon_comment.png';
 import heart from '@/../public/assets/icon_heart_inact_small.png';
 import profile from '@/../public/assets/img_profile_member.png';
 import food from '@/../public/temporaryAssets/Food.svg';
-import { fetchChallengeStatus } from '@/api/ChallengeService';
+import { fetchChallengeStatus } from '@/api/challengeService';
 import type { ChallengeParticipantStatusData, ChallengeParticipantStatusProps } from '@/interfaces/cardInterface';
 
 export default function ChallengeParticipantCard({ initialData, type }: ChallengeParticipantStatusProps) {
@@ -34,7 +34,6 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
     return <div>Loading...</div>;
   }
 
-  // 데이터가 없을 경우 처리
   if (!data) {
     return <div>No data available</div>;
   }
