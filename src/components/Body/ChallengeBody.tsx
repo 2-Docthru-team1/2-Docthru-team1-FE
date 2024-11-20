@@ -19,6 +19,8 @@ interface StylesState {
   isUnderline: boolean;
   alignment: 'left' | 'center' | 'right';
   currentColor: string;
+  isBulletList: boolean;
+  isNumberList: boolean;
 }
 
 interface SavedSelection {
@@ -34,7 +36,9 @@ export default function ChallengeBody() {
     isItalic: false,
     isUnderline: false,
     alignment: 'left',
-    currentColor: '#000000'
+    currentColor: '#000000',
+    isBulletList: false,
+    isNumberList: false
   });
 
   const [content, setContent] = useState<string>('Please write your challenge...');
@@ -43,6 +47,7 @@ export default function ChallengeBody() {
   const isInitialMount = useRef<boolean>(true);
   const colorInputRef = useRef<HTMLInputElement>(null);
   const savedSelectionRef = useRef<SavedSelection | null>(null);
+  const [listCounter, setListCounter] = useState<number>(1);
 
   const saveSelection = (): void => {
     const selection = window.getSelection();
@@ -89,6 +94,171 @@ export default function ChallengeBody() {
     restoreSelection();
   };
 
+  const createListItem = (type: 'bullet' | 'number'): void => {
+    if (!contentEditableRef.current) return;
+
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const container = range.commonAncestorContainer as HTMLElement;
+
+    const listItem = document.createElement('div');
+    listItem.className = 'list-item text-[1.6rem] leading-[2.56rem]';
+    listItem.style.textAlign = styles.alignment;
+
+    if (type === 'bullet') {
+      listItem.setAttribute('data-list-type', 'bullet');
+      listItem.innerHTML = '• ';
+    } else {
+      listItem.setAttribute('data-list-type', 'number');
+      listItem.innerHTML = `${listCounter}. `;
+      setListCounter(prev => prev + 1);
+    }
+
+    if (container.textContent?.trim() === '') {
+      container.parentElement?.replaceChild(listItem, container);
+    } else {
+      const currentBlock = container.closest('div') || container;
+      currentBlock.parentElement?.insertBefore(listItem, currentBlock.nextSibling);
+    }
+
+    const textNode = document.createTextNode('');
+    listItem.appendChild(textNode);
+    range.setStart(textNode, 0);
+    range.setEnd(textNode, 0);
+    selection.removeAllRanges();
+    selection.addRange(range);
+  };
+
+  const handleListCommand = (type: 'bullet' | 'number') => {
+    if (!contentEditableRef.current) return;
+
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    let container = range.commonAncestorContainer as HTMLElement;
+
+    if (container.nodeType === Node.TEXT_NODE) {
+      container = container.parentElement as HTMLElement;
+    }
+
+    const existingList = container.closest('ul, ol') as HTMLElement;
+
+    if (existingList) {
+      const fragment = document.createDocumentFragment();
+      Array.from(existingList.children).forEach(li => {
+        const div = document.createElement('div');
+        div.innerHTML = li.innerHTML;
+        fragment.appendChild(div);
+      });
+      existingList.parentNode?.replaceChild(fragment, existingList);
+
+      setStyles(prev => ({
+        ...prev,
+        isBulletList: false,
+        isNumberList: false
+      }));
+    } else {
+      const list = document.createElement(type === 'bullet' ? 'ul' : 'ol') as HTMLElement;
+      list.style.listStyleType = type === 'bullet' ? 'disc' : 'decimal';
+      list.style.marginLeft = '20px';
+
+      const listItem = document.createElement('li');
+
+      let currentBlock = container;
+      while (currentBlock && currentBlock !== contentEditableRef.current && !['DIV', 'P'].includes(currentBlock.tagName)) {
+        currentBlock = currentBlock.parentElement as HTMLElement;
+      }
+
+      if (!currentBlock || currentBlock === contentEditableRef.current || !currentBlock.textContent?.trim()) {
+        listItem.appendChild(document.createElement('br'));
+      } else {
+        listItem.innerHTML = currentBlock.innerHTML;
+        currentBlock.parentNode?.replaceChild(list, currentBlock);
+      }
+
+      list.appendChild(listItem);
+
+      if (!currentBlock || currentBlock === contentEditableRef.current) {
+        contentEditableRef.current.appendChild(list);
+      }
+
+      range.selectNodeContents(listItem);
+      range.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      setStyles(prev => ({
+        ...prev,
+        isBulletList: type === 'bullet',
+        isNumberList: type === 'number'
+      }));
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
+    if (e.key === 'Enter') {
+      if (isPlaceholder) {
+        e.preventDefault();
+        return;
+      }
+
+      const selection = window.getSelection();
+      if (!selection || !selection.rangeCount) return;
+
+      const range = selection.getRangeAt(0);
+      const container = range.commonAncestorContainer as HTMLElement;
+      const listItem = container.closest('li');
+      const list = container.closest('ul, ol') as HTMLElement;
+
+      if (listItem) {
+        if (!listItem.textContent?.trim()) {
+          e.preventDefault();
+
+          if (list) {
+            if (listItem === list.lastElementChild) {
+              const newDiv = document.createElement('div');
+              newDiv.appendChild(document.createElement('br'));
+              list.parentNode?.insertBefore(newDiv, list.nextSibling);
+              listItem.remove();
+
+              if (!list.hasChildNodes()) {
+                list.remove();
+              }
+
+              range.selectNodeContents(newDiv);
+              range.collapse(true);
+              selection.removeAllRanges();
+              selection.addRange(range);
+
+              setStyles(prev => ({
+                ...prev,
+                isBulletList: false,
+                isNumberList: false
+              }));
+            } else {
+              const newList = document.createElement(list.tagName.toLowerCase()) as HTMLElement;
+              newList.style.listStyleType = list.style.listStyleType;
+              newList.style.marginLeft = list.style.marginLeft;
+
+              let next = listItem.nextElementSibling;
+              while (next) {
+                const current = next;
+                next = next.nextElementSibling;
+                newList.appendChild(current);
+              }
+
+              list.parentNode?.insertBefore(newList, list.nextSibling);
+              listItem.remove();
+            }
+          }
+        }
+      }
+    }
+  };
+
   const checkCurrentStyles = (): void => {
     if (!contentEditableRef.current) return;
 
@@ -112,7 +282,9 @@ export default function ChallengeBody() {
       isItalic: document.queryCommandState('italic'),
       isUnderline: document.queryCommandState('underline'),
       alignment,
-      currentColor: document.queryCommandValue('foreColor') || prev.currentColor
+      currentColor: document.queryCommandValue('foreColor') || prev.currentColor,
+      isBulletList: document.queryCommandState('insertUnorderedList'),
+      isNumberList: document.queryCommandState('insertOrderedList')
     }));
   };
 
@@ -161,25 +333,6 @@ export default function ChallengeBody() {
     }
 
     restoreSelection();
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-
-      if (isPlaceholder) return;
-
-      document.execCommand('insertParagraph', false);
-      const selection = window.getSelection();
-      if (!selection || !selection.rangeCount) return;
-
-      const range = selection.getRangeAt(0);
-      const newParagraph = range.startContainer.parentElement;
-      if (newParagraph) {
-        newParagraph.style.textAlign = styles.alignment;
-        newParagraph.className = 'text-[1.6rem] leading-[2.56rem]';
-      }
-    }
   };
 
   const handleContentChange = (e: React.FormEvent<HTMLDivElement>): void => {
@@ -324,10 +477,18 @@ export default function ChallengeBody() {
           </button>
         </div>
         <div className="flex gap-[0.2rem]">
-          <button onClick={() => {}} className="cursor-pointer p-2 rounded" type="button">
+          <button
+            onClick={() => handleListCommand('bullet')}
+            className={`cursor-pointer p-2 rounded ${styles.isBulletList ? 'bg-gray-200' : ''}`}
+            type="button"
+          >
             <Image src={bullet} alt="bullet" />
           </button>
-          <button onClick={() => {}} className="cursor-pointer p-2 rounded" type="button">
+          <button
+            onClick={() => handleListCommand('number')}
+            className={`cursor-pointer p-2 rounded ${styles.isNumberList ? 'bg-gray-200' : ''}`}
+            type="button"
+          >
             <Image src={numbering} alt="numbering" />
           </button>
         </div>
