@@ -18,38 +18,68 @@ interface StylesState {
   isItalic: boolean;
   isUnderline: boolean;
   alignment: 'left' | 'center' | 'right';
-  currentListType: 'bullet' | 'numbering' | null;
-  isColoring: boolean;
+  currentColor: string;
+}
+
+interface SavedSelection {
+  startContainer: Node;
+  startOffset: number;
+  endContainer: Node;
+  endOffset: number;
 }
 
 export default function ChallengeBody() {
-  const [styles, setStyles] = useState({
+  const [styles, setStyles] = useState<StylesState>({
     isBold: false,
     isItalic: false,
     isUnderline: false,
-    alignment: 'left' as const,
-    currentListType: null as null | 'bullet' | 'numbering',
+    alignment: 'left',
     currentColor: '#000000'
   });
 
-  const [content, setContent] = useState('Please write your challenge...');
-  const [isPlaceholder, setIsPlaceholder] = useState(true);
+  const [content, setContent] = useState<string>('Please write your challenge...');
+  const [isPlaceholder, setIsPlaceholder] = useState<boolean>(true);
   const contentEditableRef = useRef<HTMLDivElement>(null);
-  const isInitialMount = useRef(true);
+  const isInitialMount = useRef<boolean>(true);
   const colorInputRef = useRef<HTMLInputElement>(null);
+  const savedSelectionRef = useRef<SavedSelection | null>(null);
 
-  const applyFormatting = () => {
-    if (!contentEditableRef.current) return;
+  const saveSelection = (): void => {
     const selection = window.getSelection();
     if (!selection || !selection.rangeCount) return;
 
     const range = selection.getRangeAt(0);
-    const savedSelection = {
+    savedSelectionRef.current = {
       startContainer: range.startContainer,
       startOffset: range.startOffset,
       endContainer: range.endContainer,
       endOffset: range.endOffset
     };
+  };
+
+  const restoreSelection = (): void => {
+    const savedSelection = savedSelectionRef.current;
+    if (!savedSelection) return;
+
+    const selection = window.getSelection();
+    if (!selection) return;
+
+    const range = document.createRange();
+    range.setStart(savedSelection.startContainer, savedSelection.startOffset);
+    range.setEnd(savedSelection.endContainer, savedSelection.endOffset);
+
+    selection.removeAllRanges();
+    selection.addRange(range);
+  };
+
+  const applyFormatting = (): void => {
+    if (!contentEditableRef.current) return;
+
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
+
+    // Save the current selection before applying formatting
+    saveSelection();
 
     if (styles.currentColor) {
       document.execCommand('foreColor', false, styles.currentColor);
@@ -57,252 +87,108 @@ export default function ChallengeBody() {
 
     document.execCommand(`justify${styles.alignment.charAt(0).toUpperCase() + styles.alignment.slice(1)}`, false);
 
-    const newRange = document.createRange();
-    newRange.setStart(savedSelection.startContainer, savedSelection.startOffset);
-    newRange.setEnd(savedSelection.endContainer, savedSelection.endOffset);
-    selection.removeAllRanges();
-    selection.addRange(newRange);
+    // Restore the selection after applying formatting
+    restoreSelection();
   };
 
-  const checkCurrentStyles = () => {
-    if (document && contentEditableRef.current) {
-      const selection = window.getSelection();
-      if (!selection || selection.rangeCount === 0) return;
+  const checkCurrentStyles = (): void => {
+    if (!contentEditableRef.current) return;
 
-      const range = selection.getRangeAt(0);
-      const parentElement = range.commonAncestorContainer.parentElement;
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
 
-      let currentListType = null;
-      let currentElement = parentElement;
-      while (currentElement) {
-        if (currentElement.tagName === 'UL') {
-          currentListType = 'bullet';
-          break;
-        } else if (currentElement.tagName === 'OL') {
-          currentListType = 'numbering';
-          break;
-        }
-        currentElement = currentElement.parentElement;
-      }
+    const range = selection.getRangeAt(0);
+    const parentElement = range.commonAncestorContainer.parentElement;
+    if (!parentElement) return;
 
-      let alignment = 'left';
-      if (parentElement) {
-        const style = window.getComputedStyle(parentElement);
-        const textAlign = style.textAlign;
-        if (textAlign === 'center' || textAlign === 'right') {
-          alignment = textAlign;
-        }
-      }
-
-      const color = document.queryCommandValue('foreColor');
-
-      setStyles(prev => ({
-        ...prev,
-        isBold: document.queryCommandState('bold'),
-        isItalic: document.queryCommandState('italic'),
-        isUnderline: document.queryCommandState('underline'),
-        currentListType,
-        alignment: alignment as 'left' | 'center' | 'right',
-        currentColor: color || prev.currentColor
-      }));
+    let alignment: 'left' | 'center' | 'right' = 'left';
+    const style = window.getComputedStyle(parentElement);
+    const textAlign = style.textAlign;
+    if (textAlign === 'center' || textAlign === 'right') {
+      alignment = textAlign;
     }
+
+    setStyles(prev => ({
+      ...prev,
+      isBold: document.queryCommandState('bold'),
+      isItalic: document.queryCommandState('italic'),
+      isUnderline: document.queryCommandState('underline'),
+      alignment,
+      currentColor: document.queryCommandValue('foreColor') || prev.currentColor
+    }));
   };
 
-  const toggleStyle = (style: 'isBold' | 'isItalic' | 'isUnderline') => {
-    const commandMap = {
+  const toggleStyle = (style: keyof Pick<StylesState, 'isBold' | 'isItalic' | 'isUnderline'>): void => {
+    const commandMap: Record<typeof style, string> = {
       isBold: 'bold',
       isItalic: 'italic',
       isUnderline: 'underline'
     };
 
-    if (document) {
-      document.execCommand(commandMap[style], false);
-      checkCurrentStyles();
-    }
+    // Save selection before toggling style
+    saveSelection();
+
+    document.execCommand(commandMap[style], false);
+    checkCurrentStyles();
+
+    // Restore selection after toggling style
+    restoreSelection();
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      
-      const selection = window.getSelection();
-      if (!selection || !selection.rangeCount) return;
-      
-      const range = selection.getRangeAt(0);
-      let currentLine = range.commonAncestorContainer;
-      
-      let listItem = currentLine.nodeType === Node.TEXT_NODE ? currentLine.parentElement : currentLine as HTMLElement;
-      while (listItem && listItem.tagName !== 'LI') {
-        listItem = listItem.parentElement;
-      }
-      
-      if (listItem && (!listItem.textContent || listItem.textContent.trim() === '')) {
-        e.preventDefault();
-        const list = listItem.parentElement;
-        if (list) {
-          if (list.tagName === 'UL') {
-            document.execCommand('insertUnorderedList', false);
-          } else if (list.tagName === 'OL') {
-            document.execCommand('insertOrderedList', false);
-          }
-          document.execCommand('insertHTML', false, '<br>');
-          setStyles(prev => ({ ...prev, currentListType: null }));
-        }
-      } else {
-        if (styles.currentListType) {
-          document.execCommand('insertHTML', false, '<br>');
-          const command = styles.currentListType === 'bullet' ? 'insertUnorderedList' : 'insertOrderedList';
-          setTimeout(() => {
-            document.execCommand(command, false);
-            applyCurrentFormatting();
-          }, 0);
-        } else {
-          document.execCommand('insertHTML', false, '<br>');
-        }
-      }
-    }
-  };
-
-  const applyCurrentFormatting = () => {
-    const selection = window.getSelection();
-    if (!selection || !selection.rangeCount) return;
-
-    const range = selection.getRangeAt(0);
-    let currentElement = range.commonAncestorContainer;
-    if (currentElement.nodeType === Node.TEXT_NODE) {
-      currentElement = currentElement.parentElement;
-    }
-
-    let listItem = currentElement as HTMLElement;
-    while (listItem && listItem.tagName !== 'LI') {
-      listItem = listItem.parentElement;
-    }
-
-    if (listItem) {
-      const list = listItem.parentElement as HTMLElement;
-      if (list) {
-        list.style.textAlign = styles.alignment;
-      }
-    }
-  };
-
-  const handleAlignment = (alignment: 'left' | 'center' | 'right') => {
+  const handleAlignment = (alignment: 'left' | 'center' | 'right'): void => {
     if (!contentEditableRef.current) return;
 
     setStyles(prev => ({ ...prev, alignment }));
-    
-    const lists = contentEditableRef.current.querySelectorAll('ul, ol');
-    lists.forEach(list => {
-      (list as HTMLElement).style.textAlign = alignment;
-    });
 
-    document.execCommand(`justify${alignment.charAt(0).toUpperCase() + alignment.slice(1)}`, false);
-  };
-
-  const handleListTypeChange = (type: 'bullet' | 'numbering') => {
-    if (!contentEditableRef.current) return;
+    // Save selection before changing alignment
+    saveSelection();
 
     const selection = window.getSelection();
-    if (!selection || selection.rangeCount === 0) {
-      const command = type === 'bullet' ? 'insertUnorderedList' : 'insertOrderedList';
-      document.execCommand(command, false);
-      setStyles(prev => ({ ...prev, currentListType: type }));
-      
-      const lists = contentEditableRef.current.querySelectorAll(type === 'bullet' ? 'ul' : 'ol');
-      lists.forEach(list => {
-        (list as HTMLElement).style.listStyleType = type === 'bullet' ? 'disc' : 'decimal';
-        (list as HTMLElement).style.paddingLeft = '20px';
-        (list as HTMLElement).style.textAlign = styles.alignment;
-      });
-      return;
-    }
+    if (selection && selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      let container = range.commonAncestorContainer as HTMLElement;
 
-    let currentElement = selection.getRangeAt(0).commonAncestorContainer;
-    while (currentElement && currentElement.nodeType === Node.TEXT_NODE) {
-      currentElement = currentElement.parentNode;
-    }
-
-    let currentList = currentElement;
-    while (currentList && !['UL', 'OL'].includes((currentList as Element).tagName)) {
-      currentList = currentList.parentElement;
-    }
-
-    if (currentList) {
-      if ((currentList as Element).tagName === (type === 'bullet' ? 'UL' : 'OL')) {
-        document.execCommand('outdent', false);
-        setStyles(prev => ({ ...prev, currentListType: null }));
-        return;
+      if (container.nodeType === Node.TEXT_NODE) {
+        container = container.parentElement as HTMLElement;
       }
+
+      let blockContainer = container;
+      while (blockContainer && !['DIV', 'P'].includes(blockContainer.tagName) && blockContainer !== contentEditableRef.current) {
+        blockContainer = blockContainer.parentElement as HTMLElement;
+      }
+
+      const targetElement = blockContainer || contentEditableRef.current;
+      if (targetElement) {
+        targetElement.style.textAlign = alignment;
+      }
+    } else {
+      contentEditableRef.current.style.textAlign = alignment;
     }
 
-    const command = type === 'bullet' ? 'insertUnorderedList' : 'insertOrderedList';
-    document.execCommand(command, false);
-    setStyles(prev => ({ ...prev, currentListType: type }));
-
-    const lists = contentEditableRef.current.querySelectorAll(type === 'bullet' ? 'ul' : 'ol');
-    lists.forEach(list => {
-      (list as HTMLElement).style.listStyleType = type === 'bullet' ? 'disc' : 'decimal';
-      (list as HTMLElement).style.paddingLeft = '20px';
-      (list as HTMLElement).style.textAlign = styles.alignment;
-    });
+    // Restore selection after changing alignment
+    restoreSelection();
   };
 
-  const handleFocus = () => {
-    if (isPlaceholder && contentEditableRef.current) {
-      contentEditableRef.current.innerHTML = '';
-      setContent('');
-      setIsPlaceholder(false);
-    }
-    checkCurrentStyles();
-  };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
 
-  const handleBlur = () => {
-    if (contentEditableRef.current && contentEditableRef.current.innerHTML.trim() === '') {
-      contentEditableRef.current.innerHTML = 'Please write your challenge...';
-      setContent('Please write your challenge...');
-      setIsPlaceholder(true);
-    }
-    checkCurrentStyles();
-  };
+      if (isPlaceholder) return;
 
-  useEffect(() => {
-    const contentEditable = contentEditableRef.current;
-    if (!contentEditable) return;
-
-    contentEditable.addEventListener('focus', handleFocus);
-    contentEditable.addEventListener('blur', handleBlur);
-    
-    checkCurrentStyles();
-
-    return () => {
-      contentEditable.removeEventListener('focus', handleFocus);
-      contentEditable.removeEventListener('blur', handleBlur);
-    };
-  }, []);
-
-  const handleBgColorChange = (color: string) => {
-    if (document && contentEditableRef.current) {
-      document.execCommand('foreColor', false, color);
-      setStyles(prev => ({ ...prev, currentColor: color }));
-
+      document.execCommand('insertParagraph', false);
       const selection = window.getSelection();
-      if (selection && selection.rangeCount > 0) {
-        const range = selection.getRangeAt(0);
-        const span = range.commonAncestorContainer.parentElement;
-        if (span) {
-          span.style.color = color;
-        }
+      if (!selection || !selection.rangeCount) return;
+
+      const range = selection.getRangeAt(0);
+      const newParagraph = range.startContainer.parentElement;
+      if (newParagraph) {
+        newParagraph.style.textAlign = styles.alignment;
+        newParagraph.className = 'text-[1.6rem] leading-[2.56rem]';
       }
     }
   };
 
-  const openColorPicker = () => {
-    if (colorInputRef.current) {
-      colorInputRef.current.click();
-    }
-  };
-
-  const handleContentChange = (e: React.FormEvent<HTMLDivElement>) => {
+  const handleContentChange = (e: React.FormEvent<HTMLDivElement>): void => {
     const target = e.currentTarget;
     if (target.innerHTML !== content) {
       setContent(target.innerHTML);
@@ -314,85 +200,31 @@ export default function ChallengeBody() {
     applyFormatting();
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
+  const handleBgColorChange = (color: string): void => {
+    if (!contentEditableRef.current) return;
 
-      const selection = window.getSelection();
-      if (!selection || !selection.rangeCount) return;
+    // Restore the saved selection before applying the color
+    restoreSelection();
 
-      const range = selection.getRangeAt(0);
-      let currentLine = range.commonAncestorContainer;
-
-      let listItem = currentLine.nodeType === Node.TEXT_NODE ? currentLine.parentElement : (currentLine as HTMLElement);
-      while (listItem && listItem.tagName !== 'LI') {
-        listItem = listItem.parentElement;
-      }
-
-      if (listItem && (!listItem.textContent || listItem.textContent.trim() === '')) {
-        e.preventDefault();
-        const list = listItem.parentElement;
-        if (list) {
-          if (list.tagName === 'UL') {
-            document.execCommand('insertUnorderedList', false);
-          } else if (list.tagName === 'OL') {
-            document.execCommand('insertOrderedList', false);
-          }
-          document.execCommand('insertHTML', false, '<br>');
-          setStyles(prev => ({ ...prev, currentListType: null }));
-        }
-      } else {
-        if (styles.currentListType) {
-          document.execCommand('insertHTML', false, '<br>');
-          const command = styles.currentListType === 'bullet' ? 'insertUnorderedList' : 'insertOrderedList';
-          setTimeout(() => {
-            document.execCommand(command, false);
-            applyCurrentFormatting();
-          }, 0);
-        } else {
-          document.execCommand('insertHTML', false, '<br>');
-        }
-      }
-    }
-  };
-
-  const applyCurrentFormatting = () => {
     const selection = window.getSelection();
     if (!selection || !selection.rangeCount) return;
 
-    const range = selection.getRangeAt(0);
-    let currentElement = range.commonAncestorContainer;
-    if (currentElement.nodeType === Node.TEXT_NODE) {
-      currentElement = currentElement.parentElement;
-    }
+    // Apply color only to the selected range
+    document.execCommand('foreColor', false, color);
+    setStyles(prev => ({ ...prev, currentColor: color }));
 
-    let listItem = currentElement as HTMLElement;
-    while (listItem && listItem.tagName !== 'LI') {
-      listItem = listItem.parentElement;
-    }
+    // Save the selection again after applying the color
+    saveSelection();
+  };
 
-    if (listItem) {
-      const list = listItem.parentElement as HTMLElement;
-      if (list) {
-        list.style.textAlign = styles.alignment;
-      }
+  const openColorPicker = (): void => {
+    if (colorInputRef.current) {
+      colorInputRef.current.click();
     }
   };
 
-  const handleAlignment = (alignment: 'left' | 'center' | 'right') => {
-    if (!contentEditableRef.current) return;
-
-    setStyles(prev => ({ ...prev, alignment }));
-
-    const lists = contentEditableRef.current.querySelectorAll('ul, ol');
-    lists.forEach(list => {
-      (list as HTMLElement).style.textAlign = alignment;
-    });
-
-    document.execCommand(`justify${alignment.charAt(0).toUpperCase() + alignment.slice(1)}`, false);
-  };
-
-  const handleSelectionChange = () => {
+  const handleSelectionChange = (): void => {
+    saveSelection();
     checkCurrentStyles();
   };
 
@@ -406,28 +238,41 @@ export default function ChallengeBody() {
     return () => {
       document.removeEventListener('selectionchange', handleSelectionChange);
     };
-  }, []);
+  }, [content]);
+
+  useEffect(() => {
+    if (isInitialMount.current && contentEditableRef.current) {
+      contentEditableRef.current.innerHTML = content;
+      isInitialMount.current = false;
+    }
+
+    document.addEventListener('selectionchange', handleSelectionChange);
+    return () => {
+      document.removeEventListener('selectionchange', handleSelectionChange);
+    };
+  }, [content]);
+
+  const handleFocus = () => {
+    if (isPlaceholder && contentEditableRef.current) {
+      contentEditableRef.current.innerHTML = '';
+      setContent('');
+      setIsPlaceholder(false);
+    }
+    checkCurrentStyles();
+  };
+
+  const handleBlur = () => {
+    const contentEditable = contentEditableRef.current;
+    if (contentEditable && contentEditable.innerHTML.trim() === '') {
+      contentEditable.innerHTML = 'Please write your challenge...';
+      setContent('Please write your challenge...');
+      setIsPlaceholder(true);
+    }
+  };
 
   useEffect(() => {
     const contentEditable = contentEditableRef.current;
     if (!contentEditable) return;
-
-    const handleFocus = () => {
-      if (isPlaceholder && contentEditableRef.current) {
-        contentEditableRef.current.innerHTML = '';
-        setContent('');
-        setIsPlaceholder(false);
-      }
-      checkCurrentStyles();
-    };
-
-    const handleBlur = () => {
-      if (contentEditable && contentEditable.innerHTML.trim() === '') {
-        contentEditable.innerHTML = 'Please write your challenge...';
-        setContent('Please write your challenge...');
-        setIsPlaceholder(true);
-      }
-    };
 
     contentEditable.addEventListener('focus', handleFocus);
     contentEditable.addEventListener('blur', handleBlur);
@@ -488,18 +333,10 @@ export default function ChallengeBody() {
           </button>
         </div>
         <div className="flex gap-[0.2rem]">
-          <button
-            onClick={() => handleListTypeChange('bullet')}
-            className={`cursor-pointer p-2 rounded ${styles.currentListType === 'bullet' ? 'bg-gray-200' : ''}`}
-            type="button"
-          >
+          <button onClick={() => {}} className="cursor-pointer p-2 rounded" type="button">
             <Image src={bullet} alt="bullet" />
           </button>
-          <button
-            onClick={() => handleListTypeChange('numbering')}
-            className={`cursor-pointer p-2 rounded ${styles.currentListType === 'numbering' ? 'bg-gray-200' : ''}`}
-            type="button"
-          >
+          <button onClick={() => {}} className="cursor-pointer p-2 rounded" type="button">
             <Image src={numbering} alt="numbering" />
           </button>
         </div>
@@ -525,7 +362,7 @@ export default function ChallengeBody() {
             ref={colorInputRef}
             type="color"
             value={styles.currentColor}
-            onChange={e => handleBgColorChange(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleBgColorChange(e.target.value)}
             className="hidden"
             title="Choose text color"
           />
