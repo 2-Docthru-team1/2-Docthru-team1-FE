@@ -27,11 +27,41 @@ export default function ChallengeBody() {
   const contentEditableRef = useRef<HTMLDivElement>(null);
   const isInitialMount = useRef(true);
 
-  const toggleStyle = (style: keyof StylesState) => {
+  // 현재 선택된 텍스트의 스타일 상태를 확인하는 함수
+  const checkCurrentStyles = () => {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+
+    const range = selection.getRangeAt(0);
+    const parentElement = range.commonAncestorContainer.parentElement;
+
+    if (!parentElement) return;
+
     setStyles(prev => ({
       ...prev,
-      [style]: !prev[style]
+      isBold: document.queryCommandState('bold'),
+      isItalic: document.queryCommandState('italic'),
+      isUnderline: document.queryCommandState('underline')
     }));
+  };
+
+  const toggleStyle = (style: keyof StylesState) => {
+    const commandMap = {
+      isBold: 'bold',
+      isItalic: 'italic',
+      isUnderline: 'underline'
+    };
+
+    const command = commandMap[style as keyof typeof commandMap];
+    if (command) {
+      document.execCommand(command, false);
+      checkCurrentStyles(); // 스타일 적용 후 현재 상태 확인
+    } else {
+      setStyles(prev => ({
+        ...prev,
+        [style]: !prev[style]
+      }));
+    }
   };
 
   const handleAlignment = (alignment: 'left' | 'center' | 'right') => {
@@ -48,11 +78,6 @@ export default function ChallengeBody() {
     }));
   };
 
-  const applyStyleToSelection = (style: string) => {
-    document.execCommand(style, false);
-  };
-
-  // 초기 마운트 시에만 content를 설정하도록 수정
   useEffect(() => {
     if (isInitialMount.current && contentEditableRef.current) {
       contentEditableRef.current.innerHTML = content;
@@ -83,15 +108,22 @@ export default function ChallengeBody() {
       }
     };
 
+    // 텍스트 선택 시 스타일 상태 확인
+    const handleSelectionChange = () => {
+      checkCurrentStyles();
+    };
+
     if (contentEditable) {
       contentEditable.addEventListener('focus', handleFocus);
       contentEditable.addEventListener('blur', handleBlur);
+      document.addEventListener('selectionchange', handleSelectionChange);
     }
 
     return () => {
       if (contentEditable) {
         contentEditable.removeEventListener('focus', handleFocus);
         contentEditable.removeEventListener('blur', handleBlur);
+        document.removeEventListener('selectionchange', handleSelectionChange);
       }
     };
   }, [isPlaceholder]);
@@ -100,31 +132,13 @@ export default function ChallengeBody() {
     <div>
       <div className="flex gap-[1.5rem] mb-4">
         <div className="flex gap-[0.2rem]">
-          <div
-            onClick={() => {
-              toggleStyle('isBold');
-              applyStyleToSelection('bold');
-            }}
-            className={`cursor-pointer ${styles.isBold ? 'bg-gray-100' : ''}`}
-          >
+          <div onClick={() => toggleStyle('isBold')} className={`cursor-pointer ${styles.isBold ? 'bg-gray-100' : ''}`}>
             <Image src={bold} alt="bold" />
           </div>
-          <div
-            onClick={() => {
-              toggleStyle('isItalic');
-              applyStyleToSelection('italic');
-            }}
-            className={`cursor-pointer ${styles.isItalic ? 'bg-gray-100' : ''}`}
-          >
+          <div onClick={() => toggleStyle('isItalic')} className={`cursor-pointer ${styles.isItalic ? 'bg-gray-100' : ''}`}>
             <Image src={italic} alt="italic" />
           </div>
-          <div
-            onClick={() => {
-              toggleStyle('isUnderline');
-              applyStyleToSelection('underline');
-            }}
-            className={`cursor-pointer ${styles.isUnderline ? 'bg-gray-100' : ''}`}
-          >
+          <div onClick={() => toggleStyle('isUnderline')} className={`cursor-pointer ${styles.isUnderline ? 'bg-gray-100' : ''}`}>
             <Image src={underline} alt="underline" />
           </div>
         </div>
@@ -172,7 +186,7 @@ export default function ChallengeBody() {
         ref={contentEditableRef}
         contentEditable
         suppressContentEditableWarning
-        className={`w-[118.9rem] h-[26rem] text-[1.6rem] border mt-[2.4rem] leading-[2.56rem] focus:outline-none p-4
+        className={`w-[118.9rem] h-[26rem] text-[1.6rem] mt-[2.4rem] leading-[2.56rem] focus:outline-none p-4
           ${isPlaceholder ? 'text-gray-200' : 'text-gray-800'}
           ${styles.alignment === 'left' ? 'text-left' : ''} 
           ${styles.alignment === 'center' ? 'text-center' : ''} 
