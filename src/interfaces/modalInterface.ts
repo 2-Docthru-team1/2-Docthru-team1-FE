@@ -9,3 +9,9 @@ export interface ConfirmModalProps {
   onCancel: () => void;
   onDelete: () => void;
 }
+
+export interface ImageModalProps {
+  src: string;
+  alt: string;
+  onClose: () => void;
+}

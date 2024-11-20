@@ -10,6 +10,7 @@ import food from '@/../public/temporaryAssets/Food.svg';
 import type { WorkDataProps } from '@/interfaces/workInterface';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
+import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 
 export default function WorkCard({ data, user }: WorkDataProps) {
   if (!data) {
@@ -82,14 +83,8 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         <p className="text-[1.6rem] font-normal text-gray-800">{data.content}</p>
       </div>
       {isOpen && (
-        <div className="w-full h-full fixed inset-0 bg-gray-900 bg-opacity-50 z-2" onClick={closeImg}>
-          <div
-            className="releative fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[70.7rem] h-[74.1rem]"
-            onClick={e => e.stopPropagation()}
-          >
-            <Image src={food} alt="작업물 확대 이미지" fill className="object-cover" /> {/* src={data.images[currentOrder]} */}
-          </div>
-        </div>
+        <ImageEnlargeModal src={food} alt="작업물 이미지" onClose={closeImg} />
+        /* <ImageEnlargeModal src={data.images[currentOrder] alt="작업물 이미지" onClose={closeImg} /> */
       )}
       {modalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
     </div>
