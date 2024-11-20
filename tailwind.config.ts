@@ -29,8 +29,7 @@ const config: Config = {
       'gray-200': '#e5e7eb',
       'gray-100': '#f3f4f6',
       'gray-50': '#f9fafb',
-      'error-red': '#f74747',
-      'approved-blue': '#4095DE'
+      'error-red': '#f74747'
     },
     extend: {
       textColor: {
