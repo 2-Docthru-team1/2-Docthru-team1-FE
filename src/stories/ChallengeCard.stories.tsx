@@ -1,13 +1,13 @@
 import type { StoryFn } from '@storybook/react';
-import MonthlyChallengeCard from '@/components/Card/MonthlyChallengeCard';
-import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
+import ChallengeCard from '@/components/Card/ChallengeCard';
+import type { ChallengeCardProps } from '@/interfaces/cardInterface';
 
 export default {
-  title: 'Components/MonthlyChallengeCard',
-  component: MonthlyChallengeCard
+  title: 'Components/ChallengeCard',
+  component: ChallengeCard
 };
 
-const Template: StoryFn<MonthlyChallengeCardProps> = args => <MonthlyChallengeCard {...args} />;
+const Template: StoryFn<ChallengeCardProps> = args => <ChallengeCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -16,9 +16,11 @@ Default.args = {
     title: 'Traditional Challenge 1',
     mediaType: 'Blog',
     status: 'ongoing',
-    deadline: '2024-12-31T23:59:59.000Z'
+    deadline: '2024-12-31T23:59:59.000Z',
+    requestUserId: 'user1'
   },
-  role: 'admin'
+  userId: 'user1',
+  role: 'normal'
 };
 
 export const ClosedChallenge = Template.bind({});
@@ -28,8 +30,10 @@ ClosedChallenge.args = {
     title: 'Banchan Challenge 1',
     mediaType: 'Social Media',
     status: 'finished',
-    deadline: '2024-11-30T23:59:59.000Z'
+    deadline: '2024-11-30T23:59:59.000Z',
+    requestUserId: 'user2'
   },
+  userId: 'user3',
   role: 'normal'
 };
 
@@ -40,7 +44,9 @@ TestChallenge.args = {
     title: 'Noodle Challenge 1',
     mediaType: 'Recipe Web',
     status: 'ongoing',
-    deadline: '2024-11-01T23:59:59.000Z'
+    deadline: '2024-11-01T23:59:59.000Z',
+    requestUserId: 'user3'
   },
+  userId: 'user999',
   role: 'admin'
 };
