@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import nextImage from '@/../public/assets/btn_photo_swipe.png';
 import inactiveHeart from '@/../public/assets/icon_heart_inactive_large.png';
@@ -8,12 +9,14 @@ import member from '@/../public/assets/img_profile_member.png';
 import food from '@/../public/temporaryAssets/Food.svg';
 import type { WorkDataProps } from '@/interfaces/workInterface';
 import CancelDropdown from '../Dropdown/CancelDropdown';
+import ConfirmModal from '../Modal/ConfirmModal';
 
 export default function WorkCard({ data, user }: WorkDataProps) {
   if (!data) {
     return <div>로딩 중...</div>;
   }
 
+  const router = useRouter();
   enum ImgOrder {
     first = 0,
     second = 1
@@ -23,6 +26,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentOrder, setCurrentOrder] = useState<ImgOrder>(ImgOrder.first);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const openImg = () => setIsOpen(true);
   const closeImg = () => setIsOpen(false);
@@ -32,6 +36,14 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   const handledropdownClick = () => setDropdownOpen(prev => !prev);
   const handleCancelClick = () => {
     setDropdownOpen(false);
+    setModalOpen(true);
+  };
+  const handleModalCancel = () => {
+    setModalOpen(false);
+  };
+  const handleDeleteWork = () => {
+    // 추후 작업물 페이지 작업 때 작업물 데이터 및 유저 데이터 받아와서 삭제 기능 만들 예정
+    router.push('/challengeList');
   };
 
   return (
@@ -79,6 +91,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           </div>
         </div>
       )}
+      {modalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
     </div>
   );
 }

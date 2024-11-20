@@ -4,3 +4,8 @@ export interface ClosableModalProps {
   title: string;
   children: React.ReactNode;
 }
+
+export interface ConfirmModalProps {
+  onCancel: () => void;
+  onDelete: () => void;
+}
