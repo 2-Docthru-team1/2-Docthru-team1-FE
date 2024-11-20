@@ -44,7 +44,7 @@ export interface ChallengeParticipantStatusData {
 export interface ChallengeCardProps {
   data: ChallengeCard | null;
   userId: string;
-  role?: 'admin' | 'normal';
+  role: 'admin' | 'normal';
 }
 
 export interface ChallengeCard {
@@ -58,14 +58,14 @@ export interface ChallengeCard {
 
 export interface MonthlyChallengeCardProps {
   data: MonthlyChallengeCard | null;
-  role?: 'admin' | 'normal';
+  role: 'admin' | 'normal';
 }
 
 export interface MonthlyChallengeCard {
   id: string;
   title: string;
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  status: 'ongoing' | 'finished'; // | 'aborted'
+  status: 'ongoing' | 'finished'; // NOTE | 'aborted' 아마 필요 없겠지만, 참고.
   deadline: string;
 }
 
