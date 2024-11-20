@@ -1,3 +1,5 @@
+import type { UserData } from './userInterface';
+
 export interface RecipeCardProps {
   data: RecipeData | null;
 }
@@ -49,6 +51,18 @@ export interface MonthlyChallengeCard {
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
   status: 'ongoing' | 'finished';
   deadline: string;
+}
+
+export interface MonthlyRankerCardProps {
+  data: MonthlyRankerCard[];
+}
+
+export interface MonthlyRankerCard {
+  id: string;
+  name: string;
+  profileImage: string;
+  totalLikes: number;
+  role: string;
 }
 
 export interface ChallengeParticipateStatusProps {
