@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
 import alignCenter from '@/../public/assets/icon_writing_alignment_center.png';
 import alignLeft from '@/../public/assets/icon_writing_alignment_left.png';
@@ -22,6 +22,11 @@ export default function ChallengeBody() {
     isColoring: false
   });
 
+  const [content, setContent] = useState<string>('Please write your challenge...');
+  const [isPlaceholder, setIsPlaceholder] = useState(true);
+  const contentEditableRef = useRef<HTMLDivElement>(null);
+  const isInitialMount = useRef(true);
+
   const toggleStyle = (style: keyof StylesState) => {
     setStyles(prev => ({
       ...prev,
@@ -43,17 +48,83 @@ export default function ChallengeBody() {
     }));
   };
 
+  const applyStyleToSelection = (style: string) => {
+    document.execCommand(style, false);
+  };
+
+  // 초기 마운트 시에만 content를 설정하도록 수정
+  useEffect(() => {
+    if (isInitialMount.current && contentEditableRef.current) {
+      contentEditableRef.current.innerHTML = content;
+      isInitialMount.current = false;
+    }
+  }, [content]);
+
+  useEffect(() => {
+    const contentEditable = contentEditableRef.current;
+
+    const handleFocus = () => {
+      if (isPlaceholder) {
+        setContent('');
+        setIsPlaceholder(false);
+        if (contentEditableRef.current) {
+          contentEditableRef.current.innerHTML = '';
+        }
+      }
+    };
+
+    const handleBlur = () => {
+      if (contentEditableRef.current?.innerHTML.trim() === '') {
+        setContent('Please write your challenge...');
+        setIsPlaceholder(true);
+        if (contentEditableRef.current) {
+          contentEditableRef.current.innerHTML = 'Please write your challenge...';
+        }
+      }
+    };
+
+    if (contentEditable) {
+      contentEditable.addEventListener('focus', handleFocus);
+      contentEditable.addEventListener('blur', handleBlur);
+    }
+
+    return () => {
+      if (contentEditable) {
+        contentEditable.removeEventListener('focus', handleFocus);
+        contentEditable.removeEventListener('blur', handleBlur);
+      }
+    };
+  }, [isPlaceholder]);
+
   return (
     <div>
       <div className="flex gap-[1.5rem] mb-4">
         <div className="flex gap-[0.2rem]">
-          <div onClick={() => toggleStyle('isBold')} className={`cursor-pointer ${styles.isBold ? 'bg-gray-100' : ''}`}>
+          <div
+            onClick={() => {
+              toggleStyle('isBold');
+              applyStyleToSelection('bold');
+            }}
+            className={`cursor-pointer ${styles.isBold ? 'bg-gray-100' : ''}`}
+          >
             <Image src={bold} alt="bold" />
           </div>
-          <div onClick={() => toggleStyle('isItalic')} className={`cursor-pointer ${styles.isItalic ? 'bg-gray-100' : ''}`}>
+          <div
+            onClick={() => {
+              toggleStyle('isItalic');
+              applyStyleToSelection('italic');
+            }}
+            className={`cursor-pointer ${styles.isItalic ? 'bg-gray-100' : ''}`}
+          >
             <Image src={italic} alt="italic" />
           </div>
-          <div onClick={() => toggleStyle('isUnderline')} className={`cursor-pointer ${styles.isUnderline ? 'bg-gray-100' : ''}`}>
+          <div
+            onClick={() => {
+              toggleStyle('isUnderline');
+              applyStyleToSelection('underline');
+            }}
+            className={`cursor-pointer ${styles.isUnderline ? 'bg-gray-100' : ''}`}
+          >
             <Image src={underline} alt="underline" />
           </div>
         </div>
@@ -97,25 +168,23 @@ export default function ChallengeBody() {
           </div>
         </div>
       </div>
-      <textarea
-        placeholder="Please write your challenge"
-        className={`w-[118.9rem] h-[26rem] text-[1.6rem] resize-none leading-[2.56rem] text-gray-800 placeholder:text-gray-400 focus:outline-none mt-[2.4rem] 
-          ${styles.isBold ? 'font-bold' : 'font-normal'} 
-          ${styles.isItalic ? 'italic' : ''} 
-          ${styles.isUnderline ? 'underline' : ''} 
+      <div
+        ref={contentEditableRef}
+        contentEditable
+        suppressContentEditableWarning
+        className={`w-[118.9rem] h-[26rem] text-[1.6rem] border mt-[2.4rem] leading-[2.56rem] focus:outline-none p-4
+          ${isPlaceholder ? 'text-gray-200' : 'text-gray-800'}
           ${styles.alignment === 'left' ? 'text-left' : ''} 
           ${styles.alignment === 'center' ? 'text-center' : ''} 
           ${styles.alignment === 'right' ? 'text-right' : ''}`}
-        style={{
-          fontWeight: styles.isBold ? 700 : 400
+        onInput={e => {
+          const newContent = e.currentTarget.innerHTML;
+          if (newContent !== content) {
+            setContent(newContent);
+            setIsPlaceholder(false);
+          }
         }}
       />
-      <div className="flex flex-col mt-[10rem] gap-[0.8rem]">
-        <p className="">Photo(*required)</p>
-        <div className="border border-[#E3E0DC] w-[17.1rem] h-[17.1rem] rounded-[0.5rem] flex items-center justify-center">
-          <Image src={plus} alt="plus" />
-        </div>
-      </div>
     </div>
   );
 }
