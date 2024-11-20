@@ -41,18 +41,32 @@ export interface ChallengeParticipantStatusData {
   role: string;
 }
 
+export interface ChallengeCardProps {
+  data: ChallengeCard | null;
+  userId: string;
+  role?: 'admin' | 'normal';
+}
+
+export interface ChallengeCard {
+  id: string;
+  title: string;
+  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
+  status: 'ongoing' | 'finished' | 'canceled';
+  deadline: string;
+  requestUserId: string;
+}
+
 export interface MonthlyChallengeCardProps {
   data: MonthlyChallengeCard | null;
-  user: UserData;
+  role?: 'admin' | 'normal';
 }
 
 export interface MonthlyChallengeCard {
   id: string;
   title: string;
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  status: 'ongoing' | 'finished';
+  status: 'ongoing' | 'finished'; // | 'aborted'
   deadline: string;
-  requestUserId: string;
 }
 
 export interface MonthlyRankerCardProps {
