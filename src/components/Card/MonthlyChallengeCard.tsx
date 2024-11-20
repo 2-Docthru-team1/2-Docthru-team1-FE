@@ -6,43 +6,42 @@ import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';
 import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
 
-export default function MonthlyChallengeCard({ data }: MonthlyChallengeCardProps) {
+export default function MonthlyChallengeCard({ data, user }: MonthlyChallengeCardProps) {
   if (!data) {
     return <div>로딩 중...</div>;
   }
 
-  const { id, title, mediaType, status, deadline } = data;
-  const formattedClosingDate = new Date(deadline).toISOString().split('T')[0];
+  const { title, mediaType, status, deadline, requestUserId } = data;
+  const formattedDeadline = new Date(deadline).toISOString().split('T')[0];
 
+  // NOTE 도엽님이 완성하면 kebabToggle 이미지로만 넣어놓은 부분 Component로 바꿀 예정.
+  // NOTE 본인 챌린지만 보이게 설정 - {user.id === requestUserId && <div>드롭다운</div>}
   return (
-    <div className="w-[38.4rem] h-[21.2rem] pt-[2.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-brand_yellow">
-      <div className="absolute top-0 right-0">
-        <Image src={kebabToggle} alt="More Options" />
-      </div>
-
-      <div className="p-[2.4rem]">
-        <div className="flex items-center gap-[1.2rem]">
-          <Image src={crownIcon} alt="Recommended" />
-          <div>
-            {/* className="" - 사용 예정 */}
-            <ChipCard type={status} />
+    <div className="w-[38.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-primary-beige">
+      <div>
+        <div className="p-[2.4rem]">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-[1.2rem]">
+              <Image src={crownIcon} alt="Recommended" />
+              <div>
+                <ChipCard type={status} />
+              </div>
+            </div>
+            <Image src={kebabToggle} alt="More Options" />
           </div>
-        </div>
 
-        <h2 className="text-[2rem] pt-[1.2rem] pb-[1.4rem] font-semibold leading-[2.39rem] text-left underline decoration-skip-ink-none text-gray-700">
-          {title}
-        </h2>
+          <h2 className="text-[2rem] mt-[1.2rem] mb-[1.4rem] font-semibold text-left text-gray-700">{title}</h2>
 
-        <div>
-          {/* className="" - 사용 예정 */}
-          <ChipCategoryCard mediaType={mediaType} />
-        </div>
+          <div>
+            <ChipCategoryCard mediaType={mediaType} />
+          </div>
 
-        <div className="w-[295px] border-b border-gray-200 pt-[2rem] pb-[1.2rem]" />
+          <div className="w-[29.5rem] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
 
-        <div className="flex items-center gap-[1.2rem]">
-          <Image src={clockIcon} alt="Deadline" />
-          <div className="text-sm text-gray-500">Closing on {formattedClosingDate}</div>
+          <div className="flex items-center gap-[0.2rem]">
+            <Image src={clockIcon} alt="Deadline" />
+            <div className="text-[1.3rem] text-gray-500">Closing on {formattedDeadline}</div>
+          </div>
         </div>
       </div>
     </div>

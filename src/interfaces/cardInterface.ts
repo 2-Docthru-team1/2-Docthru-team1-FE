@@ -1,3 +1,5 @@
+import type { UserData } from './userInterface';
+
 export interface RecipeCardProps {
   data: RecipeData | null;
 }
@@ -41,6 +43,7 @@ export interface ChallengeParticipantStatusData {
 
 export interface MonthlyChallengeCardProps {
   data: MonthlyChallengeCard | null;
+  user: UserData;
 }
 
 export interface MonthlyChallengeCard {
@@ -49,6 +52,7 @@ export interface MonthlyChallengeCard {
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
   status: 'ongoing' | 'finished';
   deadline: string;
+  requestUserId: string;
 }
 
 export interface ChallengeParticipateStatusProps {
