@@ -38,7 +38,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
           <div>
             <ChipCategoryCard mediaType={mediaType} />
           </div>
-          <div className="w-[29.5rem] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
+          <div className="w-[54rem] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
           <div className="flex items-center gap-[0.2rem]">
             <Image src={clockIcon} alt="Deadline" />
             <div className="text-[1.3rem] text-gray-500">Closing on {formattedDeadline}</div>
