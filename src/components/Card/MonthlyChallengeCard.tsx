@@ -30,7 +30,7 @@ export default function MonthlyChallengeCard({ data, user }: MonthlyChallengeCar
             <Image src={kebabToggle} alt="More Options" />
           </div>
 
-          <h2 className="text-[2rem] mt-[1.2rem] mb-[1.4rem] font-semibold text-left text-gray-700">{title}</h2>
+          <h2 className="text-[2rem] leading-[2.39rem] mt-[1.2rem] mb-[1.4rem] font-semibold text-left text-gray-700">{title}</h2>
 
           <div>
             <ChipCategoryCard mediaType={mediaType} />

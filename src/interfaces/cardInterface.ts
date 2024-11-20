@@ -55,6 +55,18 @@ export interface MonthlyChallengeCard {
   requestUserId: string;
 }
 
+export interface MonthlyRankerCardProps {
+  data: MonthlyRankerCard[];
+}
+
+export interface MonthlyRankerCard {
+  id: string;
+  name: string;
+  profileImage: string;
+  totalLikes: number;
+  role: string;
+}
+
 export interface ChallengeParticipateStatusProps {
   data: ParticipantStatusData[];
 }
