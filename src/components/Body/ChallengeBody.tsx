@@ -78,7 +78,6 @@ export default function ChallengeBody() {
     const selection = window.getSelection();
     if (!selection || !selection.rangeCount) return;
 
-    // Save the current selection before applying formatting
     saveSelection();
 
     if (styles.currentColor) {
@@ -87,7 +86,6 @@ export default function ChallengeBody() {
 
     document.execCommand(`justify${styles.alignment.charAt(0).toUpperCase() + styles.alignment.slice(1)}`, false);
 
-    // Restore the selection after applying formatting
     restoreSelection();
   };
 
@@ -125,13 +123,11 @@ export default function ChallengeBody() {
       isUnderline: 'underline'
     };
 
-    // Save selection before toggling style
     saveSelection();
 
     document.execCommand(commandMap[style], false);
     checkCurrentStyles();
 
-    // Restore selection after toggling style
     restoreSelection();
   };
 
@@ -140,7 +136,6 @@ export default function ChallengeBody() {
 
     setStyles(prev => ({ ...prev, alignment }));
 
-    // Save selection before changing alignment
     saveSelection();
 
     const selection = window.getSelection();
@@ -165,7 +160,6 @@ export default function ChallengeBody() {
       contentEditableRef.current.style.textAlign = alignment;
     }
 
-    // Restore selection after changing alignment
     restoreSelection();
   };
 
@@ -203,17 +197,14 @@ export default function ChallengeBody() {
   const handleBgColorChange = (color: string): void => {
     if (!contentEditableRef.current) return;
 
-    // Restore the saved selection before applying the color
     restoreSelection();
 
     const selection = window.getSelection();
     if (!selection || !selection.rangeCount) return;
 
-    // Apply color only to the selected range
     document.execCommand('foreColor', false, color);
     setStyles(prev => ({ ...prev, currentColor: color }));
 
-    // Save the selection again after applying the color
     saveSelection();
   };
 
