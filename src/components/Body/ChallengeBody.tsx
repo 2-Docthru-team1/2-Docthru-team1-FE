@@ -13,23 +13,7 @@ import coloring from '@/../public/assets/icon_writing_coloring.png';
 import italic from '@/../public/assets/icon_writing_italic.png';
 import numbering from '@/../public/assets/icon_writing_numbering.png';
 import underline from '@/../public/assets/icon_writing_underline.png';
-
-interface StylesState {
-  isBold: boolean;
-  isItalic: boolean;
-  isUnderline: boolean;
-  alignment: 'left' | 'center' | 'right';
-  currentColor: string;
-  isBulletList: boolean;
-  isNumberList: boolean;
-}
-
-interface SavedSelection {
-  startContainer: Node;
-  startOffset: number;
-  endContainer: Node;
-  endOffset: number;
-}
+import type { SavedSelection, StylesState } from '@/interfaces/challengeInterface';
 
 export default function ChallengeBody() {
   const [styles, setStyles] = useState<StylesState>({
@@ -560,13 +544,6 @@ export default function ChallengeBody() {
       />
       <div className="mt-[10rem] flex flex-col gap-[0.8rem] font-semibold text-[2rem] leading-[2.6rem]">
         <p>Photo(*required)</p>
-        {/* <div
-          className="w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center"
-          onClick={handleImageClick}
-        >
-          <Image src={plus} alt="더하기" />
-        </div>
-        <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*" /> */}
         <div className="flex gap-[0.8rem]">
           {images.map((file, index) => (
             <div
@@ -584,7 +561,7 @@ export default function ChallengeBody() {
                 src={close}
                 alt="엑스"
                 onClick={() => handleRemoveImage(index)}
-                className="absolute top-0 right-0 cursor-pointer"
+                className="mt-[0.7rem] mr-[0.7rem] absolute top-0 right-0 cursor-pointer"
               />
             </div>
           ))}
