@@ -34,7 +34,7 @@ export default function WorkInput() {
           value={content}
           onChange={handleChange}
           placeholder="Please write your comment"
-          className="w-[113.2rem] h-[8.9rem] rounded-[1rem] border border-gray-200 text-gray-700 text-[1.6rem] font-medium placeholder-gray-400 p-5 focus:outline-none"
+          className="resize-none w-[113.2rem] h-[8.9rem] rounded-[1rem] border border-gray-200 text-gray-700 text-[1.6rem] font-medium placeholder-gray-400 p-5 focus:outline-none"
         />
         <button type="submit" disabled={!isInputEmpty()} className="absolute top-0 right-0">
           {isInputEmpty() ? (
