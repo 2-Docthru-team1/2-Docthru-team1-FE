@@ -10,7 +10,7 @@ import { fetchChallengeStatus } from '@/api/challengeService';
 import type { ChallengeParticipantStatusData, ChallengeParticipantStatusProps } from '@/interfaces/cardInterface';
 
 export default function ChallengeParticipantCard({ initialData, type }: ChallengeParticipantStatusProps) {
-  const [data, setData] = useState<ChallengeParticipantStatusData | null>(initialData ? initialData[0] : null);
+  const [data, setData] = useState<ChallengeParticipantStatusData | null>(initialData || null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,10 +21,10 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
       }
     };
 
-    if (!initialData || initialData.length === 0) {
+    if (!initialData) {
       fetchData();
     } else {
-      setData(initialData[0]);
+      setData(initialData);
     }
 
     setLoading(false);
