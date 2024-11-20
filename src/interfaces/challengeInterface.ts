@@ -3,6 +3,14 @@ export interface StylesState {
   isItalic: boolean;
   isUnderline: boolean;
   alignment: 'left' | 'center' | 'right';
-  currentListType: 'bullet' | 'numbering' | null;
-  isColoring: boolean;
+  currentColor: string;
+  isBulletList: boolean;
+  isNumberList: boolean;
+}
+
+export interface SavedSelection {
+  startContainer: Node;
+  startOffset: number;
+  endContainer: Node;
+  endOffset: number;
 }
