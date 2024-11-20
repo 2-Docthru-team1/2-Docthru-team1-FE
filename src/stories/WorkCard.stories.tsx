@@ -30,7 +30,7 @@ export default {
   parameters: {
     layout: 'centered'
   }
-} as Meta<WorkDataProps>;
+};
 
 const Template: StoryFn<WorkDataProps> = args => <WorkCard {...args} />;
 

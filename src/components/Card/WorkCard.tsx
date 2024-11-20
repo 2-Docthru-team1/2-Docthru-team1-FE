@@ -14,7 +14,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
 
   enum ImgOrder {
     first = 0,
-    second
+    second = 1
   }
   const formattedDate = format(new Date(data.createdAt), 'yy/MM/dd HH:mm');
   const formattedNumber = data.likeCount.toLocaleString();
@@ -47,7 +47,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
       </div>
       <div className="flex">
         <div className="mr-[0.3rem] w-[47.6rem] h-[47.9rem] relative cursor-pointer">
-          <Image src={food} alt="작업물 이미지" fill className="object-cover" onClick={openImg} />{' '}
+          <Image src={food} alt="작업물 이미지" fill className="object-cover" onClick={openImg} />
           {/* src={data.images[currentOrder]} */}
         </div>
         <div className="flex items-center">
