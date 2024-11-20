@@ -47,6 +47,9 @@ export default function WorkCard({ data, user }: WorkDataProps) {
     router.push('/challengeList');
   };
 
+  // TODO: 작업물 이미지 src={data.images[currentOrder]}로 교체
+  // TODO: 이미지 확대 모달 src={data.images[currentOrder]}로 교체
+
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem]">
       <div className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center">
@@ -75,17 +78,13 @@ export default function WorkCard({ data, user }: WorkDataProps) {
       <div className="flex">
         <div className="mr-[0.3rem] w-[47.6rem] h-[47.9rem] relative cursor-pointer">
           <Image src={food} alt="작업물 이미지" fill className="object-cover" onClick={openImg} />
-          {/* src={data.images[currentOrder]} */}
         </div>
         <div className="flex items-center">
           <Image src={nextImage} alt="다음 이미지 버튼" onClick={handleNext} className="cursor-pointer" />
         </div>
         <p className="text-[1.6rem] font-normal text-gray-800">{data.content}</p>
       </div>
-      {isOpen && (
-        <ImageEnlargeModal src={food} alt="작업물 이미지" onClose={closeImg} />
-        /* <ImageEnlargeModal src={data.images[currentOrder] alt="작업물 이미지" onClose={closeImg} /> */
-      )}
+      {isOpen && <ImageEnlargeModal src={food} alt="작업물 이미지" onClose={closeImg} />}
       {modalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
     </div>
   );
