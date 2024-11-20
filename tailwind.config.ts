@@ -19,6 +19,7 @@ const config: Config = {
       'primary-light-gray': '#f1f2f5',
       'primary-beige': '#d5bda6',
       'primary-blue': '#73a8cd',
+      'primary-white': '#ffffff',
       'gray-900': '#111827',
       'gray-800': '#1f2937',
       'gray-700': '#374151',
@@ -29,7 +30,8 @@ const config: Config = {
       'gray-200': '#e5e7eb',
       'gray-100': '#f3f4f6',
       'gray-50': '#f9fafb',
-      'error-red': '#f74747'
+      'error-red': '#f74747',
+      'approved-blue': '#4095DE'
     },
     extend: {
       textColor: {

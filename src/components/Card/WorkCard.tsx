@@ -1,17 +1,22 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import nextImage from '@/../public/assets/btn_photo_swipe.png';
 import inactiveHeart from '@/../public/assets/icon_heart_inactive_large.png';
+import kebab from '@/../public/assets/icon_kebab_cancel.png';
 import member from '@/../public/assets/img_profile_member.png';
 import food from '@/../public/temporaryAssets/Food.svg';
 import type { WorkDataProps } from '@/interfaces/workInterface';
+import CancelDropdown from '../Dropdown/CancelDropdown';
+import ConfirmModal from '../Modal/ConfirmModal';
 
 export default function WorkCard({ data, user }: WorkDataProps) {
   if (!data) {
     return <div>로딩 중...</div>;
   }
 
+  const router = useRouter();
   enum ImgOrder {
     first = 0,
     second = 1
@@ -20,18 +25,39 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   const formattedNumber = data.likeCount.toLocaleString();
   const [isOpen, setIsOpen] = useState(false);
   const [currentOrder, setCurrentOrder] = useState<ImgOrder>(ImgOrder.first);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const openImg = () => setIsOpen(true);
   const closeImg = () => setIsOpen(false);
   const handleNext = () => {
     setCurrentOrder(prevOrder => (prevOrder === ImgOrder.first ? ImgOrder.second : ImgOrder.first));
   };
+  const handledropdownClick = () => setDropdownOpen(prev => !prev);
+  const handleCancelClick = () => {
+    setDropdownOpen(false);
+    setModalOpen(true);
+  };
+  const handleModalCancel = () => {
+    setModalOpen(false);
+  };
+  const handleDeleteWork = () => {
+    // 추후 작업물 페이지 작업 때 작업물 데이터 및 유저 데이터 받아와서 삭제 기능 만들 예정
+    router.push('/challengeList');
+  };
 
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem]">
       <div className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center">
         <p className="text-[2.4rem] font-bold text-left text-gray-700">{data.title}</p>
-        {user.id === data.ownerId && <div>드롭다운</div>}
+        {user.id === data.ownerId && (
+          <div className="relative">
+            <Image src={kebab} alt="드롭다운 이미지" onClick={handledropdownClick} className="cursor-pointer" />
+            <div className="absolute right-[0] top-[4.4rem]">
+              {dropdownOpen && <CancelDropdown onCancel={handleCancelClick} />}
+            </div>
+          </div>
+        )}
       </div>
       <div className="flex items-center justify-between border-b border-b-gray-200 pb-[1.5rem] mb-[1rem]">
         <div className="flex items-center gap-[0.5rem]">
@@ -65,6 +91,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           </div>
         </div>
       )}
+      {modalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
     </div>
   );
 }
