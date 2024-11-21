@@ -1,20 +1,20 @@
 [
   {
-    "id": "challenge-1",
+    "id": "1",
     "title": "Mastering Kimchi Making",
     "mediaType": "Youtube",
     "status": "ongoing",
     "deadline": "2024-12-10T23:59:59.000Z"
   },
   {
-    "id": "challenge-2",
+    "id": "2",
     "title": "5 Days of Korean Vegan Recipes",
     "mediaType": "Blog",
     "status": "finished",
     "deadline": "2024-11-18T23:59:59.000Z"
   },
   {
-    "id": "challenge-3",
+    "id": "3",
     "title": "Quick Korean BBQ Tips",
     "mediaType": "Social Media",
     "status": "ongoing",

@@ -6,9 +6,17 @@ export default async function ChallengeListPage() {
   const { challengeData, userId, role } = await fetchChallenge();
   const rankerData = await fetchRanker();
 
+  const Data = {
+    adminchallengeData,
+    challengeData,
+    userId,
+    role,
+    rankerData
+  };
+
   return (
     <div>
-      {challengeData.length > 0 ? (
+      {Object.values(Data).every(value => !!value) ? (
         <ChallengeListClient
           adminchallengeData={adminchallengeData}
           challengeData={challengeData}

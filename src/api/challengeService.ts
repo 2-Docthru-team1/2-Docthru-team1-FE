@@ -4,7 +4,6 @@ import { getRequest } from './api';
 
 export const fetchChallenge = async () => {
   const response = await getRequest('/challengeMockData.json');
-  // const response = await axios.get('/api/challenges');
   return response.data;
 };
 
