@@ -79,7 +79,7 @@ export interface MonthlyRankerCardProps {
 export interface MonthlyRankerCard {
   id: string;
   name: string;
-  profileImage: string;
+  profileImage?: string;
   totalLikes: number;
   role: string;
 }

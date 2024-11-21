@@ -24,9 +24,11 @@ export default function MonthlyRankerCard({ data }: MonthlyRankerCardProps) {
               <div className="flex gap-[1.3rem]">
                 <Image src={rankImages[index]} alt={`${index + 1}위 아이콘`} />
                 <div className="flex gap-[1.6rem]">
-                  <Image src={profile_member} alt="user profile" className="w-[5rem] h-[5rem]" />
-                  {/* 백엔드 연결시 유저 프로필 가져오기
-                    <Image src={ranker.profileImage} alt={`${ranker.name}의 프로필`} className="" /> */}
+                  <Image
+                    src={ranker.profileImage || profile_member}
+                    alt={`${ranker.name}의 프로필`}
+                    className="w-[5rem] h-[5rem]"
+                  />
                   <div className="flex flex-col">
                     <span className="text-[2rem] text-gray-800">{ranker.name}</span>
                     <span className="text-[1.4rem] text-gray-500">{ranker.role}</span>

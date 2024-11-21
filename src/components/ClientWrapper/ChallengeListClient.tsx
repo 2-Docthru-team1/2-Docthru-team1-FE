@@ -1,14 +1,17 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import btn_request from '@/../public/assets/btn_request_icon.png';
 import ChallengeCard from '@/components/Card/ChallengeCard';
 import type { ChallengeData } from '@/interfaces/cardInterface';
 import type { ChallengeListClientProps } from '@/interfaces/challengelistInterface';
+import MonthlyRankerCard from '../Card/MonthlyRankerCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
-export default function ChallengeListClient({ initialData, userId, role }: ChallengeListClientProps) {
+export default function ChallengeListClient({ initialData, rankerData, userId, role }: ChallengeListClientProps) {
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,35 +34,44 @@ export default function ChallengeListClient({ initialData, userId, role }: Chall
   };
 
   return (
-    <div className="flex bg-gray-50 flex-col w-full items-center justify-center">
-      <div className="flex flex-col w-[120rem] gap-[4rem] mb-[4rem]">
+    <div className="flex flex-col w-full items-center justify-center">
+      <div>
         <div className="flex flex-col gap-[1.6rem] justify-center">
-          <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700 pt-[2rem] pb-[2.4rem]">
+          <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 pt-[2rem] pb-[2.4rem]">
             This Month's Challenge
           </p>
           <p>This is ChallengeCard Component Seat</p>
         </div>
-        <div className="flex flex-col gap-[1.6rem]">
-          <div className="flex justify-between items-center">
-            <p className="font-bold text-[2rem] leading-[3.2rem] text-gray-700">Challenge List</p>
+        <div className="flex justify-between items-center mt-[4rem] mb-[2.4rem]">
+          <p className="font-semibold text-[2rem] leading-[2.387rem text-gray-800">Challenge List</p>
+          <div className="flex gap-[2rem]">
             <FilterBar type="recipe" /> {/* challenge FilterBar 설계한 후 수정 */}
-          </div>
-          <div className="flex justify-between grid grid-cols-2 grid-rows-2 gap-[2.4rem]">
-            {currentItems.map((data, index) => (
-              <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
-                <ChallengeCard data={data} userId={userId} role={role} />
-              </div>
-            ))}
+            <Image src={btn_request} alt="Request" /> {/* 리퀘스트 버튼 구현 후 수정 */}
           </div>
         </div>
+        <div className="flex justify-between grid grid-cols-2 grid-rows-2 gap-[2.4rem]">
+          {currentItems.map((data, index) => (
+            <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
+              <ChallengeCard data={data} userId={userId} role={role} />
+            </div>
+          ))}
+        </div>
       </div>
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-        hasNext={currentPage < totalPages}
-        type="default"
-      />
+      <div className="mt-[4rem] mb-[2.4rem]">
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          hasNext={currentPage < totalPages}
+          type="default"
+        />
+      </div>
+      <div className="">
+        <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 pt-[2rem] pb-[2.4rem] mb-[2.4rem]">
+          This Month's Challenge
+        </p>
+        <MonthlyRankerCard data={rankerData} />
+      </div>
     </div>
   );
 }
