@@ -1,6 +1,8 @@
 import { fetchChallenge } from '@/api/challengeService';
-import MonthlyChallengeCard from '@/components/Card/MonthlyChallengeCard';
+import ChallengeListClient from '@/components/ClientWrapper/ChallengeListClient';
 
-export default async function ChallengePage() {
+export default async function ChallengeListPage() {
   const initialData = await fetchChallenge();
+
+  return <div>{initialData.length > 0 ? <ChallengeListClient initialData={initialData} /> : <p>Loading...</p>}</div>;
 }

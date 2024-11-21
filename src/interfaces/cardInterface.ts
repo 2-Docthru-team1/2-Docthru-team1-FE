@@ -42,26 +42,29 @@ export interface ChallengeParticipantStatusData {
 }
 
 export interface ChallengeCardProps {
-  data: ChallengeCard | null;
+  data: ChallengeData | null;
   userId: string;
   role: 'admin' | 'normal';
 }
 
-export interface ChallengeCard {
+export interface ChallengeData {
   id: string;
   title: string;
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
   status: 'ongoing' | 'finished' | 'canceled';
   deadline: string;
   requestUserId: string;
+  totalLikes: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface MonthlyChallengeCardProps {
-  data: MonthlyChallengeCard | null;
+  data: MonthlyChallengeData | null;
   role: 'admin' | 'normal';
 }
 
-export interface MonthlyChallengeCard {
+export interface MonthlyChallengeData {
   id: string;
   title: string;
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
