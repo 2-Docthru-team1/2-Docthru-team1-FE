@@ -58,7 +58,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           <div className="relative">
             <Image src={kebab} alt="드롭다운 이미지" onClick={handledropdownClick} className="cursor-pointer" />
             <div className="absolute right-[0] top-[4.4rem]">
-              {dropdownOpen && <CancelDropdown onCancel={handleCancelClick} />}
+              {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
             </div>
           </div>
         )}
