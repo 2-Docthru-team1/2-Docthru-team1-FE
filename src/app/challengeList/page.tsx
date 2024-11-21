@@ -3,7 +3,8 @@ import ChallengeListClient from '@/components/ClientWrapper/ChallengeListClient'
 
 export default async function ChallengeListPage() {
   const { initialData, userId, role } = await fetchChallenge();
-  const { rankerData } = await fetchRanker();
+  const rankerData = await fetchRanker();
+  console.log(rankerData);
 
   return (
     <div>

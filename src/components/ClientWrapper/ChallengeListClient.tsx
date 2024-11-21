@@ -67,9 +67,7 @@ export default function ChallengeListClient({ initialData, rankerData, userId, r
         />
       </div>
       <div className="">
-        <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 pt-[2rem] pb-[2.4rem] mb-[2.4rem]">
-          This Month's Challenge
-        </p>
+        <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 mb-[2.4rem]">This Month's Ranker</p>
         <MonthlyRankerCard data={rankerData} />
       </div>
     </div>
