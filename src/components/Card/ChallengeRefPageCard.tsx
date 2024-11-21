@@ -10,6 +10,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
 
   const handleFirstButtonClick = () => {
     setShowSecondButton(true);
+    setShowIframe(true); // iframe도 같이 보여줌
   };
 
   const handleSecondButtonClick = () => {
@@ -43,13 +44,6 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
         </div>
       )}
       {showIframe && <iframe src={embedUrl} title="Embedded Content" width={640} height="100%" allowFullScreen />}
-      {showSecondButton && showIframe && (
-        <div className="absolute bottom-4 right-4">
-          <button onClick={() => setShowIframe(true)} className="bg-blue-500 text-white px-4 py-2 rounded">
-            Show Iframe
-          </button>
-        </div>
-      )}
     </div>
   );
 }
