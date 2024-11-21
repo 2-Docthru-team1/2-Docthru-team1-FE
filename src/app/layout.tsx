@@ -3,14 +3,13 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Nav from '@/components/Nav/Nav';
 import '../styles/globals.css';
+import ReactQueryProviders from '../../hooks/useReactQuery';
 
 const pretendard = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',
   display: 'swap',
   weight: '45 920'
 });
-
-const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
   title: 'HanCook',
@@ -29,7 +28,7 @@ export default function RootLayout({
       </head>
       <body className={pretendard.className}>
         <Nav userStatus="loggedOut" />
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <ReactQueryProviders>{children}</ReactQueryProviders>
       </body>
     </html>
   );
