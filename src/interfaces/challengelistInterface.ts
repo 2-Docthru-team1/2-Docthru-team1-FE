@@ -1,10 +1,11 @@
-import type { ChallengeData, MonthlyRankerCard } from './cardInterface';
+import type { ChallengeData, MonthlyChallengeData, MonthlyRankerCard } from './cardInterface';
 
 export interface ChallengeListClientProps {
-  initialData: ChallengeData[];
-  rankerData: MonthlyRankerCard[];
+  adminchallengeData: MonthlyChallengeData[];
+  challengeData: ChallengeData[];
   userId: string;
   role: 'admin' | 'normal';
+  rankerData: MonthlyRankerCard[];
 }
 
 export interface ChallengeDetailData {

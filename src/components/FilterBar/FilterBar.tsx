@@ -68,14 +68,14 @@ export default function FilterBar({ type }: FilterBarProps) {
     <div>
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
         <div
-          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}`}
+          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] bg-primary-white ${sortBarType}`}
           onClick={toggleDropdown}
         >
           <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-400">{getSelectedSortLabel()}</p>
           <Image src={filter} alt="깔때기" />
         </div>
         <div
-          className={`h-full border border-gray-200 rounded-[2rem] flex items-center gap-[0.4rem] p-[0.4rem] ${searchBarType}`}
+          className={`h-full border border-gray-200 rounded-[2rem] flex items-center gap-[0.4rem] p-[0.4rem] bg-primary-white ${searchBarType}`}
         >
           <Image src={search} alt="돋보기" />
           <input

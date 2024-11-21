@@ -7,8 +7,14 @@ export const fetchChallenge = async () => {
   // const response = await axios.get('/api/challenges');
   return response.data;
 };
+
 export const fetchRanker = async () => {
   const response = await getRequest('/rankerMockData.json');
+  return response.data;
+};
+
+export const fetchAdminChallenge = async () => {
+  const response = await getRequest('/adminchallengeMockData.json');
   return response.data;
 };
 
