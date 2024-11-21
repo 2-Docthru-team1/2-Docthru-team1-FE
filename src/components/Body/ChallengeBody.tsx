@@ -296,34 +296,14 @@ export default function ChallengeBody() {
   };
 
   const handleAlignment = (alignment: 'left' | 'center' | 'right'): void => {
-    const contentEditable = contentEditableRef.current; // 변수로 정의
+    const contentEditable = contentEditableRef.current;
     if (!contentEditable) return;
-
-    setStyles(prev => ({ ...prev, alignment }));
 
     saveSelection();
 
-    const selection = window.getSelection();
-    if (selection && selection.rangeCount > 0) {
-      const range = selection.getRangeAt(0);
-      let container = range.commonAncestorContainer as HTMLElement;
+    document.execCommand(`justify${alignment.charAt(0).toUpperCase() + alignment.slice(1)}`, false);
 
-      if (container.nodeType === Node.TEXT_NODE) {
-        container = container.parentElement as HTMLElement;
-      }
-
-      let blockContainer = container;
-      while (blockContainer && !['DIV', 'P'].includes(blockContainer.tagName) && blockContainer !== contentEditable) {
-        blockContainer = blockContainer.parentElement as HTMLElement;
-      }
-
-      const targetElement = blockContainer || contentEditable;
-      if (targetElement) {
-        targetElement.style.textAlign = alignment;
-      }
-    } else {
-      contentEditable.style.textAlign = alignment;
-    }
+    setStyles(prev => ({ ...prev, alignment }));
 
     restoreSelection();
   };
