@@ -18,7 +18,7 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
   // NOTE 어드민에게만 보여지게 설정 - {role === 'admin' && (<CancelToggle />)}
   // NOTE challengeId={id} currentStatus={status} onStatusChange={handleStatusChange}
   return (
-    <div className="w-[38.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-primary-beige">
+    <div className="w-[38.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-primary-beige bg-primary-white">
       <div>
         <div className="p-[2.4rem]">
           <div className="flex justify-between items-center">

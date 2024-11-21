@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "name": "Alice Kim",
+    "profileImage": "/assets/img_profile_member.png",
+    "totalLikes": 3288,
+    "role": "Koo-koo"
+  },
+  {
+    "id": "2",
+    "name": "Bob Lee",
+    "profileImage": "/assets/img_profile_member.png",
+    "totalLikes": 2145,
+    "role": "Koo-koo"
+  },
+  {
+    "id": "3",
+    "name": "Charlie Park",
+    "profileImage": "/assets/img_profile_member.png",
+    "totalLikes": 1209,
+    "role": "Koo-koo"
+  }
+]

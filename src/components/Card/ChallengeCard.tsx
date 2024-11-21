@@ -25,7 +25,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
   // NOTE 본인이나 어드민만 보이게 설정 - {role === 'admin' || userId === requestUserId ? (<CancelToggle />) : null}
   // NOTE challengeId={id} currentStatus={status} onStatusChange={handleStatusChange}
   return (
-    <div className="w-[58.8rem] gap-[1rem] rounded-[0.8rem] border-[0.2rem] border-solid border-gray-200">
+    <div className="bg-primary-white w-[58.8rem] gap-[1rem] rounded-[0.8rem] border-[0.2rem] border-solid border-gray-200">
       <div>
         <div className="p-[2.4rem]">
           <div className="flex justify-between items-center">

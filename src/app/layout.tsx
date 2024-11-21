@@ -28,7 +28,9 @@ export default function RootLayout({
       </head>
       <body className={pretendard.className}>
         <Nav userStatus="loggedOut" />
-        <ReactQueryProviders>{children}</ReactQueryProviders>
+        <ReactQueryProviders>
+          <div className="min-h-screen bg-gray-50">{children}</div>
+        </ReactQueryProviders>
       </body>
     </html>
   );
