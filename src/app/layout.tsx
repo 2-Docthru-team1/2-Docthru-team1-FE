@@ -26,7 +26,7 @@ export default function RootLayout({
       </head>
       <body className={pretendard.className}>
         <Nav userStatus="loggedOut" />
-        {children}
+        <div className="min-h-screen bg-gray-50">{children}</div>
       </body>
     </html>
   );
