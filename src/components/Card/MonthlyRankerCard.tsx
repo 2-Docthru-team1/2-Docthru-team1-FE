@@ -17,16 +17,19 @@ export default function MonthlyRankerCard({ data }: MonthlyRankerCardProps) {
       {data.map((ranker, index) => (
         <div
           key={ranker.id}
-          className="w-[39.7rem] gap-[1rem] border-[0.3rem] rounded-[1.2rem] border-solid border-primary-beige"
+          className="w-[39.7rem] gap-[1rem] border-[0.3rem] rounded-[1.2rem] border-solid border-primary-beige bg-primary-white"
         >
           <div className="font-medium m-[2.4rem] flex justify-between">
             <div>
               <div className="flex gap-[1.3rem]">
                 <Image src={rankImages[index]} alt={`${index + 1}위 아이콘`} />
                 <div className="flex gap-[1.6rem]">
-                  <Image src={profile_member} alt="user profile" className="w-[5rem] h-[5rem]" />
-                  {/* 백엔드 연결시 유저 프로필 가져오기
-                    <Image src={ranker.profileImage} alt={`${ranker.name}의 프로필`} className="" /> */}
+                  <Image
+                    src={ranker.profileImage || profile_member}
+                    alt={`${ranker.name}의 프로필`}
+                    width={50} // 이미지 너비
+                    height={50}
+                  />
                   <div className="flex flex-col">
                     <span className="text-[2rem] text-gray-800">{ranker.name}</span>
                     <span className="text-[1.4rem] text-gray-500">{ranker.role}</span>
@@ -34,7 +37,7 @@ export default function MonthlyRankerCard({ data }: MonthlyRankerCardProps) {
                 </div>
               </div>
             </div>
-            <div className="">
+            <div>
               <div className="text-[1.4rem] text-gray-700">Total Likes</div>
               <div className="text-[2rem] text-gray-800">
                 {ranker.totalLikes.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
