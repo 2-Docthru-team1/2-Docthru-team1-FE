@@ -8,7 +8,7 @@ import type { ChallengeListClientProps } from '@/interfaces/challengelistInterfa
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
-export default function RecipeListClient({ initialData, userId, role }: ChallengeListClientProps) {
+export default function ChallengeListClient({ initialData, userId, role }: ChallengeListClientProps) {
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,8 +26,8 @@ export default function RecipeListClient({ initialData, userId, role }: Challeng
     setCurrentPage(page);
   };
 
-  const handleRecipeClick = (id: string) => {
-    router.push(`/challenges/${id}`);
+  const handleChallengeClick = (id: string) => {
+    router.push(`/challengeList/${id}`);
   };
 
   return (
@@ -44,7 +44,7 @@ export default function RecipeListClient({ initialData, userId, role }: Challeng
           </div>
           <div className="grid grid-cols-4 grid-rows-2 gap-[2.4rem]">
             {currentItems.map((data, index) => (
-              <div key={index} onClick={() => handleRecipeClick(data.id)} className="cursor-pointer">
+              <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
                 <ChallengeCard data={data} userId={userId} role={role} />
               </div>
             ))}

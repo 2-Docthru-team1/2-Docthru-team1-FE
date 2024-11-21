@@ -38,7 +38,7 @@ export default function Nav({ userStatus = 'loggedOut' }: NavProps) {
               <p
                 className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem]
                 ${isChallenge ? 'text-primary-blue' : 'text-gray-600'}`}
-                onClick={() => router.push('/challenge')}
+                onClick={() => router.push('/challengeList')}
               >
                 Challenge
               </p>
