@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
@@ -454,7 +456,7 @@ export default function ChallengeBody() {
   };
 
   return (
-    <div>
+    <div className="w-[87.1rem]">
       <div className="flex gap-[1.5rem] mb-4">
         <div className="flex gap-[0.2rem]">
           <button
@@ -550,7 +552,7 @@ export default function ChallengeBody() {
         ref={contentEditableRef}
         contentEditable
         suppressContentEditableWarning
-        className={`w-[118.9rem] h-[26rem] text-[1.6rem] mt-[2.4rem] leading-[2.56rem] focus:outline-none p-4
+        className={`w-[118.9rem] text-[1.6rem] mt-[2.4rem] leading-[2.56rem] focus:outline-none p-4
             ${isPlaceholder ? 'text-gray-200' : 'text-gray-800'}`}
         onInput={handleContentChange}
         onKeyDown={handleKeyDown}

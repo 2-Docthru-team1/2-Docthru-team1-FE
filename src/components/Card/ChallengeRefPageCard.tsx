@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useState } from 'react';
 import click from '@/../public/assets/icon_click.png';
@@ -18,7 +20,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
   };
 
   return (
-    <div className="relative w-full h-[100vh] border border-gray-300 rounded-lg overflow-hidden flex justify-end items-start">
+    <div className="relative w-full h-full rounded-lg overflow-hidden flex justify-end items-start">
       {!showSecondButton ? (
         <div
           className="mt-[7.6rem] w-[5.2rem] h-[9.9rem] flex items-center justify-center rounded-tl-[2.4rem] rounded-bl-[2.4rem] border-2 border-gray-100"
