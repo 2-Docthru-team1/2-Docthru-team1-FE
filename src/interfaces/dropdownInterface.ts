@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export interface DropdownProps {
   isOpen: boolean;
   items: DropdownItem[];
@@ -12,4 +14,5 @@ export interface DropdownItem {
 
 export interface CancelDropdownProps {
   onCancel: () => void;
+  children: ReactNode;
 }
