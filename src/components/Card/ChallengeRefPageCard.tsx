@@ -12,7 +12,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
 
   const handleFirstButtonClick = () => {
     setShowSecondButton(true);
-    setShowIframe(true); // iframe도 같이 보여줌
+    setShowIframe(true);
   };
 
   const handleSecondButtonClick = () => {
