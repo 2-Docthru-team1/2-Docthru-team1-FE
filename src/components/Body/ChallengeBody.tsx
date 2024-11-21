@@ -251,7 +251,7 @@ export default function ChallengeBody() {
   };
 
   const checkCurrentStyles = (): void => {
-    const contentEditable = contentEditableRef.current; // 변수로 정의
+    const contentEditable = contentEditableRef.current;
     if (!contentEditable) return;
 
     const selection = window.getSelection();
@@ -262,18 +262,24 @@ export default function ChallengeBody() {
     if (!parentElement) return;
 
     let alignment: 'left' | 'center' | 'right' = 'left';
-    const style = window.getComputedStyle(parentElement);
-    const textAlign = style.textAlign;
-    if (textAlign === 'center' || textAlign === 'right') {
-      alignment = textAlign;
+
+    // 현재 선택된 요소나 가장 가까운 부모 요소의 정렬 상태 확인
+    let currentElement: Element | null = parentElement;
+    while (currentElement && currentElement !== contentEditable) {
+      const computedStyle = window.getComputedStyle(currentElement);
+      if (computedStyle.textAlign === 'center' || computedStyle.textAlign === 'right') {
+        alignment = computedStyle.textAlign as 'center' | 'right';
+        break;
+      }
+      currentElement = currentElement.parentElement;
     }
 
     setStyles(prev => ({
       ...prev,
+      alignment,
       isBold: document.queryCommandState('bold'),
       isItalic: document.queryCommandState('italic'),
       isUnderline: document.queryCommandState('underline'),
-      alignment,
       currentColor: document.queryCommandValue('foreColor') || prev.currentColor,
       isBulletList: document.queryCommandState('insertUnorderedList'),
       isNumberList: document.queryCommandState('insertOrderedList')
@@ -299,13 +305,47 @@ export default function ChallengeBody() {
     const contentEditable = contentEditableRef.current;
     if (!contentEditable) return;
 
-    saveSelection();
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
 
-    document.execCommand(`justify${alignment.charAt(0).toUpperCase() + alignment.slice(1)}`, false);
+    const range = selection.getRangeAt(0);
 
-    setStyles(prev => ({ ...prev, alignment }));
+    // 전체 선택 범위를 포함하는 가장 가까운 공통 조상 요소
+    const commonAncestor = range.commonAncestorContainer;
+    const parentElement = commonAncestor.nodeType === Node.TEXT_NODE ? commonAncestor.parentElement : (commonAncestor as Element);
 
-    restoreSelection();
+    if (!parentElement) return;
+
+    // 현재 선택된 범위의 시작점과 끝점 기억
+    const startContainer = range.startContainer;
+    const startOffset = range.startOffset;
+    const endContainer = range.endContainer;
+    const endOffset = range.endOffset;
+
+    // 새로운 span 생성
+    const span = document.createElement('span');
+    span.style.textAlign = alignment;
+
+    // 선택된 범위의 내용을 새 span으로 옮김
+    const selectedFragment = range.extractContents();
+    span.appendChild(selectedFragment);
+
+    // span을 원래 위치에 삽입
+    range.insertNode(span);
+
+    // 선택 영역 복원
+    const newRange = document.createRange();
+    newRange.setStart(startContainer, startOffset);
+    newRange.setEnd(endContainer, endOffset);
+
+    selection.removeAllRanges();
+    selection.addRange(newRange);
+
+    // 정렬 상태 업데이트
+    setStyles(prev => ({
+      ...prev,
+      alignment: alignment
+    }));
   };
 
   const handleContentChange = (e: React.FormEvent<HTMLDivElement>): void => {
@@ -347,7 +387,7 @@ export default function ChallengeBody() {
   };
 
   useEffect(() => {
-    const contentEditable = contentEditableRef.current; // 변수로 정의
+    const contentEditable = contentEditableRef.current;
     if (isInitialMount.current && contentEditable) {
       contentEditable.innerHTML = content;
       isInitialMount.current = false;
@@ -442,21 +482,21 @@ export default function ChallengeBody() {
         <div className="flex gap-[0.2rem]">
           <button
             onClick={() => handleAlignment('left')}
-            className={`cursor-pointer p-2 rounded ${styles.alignment === 'left' ? 'bg-gray-200' : ''}`}
+            className={`cursor-pointer p-2 rounded ${styles.alignment === 'left' ? 'bg-gray-200' : 'bg-transparent'}`}
             type="button"
           >
             <Image src={alignLeft} alt="left" />
           </button>
           <button
             onClick={() => handleAlignment('center')}
-            className={`cursor-pointer p-2 rounded ${styles.alignment === 'center' ? 'bg-gray-200' : ''}`}
+            className={`cursor-pointer p-2 rounded ${styles.alignment === 'center' ? 'bg-gray-200' : 'bg-transparent'}`}
             type="button"
           >
             <Image src={alignCenter} alt="center" />
           </button>
           <button
             onClick={() => handleAlignment('right')}
-            className={`cursor-pointer p-2 rounded ${styles.alignment === 'right' ? 'bg-gray-200' : ''}`}
+            className={`cursor-pointer p-2 rounded ${styles.alignment === 'right' ? 'bg-gray-200' : 'bg-transparent'}`}
             type="button"
           >
             <Image src={alignRight} alt="right" />
