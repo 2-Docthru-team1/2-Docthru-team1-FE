@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Nav from '@/components/Nav/Nav';
@@ -8,6 +9,8 @@ const pretendard = localFont({
   display: 'swap',
   weight: '45 920'
 });
+
+const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
   title: 'HanCook',
@@ -26,7 +29,7 @@ export default function RootLayout({
       </head>
       <body className={pretendard.className}>
         <Nav userStatus="loggedOut" />
-        {children}
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       </body>
     </html>
   );
