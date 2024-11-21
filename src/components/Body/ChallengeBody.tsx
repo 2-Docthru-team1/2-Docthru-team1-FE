@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
@@ -65,7 +63,8 @@ export default function ChallengeBody() {
   };
 
   const applyFormatting = (): void => {
-    if (!contentEditableRef.current) return;
+    const contentEditable = contentEditableRef.current; // 변수로 정의
+    if (!contentEditable) return;
 
     const selection = window.getSelection();
     if (!selection || !selection.rangeCount) return;
@@ -82,7 +81,8 @@ export default function ChallengeBody() {
   };
 
   const createListItem = (type: 'bullet' | 'number'): void => {
-    if (!contentEditableRef.current) return;
+    const contentEditable = contentEditableRef.current; // 변수로 정의
+    if (!contentEditable) return;
 
     const selection = window.getSelection();
     if (!selection || !selection.rangeCount) return;
@@ -119,7 +119,8 @@ export default function ChallengeBody() {
   };
 
   const handleListCommand = (type: 'bullet' | 'number') => {
-    if (!contentEditableRef.current) return;
+    const contentEditable = contentEditableRef.current; // 변수로 정의
+    if (!contentEditable) return;
 
     const selection = window.getSelection();
     if (!selection || !selection.rangeCount) return;
@@ -155,11 +156,11 @@ export default function ChallengeBody() {
       const listItem = document.createElement('li');
 
       let currentBlock = container;
-      while (currentBlock && currentBlock !== contentEditableRef.current && !['DIV', 'P'].includes(currentBlock.tagName)) {
+      while (currentBlock && currentBlock !== contentEditable && !['DIV', 'P'].includes(currentBlock.tagName)) {
         currentBlock = currentBlock.parentElement as HTMLElement;
       }
 
-      if (!currentBlock || currentBlock === contentEditableRef.current || !currentBlock.textContent?.trim()) {
+      if (!currentBlock || currentBlock === contentEditable || !currentBlock.textContent?.trim()) {
         listItem.appendChild(document.createElement('br'));
       } else {
         listItem.innerHTML = currentBlock.innerHTML;
@@ -168,8 +169,8 @@ export default function ChallengeBody() {
 
       list.appendChild(listItem);
 
-      if (!currentBlock || currentBlock === contentEditableRef.current) {
-        contentEditableRef.current.appendChild(list);
+      if (!currentBlock || currentBlock === contentEditable) {
+        contentEditable.appendChild(list);
       }
 
       range.selectNodeContents(listItem);
@@ -186,6 +187,9 @@ export default function ChallengeBody() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
+    const contentEditable = contentEditableRef.current; // 변수로 정의
+    if (!contentEditable) return;
+
     if (e.key === 'Enter') {
       if (isPlaceholder) {
         e.preventDefault();
@@ -247,7 +251,8 @@ export default function ChallengeBody() {
   };
 
   const checkCurrentStyles = (): void => {
-    if (!contentEditableRef.current) return;
+    const contentEditable = contentEditableRef.current; // 변수로 정의
+    if (!contentEditable) return;
 
     const selection = window.getSelection();
     if (!selection || selection.rangeCount === 0) return;
@@ -291,7 +296,8 @@ export default function ChallengeBody() {
   };
 
   const handleAlignment = (alignment: 'left' | 'center' | 'right'): void => {
-    if (!contentEditableRef.current) return;
+    const contentEditable = contentEditableRef.current; // 변수로 정의
+    if (!contentEditable) return;
 
     setStyles(prev => ({ ...prev, alignment }));
 
@@ -307,16 +313,16 @@ export default function ChallengeBody() {
       }
 
       let blockContainer = container;
-      while (blockContainer && !['DIV', 'P'].includes(blockContainer.tagName) && blockContainer !== contentEditableRef.current) {
+      while (blockContainer && !['DIV', 'P'].includes(blockContainer.tagName) && blockContainer !== contentEditable) {
         blockContainer = blockContainer.parentElement as HTMLElement;
       }
 
-      const targetElement = blockContainer || contentEditableRef.current;
+      const targetElement = blockContainer || contentEditable;
       if (targetElement) {
         targetElement.style.textAlign = alignment;
       }
     } else {
-      contentEditableRef.current.style.textAlign = alignment;
+      contentEditable.style.textAlign = alignment;
     }
 
     restoreSelection();
@@ -335,7 +341,8 @@ export default function ChallengeBody() {
   };
 
   const handleBgColorChange = (color: string): void => {
-    if (!contentEditableRef.current) return;
+    const contentEditable = contentEditableRef.current; // 변수로 정의
+    if (!contentEditable) return;
 
     restoreSelection();
 
@@ -360,20 +367,9 @@ export default function ChallengeBody() {
   };
 
   useEffect(() => {
-    if (isInitialMount.current && contentEditableRef.current) {
-      contentEditableRef.current.innerHTML = content;
-      isInitialMount.current = false;
-    }
-
-    document.addEventListener('selectionchange', handleSelectionChange);
-    return () => {
-      document.removeEventListener('selectionchange', handleSelectionChange);
-    };
-  }, [content]);
-
-  useEffect(() => {
-    if (isInitialMount.current && contentEditableRef.current) {
-      contentEditableRef.current.innerHTML = content;
+    const contentEditable = contentEditableRef.current; // 변수로 정의
+    if (isInitialMount.current && contentEditable) {
+      contentEditable.innerHTML = content;
       isInitialMount.current = false;
     }
 
@@ -384,8 +380,9 @@ export default function ChallengeBody() {
   }, [content]);
 
   const handleFocus = () => {
-    if (isPlaceholder && contentEditableRef.current) {
-      contentEditableRef.current.innerHTML = '';
+    const contentEditable = contentEditableRef.current; // 변수로 정의
+    if (isPlaceholder && contentEditable) {
+      contentEditable.innerHTML = '';
       setContent('');
       setIsPlaceholder(false);
     }
@@ -393,7 +390,7 @@ export default function ChallengeBody() {
   };
 
   const handleBlur = () => {
-    const contentEditable = contentEditableRef.current;
+    const contentEditable = contentEditableRef.current; // 변수로 정의
     if (contentEditable && contentEditable.innerHTML.trim() === '') {
       contentEditable.innerHTML = 'Please write your challenge...';
       setContent('Please write your challenge...');
@@ -402,7 +399,7 @@ export default function ChallengeBody() {
   };
 
   useEffect(() => {
-    const contentEditable = contentEditableRef.current;
+    const contentEditable = contentEditableRef.current; // 변수로 정의
     if (!contentEditable) return;
 
     contentEditable.addEventListener('focus', handleFocus);
@@ -517,7 +514,7 @@ export default function ChallengeBody() {
               style={{
                 filter: styles.currentColor === '#000000' ? 'none' : 'brightness(0) invert(1)'
               }}
-            />
+            />{' '}
           </button>
           <input
             ref={colorInputRef}
@@ -534,7 +531,7 @@ export default function ChallengeBody() {
         contentEditable
         suppressContentEditableWarning
         className={`w-[118.9rem] h-[26rem] text-[1.6rem] mt-[2.4rem] leading-[2.56rem] focus:outline-none p-4
-          ${isPlaceholder ? 'text-gray-200' : 'text-gray-800'}`}
+            ${isPlaceholder ? 'text-gray-200' : 'text-gray-800'}`}
         onInput={handleContentChange}
         onKeyDown={handleKeyDown}
         style={{
