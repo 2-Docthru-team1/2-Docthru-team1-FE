@@ -67,7 +67,7 @@ export default function Nav({ userStatus = 'loggedOut' }: NavProps) {
             ) : (
               <button
                 className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-[#ffffff]"
-                onClick={() => router.push('/signin')}
+                onClick={() => router.push('/signIn')}
               >
                 Sign in
               </button>
