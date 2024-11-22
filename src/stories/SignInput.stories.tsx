@@ -22,7 +22,7 @@ export const Default = Template.bind({});
 Default.args = {
   type: 'text',
   label: 'Username',
-  placeholder: 'Enter your username'
+  placeholder: 'Please enter your username'
 };
 
 export const EmailInput = Template.bind({});
@@ -36,5 +36,12 @@ export const PasswordInput = Template.bind({});
 PasswordInput.args = {
   type: 'password',
   label: 'Password',
-  placeholder: 'Enter your password'
+  placeholder: 'Please enter your password'
+};
+
+export const ConfirmPasswordInput = Template.bind({});
+ConfirmPasswordInput.args = {
+  type: 'password',
+  label: 'Confirm Password',
+  placeholder: 'Please enter your password again'
 };

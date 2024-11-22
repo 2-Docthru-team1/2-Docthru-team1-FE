@@ -9,26 +9,6 @@ export default function SignIn() {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch('/api/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-      });
-
-      if (response.ok) {
-        // 성공 처리
-        console.log('Sign-in successful!');
-      } else {
-        // 실패 처리
-        console.error('Sign-in failed.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
   };
 
   return (
