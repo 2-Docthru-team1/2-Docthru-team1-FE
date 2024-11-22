@@ -63,7 +63,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
           </div>
         </div>
         <div className="mt-[6.8rem]">
-          <OptionBox type="participate" />
+          <OptionBox type={type} />
         </div>
       </div>
       {isOpen && <ImageEnlargeModal src={food} alt="작업물 이미지" onClose={closeImg} />}

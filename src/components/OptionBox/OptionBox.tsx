@@ -7,6 +7,7 @@ import type { OptionBoxProps } from '@/interfaces/optionboxInterface';
 
 export default function OptionBox({ type }: OptionBoxProps) {
   const participateButtonText = type === 'ongoing' ? 'Keep Participating' : 'Participate Challenge';
+  const bgColor = type === 'finished' ? 'bg-gray-200' : 'bg-primary-beige';
 
   return (
     <div className="w-[28.5rem] h-[17.6rem] rounded-[1.6rem] border-2 border-gray-100 flex items-center justify-center bg-primary-white">
@@ -22,7 +23,9 @@ export default function OptionBox({ type }: OptionBoxProps) {
             </button>
           </Link>
           <Link href="/" className="w-full">
-            <button className="rounded-[0.8rem] bg-primary-beige w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff]">
+            <button
+              className={`rounded-[0.8rem] w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff] ${bgColor}`}
+            >
               {participateButtonText}
             </button>
           </Link>
