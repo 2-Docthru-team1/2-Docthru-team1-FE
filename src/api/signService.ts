@@ -10,12 +10,12 @@ export const signIn = async (email: string, password: string) => {
       password
     });
 
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      throw new Error('Login failed');
-    }
+    const { accessToken } = response.data;
+    localStorage.setItem('accessToken', accessToken);
+
+    return response.data;
   } catch (error) {
-    throw new Error('An error occurred during login.');
+    console.error('Login failed:', error);
+    throw new Error('로그인 실패');
   }
 };
