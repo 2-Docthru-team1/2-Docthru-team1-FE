@@ -94,7 +94,7 @@ export interface ParticipantStatusData {
   updatedAt: string;
   deleteAt: string | null;
   title: string;
-  content: string;
+  description: string;
   likeCount: number;
   likeUsers: string[];
   Feedback: string[];
@@ -129,4 +129,10 @@ export interface ChallengeMostLikedCardData {
   description: string;
   Feedback: string[];
   createdAt: string;
+}
+
+export interface FeedbackData {
+  userNickname: string;
+  createdAt: string;
+  comment: string;
 }

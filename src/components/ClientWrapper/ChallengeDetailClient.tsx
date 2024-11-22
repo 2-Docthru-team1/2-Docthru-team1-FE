@@ -6,6 +6,7 @@ import { fetchChallengeStatus, fetchChallenge_detail } from '@/api/challengeServ
 import type { ParticipantStatusData } from '@/interfaces/cardInterface';
 import type { ChallengeDetailData } from '@/interfaces/challengelistInterface';
 import ChallengeDetailContentCard from '../Card/ChallengeDetailContentCard';
+import ChallengeMostLikedCard from '../Card/ChallengeMostLikedCard';
 import ChallengeParticipateStatus from '../Card/ChallengeParticipateStatus';
 
 export default function ChallengeDetailClient() {
@@ -40,20 +41,39 @@ export default function ChallengeDetailClient() {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="mt-[2rem] flex items-center">
-        <ChallengeDetailContentCard
-          type={medium.status as 'ongoing' | 'finished'}
-          data={{
-            title: medium.title,
-            mediaType: medium.mediaType as 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media',
-            description: medium.description,
-            ownerId: medium.ownerId
-          }}
-        />
-      </div>
-      <div className="mt-[4rem] flex items-center">
-        <ChallengeParticipateStatus data={challengeStatusMedium} />
+    <div className="flex flex-col w-full">
+      <div className="flex mx-auto flex-col">
+        <div className="mt-[2rem] flex">
+          <ChallengeDetailContentCard
+            type={medium.status as 'ongoing' | 'finished'}
+            data={{
+              title: medium.title,
+              mediaType: medium.mediaType as 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media',
+              description: medium.description,
+              ownerId: medium.ownerId
+            }}
+          />
+        </div>
+        {medium.status === 'finished' && (
+          <div className="mt-[4rem] flex">
+            {challengeStatusMedium.length > 0 && (
+              <ChallengeMostLikedCard
+                data={{
+                  title: challengeStatusMedium[0].title,
+                  ownerId: challengeStatusMedium[0].ownerId,
+                  role: challengeStatusMedium[0].role,
+                  likeCount: challengeStatusMedium[0].likeCount,
+                  description: challengeStatusMedium[0].description,
+                  Feedback: challengeStatusMedium[0].Feedback,
+                  createdAt: challengeStatusMedium[0].createdAt
+                }}
+              />
+            )}
+          </div>
+        )}
+        <div className="mt-[4rem] flex mb-[2rem]">
+          <ChallengeParticipateStatus data={challengeStatusMedium} />
+        </div>
       </div>
     </div>
   );
