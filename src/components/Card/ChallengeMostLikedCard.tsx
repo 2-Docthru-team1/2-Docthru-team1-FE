@@ -1,5 +1,7 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
+import arrowUp from '@/../public/assets/ic_view_less_arrow_up.png';
+import arrowDown from '@/../public/assets/ic_view_more_arrow_down.png';
 import heart from '@/../public/assets/icon_heart_inactive_large.png';
 import medal from '@/../public/assets/icon_medal.png';
 import profile from '@/../public/assets/img_profile_member.png';
@@ -9,8 +11,10 @@ import type { ChallengeMostLikedCardProps } from '@/interfaces/cardInterface';
 export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, 'dd/MM/yy HH:mm');
+    return format(date, 'yy/MM/dd HH:mm');
   };
+
+  const rol = data.role === 'normal' ? 'koo-koo' : data.role === 'admin' ? 'admin' : '';
 
   return (
     <div className="flex flex-col w-[88.9rem] border-2 border-gray-100 rounded-[1.6rem] bg-primary-white">
@@ -18,7 +22,7 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
         <Image src={medal} alt="medal" />
         <p className="font-medium text-[1.4rem] leading-[1.671rem] text-[#ffffff]">The Most Liked</p>
       </div>
-      <div className="flex mt-[1.4rem] ml-[1.4rem] justify-between">
+      <div className="flex mt-[1.4rem] ml-[1.4rem] mr-[1.4rem] justify-between">
         <div className="w-[28rem] h-[28.2rem] relative">
           <Image src={food} alt="food" layout="fill" objectFit="cover" />
         </div>
@@ -28,23 +32,23 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
             <div className="flex gap-[1rem] items-center">
               <div className="flex gap-[0.8rem] items-center">
                 <Image src={profile} alt="프로필" />
-                <div>
-                  <p>{data.ownerId}</p>
-                  <p>{data.role}</p>
+                <div className="flex gap-[0.6rem] items-center">
+                  <p className="font-medium text-[1.4rem] leading-[1.671rem]">{data.ownerId}</p>
+                  <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-500">{rol}</p>
                 </div>
               </div>
-              <div>
+              <div className="flex gap-[0.4rem] items-center">
                 <Image src={heart} alt="heart" />
-                <p>{data.likeCount}</p>
+                <p className="font-medium text-[1.4rem] leading-[1.671rem] text-gray-800">{data.likeCount}</p>
               </div>
             </div>
-            <div>
-              <p>{formatDate(data.createdAt)}</p>
+            <div className="flex items-center">
+              <p className="text-medium text-[1.4rem] leading-[1.671rem] text-gray-400">{formatDate(data.createdAt)}</p>
             </div>
           </div>
-          <div /> {/* 직선 */}
-          <div>
-            <p>{data.description}</p>
+          <div className="border border-gray-200 w-full mt-[1.2rem] mb-[1.2rem]" /> {/* 직선 */}
+          <div className="flex">
+            <p className="font-normal text-[1.6rem] leading-[2.56rem] text-gray-800">{data.description}</p>
           </div>
         </div>
       </div>
