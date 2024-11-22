@@ -13,10 +13,7 @@ export interface DropdownProps {
 
 export type CategoryType = 'cuisine' | 'media' | 'status';
 
-export type OnSelectFunction = {
-  (value: string, category: CategoryType): void;
-  (value: string): void;
-};
+export type OnSelectFunction = (value: string | string[], category?: CategoryType) => void;
 
 export interface DropdownItem {
   label: string;

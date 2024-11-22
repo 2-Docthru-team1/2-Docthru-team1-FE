@@ -33,6 +33,20 @@ export default function Dropdown({
     }
   };
 
+  const handleReset = () => {
+    onSelect('', 'cuisine');
+    onSelect('', 'status');
+  };
+
+  const handleApply = () => {
+    console.log('Apply button clicked!');
+    console.log('Selected values:', {
+      cuisine: selectedCuisine,
+      media: selectedMedia,
+      status: selectedStatus
+    });
+  };
+
   const renderItems = () => {
     if (type === 'challenge') {
       const flattenedItems = (items as ChallengeOption[])[0];
@@ -96,10 +110,16 @@ export default function Dropdown({
             ))}
           </div>
           <div className="flex justify-between p-[1.6rem]">
-            <button className="w-[13.4rem] h-[4rem] py-[0.2rem] px-[1.6rem] border border-gray-200 font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700 rounded-[0.8rem]">
+            <button
+              onClick={handleReset}
+              className="w-[13.4rem] h-[4rem] py-[0.2rem] px-[1.6rem] border border-gray-200 font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700 rounded-[0.8rem]"
+            >
               Reset
             </button>
-            <button className="w-[16.9rem] h-[4rem] rounded-[0.8rem] bg-primary-blue font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff]">
+            <button
+              onClick={handleApply}
+              className="w-[16.9rem] h-[4rem] rounded-[0.8rem] bg-primary-blue font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff]"
+            >
               Apply
             </button>
           </div>
