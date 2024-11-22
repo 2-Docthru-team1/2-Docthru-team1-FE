@@ -18,7 +18,8 @@ Default.args = {
   data: {
     title: 'Sample Title',
     mediaType: 'Youtube',
-    content: 'This is a sample content for the challenge detail card.'
+    content: 'This is a sample content for the challenge detail card.',
+    nickname: 'JohnDoe'
   }
 };
 
@@ -28,6 +29,7 @@ WithDifferentType.args = {
   data: {
     title: 'Another Title',
     mediaType: 'Recipe Web',
-    content: 'This is another sample content for the challenge detail card.'
+    content: 'This is another sample content for the challenge detail card.',
+    nickname: 'JaneSmith'
   }
 };

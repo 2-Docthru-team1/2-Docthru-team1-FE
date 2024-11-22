@@ -114,4 +114,5 @@ export interface ChallengeDetailContentCardData {
   title: string;
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
   content: string;
+  nickname: string;
 }
