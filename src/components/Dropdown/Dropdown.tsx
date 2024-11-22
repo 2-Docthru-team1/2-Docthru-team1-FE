@@ -21,8 +21,9 @@ export default function Dropdown({
   type,
   selectedCuisine,
   selectedMedia,
-  selectedStatus
-}: Omit<DropdownProps, 'onSelect'> & { onSelect: OnSelectFunction }) {
+  selectedStatus,
+  onClose
+}: Omit<DropdownProps, 'onSelect'> & { onSelect: OnSelectFunction; onClose: () => void }) {
   const dropdownType = dropdownWidths[type] || '';
 
   const handleSelect = (value: string, category?: CategoryType) => {
@@ -45,6 +46,7 @@ export default function Dropdown({
       media: selectedMedia,
       status: selectedStatus
     });
+    onClose();
   };
 
   const renderItems = () => {

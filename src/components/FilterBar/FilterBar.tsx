@@ -83,8 +83,7 @@ export default function FilterBar({ type }: FilterBarProps) {
     setIsDropdownOpen(prev => !prev);
   };
 
-  const handleSelectSort = (value: string) => {
-    setSelectedSort(value);
+  const handleCloseDropdown = () => {
     setIsDropdownOpen(false);
   };
 
@@ -110,8 +109,6 @@ export default function FilterBar({ type }: FilterBarProps) {
       }
     } else if (category === 'status') {
       setSelectedStatus(value);
-    } else {
-      // category가 없는 경우의 처리
     }
   };
 
@@ -144,6 +141,7 @@ export default function FilterBar({ type }: FilterBarProps) {
           selectedCuisine={selectedCuisine}
           selectedMedia={selectedMedia}
           selectedStatus={selectedStatus}
+          onClose={handleCloseDropdown}
         />
       )}
     </div>
