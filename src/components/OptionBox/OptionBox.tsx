@@ -9,7 +9,7 @@ export default function OptionBox({ type }: OptionBoxProps) {
   const participateButtonText = type === 'ongoing' ? 'Keep Participating' : 'Participate Challenge';
 
   return (
-    <div className="w-[28.5rem] h-[17.6rem] rounded-[1.6rem] border-2 border-gray-100 flex items-center justify-center">
+    <div className="w-[28.5rem] h-[17.6rem] rounded-[1.6rem] border-2 border-gray-100 flex items-center justify-center bg-primary-white">
       <div className="w-[25.3rem] flex flex-col gap-[1.6rem]">
         <div className="flex items-center justify-center gap-[0.4rem]">
           <Image src={clock} alt="시계" />

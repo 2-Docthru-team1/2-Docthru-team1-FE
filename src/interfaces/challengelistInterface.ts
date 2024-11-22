@@ -21,4 +21,5 @@ export interface ChallengeDetailData {
   imageUrl: string[];
   mediaType: string;
   requestUserId: string;
+  ownerId: string;
 }

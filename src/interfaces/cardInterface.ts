@@ -113,6 +113,6 @@ export interface ChallengeDetailContentCardProps {
 export interface ChallengeDetailContentCardData {
   title: string;
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  content: string;
-  nickname: string;
+  description: string;
+  ownerId: string;
 }
