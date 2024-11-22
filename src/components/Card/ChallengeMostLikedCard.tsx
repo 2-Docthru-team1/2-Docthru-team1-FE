@@ -52,6 +52,10 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
           </div>
         </div>
       </div>
+      <div className="flex gap-[0.4rem] items-center justify-center mt-[2rem] mb-[1.5rem]">
+        <p className="font-medium text-[1.6rem] leading-[1.909rem]">View More</p>
+        <Image src={arrowDown} alt="arrow" />
+      </div>
     </div>
   );
 }
