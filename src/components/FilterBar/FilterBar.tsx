@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import filter from '@/../public/assets/ic_filter.png';
+import activeFilter from '@/../public/assets/icon_filter_active.png';
 import search from '@/../public/assets/icon_search.png';
 import type { ChallengeOption, FilterBarProps, Option } from '@/interfaces/filterBarInterface';
 import Dropdown from '../Dropdown/Dropdown';
@@ -13,13 +14,13 @@ const filterBarWidths = {
 
 const sortBarWidths = {
   recipe: 'w-[15.1rem]',
-  challenge: 'w-[12.1rem]',
+  challenge: 'w-[14rem]',
   admin: 'w-[18.1rem]'
 };
 
 const searchBarWidths = {
   recipe: 'w-[52.5rem]',
-  challenge: 'w-[55.5rem]',
+  challenge: 'w-[53.5rem]',
   admin: 'w-[80.1rem]'
 };
 
@@ -79,6 +80,9 @@ export default function FilterBar({ type }: FilterBarProps) {
   const [selectedMedia, setSelectedMedia] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('');
 
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
+  const [selectedCount, setSelectedCount] = useState<number>(0);
+
   const toggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
   };
@@ -88,6 +92,10 @@ export default function FilterBar({ type }: FilterBarProps) {
   };
 
   const getSelectedSortLabel = () => {
+    if (isFilterApplied) {
+      return `Filtered (${selectedCount})`;
+    }
+
     if (type === 'challenge') {
       const flattenedOptions = Object.values(options[0]).flat();
       const selectedOption = flattenedOptions.find((option: Option) => option.value === selectedSort);
@@ -112,15 +120,28 @@ export default function FilterBar({ type }: FilterBarProps) {
     }
   };
 
+  const handleApply = (cuisine: string, media: string[], status: string) => {
+    const count = (cuisine ? 1 : 0) + media.length + (status ? 1 : 0);
+    setSelectedCount(count);
+    setIsFilterApplied(count > 0);
+    handleCloseDropdown();
+  };
+
   return (
     <div>
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
         <div
-          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] bg-primary-white ${sortBarType}`}
+          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}
+            ${isFilterApplied ? 'bg-gray-700' : 'bg-primary-white'}`}
           onClick={toggleDropdown}
         >
-          <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-400">{getSelectedSortLabel()}</p>
-          <Image src={filter} alt="깔때기" />
+          <p
+            className={`font-normal text-[1.6rem] leading-[1.909rem]
+          ${isFilterApplied ? 'text-[#ffffff]' : 'text-gray-400'}`}
+          >
+            {getSelectedSortLabel()}
+          </p>
+          <Image src={isFilterApplied ? activeFilter : filter} alt="깔때기" />
         </div>
         <div
           className={`h-full border border-gray-200 rounded-[2rem] flex items-center gap-[0.4rem] p-[0.4rem] bg-primary-white ${searchBarType}`}
@@ -142,6 +163,7 @@ export default function FilterBar({ type }: FilterBarProps) {
           selectedMedia={selectedMedia}
           selectedStatus={selectedStatus}
           onClose={handleCloseDropdown}
+          onApply={handleApply}
         />
       )}
     </div>

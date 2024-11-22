@@ -22,8 +22,13 @@ export default function Dropdown({
   selectedCuisine,
   selectedMedia,
   selectedStatus,
-  onClose
-}: Omit<DropdownProps, 'onSelect'> & { onSelect: OnSelectFunction; onClose: () => void }) {
+  onClose,
+  onApply
+}: Omit<DropdownProps, 'onSelect'> & {
+  onSelect: OnSelectFunction;
+  onClose: () => void;
+  onApply: (cuisine: string, media: string[], status: string) => void;
+}) {
   const dropdownType = dropdownWidths[type] || '';
 
   const handleSelect = (value: string, category?: CategoryType) => {
@@ -42,10 +47,21 @@ export default function Dropdown({
   const handleApply = () => {
     console.log('Apply button clicked!');
     console.log('Selected values:', {
-      cuisine: selectedCuisine,
+      cuisine: selectedCuisine || '',
       media: selectedMedia,
-      status: selectedStatus
+      status: selectedStatus || ''
     });
+
+    const mediaArray = selectedMedia || [];
+    const selectedCount = (selectedCuisine ? 1 : 0) + mediaArray.length + (selectedStatus ? 1 : 0);
+
+    if (selectedCount > 0) {
+      console.log('At least one selection made.');
+      onApply(selectedCuisine || '', mediaArray, selectedStatus || '');
+    } else {
+      console.log('No selections made.');
+    }
+
     onClose();
   };
 
