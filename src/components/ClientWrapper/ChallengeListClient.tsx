@@ -24,12 +24,10 @@ export default function ChallengeListClient({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
-  const [top, setTop] = useState<MonthlyChallengeData[]>(adminchallengeData);
   const [medium, setMedium] = useState<ChallengeData[]>(challengeData);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const topItems = top.slice(indexOfFirstItem, indexOfLastItem);
   const mediumItems = medium.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(medium.length / itemsPerPage);
@@ -50,7 +48,7 @@ export default function ChallengeListClient({
             This Month's Challenge
           </p>
           <div className="flex gap-[2.55rem]">
-            {topItems.map((data, index) => (
+            {adminchallengeData.map((data, index) => (
               <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
                 <MonthlyChallengeCard data={data} role={role} />
               </div>
