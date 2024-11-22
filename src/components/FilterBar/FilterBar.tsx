@@ -36,7 +36,7 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   ],
   challenge: [
     {
-      cuisine: [
+      view: [
         { label: 'Like Highest', value: '좋아요 높은순' },
         { label: 'Like Lowest', value: '좋아요 낮은순' },
         { label: 'Earliest First', value: '신청 시간 빠른순' },
@@ -76,7 +76,7 @@ export default function FilterBar({ type }: FilterBarProps) {
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const [selectedCuisine, setSelectedCuisine] = useState<string>('');
+  const [selectedView, setSelectedView] = useState<string>('');
   const [selectedMedia, setSelectedMedia] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('');
 
@@ -106,9 +106,9 @@ export default function FilterBar({ type }: FilterBarProps) {
     }
   };
 
-  const handleSelect = (value: string, category?: 'cuisine' | 'media' | 'status') => {
-    if (category === 'cuisine') {
-      setSelectedCuisine(value);
+  const handleSelect = (value: string, category?: 'view' | 'media' | 'status') => {
+    if (category === 'view') {
+      setSelectedView(value);
     } else if (category === 'media') {
       if (selectedMedia?.includes(value)) {
         setSelectedMedia(selectedMedia.filter(item => item !== value));
@@ -120,8 +120,8 @@ export default function FilterBar({ type }: FilterBarProps) {
     }
   };
 
-  const handleApply = (cuisine: string, media: string[], status: string) => {
-    const count = (cuisine ? 1 : 0) + media.length + (status ? 1 : 0);
+  const handleApply = (view: string, media: string[], status: string) => {
+    const count = (view ? 1 : 0) + media.length + (status ? 1 : 0);
     setSelectedCount(count);
     setIsFilterApplied(count > 0);
     handleCloseDropdown();
@@ -159,7 +159,7 @@ export default function FilterBar({ type }: FilterBarProps) {
           items={options}
           onSelect={handleSelect}
           type={type}
-          selectedCuisine={selectedCuisine}
+          selectedView={selectedView}
           selectedMedia={selectedMedia}
           selectedStatus={selectedStatus}
           onClose={handleCloseDropdown}

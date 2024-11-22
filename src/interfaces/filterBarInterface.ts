@@ -8,7 +8,7 @@ export interface Option {
 }
 
 export interface ChallengeOption {
-  cuisine: Option[];
+  view: Option[];
   media: Option[];
   status: Option[];
 }

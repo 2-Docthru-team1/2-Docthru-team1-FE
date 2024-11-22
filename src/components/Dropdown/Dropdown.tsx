@@ -19,7 +19,7 @@ export default function Dropdown({
   items,
   onSelect,
   type,
-  selectedCuisine,
+  selectedView,
   selectedMedia,
   selectedStatus,
   onClose,
@@ -27,7 +27,7 @@ export default function Dropdown({
 }: Omit<DropdownProps, 'onSelect'> & {
   onSelect: OnSelectFunction;
   onClose: () => void;
-  onApply: (cuisine: string, media: string[], status: string) => void;
+  onApply: (view: string, media: string[], status: string) => void;
 }) {
   const dropdownType = dropdownWidths[type] || '';
 
@@ -40,16 +40,16 @@ export default function Dropdown({
   };
 
   const handleReset = () => {
-    onSelect('', 'cuisine');
+    onSelect('', 'view');
     onSelect('', 'status');
   };
 
   const handleApply = () => {
     const mediaArray = selectedMedia || [];
-    const selectedCount = (selectedCuisine ? 1 : 0) + mediaArray.length + (selectedStatus ? 1 : 0);
+    const selectedCount = (selectedView ? 1 : 0) + mediaArray.length + (selectedStatus ? 1 : 0);
 
     if (selectedCount > 0) {
-      onApply(selectedCuisine || '', mediaArray, selectedStatus || '');
+      onApply(selectedView || '', mediaArray, selectedStatus || '');
     }
 
     onClose();
@@ -58,7 +58,7 @@ export default function Dropdown({
   const renderItems = () => {
     if (type === 'challenge') {
       const flattenedItems = (items as ChallengeOption[])[0];
-      const { cuisine, media, status } = flattenedItems;
+      const { view, media, status } = flattenedItems;
 
       return [
         <div className="w-full border-2 border-gray-200 rounded-[0.8rem]">
@@ -66,16 +66,16 @@ export default function Dropdown({
             <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700">Sort</p>
             <Image src={close} alt="닫기" />
           </div>
-          <div key="cuisine-section" className="py-[1.2rem] px-[1.6rem]">
+          <div key="view-section" className="py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
               View Option Type
             </div>
-            {cuisine.map(item => (
+            {view.map(item => (
               <div className="flex mb-[1.2rem] items-center gap-[0.4rem]">
-                <Image src={selectedCuisine === item.value ? activeRadio : inactiveRadio} alt="radio" />
+                <Image src={selectedView === item.value ? activeRadio : inactiveRadio} alt="radio" />
                 <p
-                  key={`cuisine-${item.value}`}
-                  onClick={() => onSelect(item.value, 'cuisine')}
+                  key={`view-${item.value}`}
+                  onClick={() => onSelect(item.value, 'view')}
                   className={`w-full font-normal text-[1.4rem] leading-[1.671rem] text-gray-700 items-center flex cursor-pointer`}
                 >
                   {item.label}
