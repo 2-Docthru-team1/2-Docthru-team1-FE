@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 const SortBar = () => {
-  const [singleSelect, setSingleSelect] = useState<string>(''); // 6개 중 1개 선택
-  const [multiSelect, setMultiSelect] = useState<string[]>([]); // 4개 중 다중 선택
-  const [dualSelect, setDualSelect] = useState<string>(''); // 2개 중 1개 선택
+  const [singleSelect, setSingleSelect] = useState<string>('');
+  const [multiSelect, setMultiSelect] = useState<string[]>([]);
+  const [dualSelect, setDualSelect] = useState<string>('');
 
   const handleSingleSelect = (value: string) => {
     setSingleSelect(value);
@@ -12,9 +12,9 @@ const SortBar = () => {
   const handleMultiSelect = (value: string) => {
     setMultiSelect(prev => {
       if (prev.includes(value)) {
-        return prev.filter(item => item !== value); // 이미 선택된 경우 제거
+        return prev.filter(item => item !== value);
       } else {
-        return [...prev, value]; // 선택되지 않은 경우 추가
+        return [...prev, value];
       }
     });
   };
@@ -70,13 +70,6 @@ const SortBar = () => {
             {option}
           </label>
         ))}
-      </div>
-
-      <div>
-        <h4>선택된 값들:</h4>
-        <p>6개 중 1개: {singleSelect}</p>
-        <p>4개 중 다중 선택: {multiSelect.join(', ')}</p>
-        <p>2개 중 1개: {dualSelect}</p>
       </div>
     </div>
   );

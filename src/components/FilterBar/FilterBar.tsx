@@ -2,25 +2,28 @@ import Image from 'next/image';
 import { useState } from 'react';
 import filter from '@/../public/assets/ic_filter.png';
 import search from '@/../public/assets/icon_search.png';
-import type { FilterBarProps } from '@/interfaces/filterBarInterface';
+import type { ChallengeOption, FilterBarProps, Option } from '@/interfaces/filterBarInterface';
 import Dropdown from '../Dropdown/Dropdown';
 
 const filterBarWidths = {
   recipe: 'w-[69.6rem]',
+  challenge: 'w-[69.6rem]',
   admin: 'w-[99.2rem]'
 };
 
 const sortBarWidths = {
   recipe: 'w-[15.1rem]',
+  challenge: 'w-[12.1rem]',
   admin: 'w-[18.1rem]'
 };
 
 const searchBarWidths = {
   recipe: 'w-[52.5rem]',
+  challenge: 'w-[55.5rem]',
   admin: 'w-[80.1rem]'
 };
 
-const optionsByType = {
+const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   recipe: [
     { label: 'Like Highest', value: '좋아요 높은순' },
     { label: 'Like Lowest', value: '좋아요 낮은순' },
@@ -29,6 +32,28 @@ const optionsByType = {
     { label: 'Noodle', value: '면' },
     { label: 'Dessert', value: '디저트' },
     { label: 'BanChan', value: '반찬' }
+  ],
+  challenge: [
+    {
+      cuisine: [
+        { label: 'Like Highest', value: '좋아요 높은순' },
+        { label: 'Like Lowest', value: '좋아요 낮은순' },
+        { label: 'Earliest First', value: '신청 시간 빠른순' },
+        { label: 'Latest First', value: '신청 시간 느린순' },
+        { label: 'Deadline Earliest', value: '마감 기한 빠른순' },
+        { label: 'Deadline Latest', value: '마감 기한 느린순' }
+      ],
+      media: [
+        { label: 'Youtube', value: '유튜브' },
+        { label: 'Blog', value: '블로그' },
+        { label: 'Recipe Web', value: '레시피 웹' },
+        { label: 'Social Media', value: '소셜미디어' }
+      ],
+      status: [
+        { label: 'On going', value: '진행중' },
+        { label: 'Closed', value: '종료' }
+      ]
+    }
   ],
   admin: [
     { label: 'Pending', value: '승인 대기' },
@@ -50,6 +75,10 @@ export default function FilterBar({ type }: FilterBarProps) {
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const [selectedCuisine, setSelectedCuisine] = useState<string>('');
+  const [selectedMedia, setSelectedMedia] = useState<string[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<string>('');
+
   const toggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
   };
@@ -60,8 +89,28 @@ export default function FilterBar({ type }: FilterBarProps) {
   };
 
   const getSelectedSortLabel = () => {
-    const selectedOption = options.find(option => option.value === selectedSort);
-    return selectedOption ? selectedOption.label : 'Sort';
+    if (type === 'challenge') {
+      const flattenedOptions = Object.values(options[0]).flat();
+      const selectedOption = flattenedOptions.find((option: Option) => option.value === selectedSort);
+      return selectedOption ? selectedOption.label : 'Sort';
+    } else {
+      const selectedOption = (options as Option[]).find(option => option.value === selectedSort);
+      return selectedOption ? selectedOption.label : 'Sort';
+    }
+  };
+
+  const handleSelect = (value: string, category: 'cuisine' | 'media' | 'status') => {
+    switch (category) {
+      case 'cuisine':
+        setSelectedCuisine(value);
+        break;
+      case 'media':
+        setSelectedMedia(prev => (prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]));
+        break;
+      case 'status':
+        setSelectedStatus(value);
+        break;
+    }
   };
 
   return (
@@ -84,7 +133,17 @@ export default function FilterBar({ type }: FilterBarProps) {
           />
         </div>
       </div>
-      {isDropdownOpen && <Dropdown isOpen={isDropdownOpen} items={options} onSelect={handleSelectSort} type={type} />}
+      {isDropdownOpen && (
+        <Dropdown
+          isOpen={isDropdownOpen}
+          items={options}
+          onSelect={handleSelect}
+          type={type}
+          selectedCuisine={selectedCuisine}
+          selectedMedia={selectedMedia}
+          selectedStatus={selectedStatus}
+        />
+      )}
     </div>
   );
 }

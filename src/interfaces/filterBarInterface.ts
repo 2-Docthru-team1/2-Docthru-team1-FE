@@ -1,3 +1,14 @@
 export interface FilterBarProps {
-  type: 'recipe' | 'admin';
+  type: 'recipe' | 'challenge' | 'admin';
+}
+
+export interface Option {
+  label: string;
+  value: string;
+}
+
+export interface ChallengeOption {
+  cuisine: Option[];
+  media: Option[];
+  status: Option[];
 }
