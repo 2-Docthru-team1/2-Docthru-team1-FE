@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import pw_on from '@/../public/assets/icon_ps_vis_on.png';
 import pw_off from '@/../public/assets/icon_pw_vis_off.png';
 import type { SignInputProps } from '@/interfaces/signInterface';

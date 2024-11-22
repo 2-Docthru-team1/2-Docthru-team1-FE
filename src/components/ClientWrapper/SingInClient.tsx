@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SignInput from '../Input/SignInput';
 
 export default function SignIn() {

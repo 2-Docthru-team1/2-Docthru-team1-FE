@@ -1,5 +1,4 @@
 import type { StoryFn } from '@storybook/react';
-import React from 'react';
 import SignInput from '@/components/Input/SignInput';
 import type { SignInputProps } from '@/interfaces/signInterface';
 
