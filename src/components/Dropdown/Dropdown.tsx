@@ -1,4 +1,4 @@
-import type { DropdownProps } from '@/interfaces/dropdownInterface';
+import type { CategoryType, DropdownProps, OnSelectFunction } from '@/interfaces/dropdownInterface';
 import type { ChallengeOption, Option } from '@/interfaces/filterBarInterface';
 
 const dropdownWidths = {
@@ -6,13 +6,6 @@ const dropdownWidths = {
   recipe: 'w-[15.1rem]',
   challenge: 'w-[34.3rem]',
   admin: 'w-[16.3rem]'
-};
-
-type CategoryType = 'cuisine' | 'media' | 'status';
-
-type OnSelectFunction = {
-  (value: string, category: CategoryType): void;
-  (value: string): void;
 };
 
 export default function Dropdown({
@@ -23,7 +16,7 @@ export default function Dropdown({
   selectedCuisine,
   selectedMedia,
   selectedStatus
-}: DropdownProps) {
+}: Omit<DropdownProps, 'onSelect'> & { onSelect: OnSelectFunction }) {
   const dropdownType = dropdownWidths[type] || '';
 
   const handleSelect = (value: string, category?: CategoryType) => {

@@ -99,17 +99,19 @@ export default function FilterBar({ type }: FilterBarProps) {
     }
   };
 
-  const handleSelect = (value: string, category: 'cuisine' | 'media' | 'status') => {
-    switch (category) {
-      case 'cuisine':
-        setSelectedCuisine(value);
-        break;
-      case 'media':
-        setSelectedMedia(prev => (prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]));
-        break;
-      case 'status':
-        setSelectedStatus(value);
-        break;
+  const handleSelect = (value: string, category?: 'cuisine' | 'media' | 'status') => {
+    if (category === 'cuisine') {
+      setSelectedCuisine(value);
+    } else if (category === 'media') {
+      if (selectedMedia?.includes(value)) {
+        setSelectedMedia(selectedMedia.filter(item => item !== value));
+      } else {
+        setSelectedMedia([...(selectedMedia || []), value]);
+      }
+    } else if (category === 'status') {
+      setSelectedStatus(value);
+    } else {
+      // category가 없는 경우의 처리
     }
   };
 
