@@ -17,12 +17,12 @@ export default function OptionBox({ type }: OptionBoxProps) {
           <p className="font-normal text-[1.3rem] leading-[1.551rem] text-gray-600">Closing on 2024-03-03</p>
         </div>
         <div className="flex flex-col items-center gap-[0.8rem] w-[25.3rem]">
-          <Link href="/" className="w-full">
+          <Link href="https://www.example.com" className="w-full">
             <button className="rounded-[0.8rem] bg-primary-blue w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff]">
               See Content
             </button>
           </Link>
-          <Link href="/" className="w-full">
+          <Link href="/edit" className="w-full">
             <button
               className={`rounded-[0.8rem] w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff] ${bgColor}`}
             >
