@@ -5,14 +5,17 @@
     "updatedAt": "2024-11-18T00:00:00.000Z",
     "deleteAt": null,
     "title": "title 1",
-    "content": "content 1",
+    "description": "content 1",
     "likeCount": 15,
     "likeUsers": [],
-    "Feedback": ["Great content!", "Very useful.", "Would recommend to others."],
+    "Feedback": [
+      { "userNickname": "Alice", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Great content!" },
+      { "userNickname": "Alice", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Very useful." },
+      { "userNickname": "Alice", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Would recommend to others." }
+    ],
     "ownerId": "b1a2d3e4-f5b6-7c8d-9a0b-1c2d3e4f5a6",
     "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
     "images": ["/temporaryAssets/food.svg"],
-    "nickname": "Alice",
     "role": "normal"
   },
   {
@@ -21,14 +24,16 @@
     "updatedAt": "2024-11-18T00:00:00.000Z",
     "deleteAt": null,
     "title": "title 2",
-    "content": "content 2",
+    "description": "content 2",
     "likeCount": 12,
     "likeUsers": [],
-    "Feedback": ["Informative!", "Helped me a lot."],
+    "Feedback": [
+      { "userNickname": "Bob", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Informative!" },
+      { "userNickname": "Bob", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Helped me a lot." }
+    ],
     "ownerId": "c7d8e9f0-1a2b-3c4d-5e6f-7g8h9i0j1k2l",
     "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
     "images": ["/temporaryAssets/food.svg"],
-    "nickname": "Bob",
     "role": "normal"
   },
   {
@@ -37,14 +42,16 @@
     "updatedAt": "2024-11-18T00:00:00.000Z",
     "deleteAt": null,
     "title": "title 3",
-    "content": "content 3",
+    "description": "content 3",
     "likeCount": 10,
     "likeUsers": [],
-    "Feedback": ["Very insightful.", "I learned something new."],
+    "Feedback": [
+      { "userNickname": "Charlie", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Very insightful." },
+      { "userNickname": "Charlie", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "I learned something new." }
+    ],
     "ownerId": "n1o2p3q4-r5s6-t7u8-v9w0-x1y2z3a4b5c6",
     "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
     "images": ["/temporaryAssets/food.svg"],
-    "nickname": "Charlie",
     "role": "normal"
   },
   {
@@ -53,14 +60,13 @@
     "updatedAt": "2024-11-18T00:00:00.000Z",
     "deleteAt": null,
     "title": "title 4",
-    "content": "content 4",
+    "description": "content 4",
     "likeCount": 8,
     "likeUsers": [],
-    "Feedback": ["Interesting perspective."],
+    "Feedback": [{ "userNickname": "David", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Interesting perspective." }],
     "ownerId": "d7e8f9g0-h1i2-j3k4-l5m6-n7o8p9q0r1s2",
     "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
     "images": ["/temporaryAssets/food.svg"],
-    "nickname": "David",
     "role": "normal"
   },
   {
@@ -69,14 +75,13 @@
     "updatedAt": "2024-11-18T00:00:00.000Z",
     "deleteAt": null,
     "title": "title 5",
-    "content": "content 5",
+    "description": "content 5",
     "likeCount": 5,
     "likeUsers": [],
-    "Feedback": ["Could use more examples."],
+    "Feedback": [{ "userNickname": "Eva", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Could use more examples." }],
     "ownerId": "e3f4g5h6-i7j8-k9l0-m1n2-o3p4q5r6s7t8",
     "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
     "images": ["/temporaryAssets/food.svg"],
-    "nickname": "Eva",
     "role": "normal"
   },
   {
@@ -85,14 +90,16 @@
     "updatedAt": "2024-11-18T00:00:00.000Z",
     "deleteAt": null,
     "title": "title 6",
-    "content": "content 6",
+    "description": "content 6",
     "likeCount": 3,
     "likeUsers": [],
-    "Feedback": ["Needs more depth.", "Not very clear."],
+    "Feedback": [
+      { "userNickname": "Frank", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Needs more depth." },
+      { "userNickname": "Frank", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Not very clear." }
+    ],
     "ownerId": "f0g1h2i3-j4k5-l6m7-n8o9-p0q1r2s3t4u5",
     "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
     "images": ["/temporaryAssets/food.svg"],
-    "nickname": "Frank",
     "role": "normal"
   },
   {
@@ -101,14 +108,13 @@
     "updatedAt": "2024-11-18T00:00:00.000Z",
     "deleteAt": null,
     "title": "title 7",
-    "content": "content 7",
+    "description": "content 7",
     "likeCount": 1,
     "likeUsers": [],
-    "Feedback": ["Not very engaging."],
+    "Feedback": [{ "userNickname": "Grace", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Not very engaging." }],
     "ownerId": "h1i2j3k4-l5m6-n7o8-p9q0-r1s2t3u4v5w6",
     "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
     "images": ["/temporaryAssets/food.svg"],
-    "nickname": "Grace",
     "role": "normal"
   },
   {
@@ -117,14 +123,13 @@
     "updatedAt": "2024-11-18T00:00:00.000Z",
     "deleteAt": null,
     "title": "title 8",
-    "content": "content 8",
+    "description": "content 8",
     "likeCount": 0,
     "likeUsers": [],
     "Feedback": [],
     "ownerId": "j2k3l4m5-n6o7-p8q9-r0s1-t2u3v4w5x6y7",
     "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
     "images": ["/temporaryAssets/food.svg"],
-    "nickname": "Hannah",
     "role": "normal"
   }
 ]

@@ -116,3 +116,17 @@ export interface ChallengeDetailContentCardData {
   description: string;
   ownerId: string;
 }
+
+export interface ChallengeMostLikedCardProps {
+  data: ChallengeMostLikedCardData;
+}
+
+export interface ChallengeMostLikedCardData {
+  title: string;
+  ownerId: string;
+  role: string;
+  likeCount: number;
+  description: string;
+  Feedback: string[];
+  createdAt: string;
+}
