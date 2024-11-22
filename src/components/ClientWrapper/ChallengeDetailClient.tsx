@@ -27,7 +27,7 @@ export default function ChallengeDetailClient() {
   useEffect(() => {
     if (typeof id === 'string') {
       const getChallengeStatus = async () => {
-        const data = await fetchChallengeStatus();
+        const data = (await fetchChallengeStatus()) as ParticipantStatusData[];
         console.log('status', data);
         setChallengeStatusMedium(data);
       };
@@ -40,8 +40,8 @@ export default function ChallengeDetailClient() {
   }
 
   return (
-    <div>
-      <div>
+    <div className="flex flex-col items-center">
+      <div className="mt-[2rem] flex items-center">
         <ChallengeDetailContentCard
           type={medium.status as 'ongoing' | 'finished'}
           data={{
@@ -52,7 +52,7 @@ export default function ChallengeDetailClient() {
           }}
         />
       </div>
-      <div>
+      <div className="mt-[4rem] flex items-center">
         <ChallengeParticipateStatus data={challengeStatusMedium} />
       </div>
     </div>
