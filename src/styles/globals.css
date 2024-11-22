@@ -34,3 +34,7 @@ html {
   color: #a3a3a3 !important;
   font-style: normal !important;
 }
+
+.shadow-sm {
+  box-shadow: none !important;
+}

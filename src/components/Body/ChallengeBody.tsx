@@ -93,13 +93,6 @@ export default function ChallengeBody() {
         </div>
         <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*" />
       </div>
-
-      {/* CSS 스타일 추가: Quill 주변 테두리 제거 */}
-      <style jsx>{`
-        .ql-snow {
-          border: none !important; /* Quill 컨테이너의 테두리 제거 */
-        }
-      `}</style>
     </div>
   );
 }
