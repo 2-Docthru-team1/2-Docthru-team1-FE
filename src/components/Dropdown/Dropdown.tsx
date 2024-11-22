@@ -1,3 +1,9 @@
+import Image from 'next/image';
+import activeCheckBox from '@/../public/assets/btn_active_checkbox.png';
+import inActiveCheckBox from '@/../public/assets/btn_inactive_checkbox.png';
+import activeRadio from '@/../public/assets/btn_radio_checked.png';
+import inactiveRadio from '@/../public/assets/btn_radio_unchecked.png';
+import close from '@/../public/assets/ic_out.png';
 import type { CategoryType, DropdownProps, OnSelectFunction } from '@/interfaces/dropdownInterface';
 import type { ChallengeOption, Option } from '@/interfaces/filterBarInterface';
 
@@ -33,48 +39,70 @@ export default function Dropdown({
       const { cuisine, media, status } = flattenedItems;
 
       return [
-        <div key="cuisine-section" className="w-full">
-          <div className="px-4 py-2 bg-gray-100 text-gray-600 text-sm">Cuisine</div>
-          {cuisine.map((item, index) => (
-            <p
-              key={`cuisine-${item.value}`}
-              onClick={() => onSelect(item.value, 'cuisine')}
-              className={`w-full py-[1.2rem] font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 items-center flex justify-center cursor-pointer
-              ${selectedCuisine === item.value ? 'bg-blue-50' : ''}
-              ${index < cuisine.length - 1 ? 'border-b border-gray-300' : ''}`}
-            >
-              {item.label}
-            </p>
-          ))}
-        </div>,
-        <div key="media-section" className="w-full">
-          <div className="px-4 py-2 bg-gray-100 text-gray-600 text-sm">Media</div>
-          {media.map((item, index) => (
-            <p
-              key={`media-${item.value}`}
-              onClick={() => onSelect(item.value, 'media')}
-              className={`w-full py-[1.2rem] font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 items-center flex justify-center cursor-pointer
-              ${selectedMedia?.includes(item.value) ? 'bg-blue-50' : ''}
-              ${index < media.length - 1 ? 'border-b border-gray-300' : ''}`}
-            >
-              {item.label}
-              {selectedMedia?.includes(item.value) && <span className="ml-2">✓</span>}
-            </p>
-          ))}
-        </div>,
-        <div key="status-section" className="w-full">
-          <div className="px-4 py-2 bg-gray-100 text-gray-600 text-sm">Status</div>
-          {status.map((item, index) => (
-            <p
-              key={`status-${item.value}`}
-              onClick={() => onSelect(item.value, 'status')}
-              className={`w-full py-[1.2rem] font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 items-center flex justify-center cursor-pointer
-              ${selectedStatus === item.value ? 'bg-blue-50' : ''}
-              ${index < status.length - 1 ? 'border-b border-gray-300' : ''}`}
-            >
-              {item.label}
-            </p>
-          ))}
+        <div className="w-full border-2 border-gray-200 rounded-[0.8rem]">
+          <div className="flex justify-between px-[1.6rem] pt-[1.6rem]">
+            <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700">Sort</p>
+            <Image src={close} alt="닫기" />
+          </div>
+          <div key="cuisine-section" className="py-[1.2rem] px-[1.6rem]">
+            <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
+              View Option Type
+            </div>
+            {cuisine.map(item => (
+              <div className="flex mb-[1.2rem] items-center gap-[0.4rem]">
+                <Image src={selectedCuisine === item.value ? activeRadio : inactiveRadio} alt="radio" />
+                <p
+                  key={`cuisine-${item.value}`}
+                  onClick={() => onSelect(item.value, 'cuisine')}
+                  className={`w-full font-normal text-[1.4rem] leading-[1.671rem] text-gray-700 items-center flex cursor-pointer`}
+                >
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="border border-gray-200 w-full" />
+          <div key="media-section" className="w-full py-[1.2rem] px-[1.6rem]">
+            <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
+              Recipe Media Type
+            </div>
+            {media.map(item => (
+              <div className="flex items-center gap-[0.4rem] mb-[1.2rem]">
+                <Image src={selectedMedia?.includes(item.value) ? activeCheckBox : inActiveCheckBox} alt="checkbox" />
+                <p
+                  key={`media-${item.value}`}
+                  onClick={() => onSelect(item.value, 'media')}
+                  className={`w-full font-normal text-[1.4rem] leading-[1.671rem] text-gray-700 items-center flex cursor-pointer`}
+                >
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="border border-gray-200 w-full" />
+          <div key="status-section" className="w-full py-[1.2rem] px-[1.6rem]">
+            <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">Status</div>
+            {status.map(item => (
+              <div className="flex mb-[1.2rem] items-center gap-[0.4rem]">
+                <Image src={selectedStatus === item.value ? activeRadio : inactiveRadio} alt="radio" />
+                <p
+                  key={`status-${item.value}`}
+                  onClick={() => onSelect(item.value, 'status')}
+                  className={`w-full font-normal text-[1.4rem] leading-[1.671rem] text-gray-700 items-center flex cursor-pointer`}
+                >
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between p-[1.6rem]">
+            <button className="w-[13.4rem] h-[4rem] py-[0.2rem] px-[1.6rem] border border-gray-200 font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700 rounded-[0.8rem]">
+              Reset
+            </button>
+            <button className="w-[16.9rem] h-[4rem] rounded-[0.8rem] bg-primary-blue font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff]">
+              Apply
+            </button>
+          </div>
         </div>
       ];
     } else {
