@@ -1,4 +1,3 @@
-// src/components/OptionBox.stories.tsx
 import type { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 import OptionBox from '@/components/OptionBox/OptionBox';
