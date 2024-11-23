@@ -3,3 +3,9 @@ export interface UserData {
   name: string;
   role: string;
 }
+
+export interface SingInData {
+  email: string;
+  name: string;
+  password: string;
+}

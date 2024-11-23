@@ -6,6 +6,31 @@ body {
   color: #111827;
   font-family: Pretendard;
 }
+
 html {
   font-size: 62.5%;
+}
+
+.ql-snow {
+  border: none !important;
+}
+
+.ql-editor {
+  border: none !important;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25.6px;
+  color: #262626;
+}
+
+.ql-snow .ql-tooltip {
+  border: none !important;
+}
+
+.ql-editor::before {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25.6px;
+  color: #a3a3a3 !important;
+  font-style: normal !important;
 }

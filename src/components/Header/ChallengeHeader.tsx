@@ -3,7 +3,7 @@ import door from '@/../public/assets/icon_red_door.png';
 
 export default function ChallengeHeader() {
   return (
-    <div className="flex flex-col w-[118.9rem] items-center mt-[3.6rem]">
+    <div className="flex flex-col w-[87.1rem] items-center mt-[3.6rem]">
       <div className="flex w-full h-[4rem] justify-between">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">Write your challenge</p>
         <div className="flex gap-[0.8rem]">

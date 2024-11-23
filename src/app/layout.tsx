@@ -1,7 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+// app/layout.tsx
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Nav from '@/components/Nav/Nav';
+import { UserProvider, useUserStatus } from '@/context/UserContext';
 import '../styles/globals.css';
 import ReactQueryProviders from '../../hooks/useReactQuery';
 
@@ -27,9 +28,11 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={pretendard.className}>
-        <Nav userStatus="loggedOut" />
         <ReactQueryProviders>
-          <div className="min-h-screen bg-gray-50">{children}</div>
+          <UserProvider>
+            <Nav />
+            <div className="min-h-screen bg-gray-50">{children}</div>
+          </UserProvider>
         </ReactQueryProviders>
       </body>
     </html>

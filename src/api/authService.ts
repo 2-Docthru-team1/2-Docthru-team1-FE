@@ -1,11 +1,7 @@
-import { getRequest, postRequest } from './api';
+import type { SingInData } from '@/interfaces/userInterface';
+import { postRequest } from './api';
 
-export const getUser = async () => {
-  const res = await getRequest(`/auth/me`);
-  return res.data;
-};
-
-export const signup = async (email: string, name: string, password: string) => {
-  const res = await postRequest(`/auth/signUp`, { email, name, password });
+export const signUp = async (userData: SingInData) => {
+  const res = await postRequest(`/auth/signUp`, userData);
   return res.data;
 };
