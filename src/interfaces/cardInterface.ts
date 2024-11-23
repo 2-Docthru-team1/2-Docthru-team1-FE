@@ -92,7 +92,7 @@ export interface ParticipantStatusData {
   updatedAt: string;
   deleteAt: string | null;
   title: string;
-  content: string;
+  description: string;
   likeCount: number;
   likeUsers: string[];
   Feedback: string[];
@@ -111,6 +111,26 @@ export interface ChallengeDetailContentCardProps {
 export interface ChallengeDetailContentCardData {
   title: string;
   mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  content: string;
-  nickname: string;
+  description: string;
+  ownerId: string;
+}
+
+export interface ChallengeMostLikedCardProps {
+  data: ChallengeMostLikedCardData;
+}
+
+export interface ChallengeMostLikedCardData {
+  title: string;
+  ownerId: string;
+  role: string;
+  likeCount: number;
+  description: string;
+  Feedback: string[];
+  createdAt: string;
+}
+
+export interface FeedbackData {
+  userNickname: string;
+  createdAt: string;
+  comment: string;
 }

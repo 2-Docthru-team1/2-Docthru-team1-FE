@@ -23,7 +23,7 @@ export default function ChallengeParticipateStatus({ data }: ChallengeParticipat
   };
 
   return (
-    <div className="w-[120.4rem] rounded-[0.8rem] border border-gray-200 gap-[2rem] py-[1.9rem] px-[1.6rem]">
+    <div className="w-[120.4rem] rounded-[0.8rem] border border-gray-200 gap-[2rem] py-[1.9rem] px-[1.6rem] bg-primary-white">
       <div className="flex items-center justify-between gap-[2rem]">
         <p className="font-semibold	text-[1.6rem] leading-[1.909rem] text-gray-800">Participant Status</p>
         <Pagination
