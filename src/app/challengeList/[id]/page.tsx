@@ -1,9 +1,5 @@
-const ChallengeDetailPage = () => {
-  return (
-    <div>
-      <h1>Challenge Details</h1>
-    </div>
-  );
-};
+import ChallengeDetailClient from '@/components/ClientWrapper/ChallengeDetailClient';
 
-export default ChallengeDetailPage;
+export default function ChallengeDetailPage() {
+  return <ChallengeDetailClient />;
+}

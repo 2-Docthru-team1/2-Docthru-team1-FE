@@ -19,7 +19,7 @@ export const fetchAdminChallenge = async () => {
 
 export const fetchChallenge_detail = async (id: string) => {
   const response = await getRequest(`/challengeMockData.json`);
-  const challenge = response.data.find((item: { id: number }) => item.id === parseInt(id));
+  const challenge = response.data.challengeData.find((item: { id: string }) => item.id === id);
   return challenge;
 };
 
