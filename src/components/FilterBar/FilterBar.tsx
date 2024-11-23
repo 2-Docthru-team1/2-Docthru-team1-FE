@@ -4,6 +4,7 @@ import filter from '@/../public/assets/ic_filter.png';
 import activeFilter from '@/../public/assets/icon_filter_active.png';
 import search from '@/../public/assets/icon_search.png';
 import type { ChallengeOption, FilterBarProps, Option } from '@/interfaces/filterBarInterface';
+import useStore from '@/store/store';
 import Dropdown from '../Dropdown/Dropdown';
 
 const filterBarWidths = {
@@ -67,7 +68,9 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   ]
 };
 
-export default function FilterBar({ type, keyword, category, onKeywordChange, onCategoryChange, onFilterApply }: FilterBarProps) {
+export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
+  const { keyword, category, setKeyword, setCategory } = useStore();
+
   const filterBarType = filterBarWidths[type] || '';
   const sortBarType = sortBarWidths[type] || '';
   const searchBarType = searchBarWidths[type] || '';
@@ -151,23 +154,11 @@ export default function FilterBar({ type, keyword, category, onKeywordChange, on
             className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 placeholder:text-gray-400 flex items-center w-full focus:outline-none"
             placeholder="Search recipe"
             value={keyword}
-            onChange={e => onKeywordChange(e.target.value)}
+            onChange={e => setKeyword(e.target.value)}
           />
         </div>
       </div>
-      {isDropdownOpen && (
-        <Dropdown
-          isOpen={isDropdownOpen}
-          items={options}
-          onSelect={handleSelect}
-          type={type}
-          selectedView={selectedView}
-          selectedMedia={selectedMedia}
-          selectedStatus={selectedStatus}
-          onClose={handleCloseDropdown}
-          onApply={handleApply}
-        />
-      )}
+      {isDropdownOpen && <Dropdown isOpen={isDropdownOpen} items={options} onSelect={handleSelect} type={type} />}
     </div>
   );
 }

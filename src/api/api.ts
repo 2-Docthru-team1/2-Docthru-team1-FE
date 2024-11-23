@@ -53,6 +53,6 @@ export async function postRequest(url: string, body: object = {}) {
 export async function patchRequest(url: string, body: object = {}) {
   return instance.patch(url, body);
 }
-export async function removeRequest(url: string) {
+export async function deleteRequest(url: string) {
   return instance.delete(url);
 }

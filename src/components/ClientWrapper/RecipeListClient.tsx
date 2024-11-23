@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 import RecipeCard from '@/components/Card/RecipeCard';
 import type { RecipeData } from '@/interfaces/cardInterface';
 import type { RecipeListClientProps } from '@/interfaces/recipelistInterface';
+import useStore from '@/store/store';
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
 export default function RecipeListClient({ initialData, initialKeyword, initialCategory }: RecipeListClientProps) {
   const router = useRouter();
-  const [keyword, setKeyword] = useState<string>(initialKeyword);
-  const [category, setCategory] = useState<string>(initialCategory);
+  const { keyword, category, setKeyword, setCategory } = useStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -57,8 +57,6 @@ export default function RecipeListClient({ initialData, initialKeyword, initialC
             <p className="font-bold text-[2rem] leading-[3.2rem] text-gray-700">Recipe</p>
             <FilterBar
               type="recipe"
-              keyword={keyword}
-              category={category}
               onKeywordChange={setKeyword}
               onCategoryChange={setCategory}
               onFilterApply={handleFilterChange}
