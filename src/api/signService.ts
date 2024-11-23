@@ -6,10 +6,10 @@ interface LoginCredentials {
 }
 
 export const signIn = async (credentials: LoginCredentials) => {
-  const url = 'http://15.165.57.191/auth/signIn';
+  const endpoint = '/auth/signIn';
 
   try {
-    const response = await postRequest(url, credentials);
+    const response = await postRequest(endpoint, credentials);
 
     localStorage.setItem('accessToken', response.data.accessToken);
 

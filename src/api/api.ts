@@ -40,16 +40,8 @@ instance.interceptors.response.use(
   }
 );
 
-const getToken = () => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('accessToken');
-  }
-  return null;
-};
-
 interface CustomAxiosRequestConfig {
   params?: object;
-  headers?: object;
 }
 
 export function getRequest(url: string, params: object = {}) {
