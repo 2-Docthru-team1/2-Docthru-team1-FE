@@ -29,7 +29,6 @@ export default function ChallengeDetailClient() {
     if (typeof id === 'string') {
       const getChallengeStatus = async () => {
         const data = (await fetchChallengeStatus()) as ParticipantStatusData[];
-        console.log('status', data);
         setChallengeStatusMedium(data);
       };
       getChallengeStatus();
