@@ -23,29 +23,32 @@ export default function ChallengeApplyDropdown() {
         onClick={handleClickDropdown}
       >
         <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-900">{selectedOption}</p>
-        <Image src={isDropdownOpen ? arrowUp : arrowDown} alt="arrow" />
+        <Image src={isDropdownOpen ? arrowUp : arrowDown} alt="arrow" className="cursor-pointer" />
       </div>
       {isDropdownOpen ? (
         <div className="flex flex-col border border-gray-300 rounded-[1.2rem]">
           <div
-            className="flex h-[4rem] justify-center items-center border-b border-gray-300"
+            className="flex h-[4rem] justify-center items-center border-b border-gray-300 cursor-pointer"
             onClick={() => handleOptionSelect('Youtube')}
           >
             <p className="font-normal text-[1.6rem] leading-[1.909rem] items-center">Youtube</p>
           </div>
           <div
-            className="flex h-[4rem] justify-center items-center border-b border-gray-300"
+            className="flex h-[4rem] justify-center items-center border-b border-gray-300 cursor-pointer"
             onClick={() => handleOptionSelect('Blog')}
           >
             <p className="font-normal text-[1.6rem] leading-[1.909rem] items-center">Blog</p>
           </div>
           <div
-            className="flex h-[4rem] justify-center items-center border-b border-gray-300"
+            className="flex h-[4rem] justify-center items-center border-b border-gray-300 cursor-pointer"
             onClick={() => handleOptionSelect('Social Media')}
           >
             <p className="font-normal text-[1.6rem] leading-[1.909rem] items-center">Social Media</p>
           </div>
-          <div className="flex h-[4rem] justify-center items-center" onClick={() => handleOptionSelect('Recipe Web')}>
+          <div
+            className="flex h-[4rem] justify-center items-center cursor-pointer"
+            onClick={() => handleOptionSelect('Recipe Web')}
+          >
             <p className="font-normal text-[1.6rem] leading-[1.909rem] items-center">Recipe Web</p>
           </div>
         </div>
