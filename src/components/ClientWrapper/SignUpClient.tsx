@@ -7,14 +7,14 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signUp } from '@/api/authService';
-import type { SingInData } from '@/interfaces/userInterface';
+import type { SignUpData } from '@/interfaces/userInterface';
 import useSignUpValidate from '../../../hooks/useSignUpValidate';
 import SignInput from '../Input/SignInput';
 
 export default function SignUpClient() {
   const router = useRouter();
 
-  const { values, errors, validate, handleChange, setErrors } = useSignUpValidate({
+  const { values, errors, validate, handleChange } = useSignUpValidate({
     email: '',
     name: '',
     password: '',
@@ -39,7 +39,7 @@ export default function SignUpClient() {
   };
 
   const mutation = useMutation({
-    mutationFn: async (userData: SingInData) => {
+    mutationFn: async (userData: SignUpData) => {
       return await signUp(userData);
     },
     onSuccess: () => {
@@ -132,7 +132,7 @@ export default function SignUpClient() {
             </span>
           )}
           <SignInput
-            type="password"
+            type="passwordConfirm"
             label="Confirm Password"
             placeholder="Enter your confirm password"
             value={values.passwordConfirmation}
