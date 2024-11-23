@@ -86,7 +86,7 @@ export default function SignUpClient() {
   return (
     <div>
       <div className="flex justify-center ">
-        <Image src={logoImg} alt="로고 이미지" className="mt-[5rem]" />
+        <Image src={logoImg} alt="로고 이미지" className="mt-[5rem]" priority />
       </div>
       <div className="flex justify-center mt-[4rem] relative">
         <form onSubmit={handleSubmit}>
