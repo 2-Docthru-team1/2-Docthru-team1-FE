@@ -150,7 +150,7 @@ export default function SignUpClient() {
       </div>
       <div className="flex justify-center gap-[1rem] mt-[2rem] ">
         <p className="text-[1.6rem] font-normal text-gray-600">Do you have an account?</p>
-        <Link className="text-[1.6rem] font-normal text-gray-800" href="/signIn">
+        <Link className="text-[1.6rem] font-normal text-gray-800 underline" href="/signIn">
           Sign in
         </Link>
       </div>
