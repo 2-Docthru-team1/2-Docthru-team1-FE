@@ -1,7 +1,12 @@
-import type { SingInData } from '@/interfaces/userInterface';
+import type { SignUpData } from '@/interfaces/userInterface';
 import { postRequest } from './api';
 
-export const signUp = async (userData: SingInData) => {
-  const res = await postRequest(`/auth/signUp`, userData);
-  return res.data;
+export const signUp = async (userData: SignUpData) => {
+  try {
+    const res = await postRequest(`/auth/signUp`, userData);
+    return res.data;
+  } catch (error) {
+    console.error('Error during signUp request:', error);
+    throw error;
+  }
 };
