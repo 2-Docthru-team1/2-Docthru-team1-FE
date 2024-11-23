@@ -77,7 +77,7 @@ export default function Dropdown({
             {view.map(item => (
               <div
                 key={`view-${item.value}`}
-                className="flex mb-[1.2rem] items-center gap-[0.4rem]"
+                className="flex mb-[1.2rem] items-center gap-[0.4rem] cursor-pointer"
                 onClick={() => onSelect(item.value, 'view')}
               >
                 <Image src={selectedView === item.value ? activeRadio : inactiveRadio} alt="radio" />
@@ -97,7 +97,7 @@ export default function Dropdown({
             {media.map(item => (
               <div
                 key={`media-${item.value}`}
-                className="flex items-center gap-[0.4rem] mb-[1.2rem]"
+                className="flex items-center gap-[0.4rem] mb-[1.2rem] cursor-pointer"
                 onClick={() => onSelect(item.value, 'media')}
               >
                 <Image src={selectedMedia?.includes(item.value) ? activeCheckBox : inActiveCheckBox} alt="checkbox" />
@@ -116,7 +116,7 @@ export default function Dropdown({
             {status.map(item => (
               <div
                 key={`status-${item.value}`}
-                className="flex mb-[1.2rem] items-center gap-[0.4rem]"
+                className="flex mb-[1.2rem] items-center gap-[0.4rem] cursor-pointer"
                 onClick={() => onSelect(item.value, 'status')}
               >
                 <Image src={selectedStatus === item.value ? activeRadio : inactiveRadio} alt="radio" />
