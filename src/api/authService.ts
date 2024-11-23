@@ -6,7 +6,6 @@ export const signUp = async (userData: SignUpData) => {
     const res = await postRequest(`/auth/signUp`, userData);
     return res.data;
   } catch (error) {
-    console.error('Error during signUp request:', error);
     throw error;
   }
 };
