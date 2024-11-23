@@ -18,9 +18,8 @@ export const fetchAdminChallenge = async () => {
 };
 
 export const fetchChallenge_detail = async (id: string) => {
-  const response = await getRequest(`/challengeMockData.json`);
-  const challenge = response.data.challengeData.find((item: { id: string }) => item.id === id);
-  return challenge;
+  const response = await getRequest(`/challenges/${id}`);
+  return response.data;
 };
 
 export const fetchChallengeStatus = async (): Promise<ChallengeParticipantStatusData[]> => {
