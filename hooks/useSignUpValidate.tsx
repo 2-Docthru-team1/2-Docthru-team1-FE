@@ -58,6 +58,7 @@ export default function useSignUpValidate(initialValues: SignUp) {
     values,
     errors,
     validate,
-    handleChange
+    handleChange,
+    setErrors
   };
 }
