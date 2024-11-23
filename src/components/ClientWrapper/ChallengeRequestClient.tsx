@@ -86,7 +86,6 @@ export default function ChallengeRequestClient() {
             onChange={e => handleChange(e, setContent, setContentError)}
             onBlur={() => handleBlur(content, setContentError)}
             placeholder="Please write your content of a challenge"
-            rows={6}
             className={`w-full h-[21.9rem] bg-primary-white border ${
               contentError ? 'border-error-red' : 'border-gray-200'
             } rounded-[0.6rem] focus:outline-none focus:border-primary-beige py-[1.1rem] px-[2rem] text-[1.6rem] text-left placeholder:text-[1.6rem] placeholder-gray-400 text-gray-700 resize-none`}
