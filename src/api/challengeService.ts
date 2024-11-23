@@ -3,7 +3,7 @@ import type { ChallengeParticipantStatusData } from '@/interfaces/cardInterface'
 import { getRequest } from './api';
 
 export const fetchChallenge = async () => {
-  const response = await getRequest('/challengeMockData.json');
+  const response = await getRequest('/challenges');
   return response.data;
 };
 

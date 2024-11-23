@@ -2,7 +2,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Nav from '@/components/Nav/Nav';
-import { UserProvider, useUserStatus } from '@/context/UserContext';
 import '../styles/globals.css';
 
 const pretendard = localFont({
@@ -27,10 +26,8 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={pretendard.className}>
-        <UserProvider>
-          <Nav />
-          <div className="min-h-screen bg-gray-50">{children}</div>
-        </UserProvider>
+        <Nav />
+        <div className="min-h-screen bg-gray-50">{children}</div>
       </body>
     </html>
   );

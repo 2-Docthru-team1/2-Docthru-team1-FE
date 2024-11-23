@@ -50,7 +50,7 @@ export default function ChallengeListClient({
           <div className="flex gap-[2.55rem]">
             {adminchallengeData.map((data, index) => (
               <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
-                <MonthlyChallengeCard data={data} role={role} />
+                {/* <MonthlyChallengeCard data={data} role={role} /> */}
               </div>
             ))}
           </div>
@@ -59,7 +59,7 @@ export default function ChallengeListClient({
           <p className="font-semibold text-[2rem] leading-[2.387rem text-gray-800">Challenge List</p>
 
           <div className="flex gap-[2rem]">
-            <FilterBar type="recipe" /> {/* challenge FilterBar 설계한 후 수정 */}
+            <FilterBar type="challenge" />
             <Image src={btn_request} alt="Request" /> {/* 리퀘스트 버튼 구현 후 수정 */}
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function ChallengeListClient({
       </div>
       <div className="mb-[2.4rem]">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 mb-[2.4rem]">This Month's Ranker</p>
-        <MonthlyRankerCard data={rankerData} />
+        {/* <MonthlyRankerCard data={rankerData} /> */}
       </div>
     </div>
   );

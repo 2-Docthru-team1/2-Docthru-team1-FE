@@ -18,7 +18,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
   };
 
   if (status === 'canceled') {
-    return null; // 카드 컴포넌트를 렌더링하지 않음
+    return null;
   }
 
   // NOTE 도엽님이 완성하면 kebabToggle 이미지로만 넣어놓은 부분 Component로 바꿀 예정.
