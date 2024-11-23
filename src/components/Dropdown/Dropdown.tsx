@@ -55,6 +55,10 @@ export default function Dropdown({
     onClose();
   };
 
+  const handleClose = () => {
+    onClose();
+  };
+
   const renderItems = () => {
     if (type === 'challenge') {
       const flattenedItems = (items as ChallengeOption[])[0];
@@ -64,17 +68,20 @@ export default function Dropdown({
         <div key={`challenge-dropdown`} className="w-full border-2 border-gray-200 rounded-[0.8rem]">
           <div className="flex justify-between px-[1.6rem] pt-[1.6rem]">
             <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700">Sort</p>
-            <Image src={close} alt="닫기" />
+            <Image src={close} alt="닫기" onClick={handleClose} className="cursor-pointer" />
           </div>
           <div className="py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
               View Option Type
             </div>
             {view.map(item => (
-              <div key={`view-${item.value}`} className="flex mb-[1.2rem] items-center gap-[0.4rem]">
+              <div
+                key={`view-${item.value}`}
+                className="flex mb-[1.2rem] items-center gap-[0.4rem]"
+                onClick={() => onSelect(item.value, 'view')}
+              >
                 <Image src={selectedView === item.value ? activeRadio : inactiveRadio} alt="radio" />
                 <p
-                  onClick={() => onSelect(item.value, 'view')}
                   className={`w-full font-normal text-[1.4rem] leading-[1.671rem] text-gray-700 items-center flex cursor-pointer`}
                 >
                   {item.label}
@@ -88,7 +95,11 @@ export default function Dropdown({
               Recipe Media Type
             </div>
             {media.map(item => (
-              <div key={`media-${item.value}`} className="flex items-center gap-[0.4rem] mb-[1.2rem]">
+              <div
+                key={`media-${item.value}`}
+                className="flex items-center gap-[0.4rem] mb-[1.2rem]"
+                onClick={() => onSelect(item.value, 'media')}
+              >
                 <Image src={selectedMedia?.includes(item.value) ? activeCheckBox : inActiveCheckBox} alt="checkbox" />
                 <p
                   onClick={() => onSelect(item.value, 'media')}
@@ -103,10 +114,13 @@ export default function Dropdown({
           <div className="w-full py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">Status</div>
             {status.map(item => (
-              <div key={`status-${item.value}`} className="flex mb-[1.2rem] items-center gap-[0.4rem]">
+              <div
+                key={`status-${item.value}`}
+                className="flex mb-[1.2rem] items-center gap-[0.4rem]"
+                onClick={() => onSelect(item.value, 'status')}
+              >
                 <Image src={selectedStatus === item.value ? activeRadio : inactiveRadio} alt="radio" />
                 <p
-                  onClick={() => onSelect(item.value, 'status')}
                   className={`w-full font-normal text-[1.4rem] leading-[1.671rem] text-gray-700 items-center flex cursor-pointer`}
                 >
                   {item.label}
