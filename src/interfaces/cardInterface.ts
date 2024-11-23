@@ -1,5 +1,3 @@
-import type { UserData } from './userInterface';
-
 export interface RecipeCardProps {
   data: RecipeData | null;
 }
@@ -43,15 +41,15 @@ export interface ChallengeParticipantStatusData {
 
 export interface ChallengeCardProps {
   data: ChallengeData | null;
-  userId: string;
-  role: 'admin' | 'normal';
+  userId: string | null;
+  role: 'admin' | 'normal' | null;
 }
 
 export interface ChallengeData {
   id: string;
   title: string;
-  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  status: 'ongoing' | 'finished' | 'canceled';
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  status: 'onGoing' | 'finished' | 'canceled';
   deadline: string;
   requestUserId: string;
   totalLikes: number;
@@ -61,14 +59,14 @@ export interface ChallengeData {
 
 export interface MonthlyChallengeCardProps {
   data: MonthlyChallengeData | null;
-  role: 'admin' | 'normal';
+  role: 'admin' | 'normal' | null;
 }
 
 export interface MonthlyChallengeData {
   id: string;
   title: string;
-  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  status: 'ongoing' | 'finished'; // NOTE | 'aborted' 아마 필요 없겠지만, 참고.
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  status: 'onGoing' | 'finished'; // NOTE | 'aborted' 아마 필요 없겠지만, 참고.
   deadline: string;
 }
 

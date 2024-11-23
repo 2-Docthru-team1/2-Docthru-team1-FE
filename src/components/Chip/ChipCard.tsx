@@ -5,7 +5,7 @@ import type { ChipCardProps } from '@/interfaces/chipInterface';
 export default function ChipCard({ type }: ChipCardProps) {
   return (
     <>
-      {type === 'ongoing' ? (
+      {type === 'onGoing' ? (
         <div className="w-[9.1rem] py-[0.8rem] px-[1.2rem] flex gap-[0.4rem] rounded-[2.4rem] bg-gray-200 items-center justify-center">
           <div className="w-[0.9rem] h-[0.9rem] bg-[#F24744] rounded-full" />
           <p className="font-medium text-[1.3rem] leading-[1.551rem] items-center flex">On going</p>
