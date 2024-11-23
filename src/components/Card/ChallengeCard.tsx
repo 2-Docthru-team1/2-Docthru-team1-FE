@@ -33,7 +33,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
     setDropdownOpen(false);
   };
 
-  // NOTE challengeId={id} currentStatus={status} onStatusChange={handleStatusChange}
+  // NOTE API 연결해서 챌린지 상태 수정하기 abort
   return (
     <div className="bg-primary-white w-[58.8rem] gap-[1rem] rounded-[0.8rem] border-[0.2rem] border-solid border-gray-200">
       <div>
@@ -46,7 +46,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
               <div className="relative">
                 <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
                 <div className="absolute right-[1rem] top-[2.5rem]">
-                  {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
+                  {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Abort</CancelDropdown>}
                 </div>
               </div>
             ) : null}
