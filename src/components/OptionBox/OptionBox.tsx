@@ -18,13 +18,13 @@ export default function OptionBox({ type }: OptionBoxProps) {
         </div>
         <div className="flex flex-col items-center gap-[0.8rem] w-[25.3rem]">
           <Link href="https://www.example.com" className="w-full">
-            <button className="rounded-[0.8rem] bg-primary-blue w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff]">
+            <button className="rounded-[0.8rem] bg-primary-blue w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-primary-white">
               See Content
             </button>
           </Link>
           <Link href="/edit" className="w-full">
             <button
-              className={`rounded-[0.8rem] w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff] ${bgColor}`}
+              className={`rounded-[0.8rem] w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-primary-white ${bgColor}`}
             >
               {participateButtonText}
             </button>

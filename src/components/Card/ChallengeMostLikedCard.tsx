@@ -30,7 +30,7 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
     <div className="flex flex-col w-[88.9rem] border-2 border-gray-100 rounded-[1.6rem] bg-primary-white">
       <div className="flex w-[15.09rem] h-[4rem] items-center bg-gray-700 rounded-tl-[1.4rem] rounded-br-[1.4rem] justify-center gap-[0.4rem]">
         <Image src={medal} alt="medal" />
-        <p className="font-medium text-[1.4rem] leading-[1.671rem] text-[#ffffff]">The Most Liked</p>
+        <p className="font-medium text-[1.4rem] leading-[1.671rem] text-primary-white">The Most Liked</p>
       </div>
       <div className="flex mt-[1.4rem] ml-[1.4rem] mr-[1.4rem] justify-between">
         <div className="w-[28rem] h-[28.2rem] relative">
