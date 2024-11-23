@@ -6,7 +6,10 @@ const instance = axios.create({
 });
 
 const getToken = () => {
-  return localStorage.getItem('accessToken');
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('accessToken');
+  }
+  return null;
 };
 
 interface CustomAxiosRequestConfig {
@@ -14,28 +17,19 @@ interface CustomAxiosRequestConfig {
   headers?: object;
 }
 
-export const getRequest = async (url: string, params: object = {}) => {
+export function getRequest(url: string, params: object = {}) {
+  const config: CustomAxiosRequestConfig = {
+    params
+  };
+
+  return instance.get(url, config);
+}
+
+export const postRequest = async (url: string, data: object) => {
   const token = getToken();
   const config: CustomAxiosRequestConfig = {
-    params,
     headers: token ? { Authorization: `Bearer ${token}` } : {}
   };
-  try {
-    const response = await instance.get(url, config);
-    return response.data;
-  } catch (error) {
-    console.error('Error in GET request:', error);
-    throw new Error('API 요청 실패');
-  }
-};
-
-export const postRequest = async (url: string, data: object, params: object = {}) => {
-  const token = getToken();
-  const config: CustomAxiosRequestConfig = {
-    params,
-    headers: token ? { Authorization: `Bearer ${token}` } : {} // 토큰이 있으면 헤더에 추가
-  };
-
   try {
     const response = await instance.post(url, data, config);
     return response.data;

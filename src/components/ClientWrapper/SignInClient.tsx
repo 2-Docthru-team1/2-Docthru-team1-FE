@@ -6,22 +6,28 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signIn } from '@/api/signService';
+import { useUserStatus } from '@/context/UserContext';
 import SignInput from '../Input/SignInput';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setUserStatus } = useUserStatus();
   const router = useRouter();
 
   const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
   const isFormValid = isValidEmail(email) && password.length >= 6;
-
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleSignIn = async (event: React.FormEvent) => {
+    event.preventDefault();
     try {
-      const response = await signIn(email, password);
-      localStorage.setItem('accessToken', response.accessToken);
+      const credentials = { email, password };
+      const response = await signIn(credentials);
+      console.log('Login successful:', response);
+      if (response.role === 'admin') {
+        setUserStatus('admin');
+      } else if (response.role === 'normal') {
+        setUserStatus('normal');
+      }
       router.push('/recipeList');
     } catch (err) {}
   };
