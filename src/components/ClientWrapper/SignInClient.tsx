@@ -15,8 +15,9 @@ export default function SignIn() {
   const { setUserStatus } = useUserStatus();
   const router = useRouter();
 
-  const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
-  const isFormValid = isValidEmail(email) && password.length >= 6;
+  const isFormValid = () => {
+    return email.trim() !== '' && password.trim() !== '';
+  };
   const handleSignIn = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
@@ -65,9 +66,9 @@ export default function SignIn() {
           <button
             type="submit"
             className={`w-full h-[4.8rem] text-[1.6rem] text-primary-white border rounded-[0.8rem] text-center ${
-              isFormValid ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
+              isFormValid() ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
             }`}
-            disabled={!isFormValid}
+            disabled={!isFormValid()}
           >
             Sign In
           </button>
