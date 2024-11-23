@@ -25,7 +25,7 @@ export default function DetailTextCard({ type, content }: DetailTextCardProps) {
         )}
         {type === 'direction' && (
           <div>
-            {(content as string[]).map((text, index) => (
+            {content.map((text, index) => (
               <p key={index} className="font-medium text-[1.6rem] leading-[2.56rem] text-gray-700 mb-[0.5rem]">
                 {text}
               </p>

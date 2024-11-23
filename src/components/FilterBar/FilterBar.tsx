@@ -41,7 +41,7 @@ const optionsByType = {
   ]
 };
 
-export default function FilterBar({ type }: FilterBarProps) {
+export default function FilterBar({ type, keyword, category, onKeywordChange, onCategoryChange, onFilterApply }: FilterBarProps) {
   const filterBarType = filterBarWidths[type] || '';
   const sortBarType = sortBarWidths[type] || '';
   const searchBarType = searchBarWidths[type] || '';
@@ -81,6 +81,8 @@ export default function FilterBar({ type }: FilterBarProps) {
           <input
             className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 placeholder:text-gray-400 flex items-center w-full focus:outline-none"
             placeholder="Search recipe"
+            value={keyword}
+            onChange={e => onKeywordChange(e.target.value)}
           />
         </div>
       </div>
