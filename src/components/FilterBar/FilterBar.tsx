@@ -28,50 +28,50 @@ const searchBarWidths = {
 
 const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   recipe: [
-    { label: 'Like Highest', value: '좋아요 높은순' },
-    { label: 'Like Lowest', value: '좋아요 낮은순' },
-    { label: 'School Food', value: '스쿨푸드' },
-    { label: 'Traditional', value: '전통음식' },
-    { label: 'Noodle', value: '면' },
-    { label: 'Dessert', value: '디저트' },
-    { label: 'BanChan', value: '반찬' }
+    { label: 'Like Highest', value: 'like highest' },
+    { label: 'Like Lowest', value: 'like lowest' },
+    { label: 'School Food', value: 'school food' },
+    { label: 'Traditional', value: 'traditional food' },
+    { label: 'Noodle', value: 'noodle' },
+    { label: 'Dessert', value: 'dessert' },
+    { label: 'BanChan', value: 'ban chan' }
   ],
   challenge: [
     {
       view: [
-        { label: 'Like Highest', value: '좋아요 높은순' },
-        { label: 'Like Lowest', value: '좋아요 낮은순' },
-        { label: 'Earliest First', value: '신청 시간 빠른순' },
-        { label: 'Latest First', value: '신청 시간 느린순' },
-        { label: 'Deadline Earliest', value: '마감 기한 빠른순' },
-        { label: 'Deadline Latest', value: '마감 기한 느린순' }
+        { label: 'Like Highest', value: 'like highest' },
+        { label: 'Like Lowest', value: 'like lowest' },
+        { label: 'Earliest First', value: 'earliest first' },
+        { label: 'Latest First', value: 'latest first' },
+        { label: 'Deadline Earliest', value: 'deadline earliest' },
+        { label: 'Deadline Latest', value: 'deadline latest' }
       ],
       media: [
-        { label: 'Youtube', value: '유튜브' },
-        { label: 'Blog', value: '블로그' },
-        { label: 'Recipe Web', value: '레시피 웹' },
-        { label: 'Social Media', value: '소셜미디어' }
+        { label: 'Youtube', value: 'youtube' },
+        { label: 'Blog', value: 'blog' },
+        { label: 'Recipe Web', value: 'recipe web' },
+        { label: 'Social Media', value: 'social media' }
       ],
       status: [
-        { label: 'On going', value: '진행중' },
-        { label: 'Closed', value: '종료' }
+        { label: 'On going', value: 'ongoing' },
+        { label: 'Closed', value: 'closed' }
       ]
     }
   ],
   admin: [
-    { label: 'Pending', value: '승인 대기' },
-    { label: 'Approved', value: '신청 승인' },
-    { label: 'Denied', value: '신청 거절' },
-    { label: 'Earliest First', value: '신청 시간 빠른순' },
-    { label: 'Latest First', value: '신청 시간 느린순' },
-    { label: 'Deadline Earliest', value: '마감 기한 빠른순' },
-    { label: 'Deadline Latest', value: '마감 기한 느린순' }
+    { label: 'Pending', value: 'pending' },
+    { label: 'Approved', value: 'approved' },
+    { label: 'Denied', value: 'denied' },
+    { label: 'Earliest First', value: 'earliest first' },
+    { label: 'Latest First', value: 'latest first' },
+    { label: 'Deadline Earliest', value: 'deadline earliest' },
+    { label: 'Deadline Latest', value: 'deadline latest' }
   ]
 };
 
 export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
   const router = useRouter();
-  const { keyword, category, setKeyword, setCategory } = useStore();
+  const { keyword, category, setKeyword, setCategory, toggleDropdown } = useStore();
 
   const filterBarType = filterBarWidths[type] || '';
   const sortBarType = sortBarWidths[type] || '';
@@ -88,12 +88,9 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [selectedCount, setSelectedCount] = useState<number>(0);
 
-  const toggleDropdown = () => {
+  const handleToggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
-  };
-
-  const handleCloseDropdown = () => {
-    setIsDropdownOpen(false);
+    toggleDropdown(!isDropdownOpen);
   };
 
   const getSelectedSortLabel = () => {
@@ -123,6 +120,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     } else if (category === 'status') {
       setSelectedStatus(value);
     }
+    toggleDropdown(!isDropdownOpen);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -140,6 +138,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
 
     const query = new URLSearchParams(window.location.search);
     query.delete('keyword');
+    query.delete('category');
     router.push(`${window.location.pathname}?${query.toString()}`);
   }, []);
 
@@ -149,7 +148,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
         <div
           className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}
             ${isFilterApplied ? 'bg-gray-700' : 'bg-primary-white'}`}
-          onClick={toggleDropdown}
+          onClick={handleToggleDropdown}
         >
           <p
             className={`font-normal text-[1.6rem] leading-[1.909rem]

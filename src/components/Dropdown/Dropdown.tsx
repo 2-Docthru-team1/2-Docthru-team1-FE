@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import activeCheckBox from '@/../public/assets/btn_active_checkbox.png';
 import inActiveCheckBox from '@/../public/assets/btn_inactive_checkbox.png';
 import activeRadio from '@/../public/assets/btn_radio_checked.png';
 import inactiveRadio from '@/../public/assets/btn_radio_unchecked.png';
 import close from '@/../public/assets/ic_out.png';
-// Zustand 스토어 import
 import type { CategoryType, DropdownProps } from '@/interfaces/dropdownInterface';
 import type { ChallengeOption, Option } from '@/interfaces/filterBarInterface';
 import useStore from '@/store/store';
@@ -17,7 +18,18 @@ const dropdownWidths = {
 };
 
 export default function Dropdown({ isOpen, items, type }: DropdownProps) {
-  const { selectedView, selectedMedia, selectedStatus, setSelectedView, setSelectedMedia, setSelectedStatus } = useStore(); // Zustand에서 상태 가져오기
+  const router = useRouter();
+  const {
+    selectedView,
+    selectedMedia,
+    selectedStatus,
+    setSelectedView,
+    setSelectedMedia,
+    setSelectedStatus,
+    category,
+    setCategory,
+    toggleDropdown
+  } = useStore();
 
   const dropdownType = dropdownWidths[type] || '';
 
@@ -33,12 +45,23 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
     } else if (category === 'status') {
       setSelectedStatus(value);
     }
+
+    const queryString = new URLSearchParams(window.location.search);
+    queryString.set(category || 'category', value);
+    router.push(`?${queryString.toString()}`);
+
+    toggleDropdown(false);
   };
 
   const handleReset = () => {
     setSelectedView('');
     setSelectedMedia([]);
     setSelectedStatus('');
+
+    const queryString = new URLSearchParams(window.location.search);
+    queryString.delete('view');
+    queryString.delete('status');
+    router.push(`?${queryString.toString()}`);
   };
 
   const renderItems = () => {
@@ -52,8 +75,6 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
             <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700">Sort</p>
             <Image src={close} alt="닫기" />
           </div>
-
-          {/* View Option Type */}
           <div key="view-section" className="py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
               View Option Type
@@ -70,8 +91,6 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
               </div>
             ))}
           </div>
-
-          {/* Recipe Media Type */}
           <div key="media-section" className="w-full py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
               Recipe Media Type
@@ -88,8 +107,6 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
               </div>
             ))}
           </div>
-
-          {/* Status */}
           <div key="status-section" className="w-full py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">Status</div>
             {status.map(item => (
@@ -104,8 +121,6 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
               </div>
             ))}
           </div>
-
-          {/* Reset Button */}
           <div className="flex justify-between p-[1.6rem]">
             <button
               onClick={handleReset}
