@@ -11,13 +11,9 @@ export const signIn = async (credentials: LoginCredentials) => {
   try {
     const response = await postRequest(url, credentials);
 
-    if (!response.accessToken || !response.role) {
-      throw new Error('Invalid API response: Missing required fields');
-    }
+    localStorage.setItem('accessToken', response.data.accessToken);
 
-    localStorage.setItem('accessToken', response.accessToken);
-
-    return response;
+    return response.data;
   } catch (error) {
     throw new Error('Login failed');
   }

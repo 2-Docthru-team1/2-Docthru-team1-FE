@@ -21,10 +21,10 @@ export default function SignIn() {
     event.preventDefault();
     try {
       const credentials = { email, password };
-      const response = await signIn(credentials);
-      if (response.role === 'admin') {
+      const res = await signIn(credentials);
+      if (res.role === 'admin') {
         setUserStatus('admin');
-      } else if (response.role === 'normal') {
+      } else if (res.role === 'normal') {
         setUserStatus('normal');
       }
       router.push('/recipeList');

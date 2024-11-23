@@ -1,9 +1,44 @@
-import axios from 'axios';
+import axios, { AxiosHeaders, type InternalAxiosRequestConfig } from 'axios';
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const instance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: `${BASE_URL}`,
   timeout: 10000
 });
+
+instance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const headers = new AxiosHeaders(config.headers);
+        headers.set('Authorization', `Bearer ${token}`);
+        config.headers = headers;
+      }
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+instance.interceptors.response.use(
+  res => res,
+  async err => {
+    const request = err.config;
+    if (err.response?.status === 401 && !request._retry) {
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (refreshToken) {
+        await instance.post('/auth/refresh', { refreshToken });
+        request._retry = true;
+        return instance(request);
+      } else {
+        window.location.href = '/signin';
+      }
+    }
+    return Promise.reject(err);
+  }
+);
 
 const getToken = () => {
   if (typeof window !== 'undefined') {
@@ -24,16 +59,14 @@ export function getRequest(url: string, params: object = {}) {
 
   return instance.get(url, config);
 }
+export async function postRequest(url: string, body: object = {}) {
+  return instance.post(url, body);
+}
 
-export const postRequest = async (url: string, data: object) => {
-  const token = getToken();
-  const config: CustomAxiosRequestConfig = {
-    headers: token ? { Authorization: `Bearer ${token}` } : {}
-  };
-  try {
-    const response = await instance.post(url, data, config);
-    return response.data;
-  } catch (error) {
-    throw new Error('API 요청 실패');
-  }
-};
+export async function patchRequest(url: string, body: object = {}) {
+  return instance.patch(url, body);
+}
+
+export async function deleteRequest(url: string) {
+  return instance.delete(url);
+}
