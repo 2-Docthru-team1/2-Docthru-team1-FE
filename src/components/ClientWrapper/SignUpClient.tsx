@@ -14,7 +14,7 @@ import SignInput from '../Input/SignInput';
 export default function SignUpClient() {
   const router = useRouter();
 
-  const { values, errors, validate, handleChange } = useSignUpValidate({
+  const { values, errors, validate, handleChange, setErrors } = useSignUpValidate({
     email: '',
     name: '',
     password: '',
@@ -44,6 +44,13 @@ export default function SignUpClient() {
     },
     onSuccess: () => {
       router.push('/signIn');
+    },
+    onError: (error: any) => {
+      let errorMessage = 'This email is already registered. Please use a different email address.';
+      if (error?.response?.data?.field === '이미 존재하는 이메일입니다.') {
+        errorMessage = 'This email is already registered. Please use a different email address.';
+      }
+      alert(errorMessage);
     }
   });
 
@@ -52,9 +59,9 @@ export default function SignUpClient() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="relative w-16 h-16">
-          <div className="absolute inset-0 w-full h-full border-4 border-t-4 border-gray-300 border-t-primary-blue rounded-full animate-spin"></div>
-          <span className="absolute inset-0 flex justify-center items-center text-xs text-gray-500">Loading...</span>
+        <div className="relative w-[16rem] h-[16rem]">
+          <div className="absolute inset-0 w-full h-full border-[4rem] border-t-[4rem] border-gray-300 border-t-primary-blue rounded-full animate-spin"></div>
+          <span className="absolute inset-0 flex justify-center items-center text-[1.5rem] text-gray-500">Loading...</span>
         </div>
       </div>
     );
