@@ -4,7 +4,6 @@ import { getRequest } from './api';
 
 export const fetchChallenge = async () => {
   const response = await getRequest('/challenges');
-  console.log(response.data);
   return response.data;
 };
 
