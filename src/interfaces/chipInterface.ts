@@ -3,11 +3,11 @@ export interface ChipTypeProps {
 }
 
 export interface ChipCardProps {
-  type: 'ongoing' | 'finished';
+  type: 'onGoing' | 'finished';
 }
 
 export interface ChipCategoryProps {
-  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
 }
 
 export interface ChipStatusProps {

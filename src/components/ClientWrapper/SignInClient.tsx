@@ -6,13 +6,12 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signIn } from '@/api/signService';
-import { useUserStatus } from '@/context/UserContext';
+import useStore from '@/store/store';
 import SignInput from '../Input/SignInput';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUserStatus } = useUserStatus();
   const router = useRouter();
 
   const isFormValid = () => {
@@ -23,12 +22,11 @@ export default function SignIn() {
     try {
       const credentials = { email, password };
       const res = await signIn(credentials);
-      if (res.role === 'admin') {
-        setUserStatus('admin');
-      } else if (res.role === 'normal') {
-        setUserStatus('normal');
-      }
-      router.push('/recipeList');
+
+      const { login } = useStore.getState();
+      login(res.userId, res.role);
+
+      router.push('/challengeList');
     } catch (err: any) {
       let errorMessage = 'An unexpected error occurred. Please try again.';
       if (err?.response?.data?.field === '이메일 또는 비밀번호가 잘못되었습니다.') {
