@@ -28,13 +28,13 @@ const searchBarWidths = {
 
 const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   recipe: [
-    { label: 'Like Highest', value: 'like highest' },
-    { label: 'Like Lowest', value: 'like lowest' },
-    { label: 'School Food', value: 'school food' },
-    { label: 'Traditional', value: 'traditional food' },
-    { label: 'Noodle', value: 'noodle' },
-    { label: 'Dessert', value: 'dessert' },
-    { label: 'BanChan', value: 'ban chan' }
+    { label: 'Like Highest', value: 'highest' },
+    { label: 'Like Lowest', value: 'lowest' },
+    { label: 'School Food', value: 'Boonsik' },
+    { label: 'Traditional', value: 'Traditional' },
+    { label: 'Noodle', value: 'Noodle' },
+    { label: 'Dessert', value: 'Dessert' },
+    { label: 'BanChan', value: 'BanChan' }
   ],
   challenge: [
     {

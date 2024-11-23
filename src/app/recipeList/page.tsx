@@ -12,7 +12,7 @@ export default async function RecipePage({ searchParams }: { searchParams: Searc
 
   return (
     <div>
-      <RecipeListClient initialData={initialData.list} initialKeyword={keyword} initialCategory={category} />
+      <RecipeListClient initialData={initialData.data} />
     </div>
   );
 }

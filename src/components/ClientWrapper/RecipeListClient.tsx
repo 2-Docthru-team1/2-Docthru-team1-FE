@@ -9,20 +9,21 @@ import useStore from '@/store/store';
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
-export default function RecipeListClient({ initialData, initialKeyword, initialCategory }: RecipeListClientProps) {
+export default function RecipeListClient({ initialData }: RecipeListClientProps) {
+  console.log(initialData.list);
   const router = useRouter();
   const { keyword, category, setKeyword, setCategory } = useStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  const [medium, setMedium] = useState<RecipeData[]>(initialData);
+  const [medium, setMedium] = useState<RecipeData[]>(initialData.list);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = medium.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(medium.length / itemsPerPage);
+  const totalPages = Math.ceil(initialData.totalCount / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -41,7 +42,7 @@ export default function RecipeListClient({ initialData, initialKeyword, initialC
   };
 
   useEffect(() => {
-    setMedium(initialData);
+    setMedium(initialData.list);
     setCurrentPage(1);
   }, [initialData]);
 
