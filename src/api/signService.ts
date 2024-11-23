@@ -16,11 +16,9 @@ export const signIn = async (credentials: LoginCredentials) => {
     }
 
     localStorage.setItem('accessToken', response.accessToken);
-    console.log('토큰토큰토큰: ', localStorage.getItem('accessToken'));
 
     return response;
   } catch (error) {
-    console.error('Error in signIn:', error);
     throw new Error('Login failed');
   }
 };

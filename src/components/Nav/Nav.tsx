@@ -9,7 +9,6 @@ import logo from '@/../public/assets/img_logo_pc.png';
 import adminProfile from '@/../public/assets/img_profile_admin.png';
 import userProfile from '@/../public/assets/img_profile_member.png';
 import { useUserStatus } from '@/context/UserContext';
-import type { NavProps } from '@/interfaces/navInterface';
 import { logout } from '@/utils/auth';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
 
@@ -25,8 +24,8 @@ export default function Nav() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSignOut = () => {
-    setUserStatus('loggedOut'); // 로그아웃 상태로 설정
-    router.push('/signIn'); // 로그인 페이지로 리디렉션
+    setUserStatus('loggedOut');
+    logout();
   };
 
   return (

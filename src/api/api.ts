@@ -34,7 +34,6 @@ export const postRequest = async (url: string, data: object) => {
     const response = await instance.post(url, data, config);
     return response.data;
   } catch (error) {
-    console.error('Error in POST request:', error);
     throw new Error('API 요청 실패');
   }
 };

@@ -1,13 +1,7 @@
 'use client';
 
 import { type ReactNode, createContext, useContext, useState } from 'react';
-
-type UserStatus = 'loggedOut' | 'normal' | 'admin';
-
-interface UserContextType {
-  userStatus: UserStatus;
-  setUserStatus: (status: UserStatus) => void;
-}
+import type { UserContextType, UserStatus } from '@/interfaces/userContextInterface';
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 

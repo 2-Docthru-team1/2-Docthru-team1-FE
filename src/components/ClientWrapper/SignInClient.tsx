@@ -22,7 +22,6 @@ export default function SignIn() {
     try {
       const credentials = { email, password };
       const response = await signIn(credentials);
-      console.log('Login successful:', response);
       if (response.role === 'admin') {
         setUserStatus('admin');
       } else if (response.role === 'normal') {
