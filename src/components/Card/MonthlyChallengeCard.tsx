@@ -42,7 +42,7 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
               <div className="relative">
                 <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
                 <div className="absolute right-[1rem] top-[2.5rem]">
-                  {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
+                  {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Abort</CancelDropdown>}
                 </div>
               </div>
             ) : null}

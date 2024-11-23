@@ -46,7 +46,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
               <div className="relative">
                 <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
                 <div className="absolute right-[1rem] top-[2.5rem]">
-                  {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Abort</CancelDropdown>}
+                  {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
                 </div>
               </div>
             ) : null}
