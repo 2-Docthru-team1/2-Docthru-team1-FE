@@ -5,6 +5,7 @@ const instance = axios.create({
   baseURL: `${BASE_URL}`,
   timeout: 10000
 });
+
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (typeof window !== 'undefined') {
@@ -38,6 +39,7 @@ instance.interceptors.response.use(
     return Promise.reject(err);
   }
 );
+
 interface CustomAxiosRequestConfig {
   params?: object;
 }
@@ -50,9 +52,11 @@ export function getRequest(url: string, params: object = {}) {
 export async function postRequest(url: string, body: object = {}) {
   return instance.post(url, body);
 }
+
 export async function patchRequest(url: string, body: object = {}) {
   return instance.patch(url, body);
 }
+
 export async function deleteRequest(url: string) {
   return instance.delete(url);
 }

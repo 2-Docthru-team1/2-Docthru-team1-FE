@@ -40,10 +40,10 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
             </div>
           </div>
           <div className="flex flex-col w-[86.5rem] gap-[2.4rem]">
-            <p className="font-normal text-[1.6rem] leading-[2.08rem] text-gray-700">{data.content}</p>
+            <p className="font-normal text-[1.6rem] leading-[2.08rem] text-gray-700">{data.description}</p>
             <div className="flex items-center gap-[0.8rem]">
               <Image src={profileMem} alt="프로필" width={24} height={24} />
-              <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-800">{data.nickname}</p>
+              <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-800">{data.ownerId}</p>
             </div>
             <div className="flex items-center">
               <div className="relative w-[34.3rem] h-[29.4rem]">
@@ -63,7 +63,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
           </div>
         </div>
         <div className="mt-[6.8rem]">
-          <OptionBox type="participate" />
+          <OptionBox type={type} />
         </div>
       </div>
       {isOpen && <ImageEnlargeModal src={food} alt="작업물 이미지" onClose={closeImg} />}
