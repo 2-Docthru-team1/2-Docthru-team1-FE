@@ -28,11 +28,11 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={pretendard.className}>
-        <UserProvider>
-          <Nav />
-        </UserProvider>
         <ReactQueryProviders>
-          <div className="min-h-screen bg-gray-50">{children}</div>
+          <UserProvider>
+            <Nav />
+            <div className="min-h-screen bg-gray-50">{children}</div>
+          </UserProvider>
         </ReactQueryProviders>
       </body>
     </html>
