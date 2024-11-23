@@ -5,14 +5,14 @@ import { useState } from 'react';
 interface SignUp {
   email: string;
   password: string;
-  userName: string;
+  name: string;
   passwordConfirmation: string;
 }
 
 interface Errors {
   email?: string;
   password?: string;
-  userName?: string;
+  name?: string;
   passwordConfirmation?: string;
 }
 
@@ -35,9 +35,9 @@ export default function useSignUpValidate(initialValues: SignUp) {
       newError.password = 'Password must be at least 8 characters.';
     }
 
-    if (!values.userName?.trim() || values.userName.length < 1) {
+    if (!values.name?.trim() || values.name.length < 1) {
       isValid = false;
-      newError.userName = 'Username must be at least 1 characters';
+      newError.name = 'Username must be at least 1 characters';
     }
 
     if (values.password?.trim() !== values.passwordConfirmation?.trim()) {

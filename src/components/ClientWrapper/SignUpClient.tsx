@@ -1,23 +1,29 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import logoImg from '@/../public/assets/img_logo_pc.png';
+import { signUp } from '@/api/authService';
+import type { SingInData } from '@/interfaces/userInterface';
 import useSignUpValidate from '../../../hooks/useSignUpValidate';
 import SignInput from '../Input/SignInput';
 
 export default function SignUpClient() {
+  const router = useRouter();
+
   const { values, errors, validate, handleChange } = useSignUpValidate({
     email: '',
-    userName: '',
+    name: '',
     password: '',
     passwordConfirmation: ''
   });
 
   const [touched, setTouched] = useState({
     email: false,
-    userName: false,
+    name: false,
     password: false,
     passwordConfirmation: false
   });
@@ -32,14 +38,41 @@ export default function SignUpClient() {
     setTouched(prev => ({ ...prev, [field]: true }));
   };
 
+  const mutation = useMutation({
+    mutationFn: async (userData: SingInData) => {
+      return await signUp(userData);
+    },
+    onSuccess: () => {
+      router.push('/signIn');
+    }
+  });
+
+  const isLoading = mutation.status === 'pending';
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="relative w-16 h-16">
+          <div className="absolute inset-0 w-full h-full border-4 border-t-4 border-gray-300 border-t-primary-blue rounded-full animate-spin"></div>
+          <span className="absolute inset-0 flex justify-center items-center text-xs text-gray-500">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validate()) {
+    if (validate()) {
+      mutation.mutate({
+        email: values.email,
+        name: values.name,
+        password: values.password
+      });
+    } else {
       const errorField = document.querySelector('[name="email"]');
       if (errorField instanceof HTMLElement) {
         errorField.focus();
       }
-      return; // TODO: user data post하는 작업 예정
     }
   };
 
@@ -53,7 +86,7 @@ export default function SignUpClient() {
           <SignInput
             type="email"
             label="Email"
-            placeholder="Enter you email"
+            placeholder="Enter your email"
             value={values.email}
             onChange={handleChange}
             name="email"
@@ -66,20 +99,20 @@ export default function SignUpClient() {
           <SignInput
             type="text"
             label="UserName"
-            placeholder="Enter you nickname"
-            value={values.userName}
+            placeholder="Enter your username"
+            value={values.name}
             onChange={handleChange}
-            name="userName"
-            onBlur={() => handleBlur('userName')}
+            name="name"
+            onBlur={() => handleBlur('name')}
             required
           />
-          {touched.userName && errors.userName && (
-            <span className="text-error-red text-[1.2rem] font-normal absolute top-[16.7rem] ">{errors.userName}</span>
+          {touched.name && errors.name && (
+            <span className="text-error-red text-[1.2rem] font-normal absolute top-[16.7rem] ">{errors.name}</span>
           )}
           <SignInput
             type="password"
             label="Password"
-            placeholder="Enter you password"
+            placeholder="Enter your password"
             value={values.password}
             onChange={handleChange}
             name="password"
@@ -92,7 +125,7 @@ export default function SignUpClient() {
           <SignInput
             type="password"
             label="Confirm Password"
-            placeholder="Enter you confirm password"
+            placeholder="Enter your confirm password"
             value={values.passwordConfirmation}
             onChange={handleChange}
             name="passwordConfirmation"
@@ -106,8 +139,8 @@ export default function SignUpClient() {
           )}
           <button
             type="submit"
-            disabled={!isFormValid}
-            className={`w-[51.8rem] h-[4.8rem] rounded-[0.8rem] border-none bg-primary-beige text-[1.6rem] font-semibold text-primary-white ${isFormValid ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'} cursor-pointer`}
+            disabled={!isFormValid || isLoading}
+            className={`w-[51.8rem] h-[4.8rem] rounded-[0.8rem] border-none text-[1.6rem] font-semibold text-primary-white ${isFormValid ? 'bg-primary-beige cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}
           >
             Sign up
           </button>
