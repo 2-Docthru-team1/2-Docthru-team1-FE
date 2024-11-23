@@ -94,7 +94,7 @@ export default function SignUpClient() {
             required
           />
           {touched.email && errors.email && (
-            <span className="text-error-red text-[1.2rem] font-normal absolute top-[7.1rem] ">{errors.email}</span>
+            <span className="text-error-red text-[1.2rem] font-normal absolute top-[7.3rem] left-[60rem] ">{errors.email}</span>
           )}
           <SignInput
             type="text"
@@ -107,7 +107,7 @@ export default function SignUpClient() {
             required
           />
           {touched.name && errors.name && (
-            <span className="text-error-red text-[1.2rem] font-normal absolute top-[16.7rem] ">{errors.name}</span>
+            <span className="text-error-red text-[1.2rem] font-normal absolute top-[16.9rem] left-[60rem] ">{errors.name}</span>
           )}
           <SignInput
             type="password"
@@ -120,7 +120,9 @@ export default function SignUpClient() {
             required
           />
           {touched.password && errors.password && (
-            <span className="text-error-red text-[1.2rem] font-normal absolute top-[26rem] ">{errors.password}</span>
+            <span className="text-error-red text-[1.2rem] font-normal absolute top-[26.3rem] left-[60rem] ">
+              {errors.password}
+            </span>
           )}
           <SignInput
             type="password"
@@ -133,7 +135,7 @@ export default function SignUpClient() {
             required
           />
           {touched.passwordConfirmation && errors.passwordConfirmation && (
-            <span className="text-error-red text-[1.2rem] font-normal absolute top-[35.7rem] ">
+            <span className="text-error-red text-[1.2rem] font-normal absolute top-[36rem] left-[60rem] ">
               {errors.passwordConfirmation}
             </span>
           )}
