@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import filter from '@/../public/assets/ic_filter.png';
 import activeFilter from '@/../public/assets/icon_filter_active.png';
 import search from '@/../public/assets/icon_search.png';
@@ -69,6 +70,7 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
 };
 
 export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
+  const router = useRouter();
   const { keyword, category, setKeyword, setCategory } = useStore();
 
   const filterBarType = filterBarWidths[type] || '';
@@ -123,12 +125,23 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     }
   };
 
-  const handleApply = (view: string, media: string[], status: string) => {
-    const count = (view ? 1 : 0) + media.length + (status ? 1 : 0);
-    setSelectedCount(count);
-    setIsFilterApplied(count > 0);
-    handleCloseDropdown();
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const currentKeyword = e.currentTarget.value;
+      setKeyword(currentKeyword);
+      const queryString = new URLSearchParams({ keyword: currentKeyword }).toString();
+
+      router.push(`?${queryString}`);
+    }
   };
+
+  useEffect(() => {
+    setKeyword('');
+
+    const query = new URLSearchParams(window.location.search);
+    query.delete('keyword');
+    router.push(`${window.location.pathname}?${query.toString()}`);
+  }, []);
 
   return (
     <div>
@@ -155,6 +168,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
             placeholder="Search recipe"
             value={keyword}
             onChange={e => setKeyword(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
         </div>
       </div>
