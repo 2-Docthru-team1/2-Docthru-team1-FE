@@ -43,8 +43,8 @@ export interface ChallengeParticipantStatusData {
 
 export interface ChallengeCardProps {
   data: ChallengeData | null;
-  userId: string;
-  role: 'admin' | 'normal';
+  userId: string | null;
+  role: 'admin' | 'normal' | null;
 }
 
 export interface ChallengeData {
@@ -61,7 +61,7 @@ export interface ChallengeData {
 
 export interface MonthlyChallengeCardProps {
   data: MonthlyChallengeData | null;
-  role: 'admin' | 'normal';
+  role: 'admin' | 'normal' | null;
 }
 
 export interface MonthlyChallengeData {

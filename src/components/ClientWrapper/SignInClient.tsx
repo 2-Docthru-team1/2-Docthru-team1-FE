@@ -24,7 +24,7 @@ export default function SignIn() {
       const { login } = useStore.getState();
       login(res.userId, res.role);
 
-      router.push('/recipeList');
+      router.push('/challengeList');
     } catch (err) {}
   };
 

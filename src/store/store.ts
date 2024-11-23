@@ -8,8 +8,8 @@ interface StoreState {
 
   userStatus: 'loggedOut' | 'normal' | 'admin';
   userId: string | null;
-  role: string | null;
-  login: (userId: string, role: string) => void;
+  role: 'normal' | 'admin' | null;
+  login: (userId: string, role: 'normal' | 'admin') => void;
   logout: () => void;
   setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => void;
 }
@@ -24,7 +24,7 @@ const useStore = create<StoreState>((set: (partial: Partial<StoreState>) => void
   userId: null,
   role: null,
 
-  login: (userId: string, role: string) => {
+  login: (userId: string, role: 'normal' | 'admin') => {
     set({ userId, role, userStatus: role === 'admin' ? 'admin' : 'normal' });
     localStorage.setItem('userId', userId);
     localStorage.setItem('role', role);

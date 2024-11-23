@@ -4,16 +4,17 @@ import { getRequest } from './api';
 
 export const fetchChallenge = async () => {
   const response = await getRequest('/challenges');
+  console.log(response.data);
   return response.data;
 };
 
 export const fetchRanker = async () => {
-  const response = await getRequest('/rankerMockData.json');
+  const response = await getRequest('http://localhost:3000/rankerMockData.json');
   return response.data;
 };
 
 export const fetchAdminChallenge = async () => {
-  const response = await getRequest('/adminchallengeMockData.json');
+  const response = await getRequest('http://localhost:3000/adminchallengeMockData.json');
   return response.data;
 };
 
