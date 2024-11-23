@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Nav from '@/components/Nav/Nav';
@@ -28,8 +27,8 @@ export default function RootLayout({
       </head>
       <body className={pretendard.className}>
         <ReactQueryProviders>
-            <Nav />
-            <div className="min-h-screen bg-gray-50">{children}</div>
+          <Nav />
+          <div className="min-h-screen bg-gray-50">{children}</div>
         </ReactQueryProviders>
       </body>
     </html>
