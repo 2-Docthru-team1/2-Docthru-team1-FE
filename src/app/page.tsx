@@ -16,7 +16,7 @@ export default async function Home() {
           <Image src={pcLogo} alt="HanCook Logo" width={462} height={92.4} />
           <p className="text-[2rem] font-semibold text-color-700">Capture and share your Hansik(Korean Food) cooking!</p>
         </div>
-        <Cta url="/signin">Go to Sign-in</Cta>
+        <Cta url="/signIn">Go to Sign-in</Cta>
       </div>
     </div>
   );
