@@ -14,30 +14,36 @@ interface StoreState {
   setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => void;
 }
 
-const useStore = create<StoreState>((set: (partial: Partial<StoreState>) => void) => ({
-  keyword: '',
-  category: '',
-  setKeyword: (keyword: string) => set({ keyword }),
-  setCategory: (category: string) => set({ category }),
+const useStore = create<StoreState>((set: (partial: Partial<StoreState>) => void) => {
+  const storedUserId = localStorage.getItem('userId');
+  const storedRole = localStorage.getItem('role') as 'normal' | 'admin' | null;
+  const initialUserStatus = storedRole === 'admin' ? 'admin' : storedRole === 'normal' ? 'normal' : 'loggedOut';
 
-  userStatus: 'loggedOut',
-  userId: null,
-  role: null,
+  return {
+    keyword: '',
+    category: '',
+    setKeyword: (keyword: string) => set({ keyword }),
+    setCategory: (category: string) => set({ category }),
 
-  login: (userId: string, role: 'normal' | 'admin') => {
-    set({ userId, role, userStatus: role === 'admin' ? 'admin' : 'normal' });
-    localStorage.setItem('userId', userId);
-    localStorage.setItem('role', role);
-  },
+    userStatus: initialUserStatus,
+    userId: storedUserId || null,
+    role: storedRole || null,
 
-  logout: () => {
-    set({ userId: null, role: null, userStatus: 'loggedOut' });
-    localStorage.removeItem('userId');
-    localStorage.removeItem('role');
-    localStorage.removeItem('accessToken');
-  },
+    login: (userId: string, role: 'normal' | 'admin') => {
+      set({ userId, role, userStatus: role === 'admin' ? 'admin' : 'normal' });
+      localStorage.setItem('userId', userId);
+      localStorage.setItem('role', role);
+    },
 
-  setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => set({ userStatus: status })
-}));
+    logout: () => {
+      set({ userId: null, role: null, userStatus: 'loggedOut' });
+      localStorage.removeItem('userId');
+      localStorage.removeItem('role');
+      localStorage.removeItem('accessToken');
+    },
+
+    setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => set({ userStatus: status })
+  };
+});
 
 export default useStore;
