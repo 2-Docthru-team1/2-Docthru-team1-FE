@@ -1,4 +1,3 @@
-// src/components/ChipType.stories.tsx
 import type { Meta, StoryFn } from '@storybook/react';
 import ChipType from '@/components/Chip/ChipType';
 import type { ChipTypeProps } from '@/interfaces/chipInterface';
@@ -10,7 +9,7 @@ export default {
     type: {
       control: {
         type: 'select',
-        options: ['traditional', 'schoolfood', 'noodle', 'banchan', 'dessert'] // 가능한 타입
+        options: ['traditional', 'schoolfood', 'noodle', 'banchan', 'dessert']
       },
       description: 'Chip type to determine the background color and text.'
     }

@@ -1,7 +1,6 @@
 import axios, { AxiosHeaders, type InternalAxiosRequestConfig } from 'axios';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
 const instance = axios.create({
   baseURL: `${BASE_URL}`,
   timeout: 10000
@@ -23,7 +22,6 @@ instance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
 instance.interceptors.response.use(
   res => res,
   async err => {
@@ -53,7 +51,6 @@ export function getRequest(url: string, params: object = {}) {
 
   return instance.get(url, config);
 }
-
 export async function postRequest(url: string, body: object = {}) {
   return instance.post(url, body);
 }

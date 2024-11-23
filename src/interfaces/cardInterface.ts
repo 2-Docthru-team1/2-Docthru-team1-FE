@@ -104,3 +104,15 @@ export interface ParticipantStatusData {
   nickname: string;
   role: string;
 }
+
+export interface ChallengeDetailContentCardProps {
+  type: 'ongoing' | 'finished';
+  data: ChallengeDetailContentCardData;
+}
+
+export interface ChallengeDetailContentCardData {
+  title: string;
+  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
+  content: string;
+  nickname: string;
+}
