@@ -42,6 +42,8 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
 
   const borderClass = type === 'first' ? 'border-2 border-primary-beige' : 'border border-gray-200';
 
+  // TODO: 현재 api 수정 이슈로 댓글 개수는 임의대로 작업하였습니다.
+
   return (
     <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`}>
       <div className="relative w-[27.45rem] h-[23.9rem]">
@@ -60,7 +62,8 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
           <div className="flex flex-col">
             <div className="flex gap-[0.4rem]">
               <Image src={comment} alt="댓글" />
-              <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.Feedback.length}</p>
+              {/* <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.Feedback.length}</p> */}
+              <p className="font-medium text-[1.2rem] leading-[1.8rem]">15</p>
             </div>
             <div className="flex gap-[0.4rem]">
               <Image src={heart} alt="하트" />

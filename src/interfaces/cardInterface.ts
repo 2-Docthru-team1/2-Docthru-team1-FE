@@ -83,7 +83,10 @@ export interface MonthlyRankerCard {
 }
 
 export interface ChallengeParticipateStatusProps {
-  data: ParticipantStatusData[];
+  data: {
+    list: ParticipantStatusData[];
+    totalCount: number;
+  };
 }
 
 export interface ParticipantStatusData {

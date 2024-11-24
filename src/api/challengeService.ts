@@ -22,7 +22,7 @@ export const fetchChallenge_detail = async (id: string) => {
   return response.data;
 };
 
-export const fetchChallengeStatus = async (): Promise<ChallengeParticipantStatusData[]> => {
-  const response: AxiosResponse<ChallengeParticipantStatusData[]> = await getRequest('/ChallengeStatusData.json');
+export const fetchChallengeStatus = async (id: string): Promise<ChallengeParticipantStatusData[]> => {
+  const response: AxiosResponse<ChallengeParticipantStatusData[]> = await getRequest(`/challenges/${id}/works`);
   return response.data;
 };

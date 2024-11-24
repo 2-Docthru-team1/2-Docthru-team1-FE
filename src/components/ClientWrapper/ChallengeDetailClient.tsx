@@ -28,8 +28,9 @@ export default function ChallengeDetailClient() {
   useEffect(() => {
     if (typeof id === 'string') {
       const getChallengeStatus = async () => {
-        const data = (await fetchChallengeStatus()) as ParticipantStatusData[];
-        setChallengeStatusMedium(data);
+        const data = (await fetchChallengeStatus(id)) as ParticipantStatusData[];
+        console.log(data.list);
+        setChallengeStatusMedium(data.list);
       };
       getChallengeStatus();
     }
