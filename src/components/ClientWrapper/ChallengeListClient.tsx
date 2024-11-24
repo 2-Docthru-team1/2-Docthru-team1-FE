@@ -7,19 +7,15 @@ import btn_request from '@/../public/assets/btn_request_icon.png';
 import ChallengeCard from '@/components/Card/ChallengeCard';
 import type { ChallengeData, MonthlyChallengeData } from '@/interfaces/cardInterface';
 import type { ChallengeListClientProps } from '@/interfaces/challengelistInterface';
+import useStore from '@/store/store';
 import MonthlyChallengeCard from '../Card/MonthlyChallengeCard';
 import MonthlyRankerCard from '../Card/MonthlyRankerCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
-export default function ChallengeListClient({
-  adminchallengeData,
-  challengeData,
-  userId,
-  role,
-  rankerData
-}: ChallengeListClientProps) {
+export default function ChallengeListClient({ adminchallengeData, challengeData, rankerData }: ChallengeListClientProps) {
   const router = useRouter();
+  const { userId, role } = useStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -59,7 +55,7 @@ export default function ChallengeListClient({
           <p className="font-semibold text-[2rem] leading-[2.387rem text-gray-800">Challenge List</p>
 
           <div className="flex gap-[2rem]">
-            <FilterBar type="recipe" /> {/* challenge FilterBar 설계한 후 수정 */}
+            <FilterBar type="challenge" />
             <Image src={btn_request} alt="Request" /> {/* 리퀘스트 버튼 구현 후 수정 */}
           </div>
         </div>

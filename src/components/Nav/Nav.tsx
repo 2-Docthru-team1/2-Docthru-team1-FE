@@ -8,12 +8,11 @@ import translate from '@/../public/assets/icon_translate.png';
 import logo from '@/../public/assets/img_logo_pc.png';
 import adminProfile from '@/../public/assets/img_profile_admin.png';
 import userProfile from '@/../public/assets/img_profile_member.png';
-import { useUserStatus } from '@/context/UserContext';
-import { logout } from '@/utils/auth';
+import useStore from '@/store/store';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
 
 export default function Nav() {
-  const { userStatus, setUserStatus } = useUserStatus();
+  const { userStatus } = useStore();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -24,8 +23,9 @@ export default function Nav() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSignOut = () => {
-    setUserStatus('loggedOut');
+    const { logout } = useStore.getState();
     logout();
+    router.push('/');
   };
 
   return (
