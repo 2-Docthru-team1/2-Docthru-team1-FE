@@ -1,11 +1,12 @@
 'use client';
 
-import { format } from 'date-fns';
 import Image from 'next/image';
 import { type ChangeEvent, useState } from 'react';
 import kebab from '@/../public/assets/icon_kebab_cancel.png';
 import userImg from '@/../public/assets/img_profile_member.png';
+import { patchFeedback } from '@/api/feedbackService';
 import type { FeedbackCardProps } from '@/interfaces/feedbackInterface';
+import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 
 export default function FeedbackCard({ comments, user }: FeedbackCardProps) {
@@ -16,7 +17,7 @@ export default function FeedbackCard({ comments, user }: FeedbackCardProps) {
   const [editingCommentId, setEditingCommentId] = useState<string>('');
   const [editingContent, setEditingContent] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const formattedDate = format(new Date(comments[0].createdAt), 'yy/MM/dd HH:mm');
+  const formattedDate = useFormatter(Formatter.Date, comments[0].createdAt);
 
   const handleMenuClick = () => {
     setIsDropdownOpen(prev => !prev);
@@ -32,13 +33,13 @@ export default function FeedbackCard({ comments, user }: FeedbackCardProps) {
     setEditingContent(e.target.value);
   };
 
-  const handleEdit = (commentId: string) => {
+  const handleEdit = async (commentId: string) => {
     try {
-      // TODO: 추후 댓글 수정 api 연결
+      await patchFeedback(commentId, editingContent);
       setEditingCommentId('');
       setEditingContent('');
     } catch (err) {
-      console.error(err);
+      alert('Failed to patch your feedback. Please try again.');
     }
   };
 
@@ -58,7 +59,7 @@ export default function FeedbackCard({ comments, user }: FeedbackCardProps) {
                     <Image src={userImg} alt="유저 이미지" layout="fill" />
                   </div>
                   <div>
-                    <p className="text-[1.4rem] font-medium text-gray-800">{comment.userName}</p>
+                    <p className="text-[1.4rem] font-medium text-gray-800">{comment.owner.name}</p>
                     <p className="text-[1.2rem] font-medium text-gray-400">{formattedDate}</p>
                   </div>
                 </div>

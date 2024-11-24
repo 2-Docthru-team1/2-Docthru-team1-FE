@@ -11,7 +11,11 @@ const data = {
   likeCount: 1934,
   images: ['/temporaryAssets/food.svg'],
   content: 'I did it for like one hour!! Look at thissss! I finally made it!',
-  ownerId: 'u123'
+  owner: {
+    id: 'u123',
+    name: 'Named',
+    role: 'koo-koo'
+  }
 };
 
 const user = {

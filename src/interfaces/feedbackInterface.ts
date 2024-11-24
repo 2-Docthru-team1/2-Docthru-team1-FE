@@ -5,7 +5,9 @@ export interface FeedbackData {
   createdAt: string;
   content: string;
   ownerId: string;
-  userName: string;
+  owner: {
+    name: string;
+  };
 }
 
 export interface FeedbackCardProps {

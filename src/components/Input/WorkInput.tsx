@@ -1,14 +1,14 @@
 import Image from 'next/image';
-// import { useRouter } from 'next/router';
 import { type ChangeEvent, useState } from 'react';
 import activeSubmit from '@/../public/assets/btn_feedback_active.png';
 import inactiveSubmit from '@/../public/assets/btn_feedback_inactive.png';
+import { postFeedback } from '@/api/feedbackService';
+import type { WorkInputProps } from '@/interfaces/workInterface';
 
-export default function WorkInput() {
+export default function WorkInput({ data }: WorkInputProps) {
+  if (!data) return null;
   const [content, setContent] = useState<string>('');
-  // const router = useRouter();
-  // const workId = router.query['id'] as string;
-
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const isInputEmpty = (): boolean => {
     return content.trim() !== '';
   };
@@ -16,14 +16,20 @@ export default function WorkInput() {
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setContent(e.target.value);
   };
-  const handleSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!isInputEmpty()) {
       return;
     }
-    // 추후 api 연결해서 작업물의 content를 post는 과정
-
-    window.location.reload();
+    setIsSubmitting(true);
+    try {
+      await postFeedback(data.id, content);
+      setContent('');
+    } catch (error) {
+      alert('Failed to submit your feedback. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -34,10 +40,11 @@ export default function WorkInput() {
           value={content}
           onChange={handleChange}
           placeholder="Please write your comment"
+          disabled={isSubmitting}
           className="resize-none w-[113.2rem] h-[8.9rem] rounded-[1rem] border border-gray-200 text-gray-700 text-[1.6rem] font-medium placeholder-gray-400 p-5 focus:outline-none"
         />
-        <button type="submit" disabled={!isInputEmpty()} className="absolute top-0 right-0">
-          {isInputEmpty() ? (
+        <button type="submit" disabled={!isInputEmpty() || isSubmitting} className="absolute top-0 right-0">
+          {isInputEmpty() || !isSubmitting ? (
             <Image src={activeSubmit} alt="active 제출 이미지" width={40} height={40} />
           ) : (
             <Image src={inactiveSubmit} alt="inactive 제출 이미지" width={40} height={40} />
