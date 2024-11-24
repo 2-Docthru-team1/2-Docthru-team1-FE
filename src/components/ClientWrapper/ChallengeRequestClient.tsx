@@ -75,8 +75,9 @@ export default function ChallengeRequestClient() {
       if (!selectedDate) setDateError(true);
       return;
     }
-
-    const date = new Date(selectedDate);
+    const [day, month, year] = selectedDate.split('/').map(Number);
+    const formattedDate = `${2000 + year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const date = new Date(formattedDate);
     date.setHours(23, 59, 59, 999);
     const isoDate = date.toISOString();
 
