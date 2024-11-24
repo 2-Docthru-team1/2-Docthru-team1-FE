@@ -6,29 +6,34 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signIn } from '@/api/signService';
-import { useUserStatus } from '@/context/UserContext';
+import useStore from '@/store/store';
 import SignInput from '../Input/SignInput';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUserStatus } = useUserStatus();
   const router = useRouter();
 
-  const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
-  const isFormValid = isValidEmail(email) && password.length >= 6;
+  const isFormValid = () => {
+    return email.trim() !== '' && password.trim() !== '';
+  };
   const handleSignIn = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       const credentials = { email, password };
       const res = await signIn(credentials);
-      if (res.role === 'admin') {
-        setUserStatus('admin');
-      } else if (res.role === 'normal') {
-        setUserStatus('normal');
+
+      const { login } = useStore.getState();
+      login(res.userId, res.role);
+
+      router.push('/challengeList');
+    } catch (err: any) {
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+      if (err?.response?.data?.field === '이메일 또는 비밀번호가 잘못되었습니다.') {
+        errorMessage = 'The username or password is incorrect.';
       }
-      router.push('/recipeList');
-    } catch (err) {}
+      alert(errorMessage);
+    }
   };
 
   return (
@@ -57,9 +62,9 @@ export default function SignIn() {
           <button
             type="submit"
             className={`w-full h-[4.8rem] text-[1.6rem] text-primary-white border rounded-[0.8rem] text-center ${
-              isFormValid ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
+              isFormValid() ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
             }`}
-            disabled={!isFormValid}
+            disabled={!isFormValid()}
           >
             Sign In
           </button>

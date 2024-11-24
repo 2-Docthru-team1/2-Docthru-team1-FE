@@ -17,7 +17,7 @@ export default function SignInput({ type, label, placeholder, value, onChange, .
         {label}
       </label>
       <div className="relative">
-        {type === 'password' ? (
+        {type === 'password' || type === 'passwordConfirm' ? (
           <>
             <input
               id={type}
