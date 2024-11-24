@@ -58,7 +58,7 @@ export default function ChallengeRequestClient() {
   };
 
   const handleSubmit = () => {
-    if (!title.trim() || !url.trim() || !content.trim()) {
+    if (!title.trim() || !url.trim() || !content.trim() || images.length === 0) {
       if (!title.trim()) setTitleError(true);
       if (!url.trim()) setUrlError(true);
       if (!content.trim()) setContentError(true);
@@ -68,7 +68,7 @@ export default function ChallengeRequestClient() {
     router.push('/challengeList');
   };
 
-  const isFormValid = title.trim() && url.trim() && content.trim();
+  const isFormValid = title.trim() && url.trim() && content.trim() && images.length > 0;
 
   return (
     <div className="flex justify-center items-center">
@@ -133,14 +133,14 @@ export default function ChallengeRequestClient() {
               >
                 <Image
                   src={URL.createObjectURL(file)}
-                  alt={`업로드된 이미지 ${index + 1}`}
+                  alt={`Uploaded image ${index + 1}`}
                   width={170}
                   height={170}
                   className="w-full h-full object-cover"
                 />
                 <Image
                   src={close}
-                  alt="엑스"
+                  alt="Remove"
                   onClick={() => handleRemoveImage(index)}
                   className="mt-[0.7rem] mr-[0.7rem] absolute top-0 right-0 cursor-pointer"
                 />
@@ -148,10 +148,10 @@ export default function ChallengeRequestClient() {
             ))}
             {images.length < 2 && (
               <div
-                className="w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center cursor-pointer"
+                className="w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center cursor-pointer bg-primary-white rounded-[0.5rem]"
                 onClick={handleImageClick}
               >
-                <Image src={plus} alt="더하기" width={40} height={40} />
+                <Image src={plus} alt="Add" width={40} height={40} />
               </div>
             )}
           </div>
@@ -161,7 +161,7 @@ export default function ChallengeRequestClient() {
         <button
           onClick={handleSubmit}
           disabled={!isFormValid}
-          className={`w-full py-[1.45rem] text-[1.6rem] font-semibold rounded-[0.8rem] mt-[1rem] ${
+          className={`w-full py-[1.45rem] text-[1.6rem] font-semibold rounded-[0.8rem] mt-[2.4rem] ${
             isFormValid
               ? 'bg-primary-beige text-primary-white cursor-pointer'
               : 'bg-gray-200 text-primary-white cursor-not-allowed'
