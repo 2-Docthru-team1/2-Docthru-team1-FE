@@ -4,7 +4,7 @@ export interface UserData {
   role: string;
 }
 
-export interface SingInData {
+export interface SignUpData {
   email: string;
   name: string;
   password: string;
