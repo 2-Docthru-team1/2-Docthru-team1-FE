@@ -31,8 +31,6 @@ export default function SignIn() {
       let errorMessage = 'An unexpected error occurred. Please try again.';
       if (err?.response?.data?.field === '이메일 또는 비밀번호가 잘못되었습니다.') {
         errorMessage = 'The username or password is incorrect.';
-      } else if (err?.response?.data?.field === '이메일 또는 비밀번호가 잘못되었습니다.') {
-        errorMessage = 'The username or password is incorrect.';
       }
       alert(errorMessage);
     }
