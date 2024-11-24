@@ -13,10 +13,10 @@ export default function ChallengeDetailClient() {
   const { id } = useParams();
 
   const [medium, setMedium] = useState<ChallengeDetailData | null>(null);
-  const [challengeStatusMedium, setChallengeStatusMedium] = useState<{
-    list: ParticipantStatusData[];
-    totalCount: number;
-  }>({ list: [], totalCount: 0 });
+  const [challengeStatusMedium, setChallengeStatusMedium] = useState<ChallengeParticipateStatusProps>({
+    list: [],
+    totalCount: 0
+  });
 
   const [page, setPage] = useState(1);
 
@@ -34,11 +34,8 @@ export default function ChallengeDetailClient() {
     if (typeof id === 'string') {
       const getChallengeStatus = async () => {
         const data = await fetchChallengeStatus(id, page);
-        console.log(data, 'Challenge Status Data');
-        setChallengeStatusMedium({
-          list: data.list,
-          totalCount: data.totalCount
-        });
+        // console.log(data, 'Challenge Status Data');
+        setChallengeStatusMedium(data);
       };
       getChallengeStatus();
     }
@@ -47,6 +44,9 @@ export default function ChallengeDetailClient() {
   if (!medium) {
     return <div>Loading...</div>;
   }
+
+  // console.log(medium);
+  // console.log(challengeStatusMedium);
 
   return (
     <div className="flex flex-col w-full">
@@ -64,23 +64,23 @@ export default function ChallengeDetailClient() {
         </div>
         {medium.status === 'finished' && (
           <div className="mt-[4rem] flex">
-            {challengeStatusMedium.length > 0 && (
+            {challengeStatusMedium.list.length > 0 && (
               <ChallengeMostLikedCard
                 data={{
-                  title: challengeStatusMedium[0].title,
-                  ownerId: challengeStatusMedium[0].ownerId,
-                  role: challengeStatusMedium[0].role,
-                  likeCount: challengeStatusMedium[0].likeCount,
-                  description: challengeStatusMedium[0].description,
-                  Feedback: challengeStatusMedium[0].Feedback,
-                  createdAt: challengeStatusMedium[0].createdAt
+                  title: challengeStatusMedium.list[0].title,
+                  ownerId: challengeStatusMedium.list[0].ownerId,
+                  role: challengeStatusMedium.list[0].role,
+                  likeCount: challengeStatusMedium.list[0].likeCount,
+                  description: challengeStatusMedium.list[0].description,
+                  Feedback: challengeStatusMedium.list[0].Feedback,
+                  createdAt: challengeStatusMedium.list[0].createdAt
                 }}
               />
             )}
           </div>
         )}
         <div className="mt-[4rem] flex mb-[2rem]">
-          <ChallengeParticipateStatus data={challengeStatusMedium} />
+          <ChallengeParticipateStatus list={challengeStatusMedium.list} totalCount={challengeStatusMedium.totalCount} />
         </div>
       </div>
     </div>

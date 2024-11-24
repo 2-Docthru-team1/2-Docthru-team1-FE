@@ -5,14 +5,16 @@ import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface
 import Pagination from '../Pagination/Pagination';
 import ChallengeParticipantCard from './ChallengeParticipantCard';
 
-export default function ChallengeParticipateStatus({ data }: ChallengeParticipateStatusProps) {
+export default function ChallengeParticipateStatus({ list, totalCount }: ChallengeParticipateStatusProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
+  console.log(list, totalCount, 'w4rq3efawefwaef');
+
   // const indexOfLastItem = currentPage * itemsPerPage;
   // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.list.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-  const totalPages = Math.ceil(data.totalCount / itemsPerPage);
+  const currentItems = list.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
