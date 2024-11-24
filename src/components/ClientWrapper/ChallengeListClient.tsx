@@ -37,7 +37,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
   };
 
   const handleRequestClick = () => {
-    router.push('/challengeList/request');
+    router.push('/challengeRequest');
   };
 
   return (
