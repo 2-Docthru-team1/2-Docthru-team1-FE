@@ -16,17 +16,17 @@ export default function ChallengeRequestClient() {
   const [url, setUrl] = useState('');
   const [urlError, setUrlError] = useState(false);
 
-  const [content, setContent] = useState('');
-  const [contentError, setContentError] = useState(false);
-
-  const [images, setImages] = useState<File[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   const [selectedMediaType, setSelectedMediaType] = useState('');
   const [mediaTypeError, setMediaTypeError] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState('');
   const [dateError, setDateError] = useState(false);
+
+  const [content, setContent] = useState('');
+  const [contentError, setContentError] = useState(false);
+
+  const [images, setImages] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleBlur = (value: string, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (!value.trim()) {
@@ -78,7 +78,7 @@ export default function ChallengeRequestClient() {
     router.push('/challengeList');
   };
 
-  const isFormValid = title.trim() && url.trim() && content.trim() && images.length > 0 && selectedMediaType;
+  const isFormValid = title.trim() && url.trim() && content.trim() && images.length > 0 && selectedMediaType && selectedDate;
 
   return (
     <div className="flex justify-center items-center">

@@ -38,12 +38,17 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
 
     return Array.from({ length: daysInMonth }, (_, index) => {
       const day = new Date(year, month, index + 1);
+      const formattedDay = formatDate(day);
+      const isSelected = formattedDay === selectedDate;
 
       const isPast = day < today;
 
       if (isPast) {
         return (
-          <div key={index} className="flex h-[4rem] w-[4rem] justify-center items-center text-gray-300 cursor-not-allowed">
+          <div
+            key={index}
+            className="flex h-[4rem] w-[4rem] justify-center items-center text-gray-300 cursor-not-allowed ml-[1rem]"
+          >
             <p>{day.getDate()}</p>
           </div>
         );
@@ -52,7 +57,7 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
       return (
         <div
           key={index}
-          className="flex h-[4rem] w-[4rem] justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full"
+          className={`flex h-[4rem] w-[4rem] justify-center items-center cursor-pointer hover:bg-gray-200 rounded-full ml-[1rem] ${isSelected ? 'bg-primary-beige' : ''}`}
           onClick={() => handleDateSelect(day)}
         >
           <p className="text-gray-700 font-medium">{day.getDate()}</p>
@@ -121,7 +126,9 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
               &gt;
             </button>
           </div>
-          <div className="grid grid-cols-7 gap-[0.5rem] text-[1.5rem]">{generateDaysInMonth(currentMonth)}</div>
+          <div>
+            <div className="grid grid-cols-7 gap-[0.5rem] text-[1.5rem]">{generateDaysInMonth(currentMonth)}</div>
+          </div>
         </div>
       )}
     </div>
