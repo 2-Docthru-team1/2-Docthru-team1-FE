@@ -12,7 +12,7 @@ const Template: StoryFn = args => {
   const [typeError, setTypeError] = useState(false);
 
   return (
-    <div className="w-[300px]">
+    <div className="">
       <DateDropdown {...args} selectedDate={selectedDate} setSelectedDate={setSelectedDate} setTypeError={setTypeError} />
     </div>
   );

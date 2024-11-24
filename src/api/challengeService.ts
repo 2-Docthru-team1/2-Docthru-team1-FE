@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import type { ChallengeParticipantStatusData } from '@/interfaces/cardInterface';
-import { getRequest } from './api';
+import { getRequest, postRequest } from './api';
 
 export const fetchChallenge = async () => {
   const response = await getRequest('/challenges');
@@ -25,5 +25,10 @@ export const fetchChallenge_detail = async (id: string) => {
 
 export const fetchChallengeStatus = async (): Promise<ChallengeParticipantStatusData[]> => {
   const response: AxiosResponse<ChallengeParticipantStatusData[]> = await getRequest('/ChallengeStatusData.json');
+  return response.data;
+};
+
+export const fetchChallengeRequest = async (formData: FormData) => {
+  const response = await postRequest('/challenges', formData);
   return response.data;
 };

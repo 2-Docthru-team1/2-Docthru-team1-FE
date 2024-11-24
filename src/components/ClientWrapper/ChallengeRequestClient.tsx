@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
 import close from '@/../public/assets/icon_out_circle_small.png';
+import { fetchChallengeRequest } from '@/api/challengeService';
 import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
 import DateDropdown from '../Dropdown/DateDropdown';
 
@@ -65,7 +66,7 @@ export default function ChallengeRequestClient() {
     setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!title.trim() || !url.trim() || !content.trim() || images.length === 0 || !selectedMediaType || !selectedDate) {
       if (!title.trim()) setTitleError(true);
       if (!url.trim()) setUrlError(true);
@@ -74,8 +75,26 @@ export default function ChallengeRequestClient() {
       if (!selectedDate) setDateError(true);
       return;
     }
-    alert('Form submitted successfully!');
-    router.push('/challengeList');
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('url', url);
+    formData.append('description', content);
+    formData.append('mediaType', selectedMediaType);
+    formData.append('deadline', selectedDate);
+
+    images.forEach((image, index) => {
+      formData.append(`image${index + 1}`, image); // 백엔드에서 이름을 key로 구분
+    });
+
+    try {
+      await fetchChallengeRequest(formData);
+      alert('Form submitted successfully!');
+      router.push('/challengeList');
+    } catch (error) {
+      console.error('Failed to submit form:', error);
+      alert('There was an error submitting the form. Please try again.');
+    }
   };
 
   const isFormValid = title.trim() && url.trim() && content.trim() && images.length > 0 && selectedMediaType && selectedDate;
