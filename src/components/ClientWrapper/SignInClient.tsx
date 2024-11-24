@@ -22,11 +22,18 @@ export default function SignIn() {
     try {
       const credentials = { email, password };
       const res = await signIn(credentials);
+
       const { login } = useStore.getState();
       login(res.userId, res.role);
 
       router.push('/challengeList');
-    } catch (err) {}
+    } catch (err: any) {
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+      if (err?.response?.data?.field === '이메일 또는 비밀번호가 잘못되었습니다.') {
+        errorMessage = 'The username or password is incorrect.';
+      }
+      alert(errorMessage);
+    }
   };
 
   return (
