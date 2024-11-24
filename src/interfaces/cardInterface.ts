@@ -34,8 +34,14 @@ export interface ChallengeParticipantStatusData {
   title: string;
   Feedback: string[];
   likeCount: number;
-  nickname: string;
+  owner: ownerData;
   images: string[];
+}
+
+export interface ownerData {
+  email: string;
+  id: string;
+  name: string;
   role: string;
 }
 
@@ -97,7 +103,7 @@ export interface ParticipantStatusData {
   likeCount: number;
   likeUsers: string[];
   Feedback: string[];
-  ownerId: string;
+  owner: ownerData;
   challengeId: string;
   images: string[];
   nickname: string;

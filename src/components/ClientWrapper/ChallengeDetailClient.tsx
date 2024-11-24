@@ -34,7 +34,6 @@ export default function ChallengeDetailClient() {
     if (typeof id === 'string') {
       const getChallengeStatus = async () => {
         const data = await fetchChallengeStatus(id, page);
-        // console.log(data, 'Challenge Status Data');
         setChallengeStatusMedium(data);
       };
       getChallengeStatus();
@@ -44,9 +43,6 @@ export default function ChallengeDetailClient() {
   if (!medium) {
     return <div>Loading...</div>;
   }
-
-  // console.log(medium);
-  // console.log(challengeStatusMedium);
 
   return (
     <div className="flex flex-col w-full">
@@ -68,7 +64,7 @@ export default function ChallengeDetailClient() {
               <ChallengeMostLikedCard
                 data={{
                   title: challengeStatusMedium.list[0].title,
-                  ownerId: challengeStatusMedium.list[0].ownerId,
+                  ownerId: challengeStatusMedium.list[0].owner.id,
                   role: challengeStatusMedium.list[0].role,
                   likeCount: challengeStatusMedium.list[0].likeCount,
                   description: challengeStatusMedium.list[0].description,

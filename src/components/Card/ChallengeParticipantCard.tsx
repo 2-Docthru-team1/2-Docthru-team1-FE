@@ -12,14 +12,11 @@ import type { ChallengeParticipantStatusData, ChallengeParticipantStatusProps } 
 export default function ChallengeParticipantCard({ initialData, type }: ChallengeParticipantStatusProps) {
   const [data, setData] = useState<ChallengeParticipantStatusData | null>(initialData || null);
 
-  console.log(initialData, 'aerfjaw;foij;aenrv;fnkd');
-
   if (!data) {
     return <div>No data available</div>;
   }
 
-  const rol = data.role === 'normal' ? 'koo-koo' : data.role === 'admin' ? 'admin' : '';
-
+  const rol = data.owner.role === 'normal' ? 'koo-koo' : data.owner.role === 'admin' ? 'admin' : '';
   const borderClass = type === 'first' ? 'border-2 border-primary-beige' : 'border border-gray-200';
 
   // TODO: 현재 api 수정 이슈로 댓글 개수는 임의대로 작업하였습니다.
@@ -35,7 +32,7 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
           <div className="flex items-center gap-[1rem]">
             <Image src={profile} alt="프로필" width={24} height={24} />
             <div className="flex flex-col gap-[0.2rem]">
-              <p className="font-medium text-[1.4rem] leading-[1.671rem] text-gray-800">{data.nickname}</p>
+              <p className="font-medium text-[1.4rem] leading-[1.671rem] text-gray-800">{data.owner.name}</p>
               <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-500">{rol}</p>
             </div>
           </div>

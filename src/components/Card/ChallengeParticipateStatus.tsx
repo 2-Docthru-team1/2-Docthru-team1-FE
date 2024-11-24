@@ -9,10 +9,6 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
-  console.log(list, totalCount, 'w4rq3efawefwaef');
-
-  // const indexOfLastItem = currentPage * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = list.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const totalPages = Math.ceil(totalCount / itemsPerPage);
 
