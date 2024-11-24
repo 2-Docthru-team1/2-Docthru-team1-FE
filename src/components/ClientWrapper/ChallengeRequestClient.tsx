@@ -1,7 +1,10 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import plus from '@/../public/assets/icon_add_photo_plus.png';
+import close from '@/../public/assets/icon_out_circle_small.png';
 
 export default function ChallengeRequestClient() {
   const router = useRouter();
@@ -13,6 +16,9 @@ export default function ChallengeRequestClient() {
 
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState(false);
+
+  const [images, setImages] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleBlur = (value: string, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (!value.trim()) {
@@ -29,6 +35,26 @@ export default function ChallengeRequestClient() {
   ) => {
     setter(e.target.value);
     errorSetter(false);
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const newFiles = Array.from(files);
+      if (images.length + newFiles.length <= 2) {
+        setImages(prevImages => [...prevImages, ...newFiles]);
+      } else {
+        alert('최대 2개의 이미지만 업로드할 수 있습니다.');
+      }
+    }
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
   const handleSubmit = () => {
@@ -49,7 +75,7 @@ export default function ChallengeRequestClient() {
       <div className="flex flex-col w-[59rem]">
         <h2 className="mt-[2rem] mb-[2.4rem] text-[2rem] font-semibold text-gray-700">Request a challenge</h2>
 
-        <div className="mb-[2.4rem]">
+        <div>
           <p className="text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.7rem]">*Title</p>
           <input
             type="text"
@@ -61,10 +87,12 @@ export default function ChallengeRequestClient() {
               titleError ? 'border-error-red' : 'border-gray-200'
             } rounded-[1.2rem] focus:outline-none focus:border-primary-beige py-[1.1rem] px-[2rem] text-[1.6rem] text-left placeholder:text-[1.6rem] placeholder-gray-400 text-gray-700`}
           />
-          {titleError && <p className="text-error-red text-[1.2rem] ml-[0.5rem] mt-[0.5rem]">This field is required.</p>}
+          <div className="text-error-red text-[1.2rem] ml-[0.5rem] mt-[0.4rem] h-[2rem]">
+            {titleError && 'This field is required.'}
+          </div>
         </div>
 
-        <div className="mb-[2.4rem]">
+        <div>
           <p className="text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.7rem]">*Recipe Link</p>
           <input
             type="url"
@@ -76,10 +104,12 @@ export default function ChallengeRequestClient() {
               urlError ? 'border-error-red' : 'border-gray-200'
             } rounded-[1.2rem] focus:outline-none focus:border-primary-beige py-[1.1rem] px-[2rem] text-[1.6rem] text-left placeholder:text-[1.6rem] placeholder-gray-400 text-gray-700`}
           />
-          {urlError && <p className="text-error-red text-[1.2rem] ml-[0.5rem] mt-[0.5rem]">This field is required.</p>}
+          <div className="text-error-red text-[1.2rem] mt-[0.4rem] ml-[0.5rem] h-[2.0rem]">
+            {urlError && 'This field is required.'}
+          </div>
         </div>
 
-        <div className="mb-[2.4rem]">
+        <div>
           <p className="text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.7rem]">*Content</p>
           <textarea
             value={content}
@@ -90,13 +120,48 @@ export default function ChallengeRequestClient() {
               contentError ? 'border-error-red' : 'border-gray-200'
             } rounded-[0.6rem] focus:outline-none focus:border-primary-beige py-[1.1rem] px-[2rem] text-[1.6rem] text-left placeholder:text-[1.6rem] placeholder-gray-400 text-gray-700 resize-none`}
           />
-          {contentError && <p className="text-error-red text-[1.2rem] ml-[0.5rem] mt-[0.5rem]">This field is required.</p>}
+          <div className="text-error-red text-[1.2rem] ml-[0.5rem] h-[2.4rem]">{contentError && 'This field is required.'}</div>
+        </div>
+
+        <div>
+          <p className="text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.7rem]">*Photo (maximum 2)</p>
+          <div className="flex gap-[0.8rem]">
+            {images.map((file, index) => (
+              <div
+                key={index}
+                className="relative w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center"
+              >
+                <Image
+                  src={URL.createObjectURL(file)}
+                  alt={`업로드된 이미지 ${index + 1}`}
+                  width={170}
+                  height={170}
+                  className="w-full h-full object-cover"
+                />
+                <Image
+                  src={close}
+                  alt="엑스"
+                  onClick={() => handleRemoveImage(index)}
+                  className="mt-[0.7rem] mr-[0.7rem] absolute top-0 right-0 cursor-pointer"
+                />
+              </div>
+            ))}
+            {images.length < 2 && (
+              <div
+                className="w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center cursor-pointer"
+                onClick={handleImageClick}
+              >
+                <Image src={plus} alt="더하기" width={40} height={40} />
+              </div>
+            )}
+          </div>
+          <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*" />
         </div>
 
         <button
           onClick={handleSubmit}
           disabled={!isFormValid}
-          className={`w-full py-[1.45rem] text-[1.6rem] font-semibold rounded-[0.8rem] ${
+          className={`w-full py-[1.45rem] text-[1.6rem] font-semibold rounded-[0.8rem] mt-[1rem] ${
             isFormValid
               ? 'bg-primary-beige text-primary-white cursor-pointer'
               : 'bg-gray-200 text-primary-white cursor-not-allowed'
