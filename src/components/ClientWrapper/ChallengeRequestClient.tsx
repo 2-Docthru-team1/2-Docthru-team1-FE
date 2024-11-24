@@ -76,15 +76,18 @@ export default function ChallengeRequestClient() {
       return;
     }
 
+    const date = new Date(selectedDate);
+    date.setHours(23, 59, 59, 999);
+    const isoDate = date.toISOString();
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('url', url);
     formData.append('description', content);
     formData.append('mediaType', selectedMediaType);
-    formData.append('deadline', selectedDate);
-
+    formData.append('deadline', isoDate);
     images.forEach((image, index) => {
-      formData.append(`image${index + 1}`, image); // 백엔드에서 이름을 key로 구분
+      formData.append(`image${index + 1}`, image);
     });
 
     try {
