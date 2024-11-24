@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
 import close from '@/../public/assets/icon_out_circle_small.png';
+import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
 
 export default function ChallengeRequestClient() {
   const router = useRouter();
@@ -19,6 +20,9 @@ export default function ChallengeRequestClient() {
 
   const [images, setImages] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [selectedMediaType, setSelectedMediaType] = useState('');
+  const [mediaTypeError, setMediaTypeError] = useState(false);
 
   const handleBlur = (value: string, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (!value.trim()) {
@@ -58,17 +62,18 @@ export default function ChallengeRequestClient() {
   };
 
   const handleSubmit = () => {
-    if (!title.trim() || !url.trim() || !content.trim() || images.length === 0) {
+    if (!title.trim() || !url.trim() || !content.trim() || images.length === 0 || !selectedMediaType) {
       if (!title.trim()) setTitleError(true);
       if (!url.trim()) setUrlError(true);
       if (!content.trim()) setContentError(true);
+      if (!selectedMediaType) setMediaTypeError(true);
       return;
     }
     alert('Form submitted successfully!');
     router.push('/challengeList');
   };
 
-  const isFormValid = title.trim() && url.trim() && content.trim() && images.length > 0;
+  const isFormValid = title.trim() && url.trim() && content.trim() && images.length > 0 && selectedMediaType;
 
   return (
     <div className="flex justify-center items-center">
@@ -107,6 +112,15 @@ export default function ChallengeRequestClient() {
           <div className="text-error-red text-[1.2rem] mt-[0.4rem] ml-[0.5rem] h-[2.0rem]">
             {urlError && 'This field is required.'}
           </div>
+        </div>
+
+        <div className="mb-[2.4rem]">
+          <p className="text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.7rem]">*Recipe Media Type</p>
+          <ChallengeApplyDropdown
+            setSelectedOption={setSelectedMediaType}
+            selectedOption={selectedMediaType}
+            setTypeError={setMediaTypeError}
+          />
         </div>
 
         <div>
@@ -161,10 +175,8 @@ export default function ChallengeRequestClient() {
         <button
           onClick={handleSubmit}
           disabled={!isFormValid}
-          className={`w-full py-[1.45rem] text-[1.6rem] font-semibold rounded-[0.8rem] mt-[2.4rem] ${
-            isFormValid
-              ? 'bg-primary-beige text-primary-white cursor-pointer'
-              : 'bg-gray-200 text-primary-white cursor-not-allowed'
+          className={`mt-[1rem] w-full py-[1.2rem] rounded-[0.5rem] text-[1.4rem] font-semibold text-primary-white ${
+            isFormValid ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
           }`}
         >
           Submit
