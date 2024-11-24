@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
 import close from '@/../public/assets/icon_out_circle_small.png';
 import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
+import DateDropdown from '../Dropdown/DateDropdown';
 
 export default function ChallengeRequestClient() {
   const router = useRouter();
@@ -23,6 +24,9 @@ export default function ChallengeRequestClient() {
 
   const [selectedMediaType, setSelectedMediaType] = useState('');
   const [mediaTypeError, setMediaTypeError] = useState(false);
+
+  const [selectedDate, setSelectedDate] = useState('');
+  const [dateError, setDateError] = useState(false);
 
   const handleBlur = (value: string, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (!value.trim()) {
@@ -62,11 +66,12 @@ export default function ChallengeRequestClient() {
   };
 
   const handleSubmit = () => {
-    if (!title.trim() || !url.trim() || !content.trim() || images.length === 0 || !selectedMediaType) {
+    if (!title.trim() || !url.trim() || !content.trim() || images.length === 0 || !selectedMediaType || !selectedDate) {
       if (!title.trim()) setTitleError(true);
       if (!url.trim()) setUrlError(true);
       if (!content.trim()) setContentError(true);
       if (!selectedMediaType) setMediaTypeError(true);
+      if (!selectedDate) setDateError(true);
       return;
     }
     alert('Form submitted successfully!');
@@ -121,6 +126,11 @@ export default function ChallengeRequestClient() {
             selectedOption={selectedMediaType}
             setTypeError={setMediaTypeError}
           />
+        </div>
+
+        <div className="mb-[2.4rem]">
+          <p className="text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.7rem]">*Challenge Deadline</p>
+          <DateDropdown setSelectedDate={setSelectedDate} selectedDate={selectedDate} setTypeError={setDateError} />
         </div>
 
         <div>
