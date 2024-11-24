@@ -13,22 +13,22 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
   const [data, setData] = useState<ChallengeParticipantStatusData | null>(initialData || null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedData = await fetchChallengeStatus();
-      if (fetchedData && fetchedData.length > 0) {
-        setData(fetchedData[0]);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const fetchedData = await fetchChallengeStatus();
+  //     if (fetchedData && fetchedData.length > 0) {
+  //       setData(fetchedData[0]);
+  //     }
+  //   };
 
-    if (!initialData) {
-      fetchData();
-    } else {
-      setData(initialData);
-    }
+  //   if (!initialData) {
+  //     fetchData();
+  //   } else {
+  //     setData(initialData);
+  //   }
 
-    setLoading(false);
-  }, [initialData]);
+  //   setLoading(false);
+  // }, [initialData]);
 
   if (loading) {
     return <div>Loading...</div>;

@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { fetchChallengeStatus, fetchChallenge_detail } from '@/api/challengeService';
-import type { ParticipantStatusData } from '@/interfaces/cardInterface';
+import type { ChallengeParticipateStatusProps, ParticipantStatusData } from '@/interfaces/cardInterface';
 import type { ChallengeDetailData } from '@/interfaces/challengelistInterface';
 import ChallengeDetailContentCard from '../Card/ChallengeDetailContentCard';
 import ChallengeMostLikedCard from '../Card/ChallengeMostLikedCard';
@@ -13,7 +13,12 @@ export default function ChallengeDetailClient() {
   const { id } = useParams();
 
   const [medium, setMedium] = useState<ChallengeDetailData | null>(null);
-  const [challengeStatusMedium, setChallengeStatusMedium] = useState<ParticipantStatusData[]>([]);
+  const [challengeStatusMedium, setChallengeStatusMedium] = useState<{
+    list: ParticipantStatusData[];
+    totalCount: number;
+  }>({ list: [], totalCount: 0 });
+
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (typeof id === 'string') {
@@ -28,13 +33,16 @@ export default function ChallengeDetailClient() {
   useEffect(() => {
     if (typeof id === 'string') {
       const getChallengeStatus = async () => {
-        const data = (await fetchChallengeStatus(id)) as ParticipantStatusData[];
-        console.log(data.list);
-        setChallengeStatusMedium(data.list);
+        const data = await fetchChallengeStatus(id, page);
+        console.log(data, 'Challenge Status Data');
+        setChallengeStatusMedium({
+          list: data.list,
+          totalCount: data.totalCount
+        });
       };
       getChallengeStatus();
     }
-  }, [id]);
+  }, [id, page]);
 
   if (!medium) {
     return <div>Loading...</div>;
