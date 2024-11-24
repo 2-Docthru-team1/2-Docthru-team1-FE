@@ -26,6 +26,7 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
     setSelectedDate(formattedDate);
     setIsDropdownOpen(false);
     setTypeError(false);
+    setIsErrorTriggered(false);
   };
 
   const generateDaysInMonth = (date: Date) => {
@@ -71,6 +72,10 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        if (!selectedDate && isDropdownOpen) {
+          setIsErrorTriggered(true);
+          setTypeError(true);
+        }
         setIsDropdownOpen(false);
       }
     };
@@ -79,7 +84,7 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [selectedDate, isDropdownOpen, setTypeError]);
 
   return (
     <div className="flex flex-col relative" ref={dropdownRef}>
@@ -93,11 +98,15 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
           type="text"
           value={selectedDate}
           readOnly
-          placeholder="YY / MM / DD"
+          placeholder="YY/MM/DD"
           className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 bg-transparent outline-none placeholder:text-[1.6rem] placeholder-gray-400"
         />
         <Image src={calendarIcon} alt="calendar" className="cursor-pointer" />
       </div>
+
+      {isErrorTriggered && !selectedDate && (
+        <div className="absolute text-error-red text-[1.2rem] mt-[6rem] ml-[0.5rem]">This field is required.</div>
+      )}
 
       {isDropdownOpen && (
         <div className="absolute top-[6rem] left-0 w-full border border-gray-200 rounded-[1.2rem] bg-primary-white shadow-lg p-[1rem] z-10">
@@ -112,7 +121,7 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
               &gt;
             </button>
           </div>
-          <div className="aligns-center grid grid-cols-7 gap-[0.5rem] text-[1.5rem]">{generateDaysInMonth(currentMonth)}</div>
+          <div className="grid grid-cols-7 gap-[0.5rem] text-[1.5rem]">{generateDaysInMonth(currentMonth)}</div>
         </div>
       )}
     </div>
