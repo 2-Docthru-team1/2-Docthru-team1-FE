@@ -175,7 +175,7 @@ export default function ChallengeRequestClient() {
         <button
           onClick={handleSubmit}
           disabled={!isFormValid}
-          className={`mt-[1rem] w-full py-[1.2rem] rounded-[0.5rem] text-[1.4rem] font-semibold text-primary-white ${
+          className={`mt-[2.4rem] w-full py-[1.2rem] rounded-[0.8rem] text-[1.6rem] font-semibold text-primary-white ${
             isFormValid ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
           }`}
         >
