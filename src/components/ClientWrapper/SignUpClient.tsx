@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signUp } from '@/api/authService';
-import type { SingInData } from '@/interfaces/userInterface';
+import type { SignUpData } from '@/interfaces/userInterface';
 import useSignUpValidate from '../../../hooks/useSignUpValidate';
 import SignInput from '../Input/SignInput';
 
@@ -39,11 +39,18 @@ export default function SignUpClient() {
   };
 
   const mutation = useMutation({
-    mutationFn: async (userData: SingInData) => {
+    mutationFn: async (userData: SignUpData) => {
       return await signUp(userData);
     },
     onSuccess: () => {
       router.push('/signIn');
+    },
+    onError: (error: any) => {
+      let errorMessage = 'This email is already registered. Please use a different email address.';
+      if (error?.response?.data?.field === '이미 존재하는 이메일입니다.') {
+        errorMessage = 'This email is already registered. Please use a different email address.';
+      }
+      alert(errorMessage);
     }
   });
 
@@ -52,9 +59,9 @@ export default function SignUpClient() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="relative w-16 h-16">
-          <div className="absolute inset-0 w-full h-full border-4 border-t-4 border-gray-300 border-t-primary-blue rounded-full animate-spin"></div>
-          <span className="absolute inset-0 flex justify-center items-center text-xs text-gray-500">Loading...</span>
+        <div className="relative w-[16rem] h-[16rem]">
+          <div className="absolute inset-0 w-full h-full border-[4rem] border-t-[4rem] border-gray-300 border-t-primary-blue rounded-full animate-spin"></div>
+          <span className="absolute inset-0 flex justify-center items-center text-[1.5rem] text-gray-500">Loading...</span>
         </div>
       </div>
     );
@@ -79,7 +86,7 @@ export default function SignUpClient() {
   return (
     <div>
       <div className="flex justify-center ">
-        <Image src={logoImg} alt="로고 이미지" className="mt-[5rem]" />
+        <Image src={logoImg} alt="로고 이미지" className="mt-[5rem]" priority />
       </div>
       <div className="flex justify-center mt-[4rem] relative">
         <form onSubmit={handleSubmit}>
@@ -125,7 +132,7 @@ export default function SignUpClient() {
             </span>
           )}
           <SignInput
-            type="password"
+            type="passwordConfirm"
             label="Confirm Password"
             placeholder="Enter your confirm password"
             value={values.passwordConfirmation}

@@ -14,18 +14,26 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
-  const isFormValid = isValidEmail(email) && password.length >= 6;
+  const isFormValid = () => {
+    return email.trim() !== '' && password.trim() !== '';
+  };
   const handleSignIn = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       const credentials = { email, password };
       const res = await signIn(credentials);
+
       const { login } = useStore.getState();
       login(res.userId, res.role);
 
       router.push('/challengeList');
-    } catch (err) {}
+    } catch (err: any) {
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+      if (err?.response?.data?.field === '이메일 또는 비밀번호가 잘못되었습니다.') {
+        errorMessage = 'The username or password is incorrect.';
+      }
+      alert(errorMessage);
+    }
   };
 
   return (
@@ -54,9 +62,9 @@ export default function SignIn() {
           <button
             type="submit"
             className={`w-full h-[4.8rem] text-[1.6rem] text-primary-white border rounded-[0.8rem] text-center ${
-              isFormValid ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
+              isFormValid() ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
             }`}
-            disabled={!isFormValid}
+            disabled={!isFormValid()}
           >
             Sign In
           </button>
