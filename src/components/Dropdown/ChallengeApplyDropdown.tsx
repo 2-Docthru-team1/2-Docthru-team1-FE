@@ -5,7 +5,7 @@ import arrowUp from '@/../public/assets/chevron_up.png';
 
 export default function ChallengeApplyDropdown() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('Youtube');
+  const [selectedOption, setSelectedOption] = useState('');
 
   const handleClickDropdown = () => {
     setIsDropdownOpen(prev => !prev);
@@ -22,7 +22,9 @@ export default function ChallengeApplyDropdown() {
         className="h-[5.6rem] rounded-[0.4rem] border border-gray-200 gap-[1rem] py-[0.4rem] px-[1.6rem] flex justify-between items-center"
         onClick={handleClickDropdown}
       >
-        <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-900">{selectedOption}</p>
+        <p className={`font-normal text-[1.6rem] leading-[1.909rem] ${selectedOption ? 'text-gray-900' : 'text-gray-400'}`}>
+          {selectedOption || 'Choose a category'}
+        </p>
         <Image src={isDropdownOpen ? arrowUp : arrowDown} alt="arrow" className="cursor-pointer" />
       </div>
       {isDropdownOpen ? (
