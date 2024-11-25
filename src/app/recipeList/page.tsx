@@ -7,7 +7,8 @@ type SearchParams = {
 };
 
 export default async function RecipePage({ searchParams }: { searchParams: SearchParams }) {
-  const { keyword = '', category = '' } = searchParams as SearchParams;
+  const keyword = searchParams.keyword || '';
+  const category = searchParams.category || '';
   const initialData = await fetchMenu(keyword, category);
 
   return (
