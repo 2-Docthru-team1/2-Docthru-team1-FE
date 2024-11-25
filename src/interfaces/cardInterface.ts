@@ -32,10 +32,16 @@ export interface ChallengeParticipantStatusProps {
 
 export interface ChallengeParticipantStatusData {
   title: string;
-  Feedback: string[];
+  Feedback?: string[];
   likeCount: number;
-  nickname: string;
-  images: string[];
+  owner: ownerData;
+  images: { imageUrl: string }[];
+}
+
+export interface ownerData {
+  email: string;
+  id: string;
+  name: string;
   role: string;
 }
 
@@ -83,24 +89,25 @@ export interface MonthlyRankerCard {
 }
 
 export interface ChallengeParticipateStatusProps {
-  data: ParticipantStatusData[];
+  list: ParticipantStatusData[];
+  totalCount: number;
 }
 
 export interface ParticipantStatusData {
   id: string;
   createdAt: string;
   updatedAt: string;
-  deleteAt: string | null;
+  deletedAt: string | null;
   title: string;
-  description: string;
+  content: string;
   likeCount: number;
-  likeUsers: string[];
-  Feedback: string[];
-  ownerId: string;
+  // likeUsers: string[];
+  // Feedback: string[];
+  owner: ownerData;
   challengeId: string;
-  images: string[];
-  nickname: string;
-  role: string;
+  images: { imageUrl: string }[];
+  // nickname: string;
+  // role: string;
 }
 
 export interface ChallengeDetailContentCardProps {
@@ -125,7 +132,7 @@ export interface ChallengeMostLikedCardData {
   role: string;
   likeCount: number;
   description: string;
-  Feedback: string[];
+  Feedback?: string[];
   createdAt: string;
 }
 

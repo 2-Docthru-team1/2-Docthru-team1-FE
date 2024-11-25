@@ -13,10 +13,10 @@ const Template: StoryFn<ChallengeDetailContentCardProps> = args => <ChallengeDet
 
 export const Default = Template.bind({});
 Default.args = {
-  type: 'ongoing',
+  type: 'onGoing',
   data: {
     title: 'Sample Title',
-    mediaType: 'Youtube',
+    mediaType: 'youtube',
     description: 'This is a sample content for the challenge detail card.',
     ownerId: 'JohnDoe'
   }
@@ -27,7 +27,7 @@ WithDifferentType.args = {
   type: 'finished',
   data: {
     title: 'Another Title',
-    mediaType: 'Recipe Web',
+    mediaType: 'recipeWeb',
     description: 'This is another sample content for the challenge detail card.',
     ownerId: 'JaneSmith'
   }

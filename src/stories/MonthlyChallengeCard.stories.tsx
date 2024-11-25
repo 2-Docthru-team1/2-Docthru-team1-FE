@@ -14,8 +14,8 @@ Default.args = {
   data: {
     id: '1',
     title: 'Traditional Challenge 1',
-    mediaType: 'Blog',
-    status: 'ongoing',
+    mediaType: 'blog',
+    status: 'onGoing',
     deadline: '2024-12-31T23:59:59.000Z'
   },
   role: 'admin'
@@ -26,7 +26,7 @@ ClosedChallenge.args = {
   data: {
     id: '2',
     title: 'Banchan Challenge 1',
-    mediaType: 'Social Media',
+    mediaType: 'socialMedia',
     status: 'finished',
     deadline: '2024-11-30T23:59:59.000Z'
   },
@@ -38,8 +38,8 @@ TestChallenge.args = {
   data: {
     id: '3',
     title: 'Noodle Challenge 1',
-    mediaType: 'Recipe Web',
-    status: 'ongoing',
+    mediaType: 'recipeWeb',
+    status: 'onGoing',
     deadline: '2024-11-01T23:59:59.000Z'
   },
   role: 'admin'
