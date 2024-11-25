@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { type ChangeEvent, useState } from 'react';
 import activeSubmit from '@/../public/assets/btn_feedback_active.png';

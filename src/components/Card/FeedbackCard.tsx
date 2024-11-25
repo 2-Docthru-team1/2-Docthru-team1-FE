@@ -9,11 +9,8 @@ import type { FeedbackCardProps } from '@/interfaces/feedbackInterface';
 import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 
-export default function FeedbackCard({ comments, user }: FeedbackCardProps) {
-  if (!comments || comments.length === 0) {
-    return <div>No comment available</div>;
-  }
-
+export default function FeedbackCard({ comments, userId, userName }: FeedbackCardProps) {
+  if (!comments || comments.length === 0) return null;
   const [editingCommentId, setEditingCommentId] = useState<string>('');
   const [editingContent, setEditingContent] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -79,7 +76,7 @@ export default function FeedbackCard({ comments, user }: FeedbackCardProps) {
                     </button>
                   </div>
                 )}
-                {user.id === comment.ownerId && editingCommentId !== comment.id && (
+                {userId === comment.ownerId && editingCommentId !== comment.id && (
                   <div className="flex-col relative">
                     <Image src={kebab} alt="드롭다운 이미지" onClick={handleMenuClick} className="cursor-pointer" />
                     <div className="absolute right-0" onClick={() => handleEditClick(comment)}>

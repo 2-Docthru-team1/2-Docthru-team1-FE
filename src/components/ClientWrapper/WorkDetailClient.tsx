@@ -1,42 +1,40 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
-import { useRef } from 'react';
-import { useStore } from 'zustand';
+import { useParams } from 'next/navigation';
 import { getFeedbackList } from '@/api/feedbackService';
 import { getUser } from '@/api/userService';
 import { getWorkDetail } from '@/api/workService';
+import useStore from '@/store/store';
 import FeedbackCard from '../Card/FeedbackCard';
 import WorkCard from '../Card/WorkCard';
 import WorkInput from '../Input/WorkInput';
 
-export interface WorkDetailClientProps {
-  workId: string;
-}
+export default function WorkDetailClient() {
+  const { id, workId } = useParams();
+  const workIdParam = workId as string;
+  const { userId } = useStore();
 
-export default function WorkDetailClient({ workId }: WorkDetailClientProps) {
   const {
     data: work,
     isLoading: workLoading,
     error: workError
   } = useQuery({
     queryKey: ['work', workId],
-    queryFn: () => getWorkDetail(workId)
+    queryFn: () => getWorkDetail(workIdParam)
   });
 
-  const {
+  /*const {
     data: feedback,
     isLoading: feedbackLoading,
     error: feedbackError
   } = useQuery({
     queryKey: ['feedback', workId],
-    queryFn: () => getFeedbackList(workId)
+    queryFn: () => getFeedbackList(workIdParam)
   });
+*/
 
-  const { data: user } = useQuery({
-    queryKey: ['user'],
-    queryFn: () => getUser()
-  });
-
-  if (workLoading || feedbackLoading) {
+  if (workLoading /*|| feedbackLoading*/) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="relative w-[16rem] h-[16rem]">
@@ -47,7 +45,7 @@ export default function WorkDetailClient({ workId }: WorkDetailClientProps) {
     );
   }
 
-  if (workError || feedbackError) {
+  if (workError /*|| feedbackError*/) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <p className="text-red-500 text-[1.5rem]">Failed to load data. Please try again later.</p>
@@ -56,10 +54,10 @@ export default function WorkDetailClient({ workId }: WorkDetailClientProps) {
   }
 
   return (
-    <div>
-      <WorkCard data={work} user={user} />
-      <WorkInput data={work} />
-      <FeedbackCard comments={feedback} user={user} />
+    <div className="flex items-center justify-center">
+      <WorkCard data={work} userId={userId} />
+      {/*<WorkInput data={work} />*/}
+      {/*<FeedbackCard comments={feedback} user={userId} />*/}
     </div>
   );
 }

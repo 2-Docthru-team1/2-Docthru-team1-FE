@@ -12,5 +12,6 @@ export interface FeedbackData {
 
 export interface FeedbackCardProps {
   comments: FeedbackData[];
-  user: UserData;
+  userId: string;
+  userName: string;
 }

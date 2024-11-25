@@ -6,7 +6,7 @@ export interface WorkDetailData {
   content: string;
   likeCount: number;
   createdAt: string;
-  images: string[];
+  images: { imageUrl: string }[];
   owner: {
     id: string;
     name: string;
@@ -16,7 +16,7 @@ export interface WorkDetailData {
 
 export interface WorkDataProps {
   data: WorkDetailData | null;
-  user: UserData;
+  userId: string | null;
 }
 
 export interface WorkInputProps {
