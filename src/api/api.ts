@@ -10,6 +10,7 @@ instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('token');
+      console.log(token);
       if (token) {
         const headers = new AxiosHeaders(config.headers);
         headers.set('Authorization', `Bearer ${token}`);

@@ -29,7 +29,13 @@ export const fetchChallengeStatus = async (): Promise<ChallengeParticipantStatus
 };
 
 export const fetchChallengeRequest = async (data: object) => {
-  const response = await postRequest('/challenges', data);
-  console.log(response.data);
-  return response.data;
+  console.log(data);
+  try {
+    const response = await postRequest('/challenges', data);
+    console.log('API Response Data:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error in fetchChallengeRequest:', error);
+    throw error; // 에러 처리
+  }
 };

@@ -6,10 +6,13 @@ import { useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
 import close from '@/../public/assets/icon_out_circle_small.png';
 import { fetchChallengeRequest } from '@/api/challengeService';
+import useStore from '@/store/store';
 import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
 import DateDropdown from '../Dropdown/DateDropdown';
 
 export default function ChallengeRequestClient() {
+  // const { accessToken } = useStore();
+  console.log(localStorage.getItem('accessToken'));
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -109,6 +112,7 @@ export default function ChallengeRequestClient() {
       mediaType: selectedMediaType,
       imageCount: images.length.toString()
     };
+    console.log(data);
 
     try {
       const res = await fetchChallengeRequest(data);
@@ -242,7 +246,7 @@ export default function ChallengeRequestClient() {
         <button
           onClick={handleSubmit}
           disabled={!isFormValid}
-          className={`mt-[2.4rem] w-full py-[1.2rem] rounded-[0.8rem] text-[1.6rem] font-semibold text-primary-white ${
+          className={`mt-[2.4rem] mb-[2.4rem] w-full py-[1.2rem] rounded-[0.8rem] text-[1.6rem] font-semibold text-primary-white ${
             isFormValid ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
           }`}
         >

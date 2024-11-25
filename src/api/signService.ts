@@ -11,8 +11,6 @@ export const signIn = async (credentials: LoginCredentials) => {
   try {
     const response = await postRequest(endpoint, credentials);
 
-    localStorage.setItem('accessToken', response.data.accessToken);
-
     return response.data;
   } catch (error) {
     throw new Error('Login failed');
