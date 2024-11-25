@@ -12,7 +12,7 @@ const Template: StoryFn<OptionBoxProps> = (args: OptionBoxProps) => <OptionBox {
 
 export const Ongoing = Template.bind({});
 Ongoing.args = {
-  type: 'ongoing'
+  type: 'onGoing'
 };
 
 export const Participate = Template.bind({});
