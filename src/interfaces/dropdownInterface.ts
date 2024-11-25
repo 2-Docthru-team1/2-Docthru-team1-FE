@@ -5,9 +5,6 @@ export interface DropdownProps {
   isOpen: boolean;
   items: Option[] | ChallengeOption[];
   type: 'language' | 'recipe' | 'admin' | 'challenge';
-  selectedView?: string;
-  selectedMedia?: string[];
-  selectedStatus?: string;
   onSelect: OnSelectFunction;
 }
 

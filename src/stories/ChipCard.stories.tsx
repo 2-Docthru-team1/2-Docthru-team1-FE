@@ -20,7 +20,7 @@ const Template: StoryFn<ChipCardProps> = args => <ChipCard {...args} />;
 
 export const ongoing = Template.bind({});
 ongoing.args = {
-  type: 'ongoing'
+  type: 'onGoing'
 };
 
 export const finish = Template.bind({});

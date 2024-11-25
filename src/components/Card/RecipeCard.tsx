@@ -10,9 +10,9 @@ export default function RecipeCard({ data }: RecipeCardProps) {
   }
 
   return (
-    <div className="w-[27.8rem] flex flex-col border border-gray-100">
+    <div className="w-[27.8rem] flex flex-col border border-gray-100 bg-primary-white">
       <div className="relative w-full h-[16.7rem]">
-        <Image src={data.images[0]} alt="음식 이미지" layout="fill" objectFit="cover" />
+        {data.images[0] ? <Image src={data.images[0]} alt="음식 이미지" layout="fill" objectFit="cover" /> : null}
       </div>
       <div className="flex flex-col px-[1.5rem] py-[1.3rem] gap-[0.6rem]">
         <p className="font-medium text-[1.4rem] leading-[2.6rem] text-gray-600">{data.category}</p>

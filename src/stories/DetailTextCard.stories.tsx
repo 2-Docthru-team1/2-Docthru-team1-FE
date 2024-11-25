@@ -24,11 +24,11 @@ Direction.args = {
   content: ['This is the first line of content.', 'Here is the second line of content.', 'And this is the third line of content.']
 };
 
-export const Nutrition = Template.bind({});
-Nutrition.args = {
-  type: 'nutrition',
-  content: { calories: '400', carbs: '45', protein: '15', fat: '20', sugars: '10', sodium: '150', fiber: '5' }
-};
+// export const Nutrition = Template.bind({});
+// Nutrition.args = {
+//   type: 'nutrition',
+//   content: { calories: '400', carbs: '45', protein: '15', fat: '20', sugars: '10', sodium: '150', fiber: '5' }
+// };
 
 export const Benefit = Template.bind({});
 Benefit.args = {

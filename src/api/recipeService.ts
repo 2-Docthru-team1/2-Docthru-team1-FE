@@ -1,12 +1,11 @@
 import { getRequest } from './api';
 
 export const fetchMenu = async () => {
-  const response = await getRequest('/mockData.json');
-  return response.data;
+  const response = await getRequest(`/recipes`);
+  return response;
 };
 
 export const fetchRecipe = async (id: string) => {
-  const response = await getRequest(`/mockData.json`);
-  const recipe = response.data.find((item: { id: number }) => item.id === parseInt(id));
-  return recipe;
+  const response = await getRequest(`/recipes/${id}`);
+  return response.data;
 };

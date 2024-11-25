@@ -21,20 +21,20 @@ const Template: StoryFn<typeof ChipCategory> = (args: ChipCategoryProps) => <Chi
 // 다양한 스토리 구성
 export const Youtube = Template.bind({});
 Youtube.args = {
-  mediaType: 'Youtube'
+  mediaType: 'youtube'
 };
 
 export const Blog = Template.bind({});
 Blog.args = {
-  mediaType: 'Blog'
+  mediaType: 'blog'
 };
 
 export const RecipeWeb = Template.bind({});
 RecipeWeb.args = {
-  mediaType: 'Recipe Web'
+  mediaType: 'recipeWeb'
 };
 
 export const SocialMedia = Template.bind({});
 SocialMedia.args = {
-  mediaType: 'Social Media'
+  mediaType: 'socialMedia'
 };

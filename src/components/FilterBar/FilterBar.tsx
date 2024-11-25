@@ -1,9 +1,11 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import filter from '@/../public/assets/ic_filter.png';
 import activeFilter from '@/../public/assets/icon_filter_active.png';
 import search from '@/../public/assets/icon_search.png';
 import type { ChallengeOption, FilterBarProps, Option } from '@/interfaces/filterBarInterface';
+import useStore from '@/store/store';
 import Dropdown from '../Dropdown/Dropdown';
 
 const filterBarWidths = {
@@ -26,48 +28,51 @@ const searchBarWidths = {
 
 const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   recipe: [
-    { label: 'Like Highest', value: '좋아요 높은순' },
-    { label: 'Like Lowest', value: '좋아요 낮은순' },
-    { label: 'School Food', value: '스쿨푸드' },
-    { label: 'Traditional', value: '전통음식' },
-    { label: 'Noodle', value: '면' },
-    { label: 'Dessert', value: '디저트' },
-    { label: 'BanChan', value: '반찬' }
+    { label: 'Like Highest', value: 'highest' },
+    { label: 'Like Lowest', value: 'lowest' },
+    { label: 'School Food', value: 'Boonsik' },
+    { label: 'Traditional', value: 'Traditional' },
+    { label: 'Noodle', value: 'Noodle' },
+    { label: 'Dessert', value: 'Dessert' },
+    { label: 'BanChan', value: 'BanChan' }
   ],
   challenge: [
     {
       view: [
-        { label: 'Like Highest', value: '좋아요 높은순' },
-        { label: 'Like Lowest', value: '좋아요 낮은순' },
-        { label: 'Earliest First', value: '신청 시간 빠른순' },
-        { label: 'Latest First', value: '신청 시간 느린순' },
-        { label: 'Deadline Earliest', value: '마감 기한 빠른순' },
-        { label: 'Deadline Latest', value: '마감 기한 느린순' }
+        { label: 'Like Highest', value: 'like highest' },
+        { label: 'Like Lowest', value: 'like lowest' },
+        { label: 'Earliest First', value: 'earliest first' },
+        { label: 'Latest First', value: 'latest first' },
+        { label: 'Deadline Earliest', value: 'deadline earliest' },
+        { label: 'Deadline Latest', value: 'deadline latest' }
       ],
       media: [
-        { label: 'Youtube', value: '유튜브' },
-        { label: 'Blog', value: '블로그' },
-        { label: 'Recipe Web', value: '레시피 웹' },
-        { label: 'Social Media', value: '소셜미디어' }
+        { label: 'Youtube', value: 'youtube' },
+        { label: 'Blog', value: 'blog' },
+        { label: 'Recipe Web', value: 'recipe web' },
+        { label: 'Social Media', value: 'social media' }
       ],
       status: [
-        { label: 'On going', value: '진행중' },
-        { label: 'Closed', value: '종료' }
+        { label: 'On going', value: 'ongoing' },
+        { label: 'Closed', value: 'closed' }
       ]
     }
   ],
   admin: [
-    { label: 'Pending', value: '승인 대기' },
-    { label: 'Approved', value: '신청 승인' },
-    { label: 'Denied', value: '신청 거절' },
-    { label: 'Earliest First', value: '신청 시간 빠른순' },
-    { label: 'Latest First', value: '신청 시간 느린순' },
-    { label: 'Deadline Earliest', value: '마감 기한 빠른순' },
-    { label: 'Deadline Latest', value: '마감 기한 느린순' }
+    { label: 'Pending', value: 'pending' },
+    { label: 'Approved', value: 'approved' },
+    { label: 'Denied', value: 'denied' },
+    { label: 'Earliest First', value: 'earliest first' },
+    { label: 'Latest First', value: 'latest first' },
+    { label: 'Deadline Earliest', value: 'deadline earliest' },
+    { label: 'Deadline Latest', value: 'deadline latest' }
   ]
 };
 
-export default function FilterBar({ type }: FilterBarProps) {
+export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
+  const router = useRouter();
+  const { keyword, category, setKeyword, setCategory, toggleDropdown } = useStore();
+
   const filterBarType = filterBarWidths[type] || '';
   const sortBarType = sortBarWidths[type] || '';
   const searchBarType = searchBarWidths[type] || '';
@@ -83,12 +88,9 @@ export default function FilterBar({ type }: FilterBarProps) {
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [selectedCount, setSelectedCount] = useState<number>(0);
 
-  const toggleDropdown = () => {
+  const handleToggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
-  };
-
-  const handleCloseDropdown = () => {
-    setIsDropdownOpen(false);
+    toggleDropdown(!isDropdownOpen);
   };
 
   const getSelectedSortLabel = () => {
@@ -118,14 +120,27 @@ export default function FilterBar({ type }: FilterBarProps) {
     } else if (category === 'status') {
       setSelectedStatus(value);
     }
+    toggleDropdown(!isDropdownOpen);
   };
 
-  const handleApply = (view: string, media: string[], status: string) => {
-    const count = (view ? 1 : 0) + media.length + (status ? 1 : 0);
-    setSelectedCount(count);
-    setIsFilterApplied(count > 0);
-    handleCloseDropdown();
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const currentKeyword = e.currentTarget.value;
+      setKeyword(currentKeyword);
+      const queryString = new URLSearchParams({ keyword: currentKeyword }).toString();
+
+      router.push(`?${queryString}`);
+    }
   };
+
+  useEffect(() => {
+    setKeyword('');
+
+    const query = new URLSearchParams(window.location.search);
+    query.delete('keyword');
+    query.delete('category');
+    router.push(`${window.location.pathname}?${query.toString()}`);
+  }, []);
 
   return (
     <div>
@@ -133,7 +148,7 @@ export default function FilterBar({ type }: FilterBarProps) {
         <div
           className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}
             ${isFilterApplied ? 'bg-gray-700' : 'bg-primary-white'}`}
-          onClick={toggleDropdown}
+          onClick={handleToggleDropdown}
         >
           <p
             className={`font-normal text-[1.6rem] leading-[1.909rem]
@@ -150,22 +165,13 @@ export default function FilterBar({ type }: FilterBarProps) {
           <input
             className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 placeholder:text-gray-400 flex items-center w-full focus:outline-none"
             placeholder="Search recipe"
+            value={keyword}
+            onChange={e => setKeyword(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
         </div>
       </div>
-      {isDropdownOpen && (
-        <Dropdown
-          isOpen={isDropdownOpen}
-          items={options}
-          onSelect={handleSelect}
-          type={type}
-          selectedView={selectedView}
-          selectedMedia={selectedMedia}
-          selectedStatus={selectedStatus}
-          onClose={handleCloseDropdown}
-          onApply={handleApply}
-        />
-      )}
+      {isDropdownOpen && <Dropdown isOpen={isDropdownOpen} items={options} onSelect={handleSelect} type={type} />}
     </div>
   );
 }

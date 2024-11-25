@@ -3,9 +3,20 @@ import { create } from 'zustand';
 interface StoreState {
   keyword: string;
   category: string;
+  selectedSort: string | null;
+  selectedView: string;
+  selectedMedia: string[];
+  selectedStatus: string;
+  isFilterApplied: boolean;
+  isDropdownOpen: boolean;
   setKeyword: (keyword: string) => void;
   setCategory: (category: string) => void;
-
+  setSelectedSort: (sort: string | null) => void;
+  setSelectedView: (view: string) => void;
+  setSelectedMedia: (media: string[]) => void;
+  setSelectedStatus: (status: string) => void;
+  setIsFilterApplied: (isApplied: boolean) => void;
+  toggleDropdown: (isOpen: boolean) => void;
   userStatus: 'loggedOut' | 'normal' | 'admin';
   userId: string | null;
   role: 'normal' | 'admin' | null;
@@ -22,8 +33,20 @@ const useStore = create<StoreState>((set: (partial: Partial<StoreState>) => void
   return {
     keyword: '',
     category: '',
-    setKeyword: (keyword: string) => set({ keyword }),
-    setCategory: (category: string) => set({ category }),
+    selectedSort: null,
+    selectedView: '',
+    selectedMedia: [],
+    selectedStatus: '',
+    isFilterApplied: false,
+    isDropdownOpen: false,
+    setKeyword: keyword => set({ keyword }),
+    setCategory: category => set({ category }),
+    setSelectedSort: sort => set({ selectedSort: sort }),
+    setSelectedView: view => set({ selectedView: view }),
+    setSelectedMedia: media => set({ selectedMedia: media }),
+    setSelectedStatus: status => set({ selectedStatus: status }),
+    setIsFilterApplied: isApplied => set({ isFilterApplied: isApplied }),
+    toggleDropdown: isOpen => set({ isDropdownOpen: isOpen }),
 
     userStatus: initialUserStatus,
     userId: storedUserId || null,
