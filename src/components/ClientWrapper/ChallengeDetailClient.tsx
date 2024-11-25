@@ -49,10 +49,10 @@ export default function ChallengeDetailClient() {
       <div className="flex mx-auto flex-col">
         <div className="mt-[2rem] flex">
           <ChallengeDetailContentCard
-            type={medium.status as 'ongoing' | 'finished'}
+            type={medium.status as 'onGoing' | 'finished'}
             data={{
               title: medium.title,
-              mediaType: medium.mediaType as 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media',
+              mediaType: medium.mediaType as 'youtube' | 'blog' | 'recipeWeb' | 'socialMedia',
               description: medium.description,
               ownerId: medium.ownerId
             }}

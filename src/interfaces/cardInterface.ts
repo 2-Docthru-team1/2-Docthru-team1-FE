@@ -111,13 +111,13 @@ export interface ParticipantStatusData {
 }
 
 export interface ChallengeDetailContentCardProps {
-  type: 'ongoing' | 'finished';
+  type: 'onGoing' | 'finished';
   data: ChallengeDetailContentCardData;
 }
 
 export interface ChallengeDetailContentCardData {
   title: string;
-  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
   description: string;
   ownerId: string;
 }

@@ -1,3 +1,3 @@
 export interface OptionBoxProps {
-  type: 'ongoing' | 'finished';
+  type: 'onGoing' | 'finished';
 }
