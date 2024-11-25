@@ -5,20 +5,19 @@ import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface
 import Pagination from '../Pagination/Pagination';
 import ChallengeParticipantCard from './ChallengeParticipantCard';
 
-export default function ChallengeParticipateStatus({ data }: ChallengeParticipateStatusProps) {
+export default function ChallengeParticipateStatus({ list, totalCount }: ChallengeParticipateStatusProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const currentItems = list.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   const formatRank = (rank: number) => {
+    if (isNaN(rank)) return '--';
     return rank < 10 ? `0${rank}` : `${rank}`;
   };
 
@@ -37,6 +36,9 @@ export default function ChallengeParticipateStatus({ data }: ChallengeParticipat
       <div className="flex gap-[2rem]">
         {currentItems.map((participant, index) => {
           const rank = index + 1 + (currentPage - 1) * itemsPerPage;
+          if (isNaN(rank)) {
+            console.error('Rank is NaN:', { index, currentPage, itemsPerPage });
+          }
           return (
             <div key={participant.id} className="flex flex-col gap-[2rem]">
               <div className="inline-flex items-center gap-[2rem]">
@@ -45,7 +47,7 @@ export default function ChallengeParticipateStatus({ data }: ChallengeParticipat
                     <div className="bg-gray-700 rounded-[1.6rem] py-[0.2rem] px-[0.7rem] flex items-center justify-center w-[5.1rem]">
                       <Image src={crown} alt="Crown" />
                       <p className="font-medium text-[1.4rem] leading-[1.671rem] text-primary-beige flex items-center">
-                        {formatRank(rank)}
+                        {String(formatRank(rank))}
                       </p>
                     </div>
                     <div className="flex mt-[2rem]">
