@@ -21,10 +21,12 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
 
   // TODO: 현재 api 수정 이슈로 댓글 개수는 임의대로 작업하였습니다.
 
+  console.log(data);
+
   return (
     <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`}>
       <div className="relative w-[27.45rem] h-[23.9rem]">
-        {data.images.length > 0 && <Image src={food} alt="음식 이미지" layout="fill" objectFit="cover" />}
+        {data.images.length > 0 && <Image src={data.images[0].imageUrl} alt="음식 이미지" layout="fill" objectFit="cover" />}
       </div>
       <div className="flex flex-col w-full h-[11rem] py-[1.3rem] px-[1.5rem] gap-[1.4rem]">
         <p className="font-bold text-[2rem] leading-[2.6rem] text-gray-700">{data.title}</p>
