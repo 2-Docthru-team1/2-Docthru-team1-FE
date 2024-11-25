@@ -6,7 +6,7 @@ import type { OptionBoxProps } from '@/interfaces/optionboxInterface';
 // TODO: 추후 button Link는 수정 예정입니다.
 
 export default function OptionBox({ type }: OptionBoxProps) {
-  const participateButtonText = type === 'ongoing' ? 'Keep Participating' : 'Participate Challenge';
+  const participateButtonText = type === 'onGoing' ? 'Keep Participating' : 'Participate Challenge';
   const bgColor = type === 'finished' ? 'bg-gray-200' : 'bg-primary-beige';
 
   return (
