@@ -1,11 +1,31 @@
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import FilterBar from '@/components/FilterBar/FilterBar';
+import useStore from '@/store/store';
 
 export default {
   title: 'Components/FilterBar',
   component: FilterBar
 };
 
-export const Recipe = () => <FilterBar type="recipe" />;
-export const Challenge = () => <FilterBar type="challenge" />;
-export const Admin = () => <FilterBar type="admin" />;
+const { keyword, setKeyword, category, setCategory } = useStore();
+
+const router = useRouter();
+
+const handleFilterChange = () => {
+  const params = new URLSearchParams();
+  if (keyword) params.set('keyword', keyword);
+  if (category) params.set('category', category);
+
+  router.push(`?${params.toString()}`);
+};
+
+export const Recipe = () => (
+  <FilterBar type="recipe" onKeywordChange={setKeyword} onCategoryChange={setCategory} onFilterApply={handleFilterChange} />
+);
+export const Challenge = () => (
+  <FilterBar type="challenge" onKeywordChange={setKeyword} onCategoryChange={setCategory} onFilterApply={handleFilterChange} />
+);
+export const Admin = () => (
+  <FilterBar type="admin" onKeywordChange={setKeyword} onCategoryChange={setCategory} onFilterApply={handleFilterChange} />
+);
