@@ -52,6 +52,7 @@ export default function WorkCard({ data, userId }: WorkDataProps) {
     }
   };
   const role = data.owner.role === 'normal' ? 'Koo-koo' : data.owner.role;
+  console.log(data);
 
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem] mt-[2rem]">
@@ -59,7 +60,7 @@ export default function WorkCard({ data, userId }: WorkDataProps) {
         <p className="text-[2.4rem] font-bold text-left text-gray-700">{data.title}</p>
         {userId === data?.owner?.id && (
           <div className="relative">
-            <Image src={kebab} alt="드롭다운 이미지" onClick={handleDropdownClick} className="cursor-pointer" unoptimized />
+            <Image src={kebab} alt="드롭다운 이미지" onClick={handleDropdownClick} className="cursor-pointer" />
             <div className="absolute right-[0] top-[4.4rem]">
               {isDropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
             </div>
@@ -68,18 +69,18 @@ export default function WorkCard({ data, userId }: WorkDataProps) {
       </div>
       <div className="flex items-center justify-between border-b border-b-gray-200 pb-[1.5rem] mb-[1rem]">
         <div className="flex items-center gap-[0.5rem]">
-          <Image src={member} alt="유저이미지" width={24} height={24} />
+          <Image src={member} alt="유저이미지" width={24} height={24} priority />
           <p className="text-[1.4rem] font-medium text-gray-800">{data.owner.name}</p>
           <p className="text-[1.2rem] font-medium text-gray-500 mr-[0.5rem]">{role}</p>
-          <Image src={inactiveHeart} alt="비활성 하트" width={24} height={24} />
+          <Image src={inactiveHeart} alt="비활성 하트" width={24} height={24} priority />
           <p className="text-[1.4rem] font-medium text-gray-800">{formattedNumber}</p>
         </div>
         <div>
           <p className="text-[1.4rem] font-medium text-gray-400">{formattedDate}</p>
         </div>
       </div>
-      <div className="flex">
-        <div className="mr-[0.3rem] w-[47.6rem] h-[47.9rem] relative cursor-pointer">
+      <div className="flex border-b border-b-gray-200 pb-[4rem]">
+        <div className="mr-[0.3rem] w-[47.6rem] h-[47.9rem] relative cursor-pointer ]">
           <Image
             src={data.images[currentOrder].imageUrl}
             alt="작업물 이미지"

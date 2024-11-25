@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { type ChangeEvent, useState } from 'react';
+import { type ChangeEvent, useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import kebab from '@/../public/assets/icon_kebab_cancel.png';
 import userImg from '@/../public/assets/img_profile_member.png';
 import { patchFeedback } from '@/api/feedbackService';
@@ -9,7 +10,17 @@ import type { FeedbackCardProps } from '@/interfaces/feedbackInterface';
 import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 
-export default function FeedbackCard({ comments, userId, userName }: FeedbackCardProps) {
+export default function FeedbackCard({
+  comments,
+  userId,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage
+}: FeedbackCardProps & {
+  fetchNextPage: () => void;
+  hasNextPage: boolean | undefined;
+  isFetchingNextPage: boolean;
+}) {
   if (!comments || comments.length === 0) return null;
   const [editingCommentId, setEditingCommentId] = useState<string>('');
   const [editingContent, setEditingContent] = useState<string>('');
@@ -39,6 +50,11 @@ export default function FeedbackCard({ comments, userId, userName }: FeedbackCar
       alert('Failed to patch your feedback. Please try again.');
     }
   };
+
+  const { ref, inView } = useInView();
+  useEffect(() => {
+    if (inView && hasNextPage && isFetchingNextPage) fetchNextPage();
+  }, [inView]);
 
   return (
     <div>
@@ -103,6 +119,7 @@ export default function FeedbackCard({ comments, userId, userName }: FeedbackCar
           </li>
         ))}
       </ul>
+      <div ref={ref}></div>
     </div>
   );
 }

@@ -1,10 +1,11 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { getFeedbackList } from '@/api/feedbackService';
 import { getUser } from '@/api/userService';
 import { getWorkDetail } from '@/api/workService';
+import type { FeedbackResponse } from '@/interfaces/feedbackInterface';
 import useStore from '@/store/store';
 import FeedbackCard from '../Card/FeedbackCard';
 import WorkCard from '../Card/WorkCard';
@@ -20,19 +21,29 @@ export default function WorkDetailClient() {
     isLoading: workLoading,
     error: workError
   } = useQuery({
-    queryKey: ['work', workId],
+    queryKey: ['work'],
     queryFn: () => getWorkDetail(workIdParam)
   });
 
-  /*const {
+  const {
     data: feedback,
     isLoading: feedbackLoading,
-    error: feedbackError
-  } = useQuery({
-    queryKey: ['feedback', workId],
-    queryFn: () => getFeedbackList(workIdParam)
+    error: feedbackError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = useInfiniteQuery<FeedbackResponse>({
+    queryKey: ['feedback'],
+    queryFn: ({ pageParam }) => {
+      return getFeedbackList(workIdParam, pageParam as number, 4);
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      const currentPage = allPages.length;
+      const totalPages = Math.ceil(lastPage.totalCount / 4);
+      return currentPage < totalPages ? currentPage + 1 : undefined;
+    },
+    initialPageParam: 1
   });
-*/
 
   if (workLoading /*|| feedbackLoading*/) {
     return (
@@ -57,7 +68,13 @@ export default function WorkDetailClient() {
     <div className="flex items-center justify-center">
       <WorkCard data={work} userId={userId} />
       {/*<WorkInput data={work} />*/}
-      {/*<FeedbackCard comments={feedback} user={userId} />*/}
+      <FeedbackCard
+        comments={feedback ? feedback.pages.flatMap(page => page.list) : []}
+        userId={userId}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </div>
   );
 }

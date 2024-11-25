@@ -1,5 +1,3 @@
-import type { UserData } from './userInterface';
-
 export interface WorkDetailData {
   id: string;
   title: string;

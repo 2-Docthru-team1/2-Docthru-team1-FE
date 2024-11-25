@@ -1,5 +1,3 @@
-import type { UserData } from './userInterface';
-
 export interface FeedbackData {
   id: string;
   createdAt: string;
@@ -12,6 +10,10 @@ export interface FeedbackData {
 
 export interface FeedbackCardProps {
   comments: FeedbackData[];
-  userId: string;
-  userName: string;
+  userId: string | null;
+}
+
+export interface FeedbackResponse {
+  list: FeedbackData[];
+  totalCount: number;
 }
