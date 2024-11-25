@@ -17,16 +17,16 @@ export default function DetailTextCard({ type, content }: DetailTextCardProps) {
     <div className="flex flex-col gap-[2rem] w-[54.9rem]">
       <p className="font-semibold text-[2rem] leading-[2.387rem] text-primary-blue">{title}</p>
       <div>
-        {type === 'ingredient' && (
+        {type === 'ingredient' && Array.isArray(content) && (
           <ul className="list-disc list-inside">
-            {(content as string[]).map((text, index) => (
+            {content.map((text, index) => (
               <li key={index} className="font-medium text-[1.6rem] leading-[2.56rem] text-gray-700">
                 {text}
               </li>
             ))}
           </ul>
         )}
-        {type === 'direction' && (
+        {type === 'direction' && Array.isArray(content) && (
           <div>
             {content.map((text, index) => (
               <p key={index} className="font-medium text-[1.6rem] leading-[2.56rem] text-gray-700 mb-[0.5rem]">
@@ -71,10 +71,10 @@ export default function DetailTextCard({ type, content }: DetailTextCardProps) {
             </div>
           </div>
         )}
-        {type === 'benefit' && (
+        {type === 'benefit' && Array.isArray(content) && (
           <div>
-            <p className="font-medium text-[1.6rem] leading-[2.56rem] text-gray-700 mb-[0.7rem]">{(content as string[])[0]}</p>
-            {(content as string[]).slice(1).map((text, index) => (
+            <p className="font-medium text-[1.6rem] leading-[2.56rem] text-gray-700 mb-[0.7rem]">{content[0]}</p>
+            {content.slice(1).map((text, index) => (
               <p key={index + 1} className="font-medium text-[1.6rem] leading-[2.56rem] text-gray-700 mb-[0.5rem]">
                 {index + 1}. {text}
               </p>
