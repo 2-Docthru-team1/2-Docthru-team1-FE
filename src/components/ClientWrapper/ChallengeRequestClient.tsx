@@ -66,6 +66,15 @@ export default function ChallengeRequestClient() {
     setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
+  // const convertFileToBase64 = (file: File): Promise<string | ArrayBuffer | null> => {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file); // 파일을 Base64로 읽음
+  //     reader.onload = () => resolve(reader.result); // Base64 문자열 반환
+  //     reader.onerror = error => reject(error);
+  //   });
+  // };
+
   const handleSubmit = async () => {
     if (!title.trim() || !url.trim() || !content.trim() || images.length === 0 || !selectedMediaType || !selectedDate) {
       if (!title.trim()) setTitleError(true);
@@ -75,24 +84,49 @@ export default function ChallengeRequestClient() {
       if (!selectedDate) setDateError(true);
       return;
     }
+    // const imageBase64Array: (string | ArrayBuffer | null)[] = await Promise.all(
+    //   images.map((image: File) => convertFileToBase64(image))
+    // );
     const [day, month, year] = selectedDate.split('/').map(Number);
     const formattedDate = `${2000 + year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     const date = new Date(formattedDate);
     date.setHours(23, 59, 59, 999);
     const isoDate = date.toISOString();
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('url', url);
-    formData.append('description', content);
-    formData.append('mediaType', selectedMediaType);
-    formData.append('deadline', isoDate);
-    images.forEach((image, index) => {
-      formData.append(`image${index + 1}`, image);
-    });
+    // const formData = new FormData();
+    // formData.append('title', title);
+    // formData.append('embedUrl', url);
+    // formData.append('description', content);
+    // formData.append('mediaType', selectedMediaType);
+    // formData.append('deadline', isoDate);
+    // formData.append('imageCount', images.length.toString());
+
+    const data = {
+      title,
+      description: content,
+      deadline: isoDate,
+      embedUrl: url,
+      mediaType: selectedMediaType,
+      imageCount: images.length.toString()
+    };
 
     try {
-      await fetchChallengeRequest(formData);
+      const res = await fetchChallengeRequest(data);
+      const { challenge, uploadUrls } = res;
+      console.log(uploadUrls);
+      await Promise.all(
+        images.map((image, index) => {
+          const uploadUrl = uploadUrls[index];
+          return fetch(uploadUrl, {
+            method: 'PUT',
+            body: image,
+            headers: {
+              'Content-Type': image.type
+            }
+          });
+        })
+      );
+
       alert('Form submitted successfully!');
       router.push('/challengeList');
     } catch (error) {

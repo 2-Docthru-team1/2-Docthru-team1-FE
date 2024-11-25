@@ -28,7 +28,7 @@ export const fetchChallengeStatus = async (): Promise<ChallengeParticipantStatus
   return response.data;
 };
 
-export const fetchChallengeRequest = async (formData: FormData) => {
-  const response = await postRequest('/challenges', formData);
+export const fetchChallengeRequest = async (data: object) => {
+  const response = await postRequest('/challenges', data);
   return response.data;
 };
