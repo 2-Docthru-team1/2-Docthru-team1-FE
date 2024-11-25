@@ -10,6 +10,9 @@ const titleOptions = {
 export default function DetailTextCard({ type, content }: DetailTextCardProps) {
   const title = titleOptions[type] || '';
 
+  console.log(content);
+  console.log(type, content);
+
   return (
     <div className="flex flex-col gap-[2rem] w-[54.9rem]">
       <p className="font-semibold text-[2rem] leading-[2.387rem] text-primary-blue">{title}</p>
@@ -25,7 +28,7 @@ export default function DetailTextCard({ type, content }: DetailTextCardProps) {
         )}
         {type === 'direction' && (
           <div>
-            {(content as string[]).map((text, index) => (
+            {content.map((text, index) => (
               <p key={index} className="font-medium text-[1.6rem] leading-[2.56rem] text-gray-700 mb-[0.5rem]">
                 {text}
               </p>

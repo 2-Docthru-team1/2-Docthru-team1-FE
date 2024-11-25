@@ -43,12 +43,10 @@ instance.interceptors.response.use(
 interface CustomAxiosRequestConfig {
   params?: object;
 }
-
 export function getRequest(url: string, params: object = {}) {
   const config: CustomAxiosRequestConfig = {
     params
   };
-
   return instance.get(url, config);
 }
 export async function postRequest(url: string, body: object = {}) {

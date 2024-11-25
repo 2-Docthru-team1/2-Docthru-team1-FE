@@ -1,5 +1,8 @@
 export interface FilterBarProps {
-  type: 'recipe' | 'challenge' | 'admin';
+  type: 'recipe' | 'admin' | 'challenge';
+  onKeywordChange: (value: string) => void;
+  onCategoryChange: (value: string) => void;
+  onFilterApply: () => void;
 }
 
 export interface Option {
