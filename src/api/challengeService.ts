@@ -30,5 +30,6 @@ export const fetchChallengeStatus = async (): Promise<ChallengeParticipantStatus
 
 export const fetchChallengeRequest = async (data: object) => {
   const response = await postRequest('/challenges', data);
+  console.log(response.data);
   return response.data;
 };
