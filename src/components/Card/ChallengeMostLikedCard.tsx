@@ -66,7 +66,7 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
         <div className="mt-[4rem] ml-[1.4rem] mr-[1.4rem]">
           <p className="font-semibold text-[1.6rem] leading-[1.909rem]">Comments</p>
           <div className="p-[1.6rem] flex gap-[1.9rem] flex-col">
-            {data.Feedback.map((item: any, index: number) => (
+            {data.Feedback?.map((item: any, index: number) => (
               <div key={index} className="flex gap-[1.2rem] flex-col">
                 <div className="flex gap-[0.8rem] items-center">
                   <Image src={profile} alt="profile" width={32} height={32} />
