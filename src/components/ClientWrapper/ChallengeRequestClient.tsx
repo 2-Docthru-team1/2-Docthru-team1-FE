@@ -11,8 +11,8 @@ import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
 import DateDropdown from '../Dropdown/DateDropdown';
 
 export default function ChallengeRequestClient() {
-  // const { accessToken } = useStore();
-  console.log(localStorage.getItem('accessToken'));
+  const { accessToken } = useStore();
+
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -69,15 +69,6 @@ export default function ChallengeRequestClient() {
     setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
-  // const convertFileToBase64 = (file: File): Promise<string | ArrayBuffer | null> => {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file); // 파일을 Base64로 읽음
-  //     reader.onload = () => resolve(reader.result); // Base64 문자열 반환
-  //     reader.onerror = error => reject(error);
-  //   });
-  // };
-
   const handleSubmit = async () => {
     if (!title.trim() || !url.trim() || !content.trim() || images.length === 0 || !selectedMediaType || !selectedDate) {
       if (!title.trim()) setTitleError(true);
@@ -87,37 +78,43 @@ export default function ChallengeRequestClient() {
       if (!selectedDate) setDateError(true);
       return;
     }
-    // const imageBase64Array: (string | ArrayBuffer | null)[] = await Promise.all(
-    //   images.map((image: File) => convertFileToBase64(image))
-    // );
-    const [day, month, year] = selectedDate.split('/').map(Number);
+
+    const [year, month, day] = selectedDate.split('/').map(Number);
     const formattedDate = `${2000 + year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     const date = new Date(formattedDate);
     date.setHours(23, 59, 59, 999);
     const isoDate = date.toISOString();
+    let formattedMediaType = selectedMediaType.toLowerCase();
 
-    // const formData = new FormData();
-    // formData.append('title', title);
-    // formData.append('embedUrl', url);
-    // formData.append('description', content);
-    // formData.append('mediaType', selectedMediaType);
-    // formData.append('deadline', isoDate);
-    // formData.append('imageCount', images.length.toString());
+    if (formattedMediaType === 'youtube') {
+      formattedMediaType = 'youtube';
+    } else if (formattedMediaType === 'blog') {
+      formattedMediaType = 'blog';
+    } else if (formattedMediaType === 'recipe web') {
+      formattedMediaType = 'recipeWeb';
+    } else if (formattedMediaType === 'social media') {
+      formattedMediaType = 'socialMedia';
+    }
 
     const data = {
       title,
       description: content,
       deadline: isoDate,
       embedUrl: url,
-      mediaType: selectedMediaType,
-      imageCount: images.length.toString()
+      mediaType: formattedMediaType,
+      imageCount: images.length
     };
     console.log(data);
 
     try {
-      const res = await fetchChallengeRequest(data);
+      if (!accessToken) {
+        alert('User is not authenticated.');
+        return;
+      }
+
+      const res = await fetchChallengeRequest(data, accessToken);
       const { challenge, uploadUrls } = res;
-      console.log(uploadUrls);
+
       await Promise.all(
         images.map((image, index) => {
           const uploadUrl = uploadUrls[index];

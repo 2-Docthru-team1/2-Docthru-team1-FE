@@ -28,14 +28,25 @@ export const fetchChallengeStatus = async (): Promise<ChallengeParticipantStatus
   return response.data;
 };
 
-export const fetchChallengeRequest = async (data: object) => {
-  console.log(data);
+export const fetchChallengeRequest = async (data: object, token: string) => {
   try {
-    const response = await postRequest('/challenges', data);
+    console.log(token);
+    const response = await postRequest('/challenges', data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
     console.log('API Response Data:', response.data);
     return response.data;
-  } catch (error) {
-    console.error('Error in fetchChallengeRequest:', error);
-    throw error; // 에러 처리
+  } catch (err: any) {
+    let errorMessage = 'An unexpected error occurred. Please try again.';
+    if (err?.response?.data?.field === '요청 형식이 잘못되었습니다.') {
+      errorMessage = '요청 형식이 잘못되었습니다.';
+    }
+    if (err?.response?.data?.field === '먼저 로그인해 주세요.') {
+      errorMessage = '먼저 로그인해 주세요.';
+    }
+    alert(errorMessage);
   }
 };

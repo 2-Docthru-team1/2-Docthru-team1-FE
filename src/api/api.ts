@@ -50,8 +50,15 @@ export function getRequest(url: string, params: object = {}) {
   };
   return instance.get(url, config);
 }
-export async function postRequest(url: string, body: object = {}) {
-  return instance.post(url, body);
+export async function postRequest(url: string, body: object = {}, options: { headers?: Record<string, string> } = {}) {
+  const defaultHeaders = {
+    'Content-Type': 'application/json'
+  };
+
+  const headers = { ...defaultHeaders, ...options.headers };
+  console.log({ headers });
+
+  return instance.post(url, body, { headers });
 }
 
 export async function patchRequest(url: string, body: object = {}) {
