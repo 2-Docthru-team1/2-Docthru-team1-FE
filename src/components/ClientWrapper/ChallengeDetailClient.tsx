@@ -65,10 +65,10 @@ export default function ChallengeDetailClient() {
                 data={{
                   title: challengeStatusMedium.list[0].title,
                   ownerId: challengeStatusMedium.list[0].owner.id,
-                  role: challengeStatusMedium.list[0].role,
+                  role: challengeStatusMedium.list[0].owner.role,
                   likeCount: challengeStatusMedium.list[0].likeCount,
-                  description: challengeStatusMedium.list[0].description,
-                  Feedback: challengeStatusMedium.list[0].Feedback,
+                  description: challengeStatusMedium.list[0].content,
+                  // Feedback: challengeStatusMedium.list[0].owner,
                   createdAt: challengeStatusMedium.list[0].createdAt
                 }}
               />
