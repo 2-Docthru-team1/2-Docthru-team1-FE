@@ -15,7 +15,7 @@ import Pagination from '../Pagination/Pagination';
 
 export default function ChallengeListClient({ adminchallengeData, challengeData, rankerData }: ChallengeListClientProps) {
   const router = useRouter();
-  const { userId, role } = useStore();
+  const { userId, role, category, setCategory, keyword, setKeyword } = useStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -40,6 +40,14 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     router.push('/challengeList/request');
   };
 
+  const handleFilterChange = () => {
+    const params = new URLSearchParams();
+    if (keyword) params.set('keyword', keyword);
+    if (category) params.set('category', category);
+
+    router.push(`?${params.toString()}`);
+  };
+
   return (
     <div className="flex flex-col w-full items-center justify-center">
       <div>
@@ -58,7 +66,12 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
         <div className="flex justify-between items-center mt-[4rem] mb-[2.4rem]">
           <p className="font-semibold text-[2rem] leading-[2.387rem text-gray-800">Challenge List</p>
           <div className="flex gap-[2rem]">
-            <FilterBar type="challenge" />
+            <FilterBar
+              type="challenge"
+              onKeywordChange={setKeyword}
+              onCategoryChange={setCategory}
+              onFilterApply={handleFilterChange}
+            />
             <button
               onClick={handleRequestClick}
               className="bg-primary-beige text-primary-white border rounded-[1.95rem] flex items-center gap-[0.8rem]"
