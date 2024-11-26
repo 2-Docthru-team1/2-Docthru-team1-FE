@@ -32,7 +32,7 @@ export interface ChallengeParticipantStatusProps {
 
 export interface ChallengeParticipantStatusData {
   title: string;
-  Feedback?: string[];
+  feedbackCount: number;
   likeCount: number;
   owner: ownerData;
   images: { imageUrl: string }[];
@@ -102,7 +102,7 @@ export interface ParticipantStatusData {
   content: string;
   likeCount: number;
   // likeUsers: string[];
-  // Feedback: string[];
+  feedbackCount: number;
   owner: ownerData;
   challengeId: string;
   images: { imageUrl: string }[];

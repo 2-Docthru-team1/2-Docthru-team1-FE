@@ -41,8 +41,8 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
           <div className="flex flex-col">
             <div className="flex gap-[0.4rem]">
               <Image src={comment} alt="댓글" />
-              {/* <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.Feedback.length}</p> */}
-              <p className="font-medium text-[1.2rem] leading-[1.8rem]">15</p>
+              <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.feedbackCount}</p>
+              {/* <p className="font-medium text-[1.2rem] leading-[1.8rem]">15</p> */}
             </div>
             <div className="flex gap-[0.4rem]">
               <Image src={heart} alt="하트" />
