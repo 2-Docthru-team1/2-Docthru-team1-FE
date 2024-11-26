@@ -1,5 +1,5 @@
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
-import { getRequest, postRequest } from './api';
+import { getRequest, patchRequest, postRequest } from './api';
 
 export const fetchChallenge = async () => {
   try {
@@ -76,5 +76,18 @@ export const fetchChallengeRequest = async (data: object) => {
       errorMessage = '먼저 로그인해 주세요.';
     }
     alert(errorMessage);
+  }
+};
+
+export const fetchUpdateStatus = async (challengeId: string, newStatus: 'canceled' | 'aborted', reason: string) => {
+  try {
+    const response = await patchRequest(`/challenges/${challengeId}/status`, {
+      status: newStatus,
+      abortReason: reason
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to update challenge status:', error);
+    throw error;
   }
 };
