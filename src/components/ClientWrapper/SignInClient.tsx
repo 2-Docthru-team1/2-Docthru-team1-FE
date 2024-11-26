@@ -24,7 +24,7 @@ export default function SignIn() {
       const res = await signIn(credentials);
 
       const { login } = useStore.getState();
-      login(res.userId, res.role);
+      login(res.userId, res.role, res.accessToken);
 
       router.push('/challengeList');
     } catch (err: any) {

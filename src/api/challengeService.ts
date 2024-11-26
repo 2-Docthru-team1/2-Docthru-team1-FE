@@ -4,7 +4,7 @@ import type {
   ChallengeParticipateStatusProps,
   ParticipantStatusData
 } from '@/interfaces/cardInterface';
-import { getRequest } from './api';
+import { getRequest, postRequest } from './api';
 
 export const fetchChallenge = async () => {
   const response = await getRequest('/challenges');
@@ -33,4 +33,27 @@ export const fetchChallengeStatus = async (id: string, page: number): Promise<Ch
   };
   const response = await getRequest(`/challenges/${id}/works`, { params });
   return response.data;
+};
+
+export const fetchChallengeRequest = async (data: object, token: string) => {
+  try {
+    console.log(token);
+    const response = await postRequest('/challenges', data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    console.log('API Response Data:', response.data);
+    return response.data;
+  } catch (err: any) {
+    let errorMessage = 'An unexpected error occurred. Please try again.';
+    if (err?.response?.data?.field === '요청 형식이 잘못되었습니다.') {
+      errorMessage = '요청 형식이 잘못되었습니다.';
+    }
+    if (err?.response?.data?.field === '먼저 로그인해 주세요.') {
+      errorMessage = '먼저 로그인해 주세요.';
+    }
+    alert(errorMessage);
+  }
 };

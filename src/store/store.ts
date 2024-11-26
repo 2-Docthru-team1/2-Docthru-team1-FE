@@ -20,7 +20,8 @@ interface StoreState {
   userStatus: 'loggedOut' | 'normal' | 'admin';
   userId: string | null;
   role: 'normal' | 'admin' | null;
-  login: (userId: string, role: 'normal' | 'admin') => void;
+  accessToken: string | null;
+  login: (userId: string, role: 'normal' | 'admin', accessToken: string) => void;
   logout: () => void;
   setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => void;
 }
@@ -28,6 +29,7 @@ interface StoreState {
 const useStore = create<StoreState>((set: (partial: Partial<StoreState>) => void) => {
   const storedUserId = localStorage.getItem('userId');
   const storedRole = localStorage.getItem('role') as 'normal' | 'admin' | null;
+  const storedToken = localStorage.getItem('accessToken');
   const initialUserStatus = storedRole === 'admin' ? 'admin' : storedRole === 'normal' ? 'normal' : 'loggedOut';
 
   return {
@@ -51,11 +53,14 @@ const useStore = create<StoreState>((set: (partial: Partial<StoreState>) => void
     userStatus: initialUserStatus,
     userId: storedUserId || null,
     role: storedRole || null,
+    accessToken: storedToken || null,
 
-    login: (userId: string, role: 'normal' | 'admin') => {
-      set({ userId, role, userStatus: role === 'admin' ? 'admin' : 'normal' });
+    login: (userId: string, role: 'normal' | 'admin', accessToken: string) => {
+      set({ userId, role, accessToken, userStatus: role === 'admin' ? 'admin' : 'normal' });
       localStorage.setItem('userId', userId);
       localStorage.setItem('role', role);
+      localStorage.setItem('accessToken', accessToken);
+      console.log(localStorage.getItem('accessToken'));
     },
 
     logout: () => {

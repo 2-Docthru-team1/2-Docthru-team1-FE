@@ -46,7 +46,7 @@ export default function ChallengeApplyDropdown({ setSelectedOption, selectedOpti
   return (
     <div className="flex flex-col" ref={dropdownRef}>
       <div
-        className={`h-[5.6rem] rounded-[0.4rem] gap-[1rem] py-[0.4rem] px-[1.6rem] flex justify-between items-center bg-primary-white cursor-pointer border
+        className={`h-[5.6rem] rounded-[0.4rem] gap-[1rem] py-[0.4rem] px-[2rem] flex justify-between items-center bg-primary-white cursor-pointer border
           ${isDropdownOpen ? 'border-primary-beige' : selectedOption ? 'border-gray-200' : isErrorTriggered ? 'border-error-red' : 'border-gray-200'}
         `}
         onClick={handleClickDropdown}
@@ -61,7 +61,7 @@ export default function ChallengeApplyDropdown({ setSelectedOption, selectedOpti
       )}
       {isDropdownOpen && (
         <div className="relative">
-          <div className="absolute w-full border border-gray-200 rounded-[0.4rem] bg-primary-white overflow-hidden">
+          <div className="absolute z-20 mt-[0.3rem] w-full border border-gray-200 rounded-[0.4rem] bg-primary-white overflow-hidden shadow-lg">
             <div
               className="flex h-[4rem] justify-center items-center border-b border-gray-200 cursor-pointer"
               onClick={() => handleOptionSelect('Youtube')}
