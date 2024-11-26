@@ -10,7 +10,6 @@ import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
 export default function RecipeListClient({ initialData }: RecipeListClientProps) {
-  console.log(initialData.list);
   const router = useRouter();
   const { keyword, category, setKeyword, setCategory } = useStore();
 

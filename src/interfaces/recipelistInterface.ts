@@ -15,6 +15,12 @@ export interface RecipeDetailData {
   images: string[];
   ingredients: string[];
   likeCount: number;
-  nutrition: NutritionContent;
+  calories: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+  protein: number;
+  sodium: number;
+  sugars: number;
   title: string;
 }
