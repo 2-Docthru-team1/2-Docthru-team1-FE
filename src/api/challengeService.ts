@@ -77,9 +77,12 @@ export const fetchChallengeRequest = async (data: object) => {
   }
 };
 
-export const fetchUpdateStatus = async (challengeId: string, newStatus: 'canceled' | 'aborted') => {
+export const fetchUpdateStatus = async (challengeId: string, newStatus: 'canceled' | 'aborted', reason: string) => {
   try {
-    const response = await patchRequest(`/challenges/${challengeId}/status`, { status: newStatus });
+    const response = await patchRequest(`/challenges/${challengeId}/status`, {
+      status: newStatus,
+      abortReason: reason
+    });
     return response.data;
   } catch (error) {
     console.error('Failed to update challenge status:', error);

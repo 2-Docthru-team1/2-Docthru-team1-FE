@@ -55,7 +55,7 @@ export interface ChallengeData {
   id: string;
   title: string;
   mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
-  status: 'onGoing' | 'finished' | 'canceled';
+  status: 'onGoing' | 'finished';
   deadline: string;
   requestUser: RequestUser;
   totalLikes: number;
