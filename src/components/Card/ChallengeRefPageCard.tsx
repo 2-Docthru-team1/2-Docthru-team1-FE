@@ -30,7 +30,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
     <div className="relative w-full h-full rounded-lg overflow-hidden flex justify-end items-start">
       {!showLinkButton ? (
         <div
-          className="mt-[7.6rem] w-[5.2rem] h-[9.9rem] flex items-center justify-center rounded-tl-[2.4rem] rounded-bl-[2.4rem] border-2 border-gray-100"
+          className="mt-[7.6rem] w-[5.2rem] h-[9.9rem] flex items-center justify-center rounded-tl-[2.4rem] rounded-bl-[2.4rem] border-2 border-gray-100 bg-primary-white"
           style={{ boxShadow: '0 4px 4px 4px #585C820D' }}
         >
           <button

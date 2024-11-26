@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react';
 import comment from '@/../public/assets/icon_comment.png';
 import heart from '@/../public/assets/icon_heart_inact_small.png';
 import profile from '@/../public/assets/img_profile_member.png';
-import food from '@/../public/temporaryAssets/Food.svg';
-import { fetchChallengeStatus } from '@/api/challengeService';
 import type { ChallengeParticipantStatusData, ChallengeParticipantStatusProps } from '@/interfaces/cardInterface';
 
 export default function ChallengeParticipantCard({ initialData, type }: ChallengeParticipantStatusProps) {
@@ -18,10 +16,6 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
 
   const rol = data.owner.role === 'normal' ? 'koo-koo' : data.owner.role === 'admin' ? 'admin' : '';
   const borderClass = type === 'first' ? 'border-2 border-primary-beige' : 'border border-gray-200';
-
-  // TODO: 현재 api 수정 이슈로 댓글 개수는 임의대로 작업하였습니다.
-
-  console.log(data);
 
   return (
     <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`}>
@@ -41,8 +35,7 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
           <div className="flex flex-col">
             <div className="flex gap-[0.4rem]">
               <Image src={comment} alt="댓글" />
-              {/* <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.Feedback.length}</p> */}
-              <p className="font-medium text-[1.2rem] leading-[1.8rem]">15</p>
+              <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.feedbackCount}</p>
             </div>
             <div className="flex gap-[0.4rem]">
               <Image src={heart} alt="하트" />

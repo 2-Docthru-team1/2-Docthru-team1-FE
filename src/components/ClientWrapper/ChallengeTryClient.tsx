@@ -9,7 +9,7 @@ export default function ChallengeTryClient() {
         <div>
           <ChallengeHeader />
         </div>
-        <div className="mt-[2.4rem]">
+        <div className="mt-[2.4rem] mb-[5rem]">
           <ChallengeBody />
         </div>
       </div>

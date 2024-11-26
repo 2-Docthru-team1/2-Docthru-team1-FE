@@ -44,17 +44,23 @@ export default function ChallengeDetailClient() {
     return <div>Detail Page Loading...</div>;
   }
 
+  // console.log(challengeStatusMedium, 'emdium');
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex mx-auto flex-col">
         <div className="mt-[2rem] flex">
           <ChallengeDetailContentCard
-            type={medium.status as 'onGoing' | 'finished'}
+            type={medium.status}
             data={{
               title: medium.title,
-              mediaType: medium.mediaType as 'youtube' | 'blog' | 'recipeWeb' | 'socialMedia',
+              mediaType: medium.mediaType,
               description: medium.description,
-              ownerId: medium.ownerId
+              id: medium.id,
+              requestUser: {
+                id: medium.requestUser.id,
+                name: medium.requestUser.name
+              }
             }}
           />
         </div>
@@ -64,8 +70,13 @@ export default function ChallengeDetailClient() {
               <ChallengeMostLikedCard
                 data={{
                   title: challengeStatusMedium.list[0].title,
-                  ownerId: challengeStatusMedium.list[0].owner.id,
-                  role: challengeStatusMedium.list[0].owner.role,
+                  owner: {
+                    id: challengeStatusMedium.list[0].owner.id,
+                    email: challengeStatusMedium.list[0].owner.email,
+                    name: challengeStatusMedium.list[0].owner.name,
+                    role: challengeStatusMedium.list[0].owner.role
+                  },
+                  id: challengeStatusMedium.list[0].id,
                   likeCount: challengeStatusMedium.list[0].likeCount,
                   description: challengeStatusMedium.list[0].content,
                   // Feedback: challengeStatusMedium.list[0].owner,
