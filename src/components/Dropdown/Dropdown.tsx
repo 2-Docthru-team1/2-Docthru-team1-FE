@@ -83,7 +83,7 @@ export default function Dropdown({ isOpen, items, type, onApply, onClose }: Drop
         <div className="w-full border-2 border-gray-200 rounded-[0.8rem]">
           <div className="flex justify-between px-[1.6rem] pt-[1.6rem]">
             <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700">Sort</p>
-            <Image src={close} alt="닫기" />
+            <Image src={close} alt="닫기" onClick={() => onClose()} />
           </div>
           <div key="view-section" className="py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
@@ -139,6 +139,12 @@ export default function Dropdown({ isOpen, items, type, onApply, onClose }: Drop
               className="w-[13.4rem] h-[4rem] py-[0.2rem] px-[1.6rem] border border-gray-200 font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700 rounded-[0.8rem]"
             >
               Reset
+            </button>
+            <button
+              onClick={handleApply}
+              className="w-[16.9rem] h-[4rem] rounded-[0.8rem] bg-primary-blue font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff]"
+            >
+              Apply
             </button>
           </div>
         </div>
