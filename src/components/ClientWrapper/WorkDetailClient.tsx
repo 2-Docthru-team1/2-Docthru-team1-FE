@@ -2,8 +2,8 @@
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { getFeedbackList } from '@/api/feedbackService';
 import { getUser } from '@/api/userService';
+import { getFeedbackList } from '@/api/workService';
 import { getWorkDetail } from '@/api/workService';
 import type { FeedbackResponse } from '@/interfaces/feedbackInterface';
 import FeedbackCard from '../Card/FeedbackCard';

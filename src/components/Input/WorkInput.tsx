@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { type ChangeEvent, useState } from 'react';
 import activeSubmit from '@/../public/assets/btn_feedback_active.png';
 import inactiveSubmit from '@/../public/assets/btn_feedback_inactive.png';
-import { postFeedback } from '@/api/feedbackService';
+import { postFeedback } from '@/api/workService';
 import type { WorkInputProps } from '@/interfaces/workInterface';
 
 export default function WorkInput({ data }: WorkInputProps) {
