@@ -1,18 +1,20 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios';
 import https from 'https';
 
-// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const BASE_URL = '/api';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const instance = axios.create({
   baseURL: `${BASE_URL}`,
-  timeout: 10000,
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false
-  })
+  timeout: 10000
 });
 
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    console.log('Request Config:', {
+      url: config.url,
+      method: config.method,
+      baseURL: config.baseURL,
+      data: config.data
+    });
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('accessToken');
       if (token) {
@@ -29,6 +31,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   res => res,
   async err => {
+    console.error('Response error:', err);
     const request = err.config;
     if (err.response?.status === 401 && !request._retry) {
       const refreshToken = localStorage.getItem('refreshToken');
