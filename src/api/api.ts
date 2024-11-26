@@ -9,7 +9,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('accessToken');
       console.log(token);
       if (token) {
         const headers = new AxiosHeaders(config.headers);
@@ -56,7 +56,6 @@ export async function postRequest(url: string, body: object = {}, options: { hea
   };
 
   const headers = { ...defaultHeaders, ...options.headers };
-  console.log({ headers });
 
   return instance.post(url, body, { headers });
 }

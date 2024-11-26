@@ -37,14 +37,12 @@ export const fetchChallengeStatus = async (id: string, page: number): Promise<Ch
 
 export const fetchChallengeRequest = async (data: object, token: string) => {
   try {
-    console.log(token);
     const response = await postRequest('/challenges', data, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
 
-    console.log('API Response Data:', response.data);
     return response.data;
   } catch (err: any) {
     let errorMessage = 'An unexpected error occurred. Please try again.';
