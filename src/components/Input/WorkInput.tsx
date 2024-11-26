@@ -27,7 +27,7 @@ export default function WorkInput({ data }: WorkInputProps) {
     }
   });
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
