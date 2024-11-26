@@ -1,10 +1,11 @@
-import { fetchAdminChallenge, fetchChallenge, fetchRanker } from '@/api/challengeService';
+import { fetchAdminChallenge, fetchChallenge, fetchRanker, getFilteredChallenges } from '@/api/challengeService';
 import ChallengeListClient from '@/components/ClientWrapper/ChallengeListClient';
 
 export default async function ChallengeListPage() {
   const adminchallengeData = await fetchAdminChallenge();
-  const { list, totalCount } = await fetchChallenge();
+  const { list, totalCount } = await getFilteredChallenges();
   const rankerData = await fetchRanker();
+
   const Data = {
     adminchallengeData,
     list,

@@ -11,6 +11,13 @@ export const fetchChallenge = async () => {
   return response.data;
 };
 
+export const getFilteredChallenges = async () => {
+  const { list, totalCount } = await fetchChallenge();
+  const filteredList = list.filter((list: { status: string }) => ['onGoing', 'finished'].includes(list.status));
+
+  return { list: filteredList, totalCount };
+};
+
 export const fetchRanker = async () => {
   const response = await getRequest('http://localhost:3000/rankerMockData.json');
   return response.data;
