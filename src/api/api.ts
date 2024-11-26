@@ -10,11 +10,8 @@ instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('accessToken');
-      console.log(token);
       if (token) {
-        const headers = new AxiosHeaders(config.headers);
-        headers.set('Authorization', `Bearer ${token}`);
-        config.headers = headers;
+        config.headers['Authorization'] = `Bearer ${token}`;
       }
     }
     return config;
@@ -34,7 +31,7 @@ instance.interceptors.response.use(
         request._retry = true;
         return instance(request);
       } else {
-        window.location.href = '/signin';
+        window.location.href = '/signIn';
       }
     }
     return Promise.reject(err);
@@ -50,14 +47,8 @@ export function getRequest(url: string, params: object = {}) {
   };
   return instance.get(url, config);
 }
-export async function postRequest(url: string, body: object = {}, options: { headers?: Record<string, string> } = {}) {
-  const defaultHeaders = {
-    'Content-Type': 'application/json'
-  };
-
-  const headers = { ...defaultHeaders, ...options.headers };
-
-  return instance.post(url, body, { headers });
+export async function postRequest(url: string, body: object = {}) {
+  return instance.post(url, body);
 }
 
 export async function patchRequest(url: string, body: object = {}) {

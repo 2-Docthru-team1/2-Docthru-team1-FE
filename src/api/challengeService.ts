@@ -35,13 +35,9 @@ export const fetchChallengeStatus = async (id: string, page: number): Promise<Ch
   return response.data;
 };
 
-export const fetchChallengeRequest = async (data: object, token: string) => {
+export const fetchChallengeRequest = async (data: object) => {
   try {
-    const response = await postRequest('/challenges', data, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    const response = await postRequest('/challenges', data);
 
     return response.data;
   } catch (err: any) {

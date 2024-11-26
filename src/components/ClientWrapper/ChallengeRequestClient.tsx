@@ -6,13 +6,10 @@ import { useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
 import close from '@/../public/assets/icon_out_circle_small.png';
 import { fetchChallengeRequest } from '@/api/challengeService';
-import useStore from '@/store/store';
 import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
 import DateDropdown from '../Dropdown/DateDropdown';
 
 export default function ChallengeRequestClient() {
-  const { accessToken } = useStore();
-
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -106,12 +103,7 @@ export default function ChallengeRequestClient() {
     };
 
     try {
-      if (!accessToken) {
-        alert('User is not authenticated.');
-        return;
-      }
-
-      const res = await fetchChallengeRequest(data, accessToken);
+      const res = await fetchChallengeRequest(data);
       const { challenge, uploadUrls } = res;
       const uploadResults = await Promise.all(
         images.map(async (image, index) => {
@@ -140,7 +132,6 @@ export default function ChallengeRequestClient() {
                 index
               };
             }
-
             return {
               success: true,
               index
@@ -154,14 +145,12 @@ export default function ChallengeRequestClient() {
           }
         })
       );
-
       const failedUploads = uploadResults.filter(result => !result.success);
       if (failedUploads.length > 0) {
         alert('Some images failed to upload. Please try again.');
         return;
       }
-
-      alert('Form submitted successfully!');
+      alert('Request a Challenge Successfully!');
       router.push('/challengeList');
     } catch (error) {
       alert('Error submitting the form. Please try again.');
