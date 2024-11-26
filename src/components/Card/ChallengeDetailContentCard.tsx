@@ -26,6 +26,8 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
 
   const closeImg = () => setIsOpen(false);
 
+  console.log(data);
+
   return (
     <div>
       <div className="flex">
@@ -43,7 +45,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
             <p className="font-normal text-[1.6rem] leading-[2.08rem] text-gray-700">{data.description}</p>
             <div className="flex items-center gap-[0.8rem]">
               <Image src={profileMem} alt="프로필" width={24} height={24} />
-              <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-800">{data.ownerId}</p>
+              <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-800">{data.id}</p>
             </div>
             <div className="flex items-center">
               <div className="relative w-[34.3rem] h-[29.4rem]">
@@ -63,7 +65,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
           </div>
         </div>
         <div className="mt-[6.8rem]">
-          <OptionBox type={type} />
+          <OptionBox type={type} id={data.id} />
         </div>
       </div>
       {isOpen && <ImageEnlargeModal src={food} alt="작업물 이미지" onClose={closeImg} />}
