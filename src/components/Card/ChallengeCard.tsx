@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
 import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
+import { fetchUpdateStatus } from '@/api/challengeService';
 import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';
 import type { ChallengeCardProps } from '@/interfaces/cardInterface';
@@ -12,7 +13,9 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
     return <div>로딩 중...</div>;
   }
 
-  const { id, title, deadline, status, mediaType, requestUserId } = data;
+  const { id, title, deadline, status, mediaType, requestUser } = data;
+
+  console.log(data);
   const formattedDeadline = new Date(deadline).toISOString().split('T')[0];
 
   const handleStatusChange = (id: string, newStatus: 'onGoing' | 'canceled') => {
@@ -29,8 +32,15 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
     event.stopPropagation();
     setDropdownOpen(prev => !prev);
   };
-  const handleCancelClick = () => {
+
+  const handleCancelClick = async () => {
     setDropdownOpen(false);
+
+    try {
+      await fetchUpdateStatus(id, 'canceled');
+    } catch (error) {
+      console.error('Failed to update challenge status:', error);
+    }
   };
 
   // NOTE API 연결해서 챌린지 상태 수정하기 abort
@@ -42,7 +52,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
             <div>
               <ChipCard type={status} />
             </div>
-            {role === 'admin' || userId === requestUserId ? (
+            {role === 'admin' || userId === requestUser.id ? (
               <div className="relative">
                 <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
                 <div className="absolute right-[1rem] top-[2.5rem]">

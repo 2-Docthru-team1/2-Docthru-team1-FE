@@ -15,7 +15,7 @@ import Pagination from '../Pagination/Pagination';
 
 export default function ChallengeListClient({ adminchallengeData, challengeData, rankerData }: ChallengeListClientProps) {
   const router = useRouter();
-  const { userId, role, category, setCategory, keyword, setKeyword } = useStore();
+  const { id, role, category, setCategory, keyword, setKeyword } = useStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -95,7 +95,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
           <div className="flex justify-between grid grid-cols-2 grid-rows-2 gap-[2.4rem]">
             {mediumItems.map((data, index) => (
               <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
-                <ChallengeCard data={data} userId={userId} role={role} />
+                <ChallengeCard data={data} userId={id} role={role} />
               </div>
             ))}
           </div>
