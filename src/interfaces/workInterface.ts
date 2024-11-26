@@ -1,3 +1,5 @@
+import type { UserData } from './userInterface';
+
 export interface WorkDetailData {
   id: string;
   title: string;
@@ -14,7 +16,7 @@ export interface WorkDetailData {
 
 export interface WorkDataProps {
   data: WorkDetailData | null;
-  userId: string | null;
+  user: UserData;
 }
 
 export interface WorkInputProps {

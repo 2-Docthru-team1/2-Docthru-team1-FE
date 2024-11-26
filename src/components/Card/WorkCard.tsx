@@ -1,5 +1,6 @@
 'use client';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -15,7 +16,7 @@ import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
 import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 
-export default function WorkCard({ data, userId }: WorkDataProps) {
+export default function WorkCard({ data, user }: WorkDataProps) {
   if (!data) return null;
 
   const router = useRouter();
@@ -29,6 +30,7 @@ export default function WorkCard({ data, userId }: WorkDataProps) {
   const [currentOrder, setCurrentOrder] = useState<ImgOrder>(ImgOrder.first);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   const openImg = () => setIsImageOpen(true);
   const closeImg = () => setIsImageOpen(false);
@@ -43,22 +45,27 @@ export default function WorkCard({ data, userId }: WorkDataProps) {
   const handleModalCancel = () => {
     setIsModalOpen(false);
   };
-  const handleDeleteWork = async () => {
-    try {
-      await deleteWorkDetail(data.id);
+
+  const mutation = useMutation({
+    mutationFn: () => deleteWorkDetail(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['work'] });
       router.push('/challengeList');
-    } catch (err) {
+    },
+    onError: () => {
       alert('Failed to delete the work. Please try again.');
     }
+  });
+  const handleDeleteWork = async () => {
+    mutation.mutate();
   };
   const role = data.owner.role === 'normal' ? 'Koo-koo' : data.owner.role;
-  console.log(data);
 
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem] mt-[2rem]">
       <div className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center">
         <p className="text-[2.4rem] font-bold text-left text-gray-700">{data.title}</p>
-        {userId === data?.owner?.id && (
+        {user?.id === data?.owner?.id && (
           <div className="relative">
             <Image src={kebab} alt="드롭다운 이미지" onClick={handleDropdownClick} className="cursor-pointer" />
             <div className="absolute right-[0] top-[4.4rem]">

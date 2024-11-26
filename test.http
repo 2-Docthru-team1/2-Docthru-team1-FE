@@ -1,1 +1,29 @@
+GET http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/challenges
+
 GET http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/works/dcacba47-d7f3-4b06-af49-cdb4296b6563/feedbacks
+
+###
+POST http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/auth/signIn
+Content-Type: application/json
+
+{
+  "email": "asd123@asd.com",
+  "password": "123123123"
+}
+###
+POST http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/works/dcacba47-d7f3-4b06-af49-cdb4296b6563/feedbacks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0NjEzZjY4ZC04ZjVlLTRhYjUtYWZiMy1hMDI5YmIwNzNlNjYiLCJpYXQiOjE3MzI1ODM2NzIsImV4cCI6MTczMjU4NzI3Mn0.PSGp7G2kSj0gxD4s07gk7LC3SZIvHAS9ypvlQywsdLQ
+
+{
+  "content": "ddddd"
+}
+
+###
+PATCH http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/works/feedbacks/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0NjEzZjY4ZC04ZjVlLTRhYjUtYWZiMy1hMDI5YmIwNzNlNjYiLCJpYXQiOjE3MzI1ODIzMzksImV4cCI6MTczMjU4NTkzOX0.otBRc9mXG-RN6DUGfrh-b8NFCiXV5LNmfsRfn1KfxdQ
+
+{
+  "content": ""
+}

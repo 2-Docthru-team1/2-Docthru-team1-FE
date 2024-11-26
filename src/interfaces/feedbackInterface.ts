@@ -1,3 +1,5 @@
+import type { UserData } from './userInterface';
+
 export interface FeedbackData {
   id: string;
   createdAt: string;
@@ -10,7 +12,7 @@ export interface FeedbackData {
 
 export interface FeedbackCardProps {
   comments: FeedbackData[];
-  userId: string | null;
+  user: UserData;
 }
 
 export interface FeedbackResponse {

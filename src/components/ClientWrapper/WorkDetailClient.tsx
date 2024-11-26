@@ -6,7 +6,6 @@ import { getFeedbackList } from '@/api/feedbackService';
 import { getUser } from '@/api/userService';
 import { getWorkDetail } from '@/api/workService';
 import type { FeedbackResponse } from '@/interfaces/feedbackInterface';
-import useStore from '@/store/store';
 import FeedbackCard from '../Card/FeedbackCard';
 import WorkCard from '../Card/WorkCard';
 import WorkInput from '../Input/WorkInput';
@@ -14,7 +13,6 @@ import WorkInput from '../Input/WorkInput';
 export default function WorkDetailClient() {
   const { id, workId } = useParams();
   const workIdParam = workId as string;
-  const { userId } = useStore();
 
   const {
     data: work,
@@ -45,7 +43,12 @@ export default function WorkDetailClient() {
     initialPageParam: 1
   });
 
-  if (workLoading /*|| feedbackLoading*/) {
+  const { data: user, isLoading: userLoading } = useQuery({
+    queryKey: ['user'],
+    queryFn: () => getUser()
+  });
+
+  if (workLoading || feedbackLoading || userLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="relative w-[16rem] h-[16rem]">
@@ -56,7 +59,7 @@ export default function WorkDetailClient() {
     );
   }
 
-  if (workError /*|| feedbackError*/) {
+  if (workError || feedbackError) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <p className="text-red-500 text-[1.5rem]">Failed to load data. Please try again later.</p>
@@ -65,12 +68,12 @@ export default function WorkDetailClient() {
   }
 
   return (
-    <div className="flex items-center justify-center">
-      <WorkCard data={work} userId={userId} />
-      {/*<WorkInput data={work} />*/}
+    <div className="flex flex-col w-full  items-center justify-center bg-primary-white">
+      <WorkCard data={work} user={user} />
+      <WorkInput data={work} />
       <FeedbackCard
         comments={feedback ? feedback.pages.flatMap(page => page.list) : []}
-        userId={userId}
+        user={user}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}
