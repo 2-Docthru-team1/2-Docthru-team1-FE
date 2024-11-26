@@ -23,7 +23,7 @@ export default function SignIn() {
       const credentials = { email, password };
       const res = await signIn(credentials);
       localStorage.setItem('accessToken', res.accessToken);
-      router.push('/challengeList');
+      router.push('/recipeList');
       const { login } = useStore.getState();
       login(res.userId, res.role);
     } catch (err: any) {
