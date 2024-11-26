@@ -13,8 +13,26 @@ const data = {
   content: 'I did it for like one hour!! Look at thissss! I finally made it!',
   owner: { id: 'u123', name: 'Named', role: 'koo-koo' }
 };
-const user = { id: 'u123' };
-export default { title: 'Components/WorkCard', component: WorkCard, args: { data, user }, parameters: { layout: 'centered' } };
+
+const user = {
+  id: 'u123'
+};
+
+export default {
+  title: 'Components/WorkCard',
+  component: WorkCard,
+  args: {
+    data,
+    user
+  },
+  parameters: {
+    layout: 'centered'
+  }
+};
+
 const Template: StoryFn<WorkDataProps> = args => <WorkCard {...args} />;
 export const Default = Template.bind({});
-Default.args = { data, user };
+Default.args = {
+  data,
+  user
+};
