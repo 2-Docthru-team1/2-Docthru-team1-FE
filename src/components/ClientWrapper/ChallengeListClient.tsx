@@ -55,13 +55,19 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
           <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 pt-[2rem] pb-[2.4rem]">
             This Month's Challenge
           </p>
-          <div className="flex gap-[2.55rem]">
-            {adminchallengeData.map((data, index) => (
-              <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
-                <MonthlyChallengeCard data={data} role={role} />
-              </div>
-            ))}
-          </div>
+          {adminchallengeData.length > 0 ? (
+            <div className="flex gap-[2.55rem]">
+              {adminchallengeData.map((data, index) => (
+                <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
+                  <MonthlyChallengeCard data={data} role={role} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-[18rem]">
+              <p className="font-normal text-[1.6rem] leading-[2.387rem] text-gray-500">There’s no challenge in running ...</p>
+            </div>
+          )}
         </div>
         <div className="flex justify-between items-center mt-[4rem] mb-[2.4rem]">
           <p className="font-semibold text-[2rem] leading-[2.387rem text-gray-800">Challenge List</p>
@@ -81,13 +87,20 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
             </button>
           </div>
         </div>
-        <div className="flex justify-between grid grid-cols-2 grid-rows-2 gap-[2.4rem]">
-          {mediumItems.map((data, index) => (
-            <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
-              <ChallengeCard data={data} userId={userId} role={role} />
-            </div>
-          ))}
-        </div>
+        {mediumItems.length > 0 ? (
+          <div className="flex justify-between grid grid-cols-2 grid-rows-2 gap-[2.4rem]">
+            {mediumItems.map((data, index) => (
+              <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
+                <ChallengeCard data={data} userId={userId} role={role} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center h-[35rem]">
+            <p className="font-normal text-[1.6rem] leading-[2.387rem] text-gray-500">There’s no challenge in running,</p>
+            <p className="font-normal text-[1.6rem] leading-[2.387rem] text-gray-500">Let’s get it started!</p>
+          </div>
+        )}
       </div>
       <div className="mt-[4rem] mb-[2.4rem]">
         <Pagination
