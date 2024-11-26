@@ -17,7 +17,7 @@ const dropdownWidths = {
   admin: 'w-[16.3rem]'
 };
 
-export default function Dropdown({ isOpen, items, type }: DropdownProps) {
+export default function Dropdown({ isOpen, items, type, onApply, onClose }: DropdownProps) {
   const router = useRouter();
   const {
     selectedView,
@@ -28,7 +28,9 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
     setSelectedStatus,
     category,
     setCategory,
-    toggleDropdown
+    toggleDropdown,
+    isFilterApplied,
+    setIsFilterApplied
   } = useStore();
 
   const dropdownType = dropdownWidths[type] || '';
@@ -55,13 +57,21 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
 
   const handleReset = () => {
     setSelectedView('');
-    setSelectedMedia([]);
     setSelectedStatus('');
 
     const queryString = new URLSearchParams(window.location.search);
     queryString.delete('view');
     queryString.delete('status');
     router.push(`?${queryString.toString()}`);
+  };
+
+  const handleApply = () => {
+    const mediaArray = selectedMedia || [];
+    const selectedCount = (selectedView ? 1 : 0) + mediaArray.length + (selectedStatus ? 1 : 0);
+    if (selectedCount > 0) {
+      onApply(selectedView || '', mediaArray, selectedStatus || '');
+    }
+    onClose();
   };
 
   const renderItems = () => {
@@ -73,7 +83,7 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
         <div className="w-full border-2 border-gray-200 rounded-[0.8rem]">
           <div className="flex justify-between px-[1.6rem] pt-[1.6rem]">
             <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700">Sort</p>
-            <Image src={close} alt="닫기" />
+            <Image src={close} alt="닫기" onClick={() => onClose()} />
           </div>
           <div key="view-section" className="py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
@@ -91,6 +101,7 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
               </div>
             ))}
           </div>
+          <div className="border border-gray-200 w-full mt-[1.2rem] mb-[1.2rem]" />
           <div key="media-section" className="w-full py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
               Recipe Media Type
@@ -107,6 +118,7 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
               </div>
             ))}
           </div>
+          <div className="border border-gray-200 w-full mt-[1.2rem] mb-[1.2rem]" />
           <div key="status-section" className="w-full py-[1.2rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">Status</div>
             {status.map(item => (
@@ -127,6 +139,12 @@ export default function Dropdown({ isOpen, items, type }: DropdownProps) {
               className="w-[13.4rem] h-[4rem] py-[0.2rem] px-[1.6rem] border border-gray-200 font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700 rounded-[0.8rem]"
             >
               Reset
+            </button>
+            <button
+              onClick={handleApply}
+              className="w-[16.9rem] h-[4rem] rounded-[0.8rem] bg-primary-blue font-bold text-[1.4rem] leading-[2.6rem] text-[#ffffff]"
+            >
+              Apply
             </button>
           </div>
         </div>

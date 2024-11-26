@@ -6,6 +6,8 @@ export interface DropdownProps {
   items: Option[] | ChallengeOption[];
   type: 'language' | 'recipe' | 'admin' | 'challenge';
   onSelect: OnSelectFunction;
+  onApply: (view: string, media: string[], status: string) => void;
+  onClose: () => void;
 }
 
 export type CategoryType = 'view' | 'media' | 'status';
