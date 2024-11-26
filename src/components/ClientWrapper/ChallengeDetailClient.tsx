@@ -1,7 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchChallengeStatus, fetchChallenge_detail } from '@/api/challengeService';
 import type { ChallengeParticipateStatusProps, ParticipantStatusData } from '@/interfaces/cardInterface';
 import type { ChallengeDetailData } from '@/interfaces/challengelistInterface';
@@ -41,10 +43,12 @@ export default function ChallengeDetailClient() {
   }, [id, page]);
 
   if (!medium) {
-    return <div>Detail Page Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-[100vh]">
+        <Image src={loading} alt="로딩" />
+      </div>
+    );
   }
-
-  // console.log(challengeStatusMedium, 'emdium');
 
   return (
     <div className="flex flex-col w-full">
