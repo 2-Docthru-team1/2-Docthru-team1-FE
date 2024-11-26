@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
@@ -105,6 +106,7 @@ export default function ChallengeRequestClient() {
     try {
       const res = await fetchChallengeRequest(data);
       const { challenge, uploadUrls } = res;
+
       const uploadResults = await Promise.all(
         images.map(async (image, index) => {
           const uploadUrl = uploadUrls[index]?.uploadUrl;
@@ -117,21 +119,20 @@ export default function ChallengeRequestClient() {
           }
 
           try {
-            const response = await fetch(uploadUrl, {
-              method: 'PUT',
-              body: image,
+            const response = await axios.put(uploadUrl, image, {
               headers: {
                 'Content-Type': image.type || 'application/octet-stream'
               }
             });
 
-            if (!response.ok) {
+            if (response.status !== 200) {
               return {
                 success: false,
                 error: `HTTP ${response.status}: ${response.statusText}`,
                 index
               };
             }
+
             return {
               success: true,
               index
@@ -145,11 +146,13 @@ export default function ChallengeRequestClient() {
           }
         })
       );
+
       const failedUploads = uploadResults.filter(result => !result.success);
-      if (failedUploads.length > 0) {
+      if (failedUploads?.length) {
         alert('Some images failed to upload. Please try again.');
         return;
       }
+
       alert('Request a Challenge Successfully!');
       router.push('/challengeList');
     } catch (error) {
