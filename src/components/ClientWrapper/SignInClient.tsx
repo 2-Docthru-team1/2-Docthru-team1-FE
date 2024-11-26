@@ -22,9 +22,10 @@ export default function SignIn() {
     try {
       const credentials = { email, password };
       const res = await signIn(credentials);
+      localStorage.setItem('accessToken', res.accessToken);
 
       const { login } = useStore.getState();
-      login(res.userId, res.role, res.accessToken);
+      login(res.userId, res.role);
 
       router.push('/challengeList');
     } catch (err: any) {

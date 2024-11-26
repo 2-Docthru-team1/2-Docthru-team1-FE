@@ -11,6 +11,13 @@ export const fetchChallenge = async () => {
   return response.data;
 };
 
+export const getFilteredChallenges = async () => {
+  const { list, totalCount } = await fetchChallenge();
+  const filteredList = list.filter((list: { status: string }) => ['onGoing', 'finished'].includes(list.status));
+
+  return { list: filteredList, totalCount };
+};
+
 export const fetchRanker = async () => {
   const response = await getRequest('http://localhost:3000/rankerMockData.json');
   return response.data;
@@ -35,16 +42,10 @@ export const fetchChallengeStatus = async (id: string, page: number): Promise<Ch
   return response.data;
 };
 
-export const fetchChallengeRequest = async (data: object, token: string) => {
+export const fetchChallengeRequest = async (data: object) => {
   try {
-    console.log(token);
-    const response = await postRequest('/challenges', data, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    const response = await postRequest('/challenges', data);
 
-    console.log('API Response Data:', response.data);
     return response.data;
   } catch (err: any) {
     let errorMessage = 'An unexpected error occurred. Please try again.';
