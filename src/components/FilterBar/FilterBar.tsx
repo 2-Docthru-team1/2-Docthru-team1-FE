@@ -30,8 +30,8 @@ const searchBarWidths = {
 
 const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   recipe: [
-    { label: 'Like Highest', value: 'highest' },
-    { label: 'Like Lowest', value: 'lowest' },
+    { label: 'Like Highest', value: 'like highest' },
+    { label: 'Like Lowest', value: 'like lowest' },
     { label: 'School Food', value: 'Boonsik' },
     { label: 'Traditional', value: 'Traditional' },
     { label: 'Noodle', value: 'Noodle' },
@@ -41,12 +41,10 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   challenge: [
     {
       view: [
-        { label: 'Like Highest', value: 'like highest' },
-        { label: 'Like Lowest', value: 'like lowest' },
-        { label: 'Earliest First', value: 'earliest first' },
-        { label: 'Latest First', value: 'latest first' },
-        { label: 'Deadline Earliest', value: 'deadline earliest' },
-        { label: 'Deadline Latest', value: 'deadline latest' }
+        { label: 'Earliest First', value: 'earliestFirst' },
+        { label: 'Latest First', value: 'latestFirst' },
+        { label: 'Deadline Earliest', value: 'deadlineEarliest' },
+        { label: 'Deadline Latest', value: 'deadlineLatest' }
       ],
       media: [
         { label: 'Youtube', value: 'youtube' },
@@ -144,6 +142,13 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     router.push(`${window.location.pathname}?${query.toString()}`);
   }, []);
 
+  const handleApply = (view: string, media: string[], status: string) => {
+    const count = (view ? 1 : 0) + media.length + (status ? 1 : 0);
+    setSelectedCount(count);
+    setIsFilterApplied(count > 0);
+    handleToggleDropdown();
+  };
+
   return (
     <div>
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
@@ -173,7 +178,16 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
           />
         </div>
       </div>
-      {isDropdownOpen && <Dropdown isOpen={isDropdownOpen} items={options} onSelect={handleSelect} type={type} />}
+      {isDropdownOpen && (
+        <Dropdown
+          isOpen={isDropdownOpen}
+          items={options}
+          onSelect={handleSelect}
+          type={type}
+          onApply={handleApply}
+          onClose={handleToggleDropdown}
+        />
+      )}
     </div>
   );
 }
