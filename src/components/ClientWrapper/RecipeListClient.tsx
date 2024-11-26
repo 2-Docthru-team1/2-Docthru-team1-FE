@@ -51,7 +51,6 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
   useEffect(() => {
     const getAdminChallengeData = async () => {
       const data = await fetchAdminChallenge();
-      console.log(data);
       setAdminData(data);
     };
     getAdminChallengeData();
