@@ -5,10 +5,17 @@ export interface FeedbackData {
   createdAt: string;
   content: string;
   ownerId: string;
-  userName: string;
+  owner: {
+    name: string;
+  };
 }
 
 export interface FeedbackCardProps {
   comments: FeedbackData[];
   user: UserData;
+}
+
+export interface FeedbackResponse {
+  list: FeedbackData[];
+  totalCount: number;
 }
