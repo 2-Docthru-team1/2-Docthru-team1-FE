@@ -19,10 +19,6 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
   const rol = data.owner.role === 'normal' ? 'koo-koo' : data.owner.role === 'admin' ? 'admin' : '';
   const borderClass = type === 'first' ? 'border-2 border-primary-beige' : 'border border-gray-200';
 
-  // TODO: 현재 api 수정 이슈로 댓글 개수는 임의대로 작업하였습니다.
-
-  console.log(data);
-
   return (
     <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`}>
       <div className="relative w-[27.45rem] h-[23.9rem]">

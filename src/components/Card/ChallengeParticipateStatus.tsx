@@ -21,8 +21,6 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
     return rank < 10 ? `0${rank}` : `${rank}`;
   };
 
-  console.log(list, 'LIst');
-
   return (
     <div className="w-[120.4rem] rounded-[0.8rem] border border-gray-200 gap-[2rem] py-[1.9rem] px-[1.6rem] bg-primary-white">
       <div className="flex items-center justify-between gap-[2rem]">

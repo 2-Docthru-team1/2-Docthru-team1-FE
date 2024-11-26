@@ -43,7 +43,7 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
               <div className="flex gap-[0.8rem] items-center">
                 <Image src={profile} alt="프로필" />
                 <div className="flex gap-[0.6rem] items-center">
-                  <p className="font-medium text-[1.4rem] leading-[1.671rem]">{data.ownerId}</p>
+                  <p className="font-medium text-[1.4rem] leading-[1.671rem]">{data.owner.name}</p>
                   <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-500">{rol}</p>
                 </div>
               </div>

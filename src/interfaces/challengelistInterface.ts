@@ -1,4 +1,4 @@
-import type { ChallengeData, MonthlyChallengeData, MonthlyRankerCard } from './cardInterface';
+import type { ChallengeData, MonthlyChallengeData, MonthlyRankerCard, requestUserData } from './cardInterface';
 
 export interface ChallengeListClientProps {
   adminchallengeData: MonthlyChallengeData[];
@@ -18,6 +18,6 @@ export interface ChallengeDetailData {
   embedUrl: string;
   imageUrl: string[];
   mediaType: string;
-  requestUserId: string;
+  requestUser: requestUserData;
   ownerId: string;
 }

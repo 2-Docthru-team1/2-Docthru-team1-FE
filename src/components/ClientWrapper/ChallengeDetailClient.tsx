@@ -44,7 +44,7 @@ export default function ChallengeDetailClient() {
     return <div>Loading...</div>;
   }
 
-  // console.log(medium, 'mediumaskfj;awejf');
+  console.log(medium);
 
   return (
     <div className="flex flex-col w-full">
@@ -56,7 +56,11 @@ export default function ChallengeDetailClient() {
               title: medium.title,
               mediaType: medium.mediaType as 'youtube' | 'blog' | 'recipeWeb' | 'socialMedia',
               description: medium.description,
-              id: medium.id
+              id: medium.id,
+              requestUser: {
+                id: medium.requestUser.id,
+                name: medium.requestUser.name
+              }
             }}
           />
         </div>
@@ -66,7 +70,12 @@ export default function ChallengeDetailClient() {
               <ChallengeMostLikedCard
                 data={{
                   title: challengeStatusMedium.list[0].title,
-                  ownerId: challengeStatusMedium.list[0].owner.id,
+                  owner: {
+                    id: challengeStatusMedium.list[0].owner.id,
+                    email: challengeStatusMedium.list[0].owner.email,
+                    name: challengeStatusMedium.list[0].owner.name,
+                    role: challengeStatusMedium.list[0].owner.role
+                  },
                   role: challengeStatusMedium.list[0].owner.role,
                   likeCount: challengeStatusMedium.list[0].likeCount,
                   description: challengeStatusMedium.list[0].content,

@@ -120,6 +120,12 @@ export interface ChallengeDetailContentCardData {
   mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
   description: string;
   id: string;
+  requestUser: requestUserData;
+}
+
+export interface requestUserData {
+  id: string;
+  name: string;
 }
 
 export interface ChallengeMostLikedCardProps {
@@ -128,12 +134,12 @@ export interface ChallengeMostLikedCardProps {
 
 export interface ChallengeMostLikedCardData {
   title: string;
-  ownerId: string;
   role: string;
   likeCount: number;
   description: string;
-  Feedback?: string[];
   createdAt: string;
+  owner: ownerData;
+  Feedback?: string[];
 }
 
 export interface FeedbackData {
