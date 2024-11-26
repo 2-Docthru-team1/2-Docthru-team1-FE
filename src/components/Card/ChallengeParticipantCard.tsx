@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react';
 import comment from '@/../public/assets/icon_comment.png';
 import heart from '@/../public/assets/icon_heart_inact_small.png';
 import profile from '@/../public/assets/img_profile_member.png';
-import food from '@/../public/temporaryAssets/Food.svg';
-import { fetchChallengeStatus } from '@/api/challengeService';
 import type { ChallengeParticipantStatusData, ChallengeParticipantStatusProps } from '@/interfaces/cardInterface';
 
 export default function ChallengeParticipantCard({ initialData, type }: ChallengeParticipantStatusProps) {
@@ -38,7 +36,6 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
             <div className="flex gap-[0.4rem]">
               <Image src={comment} alt="댓글" />
               <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.feedbackCount}</p>
-              {/* <p className="font-medium text-[1.2rem] leading-[1.8rem]">15</p> */}
             </div>
             <div className="flex gap-[0.4rem]">
               <Image src={heart} alt="하트" />

@@ -7,7 +7,7 @@ import heart from '@/../public/assets/icon_heart_inactive_large.png';
 import medal from '@/../public/assets/icon_medal.png';
 import profile from '@/../public/assets/img_profile_member.png';
 import food from '@/../public/temporaryAssets/Food.svg';
-import { getFeedbackList, getWorkDetail } from '@/api/workService';
+import { getFeedbackList } from '@/api/workService';
 import type { ChallengeMostLikedCardProps, ChallengeMostLikedCardWorksProps } from '@/interfaces/cardInterface';
 
 export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardProps) {
@@ -26,8 +26,6 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
     setViewFeedback(prev => !prev);
   };
 
-  // console.log(data.id, 'idididididid');
-
   useEffect(() => {
     const getFeedbackData = async () => {
       const res = await getFeedbackList(data.id, 1, 4);
@@ -35,8 +33,6 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
     };
     getFeedbackData();
   }, [data.id]);
-
-  console.log(workData);
 
   const rol = data.owner.role === 'normal' ? 'koo-koo' : data.owner.role === 'admin' ? 'admin' : '';
 
@@ -80,21 +76,28 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
         <div className="mt-[4rem] ml-[1.4rem] mr-[1.4rem]">
           <p className="font-semibold text-[1.6rem] leading-[1.909rem]">Comments</p>
           <div className="p-[1.6rem] flex gap-[1.9rem] flex-col">
-            {workData?.list.map((item, index: number) => (
-              <div key={index} className="flex gap-[1.2rem] flex-col">
-                <div className="flex gap-[0.8rem] items-center">
-                  <Image src={profile} alt="profile" width={32} height={32} />
-                  <div className="flex gap-[0.4rem] flex-col">
-                    <p className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-800">{item.owner.name}</p>
-                    <p className="font-semibold text-[1.2rem] leading-[1.432rem] text-gray-400">{formatDate(item.createdAt)}</p>
+            {Array.isArray(workData?.list) && workData?.list?.length > 0 ? (
+              workData.list.map((item, index) => (
+                <div key={index} className="flex gap-[1.2rem] flex-col">
+                  <div className="flex gap-[0.8rem] items-center">
+                    <Image src={profile} alt="profile" width={32} height={32} />
+                    <div className="flex gap-[0.4rem] flex-col">
+                      <p className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-800">{item.owner.name}</p>
+                      <p className="font-semibold text-[1.2rem] leading-[1.432rem] text-gray-400">{formatDate(item.createdAt)}</p>
+                    </div>
                   </div>
+                  <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700">{item.content}</p>
                 </div>
-                <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700">{item.content}</p>
+              ))
+            ) : (
+              <div className="text-center py-[2rem]">
+                <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-500">No comments available.</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       ) : null}
+
       <div className="flex gap-[0.4rem] items-center justify-center mt-[2rem] mb-[1.5rem]" onClick={handleViewFeedback}>
         <p className="font-medium text-[1.6rem] leading-[1.909rem]">{viewFeedback ? 'View Less' : 'View More'}</p>
         <Image src={viewFeedback ? arrowUp : arrowDown} alt="arrow" />
