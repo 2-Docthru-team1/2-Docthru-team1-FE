@@ -41,7 +41,7 @@ export default function ChallengeDetailClient() {
   }, [id, page]);
 
   if (!medium) {
-    return <div>Loading...</div>;
+    return <div>Detail Page Loading...</div>;
   }
 
   return (

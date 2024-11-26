@@ -23,6 +23,7 @@ export const getFilteredChallenges = async () => {
 export const fetchRanker = async () => {
   try {
     const response = await getRequest('http://localhost:3000/rankerMockData.json');
+    // const response = await getRequest('https://2-docthru-team1-n10tvnaef-team1-hancook.vercel.app/rankerMockData.json');
     return response.data;
   } catch (error) {
     throw new Error('Failed to get ranker');
@@ -32,6 +33,7 @@ export const fetchRanker = async () => {
 export const fetchAdminChallenge = async () => {
   try {
     const response = await getRequest('http://localhost:3000/adminchallengeMockData.json');
+    // const response = await getRequest('https://2-docthru-team1-n10tvnaef-team1-hancook.vercel.app/adminchallengeMockData.json');
     return response.data;
   } catch (error) {
     throw new Error('Failed to get admin challenge data');

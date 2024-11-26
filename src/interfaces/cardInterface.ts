@@ -71,7 +71,7 @@ export interface MonthlyChallengeCardProps {
 export interface MonthlyChallengeData {
   id: string;
   title: string;
-  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  mediaType: 'youtube' | 'blog' | 'socialMedia' | 'recipeWeb';
   status: 'onGoing' | 'finished'; // NOTE | 'aborted' 아마 필요 없겠지만, 참고.
   deadline: string;
 }
