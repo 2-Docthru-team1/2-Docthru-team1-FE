@@ -10,9 +10,6 @@ const titleOptions = {
 export default function DetailTextCard({ type, content }: DetailTextCardProps) {
   const title = titleOptions[type] || '';
 
-  console.log(content);
-  console.log(type, content);
-
   return (
     <div className="flex flex-col gap-[2rem] w-[54.9rem]">
       <p className="font-semibold text-[2rem] leading-[2.387rem] text-primary-blue">{title}</p>

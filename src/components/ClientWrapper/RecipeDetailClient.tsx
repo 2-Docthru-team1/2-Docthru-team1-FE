@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import inactiveHeart from '@/../public/assets/icon_heart_inact_small.png';
+import food from '@/../public/temporaryAssets/Food.svg';
 import { fetchRecipe } from '@/api/recipeService';
 import type { RecipeDetailData } from '@/interfaces/recipelistInterface';
 import DetailTextCard from '../Card/DetailTextCard';
@@ -27,12 +28,25 @@ export default function RecipeDetailClient() {
     return <div>Loading...</div>;
   }
 
+  const NutritionData = {
+    calories: recipe.calories,
+    carbs: recipe.carbs,
+    fat: recipe.fat,
+    fiber: recipe.fiber,
+    protein: recipe.protein,
+    sodium: recipe.sodium,
+    sugars: recipe.sugars
+  };
+
+  console.log(NutritionData);
+
   return (
-    <div className="flex flex-col mt-[2rem] w-full items-center">
+    <div className="flex flex-col pt-[2rem] w-full items-center">
       <div className="relative w-[120rem] h-[33rem] overflow-hidden">
-        {recipe?.images.length > 0 && (
+        {/* {recipe?.images.length > 0 && (
           <Image src={recipe.images[0]} alt="음식 이미지" layout="fill" objectFit="cover" objectPosition="center" />
-        )}
+        )} */}
+        <Image src={food} alt="음식 이미지" layout="fill" objectFit="cover" objectPosition="center" />
       </div>
       <div className="mt-[2rem] flex flex-col w-[120rem] gap-[1rem]">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800">{recipe.category}</p>
@@ -48,7 +62,7 @@ export default function RecipeDetailClient() {
       <div className="flex flex-col w-[120rem] mt-[2rem]">
         <div className="flex justify-between">
           <DetailTextCard type="ingredient" content={recipe.ingredients} />
-          <DetailTextCard type="nutrition" content={recipe.nutrition} />
+          <DetailTextCard type="nutrition" content={NutritionData} />
         </div>
         <div className="flex justify-between mt-[4rem]">
           <DetailTextCard type="direction" content={recipe.direction} />
