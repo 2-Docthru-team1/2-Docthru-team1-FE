@@ -6,6 +6,8 @@ import type { OptionBoxProps } from '@/interfaces/optionboxInterface';
 // TODO: 추후 button Link는 수정 예정입니다.
 
 export default function OptionBox({ type, id }: OptionBoxProps) {
+  console.log(type);
+  const isFinished = type === 'finished';
   const participateButtonText = type === 'onGoing' ? 'Keep Participating' : 'Participate Challenge';
   const bgColor = type === 'finished' ? 'bg-gray-200' : 'bg-primary-beige';
 
@@ -22,9 +24,10 @@ export default function OptionBox({ type, id }: OptionBoxProps) {
               See Content
             </button>
           </Link>
-          <Link href={`/challengeList/${id}/edit`} className="w-full">
+          <Link href={isFinished ? '#' : `/challengeList/${id}/edit`} className="w-full">
             <button
               className={`rounded-[0.8rem] w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-primary-white ${bgColor}`}
+              disabled={isFinished}
             >
               {participateButtonText}
             </button>
