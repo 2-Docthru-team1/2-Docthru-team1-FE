@@ -14,10 +14,13 @@ Default.args = {
   data: {
     id: '1',
     title: 'Traditional Challenge 1',
-    mediaType: 'Blog',
-    status: 'ongoing',
+    mediaType: 'blog',
+    status: 'onGoing',
     deadline: '2024-12-31T23:59:59.000Z',
-    requestUserId: 'user1'
+    requestUserId: 'user1',
+    totalLikes: 0,
+    createdAt: '2024-11-25T01:23:10.409Z',
+    updatedAt: '2024-11-25T01:23:10.409Z'
   },
   userId: 'user1',
   role: 'normal'
@@ -28,10 +31,13 @@ ClosedChallenge.args = {
   data: {
     id: '2',
     title: 'Banchan Challenge 1',
-    mediaType: 'Social Media',
+    mediaType: 'socialMedia',
     status: 'finished',
     deadline: '2024-11-30T23:59:59.000Z',
-    requestUserId: 'user2'
+    requestUserId: 'user2',
+    totalLikes: 0,
+    createdAt: '2024-11-25T01:23:10.409Z',
+    updatedAt: '2024-11-25T01:23:10.409Z'
   },
   userId: 'user3',
   role: 'normal'
@@ -42,10 +48,13 @@ TestChallenge.args = {
   data: {
     id: '3',
     title: 'Noodle Challenge 1',
-    mediaType: 'Recipe Web',
-    status: 'ongoing',
+    mediaType: 'recipeWeb',
+    status: 'onGoing',
     deadline: '2024-11-01T23:59:59.000Z',
-    requestUserId: 'user3'
+    requestUserId: 'user3',
+    totalLikes: 0,
+    createdAt: '2024-11-25T01:23:10.409Z',
+    updatedAt: '2024-11-25T01:23:10.409Z'
   },
   userId: 'user999',
   role: 'admin'

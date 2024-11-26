@@ -3,23 +3,19 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import btn_request from '@/../public/assets/btn_request_icon.png';
+import plus from '@/../public/assets/icon_plus_medium.png';
 import ChallengeCard from '@/components/Card/ChallengeCard';
 import type { ChallengeData, MonthlyChallengeData } from '@/interfaces/cardInterface';
 import type { ChallengeListClientProps } from '@/interfaces/challengelistInterface';
+import useStore from '@/store/store';
 import MonthlyChallengeCard from '../Card/MonthlyChallengeCard';
 import MonthlyRankerCard from '../Card/MonthlyRankerCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
-export default function ChallengeListClient({
-  adminchallengeData,
-  challengeData,
-  userId,
-  role,
-  rankerData
-}: ChallengeListClientProps) {
+export default function ChallengeListClient({ adminchallengeData, challengeData, rankerData }: ChallengeListClientProps) {
   const router = useRouter();
+  const { userId, role, category, setCategory, keyword, setKeyword } = useStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -40,6 +36,18 @@ export default function ChallengeListClient({
     router.push(`/challengeList/${id}`);
   };
 
+  const handleRequestClick = () => {
+    router.push('/challengeList/request');
+  };
+
+  const handleFilterChange = () => {
+    const params = new URLSearchParams();
+    if (keyword) params.set('keyword', keyword);
+    if (category) params.set('category', category);
+
+    router.push(`?${params.toString()}`);
+  };
+
   return (
     <div className="flex flex-col w-full items-center justify-center">
       <div>
@@ -57,10 +65,20 @@ export default function ChallengeListClient({
         </div>
         <div className="flex justify-between items-center mt-[4rem] mb-[2.4rem]">
           <p className="font-semibold text-[2rem] leading-[2.387rem text-gray-800">Challenge List</p>
-
           <div className="flex gap-[2rem]">
-            <FilterBar type="recipe" /> {/* challenge FilterBar 설계한 후 수정 */}
-            <Image src={btn_request} alt="Request" /> {/* 리퀘스트 버튼 구현 후 수정 */}
+            <FilterBar
+              type="challenge"
+              onKeywordChange={setKeyword}
+              onCategoryChange={setCategory}
+              onFilterApply={handleFilterChange}
+            />
+            <button
+              onClick={handleRequestClick}
+              className="bg-primary-beige text-primary-white border rounded-[1.95rem] flex items-center gap-[0.8rem]"
+            >
+              <span className="text-[1.6rem] ml-[1.6rem]">Request a Challenge</span>
+              <Image src={plus} alt="plus" className="mr-[1.6rem]" />
+            </button>
           </div>
         </div>
         <div className="flex justify-between grid grid-cols-2 grid-rows-2 gap-[2.4rem]">

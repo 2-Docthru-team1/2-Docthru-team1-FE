@@ -1,5 +1,3 @@
-import type { UserData } from './userInterface';
-
 export interface RecipeCardProps {
   data: RecipeData | null;
 }
@@ -34,24 +32,30 @@ export interface ChallengeParticipantStatusProps {
 
 export interface ChallengeParticipantStatusData {
   title: string;
-  Feedback: string[];
+  Feedback?: string[];
   likeCount: number;
-  nickname: string;
-  images: string[];
+  owner: ownerData;
+  images: { imageUrl: string }[];
+}
+
+export interface ownerData {
+  email: string;
+  id: string;
+  name: string;
   role: string;
 }
 
 export interface ChallengeCardProps {
   data: ChallengeData | null;
-  userId: string;
-  role: 'admin' | 'normal';
+  userId: string | null;
+  role: 'admin' | 'normal' | null;
 }
 
 export interface ChallengeData {
   id: string;
   title: string;
-  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  status: 'ongoing' | 'finished' | 'canceled';
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  status: 'onGoing' | 'finished' | 'canceled';
   deadline: string;
   requestUserId: string;
   totalLikes: number;
@@ -61,14 +65,14 @@ export interface ChallengeData {
 
 export interface MonthlyChallengeCardProps {
   data: MonthlyChallengeData | null;
-  role: 'admin' | 'normal';
+  role: 'admin' | 'normal' | null;
 }
 
 export interface MonthlyChallengeData {
   id: string;
   title: string;
-  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  status: 'ongoing' | 'finished'; // NOTE | 'aborted' 아마 필요 없겠지만, 참고.
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  status: 'onGoing' | 'finished'; // NOTE | 'aborted' 아마 필요 없겠지만, 참고.
   deadline: string;
 }
 
@@ -85,34 +89,55 @@ export interface MonthlyRankerCard {
 }
 
 export interface ChallengeParticipateStatusProps {
-  data: ParticipantStatusData[];
+  list: ParticipantStatusData[];
+  totalCount: number;
 }
 
 export interface ParticipantStatusData {
   id: string;
   createdAt: string;
   updatedAt: string;
-  deleteAt: string | null;
+  deletedAt: string | null;
   title: string;
   content: string;
   likeCount: number;
-  likeUsers: string[];
-  Feedback: string[];
-  ownerId: string;
+  // likeUsers: string[];
+  // Feedback: string[];
+  owner: ownerData;
   challengeId: string;
-  images: string[];
-  nickname: string;
-  role: string;
+  images: { imageUrl: string }[];
+  // nickname: string;
+  // role: string;
 }
 
 export interface ChallengeDetailContentCardProps {
-  type: 'ongoing' | 'finished';
+  type: 'onGoing' | 'finished';
   data: ChallengeDetailContentCardData;
 }
 
 export interface ChallengeDetailContentCardData {
   title: string;
-  mediaType: 'Youtube' | 'Blog' | 'Recipe Web' | 'Social Media';
-  content: string;
-  nickname: string;
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  description: string;
+  ownerId: string;
+}
+
+export interface ChallengeMostLikedCardProps {
+  data: ChallengeMostLikedCardData;
+}
+
+export interface ChallengeMostLikedCardData {
+  title: string;
+  ownerId: string;
+  role: string;
+  likeCount: number;
+  description: string;
+  Feedback?: string[];
+  createdAt: string;
+}
+
+export interface FeedbackData {
+  userNickname: string;
+  createdAt: string;
+  comment: string;
 }

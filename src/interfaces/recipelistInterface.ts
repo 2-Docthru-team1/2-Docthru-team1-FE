@@ -1,7 +1,10 @@
 import type { NutritionContent, RecipeData } from './cardInterface';
 
 export interface RecipeListClientProps {
-  initialData: RecipeData[];
+  initialData: {
+    list: RecipeData[];
+    totalCount: number;
+  };
 }
 
 export interface RecipeDetailData {

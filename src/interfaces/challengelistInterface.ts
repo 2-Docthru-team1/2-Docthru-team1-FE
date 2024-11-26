@@ -3,8 +3,6 @@ import type { ChallengeData, MonthlyChallengeData, MonthlyRankerCard } from './c
 export interface ChallengeListClientProps {
   adminchallengeData: MonthlyChallengeData[];
   challengeData: ChallengeData[];
-  userId: string;
-  role: 'admin' | 'normal';
   rankerData: MonthlyRankerCard[];
 }
 
@@ -21,4 +19,5 @@ export interface ChallengeDetailData {
   imageUrl: string[];
   mediaType: string;
   requestUserId: string;
+  ownerId: string;
 }

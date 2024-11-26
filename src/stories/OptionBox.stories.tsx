@@ -1,4 +1,3 @@
-// src/components/OptionBox.stories.tsx
 import type { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 import OptionBox from '@/components/OptionBox/OptionBox';
@@ -13,7 +12,7 @@ const Template: StoryFn<OptionBoxProps> = (args: OptionBoxProps) => <OptionBox {
 
 export const Ongoing = Template.bind({});
 Ongoing.args = {
-  type: 'ongoing'
+  type: 'onGoing'
 };
 
 export const Participate = Template.bind({});

@@ -1,9 +1,11 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
 import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
 import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';
 import type { ChallengeCardProps } from '@/interfaces/cardInterface';
+import CancelDropdown from '../Dropdown/CancelDropdown';
 
 export default function ChallengeCard({ data, userId, role }: ChallengeCardProps) {
   if (!data) {
@@ -13,17 +15,25 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
   const { id, title, deadline, status, mediaType, requestUserId } = data;
   const formattedDeadline = new Date(deadline).toISOString().split('T')[0];
 
-  const handleStatusChange = (id: string, newStatus: 'ongoing' | 'canceled') => {
+  const handleStatusChange = (id: string, newStatus: 'onGoing' | 'canceled') => {
     console.log(`Challenge ${id} status updated to ${newStatus}`);
   };
 
   if (status === 'canceled') {
-    return null; // 카드 컴포넌트를 렌더링하지 않음
+    return null;
   }
 
-  // NOTE 도엽님이 완성하면 kebabToggle 이미지로만 넣어놓은 부분 Component로 바꿀 예정.
-  // NOTE 본인이나 어드민만 보이게 설정 - {role === 'admin' || userId === requestUserId ? (<CancelToggle />) : null}
-  // NOTE challengeId={id} currentStatus={status} onStatusChange={handleStatusChange}
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handledropdownClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setDropdownOpen(prev => !prev);
+  };
+  const handleCancelClick = () => {
+    setDropdownOpen(false);
+  };
+
+  // NOTE API 연결해서 챌린지 상태 수정하기 abort
   return (
     <div className="bg-primary-white w-[58.8rem] gap-[1rem] rounded-[0.8rem] border-[0.2rem] border-solid border-gray-200">
       <div>
@@ -32,7 +42,14 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
             <div>
               <ChipCard type={status} />
             </div>
-            <Image src={kebabToggle} alt="More Options" />
+            {role === 'admin' || userId === requestUserId ? (
+              <div className="relative">
+                <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
+                <div className="absolute right-[1rem] top-[2.5rem]">
+                  {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
+                </div>
+              </div>
+            ) : null}
           </div>
           <h2 className="text-[2rem] leading-[2.39rem] mt-[1.2rem] mb-[1.4rem] font-semibold text-left text-gray-700">{title}</h2>
           <div>

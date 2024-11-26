@@ -84,7 +84,7 @@ export default function ChallengeBody() {
           ))}
           {images.length < 2 && (
             <div
-              className="w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center cursor-pointer"
+              className="w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center cursor-pointer bg-primary-white rounded-[0.5rem]"
               onClick={handleImageClick}
             >
               <Image src={plus} alt="더하기" width={40} height={40} />

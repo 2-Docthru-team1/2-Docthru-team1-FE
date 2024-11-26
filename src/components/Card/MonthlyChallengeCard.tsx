@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import crownIcon from '@/../public/assets/icon_crown.png';
 import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
 import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
 import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';
 import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
+import CancelDropdown from '../Dropdown/CancelDropdown';
 
 export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCardProps) {
   if (!data) {
@@ -14,9 +16,17 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
   const { title, mediaType, status, deadline } = data;
   const formattedDeadline = new Date(deadline).toISOString().split('T')[0];
 
-  // NOTE 도엽님이 완성하면 kebabToggle 이미지로만 넣어놓은 부분 Component로 바꿀 예정.
-  // NOTE 어드민에게만 보여지게 설정 - {role === 'admin' && (<CancelToggle />)}
-  // NOTE challengeId={id} currentStatus={status} onStatusChange={handleStatusChange}
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handledropdownClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setDropdownOpen(prev => !prev);
+  };
+  const handleCancelClick = () => {
+    setDropdownOpen(false);
+  };
+
+  // NOTE API 연결해서 챌린지 상태 수정하기 cancel
   return (
     <div className="w-[38.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-primary-beige bg-primary-white">
       <div>
@@ -28,7 +38,14 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
                 <ChipCard type={status} />
               </div>
             </div>
-            <Image src={kebabToggle} alt="More Options" />
+            {role === 'admin' ? (
+              <div className="relative">
+                <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
+                <div className="absolute right-[1rem] top-[2.5rem]">
+                  {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Abort</CancelDropdown>}
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <h2 className="text-[2rem] leading-[2.39rem] mt-[1.2rem] mb-[1.4rem] font-semibold text-left text-gray-700">{title}</h2>

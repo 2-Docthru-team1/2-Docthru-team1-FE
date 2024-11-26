@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Nav from '@/components/Nav/Nav';
 import '../styles/globals.css';
+import ReactQueryProviders from '../../hooks/useReactQuery';
 
 const pretendard = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',
@@ -25,8 +26,10 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={pretendard.className}>
-        <Nav userStatus="loggedOut" />
-        <div className="min-h-screen bg-gray-50">{children}</div>
+        <ReactQueryProviders>
+          <Nav />
+          <div className="min-h-screen bg-gray-50">{children}</div>
+        </ReactQueryProviders>
       </body>
     </html>
   );
