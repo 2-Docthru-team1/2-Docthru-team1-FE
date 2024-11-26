@@ -2,10 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { fetchAdminChallenge, getFilteredChallenges } from '@/api/challengeService';
 import RecipeCard from '@/components/Card/RecipeCard';
 import type { RecipeData } from '@/interfaces/cardInterface';
-import type { RecipeListClientProps } from '@/interfaces/recipelistInterface';
+import type { AdminData, RecipeListClientProps } from '@/interfaces/recipelistInterface';
 import useStore from '@/store/store';
+import MonthlyChallengeCard from '../Card/MonthlyChallengeCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
@@ -17,6 +19,7 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
   const itemsPerPage = 8;
 
   const [medium, setMedium] = useState<RecipeData[]>(initialData.list);
+  const [adminData, setAdminData] = useState<AdminData[]>();
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -45,12 +48,24 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
     setCurrentPage(1);
   }, [initialData]);
 
+  useEffect(() => {
+    const getAdminChallengeData = async () => {
+      const data = await fetchAdminChallenge();
+      console.log(data);
+      setAdminData(data);
+    };
+    getAdminChallengeData();
+  }, []);
+
   return (
     <div className="flex flex-col pt-[2rem] w-full items-center justify-center">
       <div className="flex flex-col w-[120rem] gap-[4rem] mb-[4rem]">
         <div className="flex flex-col gap-[1.6rem] justify-center">
           <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">This Month's Challenge</p>
-          <p>This is ChallengeCard Component Seat</p>
+          <div className="flex justify-between">
+            {Array.isArray(adminData) &&
+              adminData.map(items => <MonthlyChallengeCard key={items.id} data={items} role="normal" />)}
+          </div>
         </div>
         <div className="flex flex-col gap-[1.6rem]">
           <div className="flex justify-between items-center">

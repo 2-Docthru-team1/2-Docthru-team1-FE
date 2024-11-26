@@ -24,3 +24,11 @@ export interface RecipeDetailData {
   sugars: number;
   title: string;
 }
+
+export interface AdminData {
+  id: string;
+  title: string;
+  mediaType: 'youtube' | 'blog' | 'socialMedia' | 'recipeWeb';
+  status: 'onGoing' | 'finished';
+  deadline: string;
+}
