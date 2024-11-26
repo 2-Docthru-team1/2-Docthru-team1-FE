@@ -1,45 +1,63 @@
-import type { AxiosResponse } from 'axios';
-import type {
-  ChallengeParticipantStatusData,
-  ChallengeParticipateStatusProps,
-  ParticipantStatusData
-} from '@/interfaces/cardInterface';
+import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
 import { getRequest, postRequest } from './api';
 
 export const fetchChallenge = async () => {
-  const response = await getRequest('/challenges');
-  return response.data;
+  try {
+    const response = await getRequest('/challenges');
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get challenge');
+  }
 };
 
 export const getFilteredChallenges = async () => {
-  const { list, totalCount } = await fetchChallenge();
-  const filteredList = list.filter((list: { status: string }) => ['onGoing', 'finished'].includes(list.status));
-
-  return { list: filteredList, totalCount };
+  try {
+    const { list, totalCount } = await fetchChallenge();
+    const filteredList = list.filter((list: { status: string }) => ['onGoing', 'finished'].includes(list.status));
+    return { list: filteredList, totalCount };
+  } catch (error) {
+    throw new Error('Failed to get challenge');
+  }
 };
 
 export const fetchRanker = async () => {
-  const response = await getRequest('http://localhost:3000/rankerMockData.json');
-  return response.data;
+  try {
+    const response = await getRequest('http://localhost:3000/rankerMockData.json');
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get ranker');
+  }
 };
 
 export const fetchAdminChallenge = async () => {
-  const response = await getRequest('http://localhost:3000/adminchallengeMockData.json');
-  return response.data;
+  try {
+    const response = await getRequest('http://localhost:3000/adminchallengeMockData.json');
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get admin challenge data');
+  }
 };
 
 export const fetchChallenge_detail = async (id: string) => {
-  const response = await getRequest(`/challenges/${id}`);
-  return response.data;
+  try {
+    const response = await getRequest(`/challenges/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get challenge detail');
+  }
 };
 
 export const fetchChallengeStatus = async (id: string, page: number): Promise<ChallengeParticipateStatusProps> => {
-  const params = {
-    page: page,
-    pageSize: 4
-  };
-  const response = await getRequest(`/challenges/${id}/works`, { params });
-  return response.data;
+  try {
+    const params = {
+      page: page,
+      pageSize: 4
+    };
+    const response = await getRequest(`/challenges/${id}/works`, { params });
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get works');
+  }
 };
 
 export const fetchChallengeRequest = async (data: object) => {
