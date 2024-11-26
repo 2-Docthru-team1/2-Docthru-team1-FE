@@ -20,53 +20,56 @@ interface StoreState {
   userStatus: 'loggedOut' | 'normal' | 'admin';
   userId: string | null;
   role: 'normal' | 'admin' | null;
+  isLoading: boolean;
   login: (userId: string, role: 'normal' | 'admin') => void;
   logout: () => void;
   setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => void;
+  setLoading: (isLoading: boolean) => void;
 }
 
-const useStore = create<StoreState>((set: (partial: Partial<StoreState>) => void) => {
-  const storedUserId = localStorage.getItem('userId');
-  const storedRole = localStorage.getItem('role') as 'normal' | 'admin' | null;
-  const initialUserStatus = storedRole === 'admin' ? 'admin' : storedRole === 'normal' ? 'normal' : 'loggedOut';
+const useStore = create<StoreState>(set => ({
+  keyword: '',
+  category: '',
+  selectedSort: null,
+  selectedView: '',
+  selectedMedia: [],
+  selectedStatus: '',
+  isFilterApplied: false,
+  isDropdownOpen: false,
+  isLoading: true,
 
-  return {
-    keyword: '',
-    category: '',
-    selectedSort: null,
-    selectedView: '',
-    selectedMedia: [],
-    selectedStatus: '',
-    isFilterApplied: false,
-    isDropdownOpen: false,
-    setKeyword: keyword => set({ keyword }),
-    setCategory: category => set({ category }),
-    setSelectedSort: sort => set({ selectedSort: sort }),
-    setSelectedView: view => set({ selectedView: view }),
-    setSelectedMedia: media => set({ selectedMedia: media }),
-    setSelectedStatus: status => set({ selectedStatus: status }),
-    setIsFilterApplied: isApplied => set({ isFilterApplied: isApplied }),
-    toggleDropdown: isOpen => set({ isDropdownOpen: isOpen }),
+  setKeyword: keyword => set({ keyword }),
+  setCategory: category => set({ category }),
+  setSelectedSort: sort => set({ selectedSort: sort }),
+  setSelectedView: view => set({ selectedView: view }),
+  setSelectedMedia: media => set({ selectedMedia: media }),
+  setSelectedStatus: status => set({ selectedStatus: status }),
+  setIsFilterApplied: isApplied => set({ isFilterApplied: isApplied }),
+  toggleDropdown: isOpen => set({ isDropdownOpen: isOpen }),
 
-    userStatus: initialUserStatus,
-    userId: storedUserId || null,
-    role: storedRole || null,
+  userStatus: 'loggedOut',
+  userId: null,
+  role: null,
 
-    login: (userId: string, role: 'normal' | 'admin') => {
-      set({ userId, role, userStatus: role === 'admin' ? 'admin' : 'normal' });
+  login: (userId, role) => {
+    set({ userId, role, userStatus: role === 'admin' ? 'admin' : 'normal' });
+    if (typeof window !== 'undefined') {
       localStorage.setItem('userId', userId);
       localStorage.setItem('role', role);
-    },
+    }
+  },
 
-    logout: () => {
-      set({ userId: null, role: null, userStatus: 'loggedOut' });
+  logout: () => {
+    set({ userId: null, role: null, userStatus: 'loggedOut' });
+    if (typeof window !== 'undefined') {
       localStorage.removeItem('userId');
       localStorage.removeItem('role');
       localStorage.removeItem('accessToken');
-    },
+    }
+  },
 
-    setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => set({ userStatus: status })
-  };
-});
+  setUserStatus: status => set({ userStatus: status }),
+  setLoading: (isLoading: boolean) => set({ isLoading })
+}));
 
 export default useStore;

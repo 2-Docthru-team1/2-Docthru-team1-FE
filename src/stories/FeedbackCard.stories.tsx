@@ -33,15 +33,7 @@ export default {
 };
 
 const Template: StoryFn<typeof FeedbackCard> = args => <FeedbackCard {...args} />;
-
 export const Default = Template.bind({});
-Default.args = {
-  comments: mockComments,
-  user: mockUser
-};
-
+Default.args = { comments: mockComments, user: mockUser };
 export const NoComments = Template.bind({});
-NoComments.args = {
-  comments: [],
-  user: mockUser
-};
+NoComments.args = { comments: [], user: mockUser };

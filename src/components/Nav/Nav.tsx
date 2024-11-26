@@ -12,7 +12,7 @@ import useStore from '@/store/store';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
 
 export default function Nav() {
-  const { userStatus } = useStore();
+  const userStatus = useStore(state => state.userStatus);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -24,8 +24,8 @@ export default function Nav() {
 
   const handleSignOut = () => {
     const { logout } = useStore.getState();
-    logout();
     router.push('/');
+    logout();
   };
 
   return (
