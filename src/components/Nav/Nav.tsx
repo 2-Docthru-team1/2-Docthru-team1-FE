@@ -8,11 +8,10 @@ import translate from '@/../public/assets/icon_translate.png';
 import logo from '@/../public/assets/img_logo_pc.png';
 import adminProfile from '@/../public/assets/img_profile_admin.png';
 import userProfile from '@/../public/assets/img_profile_member.png';
-import useStore, { useClientSyncStore } from '@/store/store';
+import useStore from '@/store/store';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
 
 export default function Nav() {
-  useClientSyncStore();
   const userStatus = useStore(state => state.userStatus);
   const router = useRouter();
   const pathname = usePathname();
@@ -25,8 +24,8 @@ export default function Nav() {
 
   const handleSignOut = () => {
     const { logout } = useStore.getState();
-    logout();
     router.push('/');
+    logout();
   };
 
   return (

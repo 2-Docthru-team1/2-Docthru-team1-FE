@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { create } from 'zustand';
 
 interface StoreState {
@@ -21,16 +20,12 @@ interface StoreState {
   userStatus: 'loggedOut' | 'normal' | 'admin';
   userId: string | null;
   role: 'normal' | 'admin' | null;
+  isLoading: boolean;
   login: (userId: string, role: 'normal' | 'admin') => void;
   logout: () => void;
   setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => void;
+  setLoading: (isLoading: boolean) => void;
 }
-
-// const initialUserStatus = storedRole === 'admin' ? 'admin' : storedRole === 'normal' ? 'normal' : 'loggedOut';
-
-// userStatus: initialUserStatus,
-// userId: storedUserId || null,
-// role: storedRole || null,
 
 const useStore = create<StoreState>(set => ({
   keyword: '',
@@ -41,6 +36,8 @@ const useStore = create<StoreState>(set => ({
   selectedStatus: '',
   isFilterApplied: false,
   isDropdownOpen: false,
+  isLoading: true,
+
   setKeyword: keyword => set({ keyword }),
   setCategory: category => set({ category }),
   setSelectedSort: sort => set({ selectedSort: sort }),
@@ -71,24 +68,8 @@ const useStore = create<StoreState>(set => ({
     }
   },
 
-  setUserStatus: status => set({ userStatus: status })
+  setUserStatus: status => set({ userStatus: status }),
+  setLoading: (isLoading: boolean) => set({ isLoading })
 }));
-
-export const useClientSyncStore = () => {
-  const setUserId = useStore(state => state.login);
-  const logout = useStore(state => state.logout);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedUserId = localStorage.getItem('userId');
-      const storedRole = localStorage.getItem('role') as 'normal' | 'admin' | null;
-      if (storedUserId && storedRole) {
-        setUserId(storedUserId, storedRole);
-      } else {
-        logout();
-      }
-    }
-  }, [setUserId, logout]);
-};
 
 export default useStore;
