@@ -5,9 +5,14 @@ import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
 import close from '@/../public/assets/icon_out_circle_small.png';
+import { fetchChallengeRequest } from '@/api/challengeService';
+import useStore from '@/store/store';
 import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
+import DateDropdown from '../Dropdown/DateDropdown';
 
 export default function ChallengeRequestClient() {
+  const { accessToken } = useStore();
+
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -15,14 +20,17 @@ export default function ChallengeRequestClient() {
   const [url, setUrl] = useState('');
   const [urlError, setUrlError] = useState(false);
 
+  const [selectedMediaType, setSelectedMediaType] = useState('');
+  const [mediaTypeError, setMediaTypeError] = useState(false);
+
+  const [selectedDate, setSelectedDate] = useState('');
+  const [dateError, setDateError] = useState(false);
+
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState(false);
 
   const [images, setImages] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [selectedMediaType, setSelectedMediaType] = useState('');
-  const [mediaTypeError, setMediaTypeError] = useState(false);
 
   const handleBlur = (value: string, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (!value.trim()) {
@@ -61,19 +69,74 @@ export default function ChallengeRequestClient() {
     setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = () => {
-    if (!title.trim() || !url.trim() || !content.trim() || images.length === 0 || !selectedMediaType) {
+  const handleSubmit = async () => {
+    if (!title.trim() || !url.trim() || !content.trim() || images.length === 0 || !selectedMediaType || !selectedDate) {
       if (!title.trim()) setTitleError(true);
       if (!url.trim()) setUrlError(true);
       if (!content.trim()) setContentError(true);
       if (!selectedMediaType) setMediaTypeError(true);
+      if (!selectedDate) setDateError(true);
       return;
     }
-    alert('Form submitted successfully!');
-    router.push('/challengeList');
+
+    const [year, month, day] = selectedDate.split('/').map(Number);
+    const formattedDate = `${2000 + year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const date = new Date(formattedDate);
+    date.setHours(23, 59, 59, 999);
+    const isoDate = date.toISOString();
+    let formattedMediaType = selectedMediaType.toLowerCase();
+
+    if (formattedMediaType === 'youtube') {
+      formattedMediaType = 'youtube';
+    } else if (formattedMediaType === 'blog') {
+      formattedMediaType = 'blog';
+    } else if (formattedMediaType === 'recipe web') {
+      formattedMediaType = 'recipeWeb';
+    } else if (formattedMediaType === 'social media') {
+      formattedMediaType = 'socialMedia';
+    }
+
+    const data = {
+      title,
+      description: content,
+      deadline: isoDate,
+      embedUrl: url,
+      mediaType: formattedMediaType,
+      imageCount: images.length
+    };
+    console.log(data);
+
+    try {
+      if (!accessToken) {
+        alert('User is not authenticated.');
+        return;
+      }
+
+      const res = await fetchChallengeRequest(data, accessToken);
+      const { challenge, uploadUrls } = res;
+
+      await Promise.all(
+        images.map((image, index) => {
+          const uploadUrl = uploadUrls[index];
+          return fetch(uploadUrl, {
+            method: 'PUT',
+            body: image,
+            headers: {
+              'Content-Type': image.type
+            }
+          });
+        })
+      );
+
+      alert('Form submitted successfully!');
+      router.push('/challengeList');
+    } catch (error) {
+      console.error('Failed to submit form:', error);
+      alert('There was an error submitting the form. Please try again.');
+    }
   };
 
-  const isFormValid = title.trim() && url.trim() && content.trim() && images.length > 0 && selectedMediaType;
+  const isFormValid = title.trim() && url.trim() && content.trim() && images.length > 0 && selectedMediaType && selectedDate;
 
   return (
     <div className="flex justify-center items-center">
@@ -121,6 +184,11 @@ export default function ChallengeRequestClient() {
             selectedOption={selectedMediaType}
             setTypeError={setMediaTypeError}
           />
+        </div>
+
+        <div className="mb-[2.4rem]">
+          <p className="text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.7rem]">*Challenge Deadline</p>
+          <DateDropdown setSelectedDate={setSelectedDate} selectedDate={selectedDate} setTypeError={setDateError} />
         </div>
 
         <div>
@@ -175,7 +243,7 @@ export default function ChallengeRequestClient() {
         <button
           onClick={handleSubmit}
           disabled={!isFormValid}
-          className={`mt-[2.4rem] w-full py-[1.2rem] rounded-[0.8rem] text-[1.6rem] font-semibold text-primary-white ${
+          className={`mt-[2.4rem] mb-[2.4rem] w-full py-[1.2rem] rounded-[0.8rem] text-[1.6rem] font-semibold text-primary-white ${
             isFormValid ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
           }`}
         >
