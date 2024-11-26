@@ -61,6 +61,8 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   };
   const role = data.owner.role === 'normal' ? 'Koo-koo' : data.owner.role;
 
+  console.log(data);
+
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem] mt-[2rem]">
       <div className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center">
@@ -97,7 +99,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
       <div className="flex border-b border-b-gray-200 pb-[4rem]">
         <div className="mr-[0.3rem] w-[47.6rem] h-[47.9rem] relative cursor-pointer ]">
           <Image
-            src={data.images[currentOrder].imageUrl}
+            src={data.images.length === 1 ? data.images[0].imageUrl : data.images[currentOrder].imageUrl}
             alt="작업물 이미지"
             fill
             className="object-cover"
@@ -105,19 +107,23 @@ export default function WorkCard({ data, user }: WorkDataProps) {
             priority
           />
         </div>
-        <div className="flex items-center">
-          <Image
-            src={nextImage}
-            alt="다음 이미지 버튼"
-            onClick={handleNextImage}
-            className="cursor-pointer"
-            width={40}
-            height={40}
-          />
-        </div>
+        {!(data.images.length === 1) ? (
+          <div className="flex items-center">
+            <Image src={nextImage} alt="다음 이미지 버튼" onClick={handleNextImage} className="cursor-pointer" />
+          </div>
+        ) : (
+          <div></div>
+        )}
+
         <p className="text-[1.6rem] font-normal text-gray-800">{data.content}</p>
       </div>
-      {isImageOpen && <ImageEnlargeModal src={data.images[currentOrder].imageUrl} alt="작업물 이미지" onClose={closeImg} />}
+      {isImageOpen && (
+        <ImageEnlargeModal
+          src={data.images.length === 1 ? data.images[0].imageUrl : data.images[currentOrder].imageUrl}
+          alt="작업물 이미지"
+          onClose={closeImg}
+        />
+      )}
       {isModalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
     </div>
   );
