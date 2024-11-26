@@ -13,11 +13,11 @@ export interface ChallengeDetailData {
   deleteAt: string | null;
   title: string;
   description: string;
-  status: string;
+  status: 'onGoing' | 'finished';
   deadline: string;
   embedUrl: string;
   imageUrl: string[];
-  mediaType: string;
+  mediaType: 'youtube' | 'blog' | 'recipeWeb' | 'socialMedia';
   requestUser: requestUserData;
   ownerId: string;
 }

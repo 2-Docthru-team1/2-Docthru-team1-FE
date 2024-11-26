@@ -1,16 +1,18 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import arrowUp from '@/../public/assets/ic_view_less_arrow_up.png';
 import arrowDown from '@/../public/assets/ic_view_more_arrow_down.png';
 import heart from '@/../public/assets/icon_heart_inactive_large.png';
 import medal from '@/../public/assets/icon_medal.png';
 import profile from '@/../public/assets/img_profile_member.png';
 import food from '@/../public/temporaryAssets/Food.svg';
-import type { ChallengeMostLikedCardProps } from '@/interfaces/cardInterface';
+import { getFeedbackList, getWorkDetail } from '@/api/workService';
+import type { ChallengeMostLikedCardProps, ChallengeMostLikedCardWorksProps } from '@/interfaces/cardInterface';
 
 export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardProps) {
   const [viewFeedback, setViewFeedback] = useState(false);
+  const [workData, setWorkData] = useState<ChallengeMostLikedCardWorksProps>();
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -20,11 +22,23 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
     return format(date, 'yy/MM/dd HH:mm');
   };
 
-  const rol = data.role === 'normal' ? 'koo-koo' : data.role === 'admin' ? 'admin' : '';
-
   const handleViewFeedback = () => {
     setViewFeedback(prev => !prev);
   };
+
+  // console.log(data.id, 'idididididid');
+
+  useEffect(() => {
+    const getFeedbackData = async () => {
+      const res = await getFeedbackList(data.id, 1, 4);
+      setWorkData(res);
+    };
+    getFeedbackData();
+  }, [data.id]);
+
+  console.log(workData);
+
+  const rol = data.owner.role === 'normal' ? 'koo-koo' : data.owner.role === 'admin' ? 'admin' : '';
 
   return (
     <div className="flex flex-col w-[88.9rem] border-2 border-gray-100 rounded-[1.6rem] bg-primary-white">
@@ -66,16 +80,16 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
         <div className="mt-[4rem] ml-[1.4rem] mr-[1.4rem]">
           <p className="font-semibold text-[1.6rem] leading-[1.909rem]">Comments</p>
           <div className="p-[1.6rem] flex gap-[1.9rem] flex-col">
-            {data.Feedback?.map((item: any, index: number) => (
+            {workData?.list.map((item, index: number) => (
               <div key={index} className="flex gap-[1.2rem] flex-col">
                 <div className="flex gap-[0.8rem] items-center">
                   <Image src={profile} alt="profile" width={32} height={32} />
                   <div className="flex gap-[0.4rem] flex-col">
-                    <p className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-800">{item.userNickname}</p>
+                    <p className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-800">{item.owner.name}</p>
                     <p className="font-semibold text-[1.2rem] leading-[1.432rem] text-gray-400">{formatDate(item.createdAt)}</p>
                   </div>
                 </div>
-                <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700">{item.comment}</p>
+                <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700">{item.content}</p>
               </div>
             ))}
           </div>

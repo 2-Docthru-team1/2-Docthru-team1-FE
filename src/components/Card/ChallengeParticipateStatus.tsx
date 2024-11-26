@@ -39,7 +39,6 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
           if (isNaN(rank)) {
             console.error('Rank is NaN:', { index, currentPage, itemsPerPage });
           }
-          console.log(participant, 'particpnat');
           return (
             <div key={participant.id} className="flex flex-col gap-[2rem]">
               <div className="inline-flex items-center gap-[2rem]">

@@ -26,8 +26,6 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
 
   const closeImg = () => setIsOpen(false);
 
-  console.log(data, 'datdata');
-
   return (
     <div>
       <div className="flex">

@@ -44,17 +44,17 @@ export default function ChallengeDetailClient() {
     return <div>Loading...</div>;
   }
 
-  console.log(medium);
+  // console.log(challengeStatusMedium, 'emdium');
 
   return (
     <div className="flex flex-col w-full">
       <div className="flex mx-auto flex-col">
         <div className="mt-[2rem] flex">
           <ChallengeDetailContentCard
-            type={medium.status as 'onGoing' | 'finished'}
+            type={medium.status}
             data={{
               title: medium.title,
-              mediaType: medium.mediaType as 'youtube' | 'blog' | 'recipeWeb' | 'socialMedia',
+              mediaType: medium.mediaType,
               description: medium.description,
               id: medium.id,
               requestUser: {
@@ -76,7 +76,7 @@ export default function ChallengeDetailClient() {
                     name: challengeStatusMedium.list[0].owner.name,
                     role: challengeStatusMedium.list[0].owner.role
                   },
-                  role: challengeStatusMedium.list[0].owner.role,
+                  id: challengeStatusMedium.list[0].id,
                   likeCount: challengeStatusMedium.list[0].likeCount,
                   description: challengeStatusMedium.list[0].content,
                   // Feedback: challengeStatusMedium.list[0].owner,

@@ -39,10 +39,10 @@ export interface ChallengeParticipantStatusData {
 }
 
 export interface ownerData {
-  email: string;
-  id: string;
+  email?: string;
+  id?: string;
   name: string;
-  role: string;
+  role?: string;
 }
 
 export interface ChallengeCardProps {
@@ -134,16 +134,32 @@ export interface ChallengeMostLikedCardProps {
 
 export interface ChallengeMostLikedCardData {
   title: string;
-  role: string;
   likeCount: number;
   description: string;
   createdAt: string;
   owner: ownerData;
   Feedback?: string[];
+  id: string;
 }
 
 export interface FeedbackData {
   userNickname: string;
   createdAt: string;
   comment: string;
+}
+
+export interface ChallengeMostLikedCardWorksProps {
+  totalCount: number;
+  list: ChallengeMostLikedCardWorksData[];
+}
+
+export interface ChallengeMostLikedCardWorksData {
+  content: string;
+  createdAt: string;
+  deletedAt: string | null;
+  id: string;
+  owner: ownerData;
+  ownerId: string;
+  updatedAt: string;
+  workId: string;
 }
