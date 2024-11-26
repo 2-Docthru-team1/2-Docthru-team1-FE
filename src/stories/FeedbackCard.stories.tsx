@@ -7,21 +7,23 @@ const mockComments = [
     content: 'This is a comment.',
     createdAt: new Date().toISOString(),
     ownerId: '123',
-    userName: 'John Doe'
+    owner: {
+      name: 'John Doe'
+    }
   },
   {
     id: '2',
     content: 'Another comment for testing.',
     createdAt: new Date().toISOString(),
     ownerId: '456',
-    userName: 'user2'
+    owner: {
+      name: 'user2'
+    }
   }
 ];
 
 const mockUser = {
-  id: '123',
-  name: 'John Doe',
-  role: 'ko-ko'
+  id: '123'
 };
 
 export default {

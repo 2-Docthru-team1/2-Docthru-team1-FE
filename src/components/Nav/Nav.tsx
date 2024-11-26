@@ -74,7 +74,7 @@ export default function Nav() {
             </div>
           </div>
           <div className="flex gap-[1.6rem] items-center justify-center cursor-pointer">
-            <Image src={translate} alt="번역" onClick={() => setIsModalOpen(true)} />
+            <Image src={translate} alt="번역" onClick={() => setIsModalOpen(true)} width={24} height={24} />
             {userStatus === 'normal' ? (
               <>
                 <Image src={bell} alt="벨" />
@@ -88,7 +88,7 @@ export default function Nav() {
               </>
             ) : userStatus === 'admin' ? (
               <>
-                <Image src={adminProfile} alt="프로필" />
+                <Image src={adminProfile} alt="프로필" width={24} height={24} />
                 <button
                   className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
                   onClick={handleSignOut}

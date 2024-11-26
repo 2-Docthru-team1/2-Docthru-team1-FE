@@ -109,6 +109,8 @@ export default function FeedbackCard({
                         alt="드롭다운 이미지"
                         onClick={() => handleMenuClick(comment.id)}
                         className="cursor-pointer"
+                        width={24}
+                        height={24}
                       />
                       <div className="absolute right-0" onClick={() => handleEditClick(comment)}>
                         {openDropdownId === comment.id && (

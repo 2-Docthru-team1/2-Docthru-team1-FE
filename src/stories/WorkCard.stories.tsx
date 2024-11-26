@@ -9,7 +9,7 @@ const data = {
   title: 'My first Bibimbap!',
   createdAt: '2024-11-19T04:44:08.912Z',
   likeCount: 1934,
-  images: ['/temporaryAssets/food.svg'],
+  images: [{ imageUrl: '/temporaryAssets/food.svg' }],
   content: 'I did it for like one hour!! Look at thissss! I finally made it!',
   owner: {
     id: 'u123',
@@ -19,9 +19,7 @@ const data = {
 };
 
 const user = {
-  id: 'u123',
-  name: 'Named',
-  role: 'Koo-koo'
+  id: 'u123'
 };
 
 export default {
@@ -42,14 +40,4 @@ export const Default = Template.bind({});
 Default.args = {
   data,
   user
-};
-
-export const Loading = Template.bind({});
-Loading.args = {
-  data: null,
-  user: {
-    id: 'u123',
-    name: 'Loading User',
-    role: 'Loading Role'
-  }
 };

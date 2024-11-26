@@ -67,7 +67,15 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         <p className="text-[2.4rem] font-bold text-left text-gray-700">{data.title}</p>
         {user?.id === data?.owner?.id && (
           <div className="relative">
-            <Image src={kebab} alt="드롭다운 이미지" onClick={handleDropdownClick} className="cursor-pointer" />
+            <Image
+              src={kebab}
+              alt="드롭다운 이미지"
+              onClick={handleDropdownClick}
+              className="cursor-pointer"
+              width={24}
+              height={24}
+              priority
+            />
             <div className="absolute right-[0] top-[4.4rem]">
               {isDropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
             </div>
@@ -98,7 +106,14 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           />
         </div>
         <div className="flex items-center">
-          <Image src={nextImage} alt="다음 이미지 버튼" onClick={handleNextImage} className="cursor-pointer" />
+          <Image
+            src={nextImage}
+            alt="다음 이미지 버튼"
+            onClick={handleNextImage}
+            className="cursor-pointer"
+            width={40}
+            height={40}
+          />
         </div>
         <p className="text-[1.6rem] font-normal text-gray-800">{data.content}</p>
       </div>
