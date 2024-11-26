@@ -59,7 +59,7 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
   return (
     <div className="flex flex-col pt-[2rem] w-full items-center justify-center">
       <div className="flex flex-col w-[120rem] gap-[4rem] mb-[4rem]">
-        <div className="flex flex-col gap-[1.6rem] justify-center">
+        <div className="flex flex-col gap-[2.4rem] justify-center">
           <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">This Month's Challenge</p>
           <div className="flex justify-between">
             {Array.isArray(adminData) &&

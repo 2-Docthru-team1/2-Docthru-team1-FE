@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import inactiveHeart from '@/../public/assets/icon_heart_inact_small.png';
 import food from '@/../public/temporaryAssets/Food.svg';
 import type { RecipeCardProps } from '@/interfaces/cardInterface';
@@ -7,7 +8,11 @@ import type { RecipeCardProps } from '@/interfaces/cardInterface';
 
 export default function RecipeCard({ data }: RecipeCardProps) {
   if (!data) {
-    return <div>로딩 중...</div>;
+    return (
+      <div>
+        <Image src={loading} alt="loading" />
+      </div>
+    );
   }
 
   return (
