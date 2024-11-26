@@ -11,7 +11,6 @@ import type { WorkInputProps } from '@/interfaces/workInterface';
 export default function WorkInput({ data }: WorkInputProps) {
   if (!data) return null;
   const [content, setContent] = useState<string>('');
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const isInputEmpty = (): boolean => content.trim() !== '';
 
   const queryClient = useQueryClient();
@@ -35,7 +34,6 @@ export default function WorkInput({ data }: WorkInputProps) {
     if (!isInputEmpty()) {
       return;
     }
-    setIsSubmitting(true);
     mutation.mutate(content);
   };
 
@@ -47,10 +45,9 @@ export default function WorkInput({ data }: WorkInputProps) {
           value={content}
           onChange={handleChange}
           placeholder="Please write your comment"
-          disabled={isSubmitting}
           className="resize-none w-[113.2rem] h-[8.9rem] rounded-[1rem] border border-gray-200 text-gray-700 text-[1.6rem] font-medium placeholder-gray-400 p-5 focus:outline-none"
         />
-        <button type="submit" disabled={!isInputEmpty() || isSubmitting} className="absolute top-0 right-0">
+        <button type="submit" disabled={!isInputEmpty()} className="absolute top-0 right-0">
           {isInputEmpty() ? (
             <Image src={activeSubmit} alt="active 제출 이미지" width={40} height={40} />
           ) : (
