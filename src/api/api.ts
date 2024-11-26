@@ -1,9 +1,14 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios';
+import https from 'https';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = '/api';
 const instance = axios.create({
   baseURL: `${BASE_URL}`,
-  timeout: 10000
+  timeout: 10000,
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false
+  })
 });
 
 instance.interceptors.request.use(
