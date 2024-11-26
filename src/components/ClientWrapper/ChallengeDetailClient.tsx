@@ -44,6 +44,8 @@ export default function ChallengeDetailClient() {
     return <div>Loading...</div>;
   }
 
+  // console.log(medium, 'aweofinwaefnweonv;aoweinv');
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex mx-auto flex-col">
@@ -54,7 +56,9 @@ export default function ChallengeDetailClient() {
               title: medium.title,
               mediaType: medium.mediaType as 'youtube' | 'blog' | 'recipeWeb' | 'socialMedia',
               description: medium.description,
-              ownerId: medium.ownerId
+              ownerId: medium.ownerId,
+              imageUrl: medium.imageUrl,
+              imageUrl2: medium.imageUrl2
             }}
           />
         </div>

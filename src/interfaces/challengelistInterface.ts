@@ -16,7 +16,8 @@ export interface ChallengeDetailData {
   status: string;
   deadline: string;
   embedUrl: string;
-  imageUrl: string[];
+  imageUrl: string;
+  imageUrl2: string | null;
   mediaType: string;
   requestUserId: string;
   ownerId: string;

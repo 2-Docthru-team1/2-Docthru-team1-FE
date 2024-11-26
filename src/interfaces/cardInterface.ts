@@ -120,6 +120,8 @@ export interface ChallengeDetailContentCardData {
   mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
   description: string;
   ownerId: string;
+  imageUrl: string;
+  imageUrl2: string | null;
 }
 
 export interface ChallengeMostLikedCardProps {

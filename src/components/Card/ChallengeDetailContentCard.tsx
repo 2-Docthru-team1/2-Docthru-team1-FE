@@ -26,6 +26,8 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
 
   const closeImg = () => setIsOpen(false);
 
+  console.log(data);
+
   return (
     <div>
       <div className="flex">
@@ -48,7 +50,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
             <div className="flex items-center">
               <div className="relative w-[34.3rem] h-[29.4rem]">
                 <Image
-                  src={food}
+                  src={data.imageUrl}
                   alt="작업물 이미지"
                   className="object-cover"
                   onClick={openImg}

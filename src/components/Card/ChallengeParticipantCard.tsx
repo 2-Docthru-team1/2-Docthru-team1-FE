@@ -21,7 +21,7 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
 
   // TODO: 현재 api 수정 이슈로 댓글 개수는 임의대로 작업하였습니다.
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`}>
