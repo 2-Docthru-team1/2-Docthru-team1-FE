@@ -1,4 +1,4 @@
-import axios, { AxiosHeaders, type InternalAxiosRequestConfig } from 'axios';
+import axios, { type InternalAxiosRequestConfig } from 'axios';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const instance = axios.create({
@@ -9,12 +9,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('token');
-      console.log(token);
+      const token = localStorage.getItem('accessToken');
       if (token) {
-        const headers = new AxiosHeaders(config.headers);
-        headers.set('Authorization', `Bearer ${token}`);
-        config.headers = headers;
+        config.headers['Authorization'] = `Bearer ${token}`;
       }
     }
     return config;
@@ -23,6 +20,7 @@ instance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
 instance.interceptors.response.use(
   res => res,
   async err => {
@@ -44,7 +42,8 @@ instance.interceptors.response.use(
 interface CustomAxiosRequestConfig {
   params?: object;
 }
-export function getRequest(url: string, params: object = {}) {
+
+export async function getRequest(url: string, params: object = {}) {
   const config: CustomAxiosRequestConfig = {
     params
   };
