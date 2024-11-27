@@ -40,7 +40,7 @@ export default function ClosableModalClient({ isOpen, setIsModalOpen }: Closable
   };
 
   return (
-    <div className="z-999999">
+    <div>
       <ClosableModal isOpen={isOpen} onClose={() => setIsModalOpen(false)} title="Select your language">
         <div
           className="w-[44.8rem] h-[5.6rem] flex justify-between items-center mt-[2.4rem] gap-[1rem] rounded-[0.8rem] border border-gray-200 py-[0.4rem] px-[1.6rem]"
