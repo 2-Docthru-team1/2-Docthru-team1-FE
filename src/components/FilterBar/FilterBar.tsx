@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import filter from '@/../public/assets/ic_filter.png';
 import activeFilter from '@/../public/assets/icon_filter_active.png';
@@ -70,7 +69,6 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
 };
 
 export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
-  const router = useRouter();
   const { keyword, category, setKeyword, setCategory, toggleDropdown } = useStore();
 
   const filterBarType = filterBarWidths[type] || '';
@@ -126,19 +124,11 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     if (e.key === 'Enter') {
       const currentKeyword = e.currentTarget.value;
       setKeyword(currentKeyword);
-      const queryString = new URLSearchParams({ keyword: currentKeyword }).toString();
-
-      router.push(`?${queryString}`);
     }
   };
 
   useEffect(() => {
     setKeyword('');
-
-    const query = new URLSearchParams(window.location.search);
-    query.delete('keyword');
-    query.delete('category');
-    router.push(`${window.location.pathname}?${query.toString()}`);
   }, []);
 
   const handleApply = (orderBy: string, mediaType: string[], status: string) => {
@@ -146,13 +136,8 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     setSelectedCount(count);
     setIsFilterApplied(count > 0);
 
-    const query = new URLSearchParams();
-    if (orderBy) query.append('orderBy', orderBy);
-    if (mediaType.length > 0) query.append('mediaType', mediaType.join(','));
-    if (status) query.append('status', status);
-
-    router.push(`${window.location.pathname}?${query.toString()}`);
-    setIsDropdownOpen(false);
+    onFilterApply(orderBy, mediaType, status);
+    toggleDropdown(false);
   };
 
   return (

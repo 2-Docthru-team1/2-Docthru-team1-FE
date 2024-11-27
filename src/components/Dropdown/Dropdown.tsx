@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import activeCheckBox from '@/../public/assets/btn_active_checkbox.png';
 import inActiveCheckBox from '@/../public/assets/btn_inactive_checkbox.png';
@@ -18,20 +17,7 @@ const dropdownWidths = {
 };
 
 export default function Dropdown({ isOpen, items, type, onApply, onClose }: DropdownProps) {
-  const router = useRouter();
-  const {
-    selectedView,
-    selectedMedia,
-    selectedStatus,
-    setSelectedView,
-    setSelectedMedia,
-    setSelectedStatus,
-    category,
-    setCategory,
-    toggleDropdown,
-    isFilterApplied,
-    setIsFilterApplied
-  } = useStore();
+  const { selectedView, selectedMedia, selectedStatus, setSelectedView, setSelectedMedia, setSelectedStatus } = useStore();
 
   const dropdownType = dropdownWidths[type] || '';
 
@@ -44,24 +30,10 @@ export default function Dropdown({ isOpen, items, type, onApply, onClose }: Drop
         updatedMedia = [...(selectedMedia || []), value];
       }
       setSelectedMedia(updatedMedia);
-
-      const queryString = new URLSearchParams(window.location.search);
-      queryString.delete('mediaType');
-      updatedMedia.forEach(item => queryString.append('mediaType', item));
-      const newUrl = `${window.location.pathname}?${queryString.toString()}`;
-      window.history.replaceState(null, '', newUrl);
     } else if (category === 'orderBy') {
       setSelectedView(value);
-      const queryString = new URLSearchParams(window.location.search);
-      queryString.set('orderBy', value);
-      const newUrl = `${window.location.pathname}?${queryString.toString()}`;
-      window.history.replaceState(null, '', newUrl);
     } else if (category === 'status') {
       setSelectedStatus(value);
-      const queryString = new URLSearchParams(window.location.search);
-      queryString.set('status', value);
-      const newUrl = `${window.location.pathname}?${queryString.toString()}`;
-      window.history.replaceState(null, '', newUrl);
     }
   };
 
@@ -69,22 +41,16 @@ export default function Dropdown({ isOpen, items, type, onApply, onClose }: Drop
     setSelectedView('');
     setSelectedMedia([]);
     setSelectedStatus('');
-
-    const queryString = new URLSearchParams(window.location.search);
-    queryString.delete('orderBy');
-    queryString.delete('mediaType');
-    queryString.delete('status');
-    const newUrl = `${window.location.pathname}?${queryString.toString()}`;
-    window.history.replaceState(null, '', newUrl);
   };
 
   const handleApply = () => {
     const mediaArray = selectedMedia || [];
     const selectedCount = (selectedView ? 1 : 0) + mediaArray.length + (selectedStatus ? 1 : 0);
+
     if (selectedCount > 0) {
       onApply(selectedView || '', mediaArray, selectedStatus || '');
     } else {
-      location.reload();
+      onApply('', [], '');
     }
 
     onClose();

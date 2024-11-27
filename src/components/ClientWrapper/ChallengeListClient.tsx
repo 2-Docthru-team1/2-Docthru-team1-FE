@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import plus from '@/../public/assets/icon_plus_medium.png';
+import { fetchChallenge } from '@/api/challengeService';
 import ChallengeCard from '@/components/Card/ChallengeCard';
 import type { ChallengeData, MonthlyChallengeData } from '@/interfaces/cardInterface';
 import type { ChallengeListClientProps } from '@/interfaces/challengelistInterface';
@@ -21,12 +22,32 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
   const itemsPerPage = 4;
 
   const [medium, setMedium] = useState<ChallengeData[]>(challengeData);
+  const [orderBy, setOrderBy] = useState<string>('');
+  const [mediaType, setMediaType] = useState<string[]>([]);
+  const [status, setStatus] = useState<string>('');
+  const [selectedCount, setSelectedCount] = useState<number>(0);
+  const [isFilterApplied, setIsFilterApplied] = useState<boolean>(false);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const mediumItems = medium.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(medium.length / itemsPerPage);
+
+  useEffect(() => {
+    if (isFilterApplied) {
+      const fetchFilteredData = async () => {
+        try {
+          const filteredData = await fetchChallenge(`?orderBy=${orderBy}&mediaType=${mediaType.join(',')}&status=${status}`);
+          setMedium(filteredData.list);
+        } catch (error) {
+          console.error('Error fetching filtered challenges:', error);
+        }
+      };
+
+      fetchFilteredData();
+    }
+  }, [isFilterApplied, orderBy, mediaType, status]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -40,12 +61,14 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     router.push('/challengeList/request');
   };
 
-  const handleFilterChange = () => {
-    const params = new URLSearchParams();
-    if (keyword) params.set('keyword', keyword);
-    if (category) params.set('category', category);
+  const handleFilterChange = (orderBy: string, mediaType: string[], status: string) => {
+    setOrderBy(orderBy);
+    setMediaType(mediaType);
+    setStatus(status);
 
-    router.push(`?${params.toString()}`);
+    const count = (orderBy ? 1 : 0) + mediaType.length + (status ? 1 : 0);
+    setSelectedCount(count);
+    setIsFilterApplied(count > 0);
   };
 
   return (
