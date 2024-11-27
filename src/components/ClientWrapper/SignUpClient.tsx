@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signUp } from '@/api/authService';
 import type { SignUpData } from '@/interfaces/userInterface';
@@ -59,10 +60,11 @@ export default function SignUpClient() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="relative w-[16rem] h-[16rem]">
+        {/* <div className="relative w-[16rem] h-[16rem]">
           <div className="absolute inset-0 w-full h-full border-[4rem] border-t-[4rem] border-gray-300 border-t-primary-blue rounded-full animate-spin"></div>
           <span className="absolute inset-0 flex justify-center items-center text-[1.5rem] text-gray-500">Loading...</span>
-        </div>
+        </div> */}
+        <Image src={loading} alt="loading" />
       </div>
     );
   }
