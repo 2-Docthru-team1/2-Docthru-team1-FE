@@ -38,7 +38,8 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     if (isFilterApplied) {
       const fetchFilteredData = async () => {
         try {
-          const filteredData = await fetchChallenge(`?orderBy=${orderBy}&mediaType=${mediaType.join(',')}&status=${status}`);
+          const queryParams = createQueryParams(orderBy, mediaType, status);
+          const filteredData = await fetchChallenge(queryParams);
           setMedium(filteredData.list);
         } catch (error) {
           console.error('Error fetching filtered challenges:', error);
@@ -48,6 +49,14 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
       fetchFilteredData();
     }
   }, [isFilterApplied, orderBy, mediaType, status]);
+
+  const createQueryParams = (orderBy: string, mediaType: string[], status: string): string => {
+    const params: string[] = [];
+    if (orderBy) params.push(`orderBy=${orderBy}`);
+    if (status) params.push(`status=${status}`);
+    mediaType.forEach(type => params.push(`mediaType=${type}`));
+    return `?${params.join('&')}`;
+  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -69,6 +78,11 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     const count = (orderBy ? 1 : 0) + mediaType.length + (status ? 1 : 0);
     setSelectedCount(count);
     setIsFilterApplied(count > 0);
+
+    if (!orderBy && mediaType.length === 0 && !status) {
+      window.location.reload();
+      return;
+    }
   };
 
   return (
