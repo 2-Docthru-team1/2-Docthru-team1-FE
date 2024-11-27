@@ -11,12 +11,12 @@ const Template: StoryFn<ProfileModalProps> = args => <ProfileModal {...args} />;
 
 export const AdminProfile = Template.bind({});
 AdminProfile.args = {
-  name: 'Admin User',
+  name: 'User',
   role: 'admin'
 };
 
 export const MemberProfile = Template.bind({});
 MemberProfile.args = {
-  name: 'Member User',
+  name: 'User',
   role: 'normal'
 };
