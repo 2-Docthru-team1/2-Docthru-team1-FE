@@ -25,3 +25,8 @@ export interface CancelDropdownProps {
   abortReason?: string;
   setAbortReason?: (reason: string) => void;
 }
+
+export interface RecipeDropdownProps {
+  items: Option[];
+  onApply: (option: Option) => void;
+}
