@@ -16,9 +16,9 @@ export default function Nav() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const isRecipe = pathname.includes('recipe');
-  const isChallenge = pathname.includes('challenge');
-  const isMgmt = pathname.includes('management');
+  const isRecipe = pathname.startsWith('/recipe');
+  const isChallenge = pathname.startsWith('/challenge');
+  const isMgmt = pathname.startsWith('/auth');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -64,7 +64,7 @@ export default function Nav() {
                   {userStatus === 'admin' && (
                     <p
                       className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
-                      onClick={() => router.push('/management')}
+                      onClick={() => router.push('/auth/challenge')}
                     >
                       Mgmt.
                     </p>
