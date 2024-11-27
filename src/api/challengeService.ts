@@ -91,3 +91,12 @@ export const fetchUpdateStatus = async (challengeId: string, newStatus: 'cancele
     throw error;
   }
 };
+
+export const fetchChallengeApplication = async () => {
+  try {
+    const response = await getRequest('http://localhost:3000/ChallengeApplicationData.json');
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get Challenge Application Data');
+  }
+};

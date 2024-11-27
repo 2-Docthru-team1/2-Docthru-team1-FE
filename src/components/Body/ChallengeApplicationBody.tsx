@@ -34,10 +34,10 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
         <p className="w-[6.8rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           No.
         </p>
-        <p className="w-[10rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
+        <p className="w-[12rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           Media
         </p>
-        <p className="w-[34.2rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
+        <p className="w-[32.2rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           Challenge Title
         </p>
         <p className="w-[18.3rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
@@ -100,24 +100,24 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
               <p className="w-[6.8rem] flex items-center justify-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
                 {item.number}
               </p>
-              <p className="w-[10rem] flex items-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
+              <p className="w-[12rem] flex items-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
                 {mediaLabel}
               </p>
-              <p
-                className="w-[34.2rem] flex items-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-700 
+              <div
+                className="w-[32.2rem] flex items-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-700 
                   overflow-hidden text-ellipsis whitespace-nowrap max-h-[3rem] py-[1.5rem] px-[1.6rem]"
               >
-                <span className="block overflow-hidden text-ellipsis overflow-hidden whitespace-normal">{item.title}</span>
-              </p>
+                <p className="block overflow-hidden text-ellipsis overflow-hidden whitespace-normal">{item.title}</p>
+              </div>
               <p className="w-[18.3rem] flex items-center justify-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
                 {formatDate(item.updatedAt)}
               </p>
               <p className="w-[18.3rem] flex items-center justify-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
                 {formatDate(item.deadline)}
               </p>
-              <p className="w-[12rem] flex items-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
+              <div className="w-[12rem] flex items-center font-normal py-[1.5rem] px-[1.6rem]">
                 <ChipStatus type={statusLabel} />
-              </p>
+              </div>
             </div>
           );
         })}
