@@ -49,7 +49,7 @@ export default function ChallengeBody() {
   };
 
   return (
-    <div className="border-none w-[87.1rem]">
+    <div className="border-none w-[87.1rem] bg-primary-white p-[1.5rem] rounded-[2rem]">
       <div className="border-none bg-white rounded-lg shadow-sm">
         <ReactQuill
           theme="snow"
