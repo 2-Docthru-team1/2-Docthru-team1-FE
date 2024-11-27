@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import comment from '@/../public/assets/icon_comment.png';
 import heart from '@/../public/assets/icon_heart_inact_small.png';
@@ -16,9 +17,14 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
 
   const rol = data.owner.role === 'normal' ? 'koo-koo' : data.owner.role === 'admin' ? 'admin' : '';
   const borderClass = type === 'first' ? 'border-2 border-primary-beige' : 'border border-gray-200';
+  const router = useRouter();
+
+  const handleClick = (workId: string) => {
+    router.push(`/works/${workId}`);
+  };
 
   return (
-    <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`}>
+    <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`} onClick={() => handleClick(data.id)}>
       <div className="relative w-[27.45rem] h-[23.9rem]">
         {data.images.length > 0 && <Image src={data.images[0].imageUrl} alt="음식 이미지" layout="fill" objectFit="cover" />}
       </div>

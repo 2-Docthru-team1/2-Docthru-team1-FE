@@ -3,12 +3,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import nextImage from '@/../public/assets/btn_photo_swipe.png';
 import inactiveHeart from '@/../public/assets/icon_heart_inactive_large.png';
 import kebab from '@/../public/assets/icon_kebab_cancel.png';
 import member from '@/../public/assets/img_profile_member.png';
-import food from '@/../public/temporaryAssets/Food.svg';
 import { deleteWorkDetail } from '@/api/workService';
 import type { WorkDataProps } from '@/interfaces/workInterface';
 import { Formatter, useFormatter } from '../../../hooks/useFormatter';
@@ -57,7 +56,6 @@ export default function WorkCard({ data, user }: WorkDataProps) {
     mutation.mutate();
   };
   const role = data.owner.role === 'normal' ? 'Koo-koo' : data.owner.role;
-  console.log(data);
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem] mt-[2rem]">
       <div className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center">

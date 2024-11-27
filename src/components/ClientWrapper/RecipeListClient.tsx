@@ -1,8 +1,12 @@
 'use client';
 
+import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { fetchAdminChallenge, getFilteredChallenges } from '@/api/challengeService';
+import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
+import { fetchAdminChallenge } from '@/api/challengeService';
+import { fetchMenu } from '@/api/recipeService';
 import RecipeCard from '@/components/Card/RecipeCard';
 import type { RecipeData } from '@/interfaces/cardInterface';
 import type { AdminData, RecipeListClientProps } from '@/interfaces/recipelistInterface';
@@ -11,21 +15,37 @@ import MonthlyChallengeCard from '../Card/MonthlyChallengeCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
-export default function RecipeListClient({ initialData }: RecipeListClientProps) {
+export default function RecipeListClient() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { keyword, category, setKeyword, setCategory } = useStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  const [medium, setMedium] = useState<RecipeData[]>(initialData.list);
+  const {
+    data: recipes,
+    isLoading,
+    isError,
+    isPlaceholderData
+  } = useQuery<RecipeListClientProps>({
+    queryKey: ['recipies', currentPage, keyword, category],
+    queryFn: async () => await fetchMenu(currentPage, itemsPerPage, keyword || category || ''),
+    placeholderData: keepPreviousData
+  });
+  const totalPages = recipes ? Math.ceil(recipes.totalCount / itemsPerPage) : 1;
+  const hasMore = currentPage < totalPages;
+
+  useEffect(() => {
+    if (!isPlaceholderData && hasMore) {
+      queryClient.prefetchQuery({
+        queryKey: ['recipies', currentPage + 1, keyword, category],
+        queryFn: () => fetchMenu(currentPage + 1, itemsPerPage, keyword || category || '')
+      });
+    }
+  });
+
   const [adminData, setAdminData] = useState<AdminData[]>();
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = medium.slice(indexOfFirstItem, indexOfLastItem);
-
-  const totalPages = Math.ceil(initialData.totalCount / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -44,17 +64,28 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
   };
 
   useEffect(() => {
-    setMedium(initialData.list);
-    setCurrentPage(1);
-  }, [initialData]);
-
-  useEffect(() => {
     const getAdminChallengeData = async () => {
       const data = await fetchAdminChallenge();
       setAdminData(data);
     };
     getAdminChallengeData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Image src={loading} alt="loading" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 text-[1.5rem]">Failed to load data. Please try again later.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col pt-[2rem] w-full items-center justify-center">
@@ -77,9 +108,9 @@ export default function RecipeListClient({ initialData }: RecipeListClientProps)
             />
           </div>
           <div className="grid grid-cols-4 grid-rows-2 gap-[2.4rem]">
-            {currentItems.map((data, index) => (
-              <div key={index} onClick={() => handleRecipeClick(data.id)} className="cursor-pointer">
-                <RecipeCard data={data} />
+            {recipes?.list.map((recipe: RecipeData) => (
+              <div key={recipe.id} onClick={() => handleRecipeClick(recipe.id)} className="cursor-pointer">
+                <RecipeCard data={recipe} />
               </div>
             ))}
           </div>

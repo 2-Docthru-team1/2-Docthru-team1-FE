@@ -13,7 +13,7 @@ import WorkCard from '../Card/WorkCard';
 import WorkInput from '../Input/WorkInput';
 
 export default function WorkDetailClient() {
-  const { id, workId } = useParams();
+  const { workId } = useParams();
   const workIdParam = workId as string;
 
   const {
@@ -21,7 +21,7 @@ export default function WorkDetailClient() {
     isLoading: workLoading,
     error: workError
   } = useQuery({
-    queryKey: ['work'],
+    queryKey: ['work', workIdParam],
     queryFn: () => getWorkDetail(workIdParam)
   });
 
@@ -33,7 +33,7 @@ export default function WorkDetailClient() {
     hasNextPage,
     isFetchingNextPage
   } = useInfiniteQuery<FeedbackResponse>({
-    queryKey: ['feedback'],
+    queryKey: ['feedback', workIdParam],
     queryFn: ({ pageParam }) => {
       return getFeedbackList(workIdParam, pageParam as number, 4);
     },
