@@ -150,7 +150,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
   };
 
   return (
-    <div>
+    <div className="z-20">
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
         <div
           className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}
@@ -178,7 +178,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
           />
         </div>
       </div>
-      <div className="z-9999">
+      <div className="">
         {isDropdownOpen && (
           <Dropdown
             isOpen={isDropdownOpen}
