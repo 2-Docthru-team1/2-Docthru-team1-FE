@@ -1,7 +1,10 @@
+'use client';
+
 import { format } from 'date-fns';
+import { useState } from 'react';
 import type { ChallengeApplicationBodyProps } from '@/interfaces/bodyInterface';
-import ChipCard from '../Chip/ChipCard';
 import ChipStatus from '../Chip/ChipStatus';
+import Pagination from '../Pagination/Pagination';
 
 enum Status {
   Pending = 'pending',
