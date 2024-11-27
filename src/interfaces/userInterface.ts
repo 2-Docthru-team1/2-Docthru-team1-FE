@@ -7,3 +7,8 @@ export interface SignUpData {
   name: string;
   password: string;
 }
+
+export interface ProfileModalProps {
+  name: string;
+  role: 'admin' | 'normal';
+}
