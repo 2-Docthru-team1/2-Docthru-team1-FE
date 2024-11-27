@@ -18,10 +18,10 @@ interface StoreState {
   setIsFilterApplied: (isApplied: boolean) => void;
   toggleDropdown: (isOpen: boolean) => void;
   userStatus: 'loggedOut' | 'normal' | 'admin';
-  userId: string | null;
+  id: string | null;
   role: 'normal' | 'admin' | null;
   isLoading: boolean;
-  login: (userId: string, role: 'normal' | 'admin') => void;
+  login: (id: string, role: 'normal' | 'admin') => void;
   logout: () => void;
   setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => void;
   setLoading: (isLoading: boolean) => void;
@@ -48,19 +48,19 @@ const useStore = create<StoreState>(set => ({
   toggleDropdown: isOpen => set({ isDropdownOpen: isOpen }),
 
   userStatus: 'loggedOut',
-  userId: null,
+  id: null,
   role: null,
 
-  login: (userId, role) => {
-    set({ userId, role, userStatus: role === 'admin' ? 'admin' : 'normal' });
+  login: (id, role) => {
+    set({ id, role, userStatus: role === 'admin' ? 'admin' : 'normal' });
     if (typeof window !== 'undefined') {
-      localStorage.setItem('userId', userId);
+      localStorage.setItem('userId', id);
       localStorage.setItem('role', role);
     }
   },
 
   logout: () => {
-    set({ userId: null, role: null, userStatus: 'loggedOut' });
+    set({ id: null, role: null, userStatus: 'loggedOut' });
     if (typeof window !== 'undefined') {
       localStorage.removeItem('userId');
       localStorage.removeItem('role');

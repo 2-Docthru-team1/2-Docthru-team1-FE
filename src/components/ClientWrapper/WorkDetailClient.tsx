@@ -1,7 +1,9 @@
 'use client';
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
+import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { getUser } from '@/api/userService';
 import { getFeedbackList } from '@/api/workService';
 import { getWorkDetail } from '@/api/workService';
@@ -11,7 +13,7 @@ import WorkCard from '../Card/WorkCard';
 import WorkInput from '../Input/WorkInput';
 
 export default function WorkDetailClient() {
-  const { id, workId } = useParams();
+  const { workId } = useParams();
   const workIdParam = workId as string;
 
   const {
@@ -19,7 +21,7 @@ export default function WorkDetailClient() {
     isLoading: workLoading,
     error: workError
   } = useQuery({
-    queryKey: ['work'],
+    queryKey: ['work', workIdParam],
     queryFn: () => getWorkDetail(workIdParam)
   });
 
@@ -31,7 +33,7 @@ export default function WorkDetailClient() {
     hasNextPage,
     isFetchingNextPage
   } = useInfiniteQuery<FeedbackResponse>({
-    queryKey: ['feedback'],
+    queryKey: ['feedback', workIdParam],
     queryFn: ({ pageParam }) => {
       return getFeedbackList(workIdParam, pageParam as number, 4);
     },
@@ -51,10 +53,11 @@ export default function WorkDetailClient() {
   if (workLoading || feedbackLoading || userLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="relative w-[16rem] h-[16rem]">
+        {/* <div className="relative w-[16rem] h-[16rem]">
           <div className="absolute inset-0 w-full h-full border-[4rem] border-t-[4rem] border-gray-300 border-t-primary-blue rounded-full animate-spin"></div>
           <span className="absolute inset-0 flex justify-center items-center text-[1.5rem] text-gray-500">Loading...</span>
-        </div>
+        </div> */}
+        <Image src={loading} alt="loading" />
       </div>
     );
   }
@@ -68,7 +71,7 @@ export default function WorkDetailClient() {
   }
 
   return (
-    <div className="flex flex-col w-full  items-center justify-center bg-primary-white">
+    <div className="flex flex-col w-full items-center justify-center">
       <WorkCard data={work} user={user} />
       <WorkInput data={work} />
       <FeedbackCard

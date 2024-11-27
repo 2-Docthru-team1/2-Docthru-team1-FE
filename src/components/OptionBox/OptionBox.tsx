@@ -8,7 +8,7 @@ import type { OptionBoxProps } from '@/interfaces/optionboxInterface';
 export default function OptionBox({ type, id }: OptionBoxProps) {
   console.log(type);
   const isFinished = type === 'finished';
-  const participateButtonText = type === 'onGoing' ? 'Keep Participating' : 'Participate Challenge';
+  const participateButtonText = type === 'onGoing' ? 'Participate Challenge' : 'Keep Participating';
   const bgColor = type === 'finished' ? 'bg-gray-200' : 'bg-primary-beige';
 
   return (

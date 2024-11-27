@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import crownIcon from '@/../public/assets/icon_crown.png';
 import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
@@ -7,28 +8,61 @@ import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';
 import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
 import CancelDropdown from '../Dropdown/CancelDropdown';
+import ConfirmModal from '../Modal/ConfirmModal';
 
 export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCardProps) {
   if (!data) {
     return <div>로딩 중...</div>;
   }
 
+  const router = useRouter();
+
   const { title, mediaType, status, deadline } = data;
   const formattedDeadline = new Date(deadline).toISOString().split('T')[0];
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [abortReason, setAbortReason] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handledropdownClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     setDropdownOpen(prev => !prev);
   };
-  const handleCancelClick = () => {
-    setDropdownOpen(false);
+  const handleModalCancel = () => {
+    setIsModalOpen(false);
   };
 
-  // NOTE API 연결해서 챌린지 상태 수정하기 cancel
+  const handleCancelClick = async (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setDropdownOpen(false);
+    setIsModalOpen(true);
+  };
+
+  // NOTE API 연결해서 챌린지 상태 수정하기 abort
+  const handleDeleteWork = async () => {
+    try {
+      const newStatus = 'aborted';
+      const reason = abortReason;
+      // await fetchUpdateStatus(id, newStatus, reason);
+      setIsModalOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.error('Failed to update challenge status:', error);
+    }
+  };
+
+  const handleCardClick = (event: React.MouseEvent) => {
+    if (isModalOpen) {
+      event.stopPropagation();
+      return;
+    }
+  };
+
   return (
-    <div className="w-[38.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-primary-beige bg-primary-white">
+    <div
+      className="w-[38.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-primary-beige bg-primary-white"
+      onClick={handleCardClick}
+    >
       <div>
         <div className="p-[2.4rem]">
           <div className="flex justify-between items-center">
@@ -47,7 +81,7 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
               </div>
             ) : null}
           </div>
-
+          {isModalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
           <h2 className="text-[2rem] leading-[2.39rem] mt-[1.2rem] mb-[1.4rem] font-semibold text-left text-gray-700">{title}</h2>
 
           <div>

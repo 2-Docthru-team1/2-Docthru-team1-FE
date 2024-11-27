@@ -20,6 +20,8 @@ export interface DropdownItem {
 }
 
 export interface CancelDropdownProps {
-  onCancel: () => void;
+  onCancel: (event: React.MouseEvent) => void | Promise<void>;
   children: ReactNode;
+  abortReason?: string;
+  setAbortReason?: (reason: string) => void;
 }

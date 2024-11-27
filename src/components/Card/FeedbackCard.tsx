@@ -66,14 +66,14 @@ export default function FeedbackCard({
   }, [inView]);
 
   return (
-    <>
+    <div className="pb-[2rem]">
       <div>
         <ul className="flex-col">
           {comments.map(comment => (
-            <li key={comment.id} className="flex-col p-[1.2rem] ">
+            <li key={comment.id} className="flex-col p-[1.2rem]">
               <div
-                className={`w-[120rem] p-[1rem] rounded-[0.8rem] ${
-                  editingCommentId === comment.id ? 'bg-primary-white border border-gray-200' : 'bg-gray-50 border-none'
+                className={`w-[120rem] p-[1rem] rounded-[0.8rem] bg-primary-white ${
+                  editingCommentId === comment.id ? 'border border-gray-200' : 'bg-gray-50 border-none'
                 }`}
               >
                 <div className="flex justify-between items-center gap-[3rem] mb-[1.2rem]">
@@ -144,6 +144,6 @@ export default function FeedbackCard({
           <Image src={more} alt="더보기 이미지" width={40} height={40} />
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -31,6 +31,7 @@ export interface ChallengeParticipantStatusProps {
 }
 
 export interface ChallengeParticipantStatusData {
+  id: string;
   title: string;
   feedbackCount: number;
   likeCount: number;
@@ -55,12 +56,17 @@ export interface ChallengeData {
   id: string;
   title: string;
   mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
-  status: 'onGoing' | 'finished' | 'canceled';
+  status: 'onGoing' | 'finished';
   deadline: string;
-  requestUserId: string;
+  requestUser: RequestUser;
   totalLikes: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface RequestUser {
+  id: string;
+  name: string;
 }
 
 export interface MonthlyChallengeCardProps {

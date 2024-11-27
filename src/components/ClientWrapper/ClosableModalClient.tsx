@@ -40,7 +40,7 @@ export default function ClosableModalClient({ isOpen, setIsModalOpen }: Closable
   };
 
   return (
-    <>
+    <div className="z-999999">
       <ClosableModal isOpen={isOpen} onClose={() => setIsModalOpen(false)} title="Select your language">
         <div
           className="w-[44.8rem] h-[5.6rem] flex justify-between items-center mt-[2.4rem] gap-[1rem] rounded-[0.8rem] border border-gray-200 py-[0.4rem] px-[1.6rem]"
@@ -54,7 +54,16 @@ export default function ClosableModalClient({ isOpen, setIsModalOpen }: Closable
           </p>
           <Image src={toggleDown} alt="아래 화살표" />
         </div>
-        {isDropdownOpen && <Dropdown isOpen={isDropdownOpen} items={options} onSelect={handleSelectLanguage} type="language" />}
+        {isDropdownOpen && (
+          <Dropdown
+            isOpen={isDropdownOpen}
+            items={options}
+            onSelect={handleSelectLanguage}
+            type="language"
+            onApply={handleApply}
+            onClose={toggleDropdown}
+          />
+        )}
         <button
           className="rounded-[0.8rem] bg-primary-blue w-full h-[4.8rem] mt-[1.6rem] font-semibold text-[1.6rem] leading-[1.909rem] text-[#ffffff]"
           onClick={handleApply}
@@ -62,6 +71,6 @@ export default function ClosableModalClient({ isOpen, setIsModalOpen }: Closable
           Apply
         </button>
       </ClosableModal>
-    </>
+    </div>
   );
 }

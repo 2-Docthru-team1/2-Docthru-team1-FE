@@ -38,8 +38,6 @@ export default function RecipeDetailClient() {
     sugars: recipe.sugars
   };
 
-  console.log(NutritionData);
-
   return (
     <div className="flex flex-col pt-[2rem] w-full items-center">
       <div className="relative w-[120rem] h-[33rem] overflow-hidden">

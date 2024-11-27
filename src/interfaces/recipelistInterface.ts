@@ -1,10 +1,8 @@
 import type { NutritionContent, RecipeData } from './cardInterface';
 
 export interface RecipeListClientProps {
-  initialData: {
-    list: RecipeData[];
-    totalCount: number;
-  };
+  list: RecipeData[];
+  totalCount: number;
 }
 
 export interface RecipeDetailData {
@@ -23,4 +21,12 @@ export interface RecipeDetailData {
   sodium: number;
   sugars: number;
   title: string;
+}
+
+export interface AdminData {
+  id: string;
+  title: string;
+  mediaType: 'youtube' | 'blog' | 'socialMedia' | 'recipeWeb';
+  status: 'onGoing' | 'finished';
+  deadline: string;
 }

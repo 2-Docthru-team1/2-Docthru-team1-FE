@@ -7,55 +7,35 @@ import type { PaginationProps } from '@/interfaces/paginationInterface';
 
 export default function Pagination({ currentPage, totalPages, onPageChange, hasNext = false, type }: PaginationProps) {
   const maxPageNumbers = 5;
-  const pageNumbers = [];
-  const currentGroup = Math.ceil(currentPage / maxPageNumbers);
-  const startPage = (currentGroup - 1) * maxPageNumbers + 1;
-  const endPage = Math.min(totalPages, startPage + maxPageNumbers - 1);
+  let startPage = Math.max(1, currentPage - Math.floor(maxPageNumbers / 2));
+  let endPage = Math.min(totalPages, startPage + maxPageNumbers - 1);
 
-  for (let i = startPage; i <= endPage; i++) {
-    pageNumbers.push(i);
+  if (endPage - startPage < maxPageNumbers - 1) {
+    startPage = Math.max(1, endPage - maxPageNumbers + 1);
   }
 
-  const handlePrevGroupClick = () => {
-    const newStartPage = startPage - maxPageNumbers;
-    if (newStartPage > 0) {
-      onPageChange(newStartPage + maxPageNumbers - 1);
-    }
-  };
-
-  const handleNextGroupClick = () => {
-    const newStartPage = startPage + maxPageNumbers;
-    if (newStartPage <= totalPages) {
-      onPageChange(newStartPage);
-    }
-  };
-
   return (
-    <div className="flex gap-[1.2rem] justify-center items-center">
+    <div className="flex gap-[1.2rem] items-center">
       {type === 'default' ? (
-        <div className="flex justify-center items-center gap-[0.8rem]">
-          {startPage > 1 && (
-            <button onClick={handlePrevGroupClick}>
-              <Image src={currentPage === 1 ? arrowInActLeft : arrowActLeft} alt="화살표" />
-            </button>
-          )}
-
-          {pageNumbers.map(page => (
-            <button
-              key={page}
-              onClick={() => onPageChange(page)}
-              className={`w-[4rem] h-[4rem] rounded-[0.8rem] font-medium text-[1.4rem] leading-[1.671rem] ${currentPage === page ? 'text-[#ffffff] bg-primary-blue' : 'text-gray-400'}`}
-            >
-              {page}
-            </button>
-          ))}
-
-          {endPage < totalPages && (
-            <button onClick={handleNextGroupClick}>
-              <Image src={!hasNext || currentPage === totalPages ? arrowInActRight : arrowActRight} alt="화살표" />
-            </button>
-          )}
-        </div>
+        <>
+          <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
+            <Image src={currentPage === 1 ? arrowInActLeft : arrowActLeft} alt="화살표" />
+          </button>
+          <div className="flex gap-[0.6rem]">
+            {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
+              <button
+                className={`w-[4rem] h-[4rem] rounded-[0.8rem] font-medium text-[1.4rem] leading-[1.671rem] ${startPage + index === currentPage ? 'text-[#ffffff] bg-primary-blue' : 'text-gray-400'}`}
+                key={startPage + index}
+                onClick={() => onPageChange(startPage + index)}
+              >
+                {startPage + index}
+              </button>
+            ))}
+          </div>
+          <button onClick={() => onPageChange(currentPage + 1)} disabled={!hasNext || currentPage === totalPages}>
+            <Image src={!hasNext || currentPage === totalPages ? arrowInActRight : arrowActRight} alt="화살표" />
+          </button>
+        </>
       ) : (
         <div className="flex items-center w-[9.7rem] justify-between">
           <div className="flex items-center">

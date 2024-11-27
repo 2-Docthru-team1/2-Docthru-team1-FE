@@ -3,12 +3,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import nextImage from '@/../public/assets/btn_photo_swipe.png';
 import inactiveHeart from '@/../public/assets/icon_heart_inactive_large.png';
 import kebab from '@/../public/assets/icon_kebab_cancel.png';
 import member from '@/../public/assets/img_profile_member.png';
-import food from '@/../public/temporaryAssets/Food.svg';
 import { deleteWorkDetail } from '@/api/workService';
 import type { WorkDataProps } from '@/interfaces/workInterface';
 import { Formatter, useFormatter } from '../../../hooks/useFormatter';
@@ -18,7 +17,6 @@ import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 
 export default function WorkCard({ data, user }: WorkDataProps) {
   if (!data) return null;
-
   const router = useRouter();
   enum ImgOrder {
     first = 0,
@@ -31,7 +29,6 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
-
   const openImg = () => setIsImageOpen(true);
   const closeImg = () => setIsImageOpen(false);
   const handleNextImage = () => {
@@ -45,7 +42,6 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   const handleModalCancel = () => {
     setIsModalOpen(false);
   };
-
   const mutation = useMutation({
     mutationFn: () => deleteWorkDetail(data.id),
     onSuccess: () => {
@@ -60,9 +56,6 @@ export default function WorkCard({ data, user }: WorkDataProps) {
     mutation.mutate();
   };
   const role = data.owner.role === 'normal' ? 'Koo-koo' : data.owner.role;
-
-  console.log(data);
-
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem] mt-[2rem]">
       <div className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center">
@@ -114,8 +107,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         ) : (
           <div></div>
         )}
-
-        <p className="text-[1.6rem] font-normal text-gray-800">{data.content}</p>
+        <p className="text-[1.6rem] font-normal text-gray-800">{data.content}</p>{' '}
       </div>
       {isImageOpen && (
         <ImageEnlargeModal

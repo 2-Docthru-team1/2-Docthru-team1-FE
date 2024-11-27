@@ -107,7 +107,9 @@ export default function Nav() {
           </div>
         </div>
       </div>
-      <ClosableModalClient isOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <div className="z-9999999">
+        <ClosableModalClient isOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      </div>
     </div>
   );
 }

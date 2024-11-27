@@ -23,9 +23,10 @@ export default function SignIn() {
       const credentials = { email, password };
       const res = await signIn(credentials);
       localStorage.setItem('accessToken', res.accessToken);
-      router.push('/challengeList');
+      router.push('/recipeList');
       const { login } = useStore.getState();
-      login(res.userId, res.role);
+      login(res.id, res.role);
+      console.log(res.id);
     } catch (err: any) {
       let errorMessage = 'An unexpected error occurred. Please try again.';
       if (err?.response?.data?.field === '이메일 또는 비밀번호가 잘못되었습니다.') {

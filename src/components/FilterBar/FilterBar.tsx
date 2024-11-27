@@ -178,16 +178,18 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
           />
         </div>
       </div>
-      {isDropdownOpen && (
-        <Dropdown
-          isOpen={isDropdownOpen}
-          items={options}
-          onSelect={handleSelect}
-          type={type}
-          onApply={handleApply}
-          onClose={handleToggleDropdown}
-        />
-      )}
+      <div className="z-9999">
+        {isDropdownOpen && (
+          <Dropdown
+            isOpen={isDropdownOpen}
+            items={options}
+            onSelect={handleSelect}
+            type={type}
+            onApply={handleApply}
+            onClose={handleToggleDropdown}
+          />
+        )}
+      </div>
     </div>
   );
 }

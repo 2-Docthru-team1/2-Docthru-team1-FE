@@ -1,9 +1,9 @@
 import { getRequest } from './api';
 
-export const fetchMenu = async () => {
+export const fetchMenu = async (page: number, pageSize: number, search: string) => {
   try {
-    const response = await getRequest(`/recipes`);
-    return response;
+    const response = await getRequest(`/recipes?page=${page}&pageSize=${pageSize}&keyword:${search}`);
+    return response.data;
   } catch (error) {
     throw new Error('Failed to get recipe data');
   }
