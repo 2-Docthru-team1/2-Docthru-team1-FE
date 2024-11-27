@@ -11,7 +11,7 @@ export interface Option {
 }
 
 export interface ChallengeOption {
-  view: Option[];
-  media: Option[];
+  orderBy: Option[];
+  mediaType: Option[];
   status: Option[];
 }

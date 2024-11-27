@@ -40,21 +40,21 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   ],
   challenge: [
     {
-      view: [
+      orderBy: [
         { label: 'Earliest First', value: 'earliestFirst' },
         { label: 'Latest First', value: 'latestFirst' },
         { label: 'Deadline Earliest', value: 'deadlineEarliest' },
         { label: 'Deadline Latest', value: 'deadlineLatest' }
       ],
-      media: [
+      mediaType: [
         { label: 'Youtube', value: 'youtube' },
         { label: 'Blog', value: 'blog' },
-        { label: 'Recipe Web', value: 'recipe web' },
-        { label: 'Social Media', value: 'social media' }
+        { label: 'Recipe Web', value: 'recipeWeb' },
+        { label: 'Social Media', value: 'socialMedia' }
       ],
       status: [
-        { label: 'On going', value: 'ongoing' },
-        { label: 'Closed', value: 'closed' }
+        { label: 'On going', value: 'onGoing' },
+        { label: 'Closed', value: 'finished' }
       ]
     }
   ],
@@ -78,15 +78,14 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
   const searchBarType = searchBarWidths[type] || '';
   const options = optionsByType[type] || [];
 
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
+  const [selectedCount, setSelectedCount] = useState<number>(0);
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [selectedView, setSelectedView] = useState<string>('');
   const [selectedMedia, setSelectedMedia] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('');
-
-  const [isFilterApplied, setIsFilterApplied] = useState(false);
-  const [selectedCount, setSelectedCount] = useState<number>(0);
 
   const handleToggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
@@ -108,10 +107,10 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     }
   };
 
-  const handleSelect = (value: string, category?: 'view' | 'media' | 'status') => {
-    if (category === 'view') {
+  const handleSelect = (value: string, category?: 'orderBy' | 'mediaType' | 'status') => {
+    if (category === 'orderBy') {
       setSelectedView(value);
-    } else if (category === 'media') {
+    } else if (category === 'mediaType') {
       if (selectedMedia?.includes(value)) {
         setSelectedMedia(selectedMedia.filter(item => item !== value));
       } else {
@@ -142,11 +141,18 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     router.push(`${window.location.pathname}?${query.toString()}`);
   }, []);
 
-  const handleApply = (view: string, media: string[], status: string) => {
-    const count = (view ? 1 : 0) + media.length + (status ? 1 : 0);
+  const handleApply = (orderBy: string, mediaType: string[], status: string) => {
+    const count = (orderBy ? 1 : 0) + mediaType.length + (status ? 1 : 0);
     setSelectedCount(count);
     setIsFilterApplied(count > 0);
-    handleToggleDropdown();
+
+    const query = new URLSearchParams();
+    if (orderBy) query.append('orderBy', orderBy);
+    if (mediaType.length > 0) query.append('mediaType', mediaType.join(','));
+    if (status) query.append('status', status);
+
+    router.push(`${window.location.pathname}?${query.toString()}`);
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -159,7 +165,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
         >
           <p
             className={`font-normal text-[1.6rem] leading-[1.909rem]
-          ${isFilterApplied ? 'text-[#ffffff]' : 'text-gray-400'}`}
+          ${isFilterApplied ? 'text-primary-white' : 'text-gray-400'}`}
           >
             {getSelectedSortLabel()}
           </p>
