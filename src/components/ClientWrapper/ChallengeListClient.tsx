@@ -82,13 +82,17 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
               onCategoryChange={setCategory}
               onFilterApply={handleFilterChange}
             />
-            <button
-              onClick={handleRequestClick}
-              className="bg-primary-beige text-primary-white border rounded-[1.95rem] flex items-center gap-[0.8rem]"
-            >
-              <span className="text-[1.6rem] ml-[1.6rem]">Request a Challenge</span>
-              <Image src={plus} alt="plus" className="mr-[1.6rem]" />
-            </button>
+            {role === 'normal' ? (
+              <button
+                onClick={handleRequestClick}
+                className="bg-primary-beige text-primary-white border rounded-[1.95rem] flex items-center gap-[0.8rem]"
+              >
+                <span className="text-[1.6rem] ml-[1.6rem]">Request a Challenge</span>
+                <Image src={plus} alt="plus" className="mr-[1.6rem]" />
+              </button>
+            ) : (
+              ''
+            )}
           </div>
         </div>
         {mediumItems.length > 0 ? (
