@@ -1,25 +1,21 @@
+'use client';
+
 import Image from 'next/image';
 import { useState } from 'react';
-import filter from '@/../public/assets/ic_filter.png';
 import plus from '@/../public/assets/icon_plus_medium.png';
 import search from '@/../public/assets/icon_search.png';
+import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdown';
 
 export default function MyChallengeHeader() {
   const [activeTab, setActiveTab] = useState('participating');
   const [sortOption, setSortOption] = useState('Sort');
-  const [showSortOptions, setShowSortOptions] = useState(false);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
 
-  const handleOptionClick = () => {
-    setShowSortOptions(!showSortOptions);
-  };
-
   const handleSortSelect = (option: string) => {
     setSortOption(option);
-    setShowSortOptions(false);
   };
 
   return (
@@ -75,68 +71,12 @@ export default function MyChallengeHeader() {
         ) : (
           <div>
             <div className="flex gap-[2rem]">
-              <div
-                className="flex items-center h-[4rem] border border-gray-200 rounded-[0.8rem] py-[0.8rem] px-[1.2rem] gap-[1rem] justify-between w-[19rem] cursor-pointer"
-                onClick={handleOptionClick}
-              >
-                <p
-                  className={`font-normal text-[1.6rem] leading-[1.909rem] ${sortOption === 'Sort' ? 'text-gray-400' : 'text-gray-700'}`}
-                >
-                  {sortOption}
-                </p>
-                <Image src={filter} alt="깔때기" />
-              </div>
+              <ChallengeApplicationDropdown sortOption={sortOption} onSortSelect={handleSortSelect} />
               <div className="flex h-[4rem] items-center w-full border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
                 <Image src={search} alt="search" />
                 <input placeholder="Search Challenge" className="font-normal text-[1.6rem] leading-[1.909rem]" />
               </div>
             </div>
-            {showSortOptions && (
-              <div className="absolute bg-primary-white border border-gray-200 mt-[0.8rem] rounded-[0.8rem] w-[16.3rem]">
-                <div
-                  className="py-[1.2rem] px-[1.6rem] border-b border-gray-200 font-normal text-[1.6rem] leading-[1.909rem] cursor-pointer"
-                  onClick={() => handleSortSelect('Pending')}
-                >
-                  Pending
-                </div>
-                <div
-                  className="py-[1.2rem] px-[1.6rem] border-b border-gray-200 font-normal text-[1.6rem] leading-[1.909rem] cursor-pointer"
-                  onClick={() => handleSortSelect('Approved')}
-                >
-                  Approved
-                </div>
-                <div
-                  className="py-[1.2rem] px-[1.6rem] border-b border-gray-200 font-normal text-[1.6rem] leading-[1.909rem] cursor-pointer"
-                  onClick={() => handleSortSelect('Denied')}
-                >
-                  Denied
-                </div>
-                <div
-                  className="py-[1.2rem] px-[1.6rem] border-b border-gray-200 font-normal text-[1.6rem] leading-[1.909rem] cursor-pointer"
-                  onClick={() => handleSortSelect('Earliest First')}
-                >
-                  Earliest First
-                </div>
-                <div
-                  className="py-[1.2rem] px-[1.6rem] border-b border-gray-200 font-normal text-[1.6rem] leading-[1.909rem] cursor-pointer"
-                  onClick={() => handleSortSelect('Latest First')}
-                >
-                  Latest First
-                </div>
-                <div
-                  className="py-[1.2rem] px-[1.6rem] border-b border-gray-200 font-normal text-[1.6rem] leading-[1.909rem] cursor-pointer"
-                  onClick={() => handleSortSelect('Deadline Earliest')}
-                >
-                  Deadline Earliest
-                </div>
-                <div
-                  className="py-[1.2rem] px-[1.6rem] font-normal text-[1.6rem] leading-[1.909rem] cursor-pointer"
-                  onClick={() => handleSortSelect('Deadline Latest')}
-                >
-                  Deadline Latest
-                </div>
-              </div>
-            )}
           </div>
         )}
       </div>
