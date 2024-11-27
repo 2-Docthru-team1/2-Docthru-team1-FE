@@ -123,13 +123,12 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     toggleDropdown(!isDropdownOpen);
   };
 
+  const handleChnage = (e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       const currentKeyword = e.currentTarget.value;
       setKeyword(currentKeyword);
-      const queryString = new URLSearchParams({ keyword: currentKeyword }).toString();
-
-      router.push(`?${queryString}`);
     }
   };
 
@@ -150,7 +149,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
   };
 
   return (
-    <div>
+    <div className="relative">
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
         <div
           className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}
@@ -173,12 +172,12 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
             className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 placeholder:text-gray-400 flex items-center w-full focus:outline-none"
             placeholder="Search recipe"
             value={keyword}
-            onChange={e => setKeyword(e.target.value)}
+            onChange={handleChnage}
             onKeyDown={handleKeyDown}
           />
         </div>
       </div>
-      <div className="z-9999">
+      <div className="absolute top-100% left-0 z-1000">
         {isDropdownOpen && (
           <Dropdown
             isOpen={isDropdownOpen}
