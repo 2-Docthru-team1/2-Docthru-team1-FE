@@ -16,7 +16,8 @@ instance.interceptors.request.use(
       url: config.url,
       method: config.method,
       baseURL: config.baseURL,
-      data: config.data
+      data: config.data,
+      header: config.headers
     });
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('accessToken');
@@ -55,9 +56,7 @@ interface CustomAxiosRequestConfig {
 }
 
 export async function getRequest(url: string, params: object = {}) {
-  const config: CustomAxiosRequestConfig = {
-    params
-  };
+  const config: CustomAxiosRequestConfig = params;
   return instance.get(url, config);
 }
 export async function postRequest(url: string, body: object = {}) {

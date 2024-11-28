@@ -1,3 +1,4 @@
+import { headers } from 'next/headers';
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
 import { getRequest, patchRequest, postRequest } from './api';
 
@@ -94,9 +95,12 @@ export const fetchUpdateStatus = async (challengeId: string, newStatus: 'cancele
 
 export const fetchChallengeApplication = async () => {
   try {
-    const response = await getRequest('http://localhost:3000/ChallengeApplicationData.json');
+    console.log('123');
+    const response = await getRequest('/challenges/admin-requests');
+    console.log(response, 'AEWfwaefwaef');
     return response.data;
   } catch (error) {
+    console.log('error', error);
     throw new Error('Failed to get Challenge Application Data');
   }
 };

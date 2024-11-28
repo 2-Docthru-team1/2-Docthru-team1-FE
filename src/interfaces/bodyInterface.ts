@@ -1,5 +1,6 @@
 export interface ChallengeApplicationBodyProps {
-  data: ChallengeApplicationBodyData[];
+  totalCount: number;
+  list: ChallengeApplicationBodyData[];
 }
 
 export interface ChallengeApplicationBodyData {

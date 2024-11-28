@@ -1,14 +1,27 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchChallengeApplication } from '@/api/challengeService';
 import FilterBar from '@/components/FilterBar/FilterBar';
-import type { ChallengeApplicationBodyProps } from '@/interfaces/bodyInterface';
+import type { ChallengeApplicationBodyData, ChallengeApplicationBodyProps } from '@/interfaces/bodyInterface';
 import useStore from '@/store/store';
 import ChallengeApplicationBody from '../Body/ChallengeApplicationBody';
 import Pagination from '../Pagination/Pagination';
 
-export default function ChallengeMgmtClient({ data }: ChallengeApplicationBodyProps) {
+export default function ChallengeMgmtClient() {
+  const [challengeData, setChallengeData] = useState<ChallengeApplicationBodyProps>({ totalCount: 0, list: [] });
+
+  useEffect(() => {
+    const getChallengeData = async () => {
+      const ChallengeApplicationData = await fetchChallengeApplication();
+      console.log(ChallengeApplicationData, 'Challengaelkfj;awe');
+      setChallengeData(ChallengeApplicationData);
+    };
+    getChallengeData();
+  }, []);
+  console.log(challengeData);
+
   const router = useRouter();
 
   const { keyword, category, setKeyword, setCategory } = useStore();
@@ -26,9 +39,9 @@ export default function ChallengeMgmtClient({ data }: ChallengeApplicationBodyPr
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const mediumItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  // const mediumItems = challengeData.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(challengeData.totalCount / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -46,18 +59,16 @@ export default function ChallengeMgmtClient({ data }: ChallengeApplicationBodyPr
             onFilterApply={handleFilterChange}
           />
         </div>
-        <div className="mt-[2.4rem]">
-          <ChallengeApplicationBody data={mediumItems} />
-        </div>
+        <div className="mt-[2.4rem]">{/* <ChallengeApplicationBody data={challengeData} /> */}</div>
       </div>
       <div className="flex mt-[3.8rem]">
-        <Pagination
+        {/* <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
           onPageChange={handlePageChange}
           hasNext={currentPage < totalPages}
           type="default"
-        />
+        /> */}
       </div>
     </div>
   );
