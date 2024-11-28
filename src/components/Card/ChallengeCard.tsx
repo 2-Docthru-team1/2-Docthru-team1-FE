@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
 import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
@@ -14,7 +13,6 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
   if (!data) {
     return <div>로딩 중...</div>;
   }
-  const router = useRouter();
 
   const { id, title, deadline, status, mediaType, requestUser } = data;
 
@@ -44,7 +42,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
       const reason = role === 'admin' ? abortReason : '';
       await fetchUpdateStatus(id, newStatus, reason);
       setIsModalOpen(false);
-      router.refresh();
+      window.location.reload();
     } catch (error) {
       console.error('Failed to update challenge status:', error);
     }

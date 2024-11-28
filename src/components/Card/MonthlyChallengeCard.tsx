@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import crownIcon from '@/../public/assets/icon_crown.png';
 import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
@@ -15,8 +14,6 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
   if (!data) {
     return <div>로딩 중...</div>;
   }
-
-  const router = useRouter();
 
   const { id, title, mediaType, status, deadline } = data;
   const formattedDeadline = new Date(deadline).toISOString().split('T')[0];
@@ -45,7 +42,7 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
       const reason = abortReason;
       await fetchUpdateStatus(id, newStatus, reason);
       setIsModalOpen(false);
-      router.refresh();
+      window.location.reload();
     } catch (error) {
       console.error('Failed to update challenge status:', error);
     }
@@ -73,9 +70,9 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
               </div>
             </div>
             {role === 'admin' ? (
-              <div className="relative">
+              <div className="relative z-10">
                 <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
-                <div className="absolute right-[1rem] top-[2.5rem]">
+                <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
                   {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Abort</CancelDropdown>}
                 </div>
               </div>
