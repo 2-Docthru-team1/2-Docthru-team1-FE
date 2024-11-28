@@ -4,7 +4,7 @@ import https from 'https';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const instance = axios.create({
   baseURL: `${BASE_URL}`,
-  timeout: 30000,
+  timeout: 10000,
   httpsAgent: new https.Agent({
     rejectUnauthorized: false
   })
