@@ -169,7 +169,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
           />
         </div>
       </div>
-      <div className="">
+      <div>
         {isDropdownOpen && (
           <Dropdown
             isOpen={isDropdownOpen}
