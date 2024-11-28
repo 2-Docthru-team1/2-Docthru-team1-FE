@@ -15,7 +15,7 @@ const dropdownWidths = {
   admin: 'w-[16.3rem]'
 };
 
-export default function Dropdown({ isOpen, items, type, onApply, onClose }: DropdownProps) {
+export default function Dropdown({ isOpen, items, onSelect, type, onApply, onClose }: DropdownProps) {
   const { selectedView, selectedMedia, selectedStatus, setSelectedView, setSelectedMedia, setSelectedStatus } = useStore();
 
   const dropdownType = dropdownWidths[type] || '';
@@ -132,7 +132,7 @@ export default function Dropdown({ isOpen, items, type, onApply, onClose }: Drop
       return (items as Option[]).map((item, index) => (
         <p
           key={item.value}
-          onClick={() => handleSelect(item.value)}
+          onClick={() => onSelect(item.value)}
           className={`w-full py-[1.2rem] font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 items-center flex justify-center
           ${index < items.length - 1 ? 'border-b border-gray-300' : ''}`}
         >
