@@ -68,8 +68,6 @@ export default function ChallengeMgmtClient() {
     router.push(`?${params.toString()}`);
   };
 
-  const mediumItems = challengeApply?.list || [];
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
