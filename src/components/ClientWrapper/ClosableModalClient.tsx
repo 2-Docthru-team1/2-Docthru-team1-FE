@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import toggleDown from '@/../public/assets/ic_toggle_down.png';
-import ClosableModal from '@/components/ClosableModal/ClosableModal';
 import Dropdown from '@/components/Dropdown/Dropdown';
+import ClosableModal from '@/components/Modal/ClosableModal';
 
 const options = [
   { label: 'English (default)', value: 'english' },
