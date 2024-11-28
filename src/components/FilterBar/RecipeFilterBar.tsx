@@ -26,31 +26,26 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setIsDropdownOpen(false);
-        setIsFilterApplied(false);
-        setSelectedOption(null);
-        onFilterApply('');
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
+  // // useEffect(() => {
+  // //   const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+  // //     if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+  // //       setIsDropdownOpen(false);
+  // //       // setIsFilterApplied(false);
+  // //       // setSelectedOption(null);
+  // //       // onFilterApply('');
+  // //     }
+  // //   };
 
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-    };
-  }, [dropdownRef]);
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   document.addEventListener('touchstart', handleClickOutside);
+
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //     document.removeEventListener('touchstart', handleClickOutside);
+  //   };
+  // }, [dropdownRef]);
 
   const handleChnage = (e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      setKeyword(selectedOption?.value || '');
-    }
-  };
 
   const handleToggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
@@ -92,7 +87,6 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
             placeholder="Search recipe"
             value={keyword}
             onChange={handleChnage}
-            onKeyDown={handleKeyDown}
           />
         </div>
       </div>
