@@ -93,11 +93,10 @@ export const fetchUpdateStatus = async (challengeId: string, newStatus: 'cancele
   }
 };
 
-export const fetchChallengeApplication = async () => {
+export const fetchChallengeApplication = async (page: string, pageSize: number = 10) => {
   try {
     console.log('123');
-    const response = await getRequest('/challenges/admin-requests');
-    console.log(response, 'AEWfwaefwaef');
+    const response = await getRequest(`/challenges/admin-requests?page=${page}&pageSize=${pageSize}`);
     return response.data;
   } catch (error) {
     console.log('error', error);

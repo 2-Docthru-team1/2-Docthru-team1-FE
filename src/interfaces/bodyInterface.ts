@@ -1,4 +1,4 @@
-export interface ChallengeApplicationBodyProps {
+export interface ChallengeApplicationClientProps {
   totalCount: number;
   list: ChallengeApplicationBodyData[];
 }
@@ -10,4 +10,8 @@ export interface ChallengeApplicationBodyData {
   updatedAt: string;
   deadline: string;
   status: 'pending' | 'finished' | 'denied' | 'onGoing' | 'canceled' | 'aborted';
+}
+
+export interface ChallengeApplicationBodyProps {
+  data: ChallengeApplicationBodyData[];
 }

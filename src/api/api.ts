@@ -16,8 +16,7 @@ instance.interceptors.request.use(
       url: config.url,
       method: config.method,
       baseURL: config.baseURL,
-      data: config.data,
-      header: config.headers
+      data: config.data
     });
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('accessToken');
