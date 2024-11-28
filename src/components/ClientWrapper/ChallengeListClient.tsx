@@ -16,8 +16,7 @@ import Pagination from '../Pagination/Pagination';
 
 export default function ChallengeListClient({ adminchallengeData, challengeData, rankerData }: ChallengeListClientProps) {
   const router = useRouter();
-  const { id, role, category, setCategory, keyword, setKeyword } = useStore();
-
+  const { id, role, keyword, setKeyword } = useStore();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
@@ -35,10 +34,11 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
   const totalPages = Math.ceil(medium.length / itemsPerPage);
 
   useEffect(() => {
-    if (isFilterApplied) {
+    if (isFilterApplied || keyword) {
       const fetchFilteredData = async () => {
         try {
-          const queryParams = createQueryParams(orderBy, mediaType, status);
+          const queryParams = createQueryParams(orderBy, mediaType, status, keyword);
+          console.log(queryParams);
           const filteredData = await fetchChallenge(queryParams);
           setMedium(filteredData.list);
         } catch (error) {
@@ -48,12 +48,13 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
 
       fetchFilteredData();
     }
-  }, [isFilterApplied, orderBy, mediaType, status]);
+  }, [isFilterApplied, orderBy, mediaType, status, keyword]);
 
-  const createQueryParams = (orderBy: string, mediaType: string[], status: string): string => {
+  const createQueryParams = (orderBy: string, mediaType: string[], status: string, keyword: string): string => {
     const params: string[] = [];
     if (orderBy) params.push(`orderBy=${orderBy}`);
     if (status) params.push(`status=${status}`);
+    if (keyword) params.push(`keyword=${keyword}`);
     mediaType.forEach(type => params.push(`mediaType=${type}`));
     return `?${params.join('&')}`;
   };
@@ -113,12 +114,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
         <div className="flex justify-between items-center mt-[4rem] mb-[2.4rem]">
           <p className="font-semibold text-[2rem] leading-[2.387rem text-gray-800">Challenge List</p>
           <div className="flex gap-[2rem]">
-            <FilterBar
-              type="challenge"
-              onKeywordChange={setKeyword}
-              onCategoryChange={setCategory}
-              onFilterApply={handleFilterChange}
-            />
+            <FilterBar type="challenge" onKeywordChange={setKeyword} onFilterApply={handleFilterChange} />
             {role === 'normal' ? (
               <button
                 onClick={handleRequestClick}

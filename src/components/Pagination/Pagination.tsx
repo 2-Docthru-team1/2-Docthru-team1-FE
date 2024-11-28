@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useEffect } from 'react';
 import arrowActLeft from '@/../public/assets/icon_arrow_act_left_large.png';
 import arrowActRight from '@/../public/assets/icon_arrow_act_right_large.png';
 import arrowInActLeft from '@/../public/assets/icon_arrow_inact_left_large.png';
