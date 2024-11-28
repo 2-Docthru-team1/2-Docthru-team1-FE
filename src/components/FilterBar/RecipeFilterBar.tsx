@@ -2,9 +2,9 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import reset from '@/../public/assets/btn_reset.png';
 import filter from '@/../public/assets/ic_filter.png';
 import activeFilter from '@/../public/assets/icon_filter_active.png';
+import reset from '@/../public/assets/icon_reset.png';
 import search from '@/../public/assets/icon_search.png';
 import type { Option, RecipeFilterBarProps } from '@/interfaces/filterBarInterface';
 import useStore from '@/store/store';
@@ -27,8 +27,6 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const handleChnage = (e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value);
-
   const handleToggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
   };
@@ -48,6 +46,18 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
     setIsFilterApplied(false);
     setSelectedOption(null);
     onFilterApply('');
+    setKeyword('');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const currentKeyword = e.currentTarget.value.trim();
+      setKeyword(currentKeyword || '');
+      if (!currentKeyword) {
+        setKeyword('');
+        return;
+      }
+    }
   };
 
   return (
@@ -79,8 +89,7 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
           <input
             className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 placeholder:text-gray-400 flex items-center w-full focus:outline-none"
             placeholder="Search recipe"
-            value={keyword}
-            onChange={handleChnage}
+            onKeyDown={handleKeyDown}
           />
         </div>
       </div>
