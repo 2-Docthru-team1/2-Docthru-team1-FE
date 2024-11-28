@@ -55,9 +55,7 @@ interface CustomAxiosRequestConfig {
 }
 
 export async function getRequest(url: string, params: object = {}) {
-  const config: CustomAxiosRequestConfig = {
-    params
-  };
+  const config: CustomAxiosRequestConfig = params;
   return instance.get(url, config);
 }
 export async function postRequest(url: string, body: object = {}) {

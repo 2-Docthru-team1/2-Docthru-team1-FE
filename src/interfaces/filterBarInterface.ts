@@ -1,7 +1,6 @@
 export interface FilterBarProps {
-  type: 'recipe' | 'admin' | 'challenge';
+  type: 'admin' | 'challenge';
   onKeywordChange: (value: string) => void;
-  onCategoryChange: (value: string) => void;
   onFilterApply: (orderBy: string, mediaType: string[], status: string) => void;
 }
 

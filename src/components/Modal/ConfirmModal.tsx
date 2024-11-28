@@ -4,7 +4,7 @@ import type { ConfirmModalProps } from '@/interfaces/modalInterface';
 
 export default function ConfirmModal({ onCancel, onDelete }: ConfirmModalProps) {
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-10">
+    <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-30">
       <div className="flex fixed max-w-[29.8rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center items-center w-full rounded-[1.2rem] p-[2.4rem] bg-primary-white gap-[1.5rem] z-11">
         <div className="flex-col justify-center items-center mb-[1.5rem]">
           <div className="flex justify-center mb-[1.5rem]">
