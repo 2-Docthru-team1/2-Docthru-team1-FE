@@ -44,7 +44,6 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
     };
   }, [dropdownRef]);
 
-  // 레시피 검색
   const handleChnage = (e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -53,7 +52,6 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
     }
   };
 
-  // 레시피 정렬
   const handleToggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
   };
