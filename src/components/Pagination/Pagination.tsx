@@ -16,7 +16,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange, hasN
   }
 
   return (
-    <div className="flex gap-[1.2rem] items-center mb-[7rem]">
+    <div className="flex gap-[1.2rem] items-center">
       {type === 'default' ? (
         <>
           <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
