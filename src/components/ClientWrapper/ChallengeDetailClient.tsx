@@ -64,7 +64,8 @@ export default function ChallengeDetailClient() {
               requestUser: {
                 id: medium.requestUser.id,
                 name: medium.requestUser.name
-              }
+              },
+              deadline: medium.deadline
             }}
           />
         </div>
