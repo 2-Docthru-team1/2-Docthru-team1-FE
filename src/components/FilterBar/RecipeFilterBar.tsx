@@ -27,6 +27,10 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    setKeyword('');
+  }, []);
+
   const handleToggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
   };
