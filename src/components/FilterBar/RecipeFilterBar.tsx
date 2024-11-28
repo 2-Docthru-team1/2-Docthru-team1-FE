@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import filter from '@/../public/assets/ic_filter.png';
 import activeFilter from '@/../public/assets/icon_filter_active.png';
+import reset from '@/../public/assets/icon_reset.png';
 import search from '@/../public/assets/icon_search.png';
 import type { Option, RecipeFilterBarProps } from '@/interfaces/filterBarInterface';
 import useStore from '@/store/store';
@@ -27,30 +28,8 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setIsDropdownOpen(false);
-        setIsFilterApplied(false);
-        setSelectedOption(null);
-        onFilterApply('');
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-    };
-  }, [dropdownRef]);
-
-  const handleChnage = (e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      setKeyword(selectedOption?.value || '');
-    }
-  };
+    setKeyword('');
+  }, []);
 
   const handleToggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
@@ -67,11 +46,35 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
     return selectedOption ? selectedOption.label : 'Sort';
   };
 
+  const handleReset = () => {
+    setIsFilterApplied(false);
+    setSelectedOption(null);
+    onFilterApply('');
+    setKeyword('');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const currentKeyword = e.currentTarget.value.trim();
+      setKeyword(currentKeyword || '');
+      if (!currentKeyword) {
+        setKeyword('');
+        return;
+      }
+    }
+  };
+
   return (
     <div className="relative">
-      <div className={`h-[4rem] justify-between items-center flex w-[69.6rem]`}>
+      <div className={`h-[4rem] justify-between items-center flex w-[73.6rem] `}>
         <div
-          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] w-[15.1rem]
+          className=" border border-gray-200  px-[1.2rem] py-[0.8rem] rounded-[0.8rem] bg-primary-white cursor-pointer"
+          onClick={handleReset}
+        >
+          <Image src={reset} alt="리셋 이미지" width={24} height={24} />
+        </div>
+        <div
+          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] w-[15.1rem] cursor-pointer
             ${isFilterApplied ? 'bg-gray-700' : 'bg-primary-white'}`}
           onClick={handleToggleDropdown}
         >
@@ -90,8 +93,6 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
           <input
             className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 placeholder:text-gray-400 flex items-center w-full focus:outline-none"
             placeholder="Search recipe"
-            value={keyword}
-            onChange={handleChnage}
             onKeyDown={handleKeyDown}
           />
         </div>

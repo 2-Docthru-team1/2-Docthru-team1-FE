@@ -1,5 +1,6 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios';
 import https from 'https';
+import useStore from '@/store/store';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const instance = axios.create({
@@ -37,13 +38,21 @@ instance.interceptors.response.use(
     console.error('Response error:', err);
     const request = err.config;
     if (err.response?.status === 401 && !request._retry) {
+      const refreshInstance = axios.create({
+        baseURL: `${BASE_URL}`,
+        withCredentials: true
+      });
       const refreshToken = localStorage.getItem('refreshToken');
       if (refreshToken) {
-        await instance.post('/auth/refresh', { refreshToken });
+        const response = await refreshInstance.post('/auth/refresh');
+        const newAccessToken = response.data.accessToken;
+        localStorage.setItem('accessToken', newAccessToken);
         request._retry = true;
         return instance(request);
       } else {
-        window.location.href = '/signIn';
+        const { logout } = useStore.getState();
+        logout();
+        window.location.href = '/';
       }
     }
     return Promise.reject(err);

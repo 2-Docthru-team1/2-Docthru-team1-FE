@@ -18,6 +18,7 @@ import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 export default function WorkCard({ data, user }: WorkDataProps) {
   if (!data) return null;
   const router = useRouter();
+
   enum ImgOrder {
     first = 0,
     second = 1

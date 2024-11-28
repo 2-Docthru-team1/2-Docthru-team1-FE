@@ -14,7 +14,7 @@ import WorkInput from '../Input/WorkInput';
 
 export default function WorkDetailClient() {
   const { workId } = useParams();
-  const workIdParam = workId as string;
+  const workIdParam = String(workId);
 
   const {
     data: work,
