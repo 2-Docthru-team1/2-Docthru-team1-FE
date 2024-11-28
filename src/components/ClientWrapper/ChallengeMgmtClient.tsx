@@ -59,12 +59,8 @@ export default function ChallengeMgmtClient() {
     );
   }
 
-  const handleFilterChange = () => {
-    const params = new URLSearchParams();
-    if (keyword) params.set('keyword', keyword);
-    if (category) params.set('category', category);
-
-    router.push(`?${params.toString()}`);
+  const handleFilterChange = (category: string) => {
+    setCategory(category);
   };
 
   const handlePageChange = (page: number) => {
@@ -76,12 +72,7 @@ export default function ChallengeMgmtClient() {
       <div className="w-[99.6rem]">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">Manage Challenge Application</p>
         <div className="mt-[4rem]">
-          <FilterBar
-            type="admin"
-            onKeywordChange={setKeyword}
-            onCategoryChange={setCategory}
-            onFilterApply={handleFilterChange}
-          />
+          <FilterBar type="admin" onKeywordChange={setKeyword} onFilterApply={handleFilterChange} />
         </div>
         <div className="mt-[2.4rem]">
           <ChallengeApplicationBody data={challengeApply?.list || []} />

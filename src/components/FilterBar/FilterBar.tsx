@@ -7,6 +7,7 @@ import activeFilter from '@/../public/assets/icon_filter_active.png';
 import search from '@/../public/assets/icon_search.png';
 import type { ChallengeOption, FilterBarProps, Option } from '@/interfaces/filterBarInterface';
 import useStore from '@/store/store';
+import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdown';
 import Dropdown from '../Dropdown/Dropdown';
 
 const filterBarWidths = {
@@ -82,15 +83,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     if (isFilterApplied) {
       return `Filtered (${selectedCount})`;
     }
-
-    if (type === 'challenge') {
-      const flattenedOptions = Object.values(options[0]).flat();
-      const selectedOption = flattenedOptions.find((option: Option) => option.value === selectedSort);
-      return selectedOption ? selectedOption.label : 'Sort';
-    } else {
-      const selectedOption = (options as Option[]).find(option => option.value === selectedSort);
-      return selectedOption ? selectedOption.label : 'Sort';
-    }
+    return selectedSort || 'Sort';
   };
 
   const handleSelect = (value: string, category?: 'orderBy' | 'mediaType' | 'status') => {
@@ -132,6 +125,11 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     toggleDropdown(false);
   };
 
+  const handleSortSelect = (option: string) => {
+    setSelectedSort(option); // 선택된 옵션 저장
+    onFilterApply(option, selectedMedia, selectedStatus); // 필터 적용
+  };
+
   return (
     <div className="z-20">
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
@@ -160,7 +158,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
         </div>
       </div>
       <div>
-        {isDropdownOpen && (
+        {isDropdownOpen && type === 'challenge' && (
           <Dropdown
             isOpen={isDropdownOpen}
             items={options}
@@ -169,6 +167,9 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
             onApply={handleApply}
             onClose={handleToggleDropdown}
           />
+        )}
+        {isDropdownOpen && type === 'admin' && (
+          <ChallengeApplicationDropdown type="admin" sortOption={selectedSort || 'Sort'} onSortSelect={handleSortSelect} />
         )}
       </div>
     </div>
