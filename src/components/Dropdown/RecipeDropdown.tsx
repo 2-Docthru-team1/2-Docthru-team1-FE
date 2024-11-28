@@ -5,7 +5,7 @@ import useStore from '@/store/store';
 export default function Dropdown({ items, onApply }: RecipeDropdownProps) {
   return (
     <div className={`absolute w-[15.1rem] mt-[0.8rem]`}>
-      <div className="flex items-center justify-center flex-col rounded-[0.8rem] bg-[#ffffff] border border-gray-300">
+      <div className="flex items-center justify-center flex-col rounded-[0.8rem] bg-[#ffffff] border border-gray-300 cursor-pointer">
         {items.map((item, index) => (
           <p
             key={item.value}
