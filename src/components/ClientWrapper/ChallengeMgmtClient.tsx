@@ -15,7 +15,6 @@ import Pagination from '../Pagination/Pagination';
 export default function ChallengeMgmtClient() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [challengeData, setChallengeData] = useState<ChallengeApplicationClientProps>({ totalCount: 0, list: [] });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
