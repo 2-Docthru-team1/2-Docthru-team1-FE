@@ -1,4 +1,3 @@
-import { fetchMenu } from '@/api/recipeService';
 import RecipeListClient from '@/components/ClientWrapper/RecipeListClient';
 
 export default async function RecipePage() {
@@ -8,11 +7,9 @@ export default async function RecipePage() {
     return DUMMY;
   }
 
-  const initialData = await fetchMenu();
-
   return (
     <div>
-      <RecipeListClient initialData={initialData.data} />
+      <RecipeListClient />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import crown from '@/../public/assets/icon_crown_small.png';
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
@@ -12,7 +11,6 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
 
   const currentItems = list.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const totalPages = Math.ceil(totalCount / itemsPerPage);
-  const router = useRouter();
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -21,10 +19,6 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
   const formatRank = (rank: number) => {
     if (isNaN(rank)) return '--';
     return rank < 10 ? `0${rank}` : `${rank}`;
-  };
-
-  const handleClick = (workId: string) => {
-    router.push(`/works/${workId}`);
   };
 
   return (
@@ -46,11 +40,7 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
             console.error('Rank is NaN:', { index, currentPage, itemsPerPage });
           }
           return (
-            <div
-              key={participant.id}
-              className="flex flex-col gap-[2rem] cursor-pointer"
-              onClick={() => handleClick(currentItems[0].id)}
-            >
+            <div key={participant.id} className="flex flex-col gap-[2rem] cursor-pointer">
               <div className="inline-flex items-center gap-[2rem]">
                 {rank === 1 ? (
                   <div className="flex justify-center flex-col mt-[2rem] w-[27.8rem]">

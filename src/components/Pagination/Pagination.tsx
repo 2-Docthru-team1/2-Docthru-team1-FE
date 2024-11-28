@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useEffect } from 'react';
 import arrowActLeft from '@/../public/assets/icon_arrow_act_left_large.png';
 import arrowActRight from '@/../public/assets/icon_arrow_act_right_large.png';
 import arrowInActLeft from '@/../public/assets/icon_arrow_inact_left_large.png';
@@ -15,7 +16,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange, hasN
   }
 
   return (
-    <div className="flex gap-[1.2rem] items-center">
+    <div className="flex gap-[1.2rem] items-center mb-[7rem]">
       {type === 'default' ? (
         <>
           <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>

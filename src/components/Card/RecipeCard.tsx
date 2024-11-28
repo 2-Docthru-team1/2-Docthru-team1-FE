@@ -16,7 +16,7 @@ export default function RecipeCard({ data }: RecipeCardProps) {
   }
 
   return (
-    <div className="w-[27.8rem] flex flex-col border border-gray-100 bg-primary-white">
+    <div className="w-[27.8rem] h-[35rem] flex flex-col border border-gray-100 bg-primary-white">
       <div className="relative w-full h-[16.7rem]">
         <Image src={food} alt="음식 이미지" layout="fill" objectFit="cover" />
         {/* {data.images[0] ? <Image src={data.images[0]} alt="음식 이미지" layout="fill" objectFit="cover" /> : null} */}

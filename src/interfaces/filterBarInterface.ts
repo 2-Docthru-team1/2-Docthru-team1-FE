@@ -15,3 +15,7 @@ export interface ChallengeOption {
   mediaType: Option[];
   status: Option[];
 }
+
+export interface RecipeFilterBarProps {
+  onFilterApply: (category: string) => void;
+}

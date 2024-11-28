@@ -31,6 +31,7 @@ export interface ChallengeParticipantStatusProps {
 }
 
 export interface ChallengeParticipantStatusData {
+  id: string;
   title: string;
   feedbackCount: number;
   likeCount: number;
