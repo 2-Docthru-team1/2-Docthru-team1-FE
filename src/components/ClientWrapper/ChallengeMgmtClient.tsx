@@ -11,14 +11,21 @@ import Pagination from '../Pagination/Pagination';
 
 export default function ChallengeMgmtClient() {
   const [challengeData, setChallengeData] = useState<ChallengeApplicationClientProps>({ totalCount: 0, list: [] });
+  const [currentPage, setCurrentPage] = useState(2);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const getChallengeData = async () => {
-      const ChallengeApplicationData = await fetchChallengeApplication('2', 10);
+      const ChallengeApplicationData = await fetchChallengeApplication(String(currentPage), itemsPerPage);
+      console.log(ChallengeApplicationData);
       setChallengeData(ChallengeApplicationData);
     };
+
     getChallengeData();
-  }, []);
+  }, [currentPage]);
+
+  // console.log(challengeData);
+
   const router = useRouter();
 
   const { keyword, category, setKeyword, setCategory } = useStore();
@@ -31,13 +38,7 @@ export default function ChallengeMgmtClient() {
     router.push(`?${params.toString()}`);
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const mediumItems = challengeData.list.slice(indexOfFirstItem, indexOfLastItem);
-
+  const mediumItems = challengeData.list;
   const totalPages = Math.ceil(challengeData.totalCount / itemsPerPage);
 
   const handlePageChange = (page: number) => {
