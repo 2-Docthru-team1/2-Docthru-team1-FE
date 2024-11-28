@@ -65,6 +65,7 @@ const useStore = create<StoreState>(set => ({
       localStorage.removeItem('userId');
       localStorage.removeItem('role');
       localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
     }
   },
 

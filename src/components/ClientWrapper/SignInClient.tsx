@@ -23,6 +23,7 @@ export default function SignIn() {
       const credentials = { email, password };
       const res = await signIn(credentials);
       localStorage.setItem('accessToken', res.accessToken);
+      localStorage.setItem('refreshToken', res.refreshToken);
       router.push('/recipeList');
       const { login } = useStore.getState();
       login(res.id, res.role);
