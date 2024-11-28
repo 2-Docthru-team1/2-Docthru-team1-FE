@@ -126,15 +126,16 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
   };
 
   const handleSortSelect = (option: string) => {
-    setSelectedSort(option); // 선택된 옵션 저장
-    onFilterApply(option, selectedMedia, selectedStatus); // 필터 적용
+    setSelectedSort(option);
+    onFilterApply(option, selectedMedia, selectedStatus);
+    setIsDropdownOpen(false);
   };
 
   return (
     <div className="z-20">
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
         <div
-          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}
+          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] cursor-pointer ${sortBarType}
             ${isFilterApplied ? 'bg-gray-700' : 'bg-primary-white'}`}
           onClick={handleToggleDropdown}
         >
