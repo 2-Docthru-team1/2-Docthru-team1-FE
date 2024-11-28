@@ -4,6 +4,7 @@ import { useState } from 'react';
 import crownIcon from '@/../public/assets/icon_crown.png';
 import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
 import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
+import { fetchUpdateStatus } from '@/api/challengeService';
 import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';
 import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
@@ -17,7 +18,7 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
 
   const router = useRouter();
 
-  const { title, mediaType, status, deadline } = data;
+  const { id, title, mediaType, status, deadline } = data;
   const formattedDeadline = new Date(deadline).toISOString().split('T')[0];
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -43,7 +44,7 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
     try {
       const newStatus = 'aborted';
       const reason = abortReason;
-      // await fetchUpdateStatus(id, newStatus, reason);
+      await fetchUpdateStatus(id, newStatus, reason);
       setIsModalOpen(false);
       router.refresh();
     } catch (error) {

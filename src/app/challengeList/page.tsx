@@ -1,4 +1,4 @@
-import { fetchAdminChallenge, fetchChallenge, fetchRanker, getFilteredChallenges } from '@/api/challengeService';
+import { fetchAdminChallenge, fetchChallenge, fetchRanker } from '@/api/challengeService';
 import ChallengeListClient from '@/components/ClientWrapper/ChallengeListClient';
 
 export default async function ChallengeListPage() {
@@ -7,30 +7,6 @@ export default async function ChallengeListPage() {
   if (process.env.NODE_ENV === 'production') {
     return DUMMY;
   }
-
-  const adminchallengeData = [
-    {
-      id: '1',
-      title: 'Mastering Kimchi Making',
-      mediaType: 'youtube' as 'youtube',
-      status: 'onGoing' as 'onGoing',
-      deadline: '2024-12-10T23:59:59.000Z'
-    },
-    {
-      id: '2',
-      title: '5 Days of Korean Vegan Recipes',
-      mediaType: 'blog' as 'blog',
-      status: 'finished' as 'finished',
-      deadline: '2024-11-18T23:59:59.000Z'
-    },
-    {
-      id: '3',
-      title: 'Quick Korean BBQ Tips',
-      mediaType: 'socialMedia' as 'socialMedia',
-      status: 'onGoing' as 'onGoing',
-      deadline: '2024-11-28T23:59:59.000Z'
-    }
-  ];
 
   const rankerData = [
     {
@@ -56,8 +32,11 @@ export default async function ChallengeListPage() {
     }
   ];
 
-  // const adminchallengeData = await fetchAdminChallenge();
-  const { list, totalCount } = await getFilteredChallenges();
+  const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
+  const queryParams = `?monthly=${currentMonth}`;
+
+  const adminchallengeData = await fetchAdminChallenge(queryParams);
+  const { list, totalCount } = await fetchChallenge();
   // const rankerData = await fetchRanker();
 
   const Data = {
