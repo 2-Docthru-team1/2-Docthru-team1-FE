@@ -2,7 +2,7 @@ export interface FilterBarProps {
   type: 'recipe' | 'admin' | 'challenge';
   onKeywordChange: (value: string) => void;
   onCategoryChange: (value: string) => void;
-  onFilterApply: () => void;
+  onFilterApply: (orderBy: string, mediaType: string[], status: string) => void;
 }
 
 export interface Option {
@@ -11,7 +11,7 @@ export interface Option {
 }
 
 export interface ChallengeOption {
-  view: Option[];
-  media: Option[];
+  orderBy: Option[];
+  mediaType: Option[];
   status: Option[];
 }

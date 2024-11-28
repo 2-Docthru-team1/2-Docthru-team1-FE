@@ -1,9 +1,9 @@
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
 import { getRequest, patchRequest, postRequest } from './api';
 
-export const fetchChallenge = async () => {
+export const fetchChallenge = async (queryParams: string = '') => {
   try {
-    const response = await getRequest('/challenges');
+    const response = await getRequest(`/challenges${queryParams}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get challenge');

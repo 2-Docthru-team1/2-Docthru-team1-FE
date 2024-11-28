@@ -10,7 +10,7 @@ export interface DropdownProps {
   onClose: () => void;
 }
 
-export type CategoryType = 'view' | 'media' | 'status';
+export type CategoryType = 'orderBy' | 'mediaType' | 'status';
 
 export type OnSelectFunction = (value: string, category?: CategoryType) => void;
 

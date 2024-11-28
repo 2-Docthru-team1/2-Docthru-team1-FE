@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import filter from '@/../public/assets/ic_filter.png';
 import activeFilter from '@/../public/assets/icon_filter_active.png';
@@ -40,21 +39,21 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
   ],
   challenge: [
     {
-      view: [
+      orderBy: [
         { label: 'Earliest First', value: 'earliestFirst' },
         { label: 'Latest First', value: 'latestFirst' },
         { label: 'Deadline Earliest', value: 'deadlineEarliest' },
         { label: 'Deadline Latest', value: 'deadlineLatest' }
       ],
-      media: [
+      mediaType: [
         { label: 'Youtube', value: 'youtube' },
         { label: 'Blog', value: 'blog' },
-        { label: 'Recipe Web', value: 'recipe web' },
-        { label: 'Social Media', value: 'social media' }
+        { label: 'Recipe Web', value: 'recipeWeb' },
+        { label: 'Social Media', value: 'socialMedia' }
       ],
       status: [
-        { label: 'On going', value: 'ongoing' },
-        { label: 'Closed', value: 'closed' }
+        { label: 'On going', value: 'onGoing' },
+        { label: 'Closed', value: 'finished' }
       ]
     }
   ],
@@ -70,7 +69,6 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
 };
 
 export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
-  const router = useRouter();
   const { keyword, category, setKeyword, setCategory, toggleDropdown } = useStore();
 
   const filterBarType = filterBarWidths[type] || '';
@@ -78,15 +76,14 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
   const searchBarType = searchBarWidths[type] || '';
   const options = optionsByType[type] || [];
 
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
+  const [selectedCount, setSelectedCount] = useState<number>(0);
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [selectedView, setSelectedView] = useState<string>('');
   const [selectedMedia, setSelectedMedia] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('');
-
-  const [isFilterApplied, setIsFilterApplied] = useState(false);
-  const [selectedCount, setSelectedCount] = useState<number>(0);
 
   const handleToggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
@@ -108,10 +105,10 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     }
   };
 
-  const handleSelect = (value: string, category?: 'view' | 'media' | 'status') => {
-    if (category === 'view') {
+  const handleSelect = (value: string, category?: 'orderBy' | 'mediaType' | 'status') => {
+    if (category === 'orderBy') {
       setSelectedView(value);
-    } else if (category === 'media') {
+    } else if (category === 'mediaType') {
       if (selectedMedia?.includes(value)) {
         setSelectedMedia(selectedMedia.filter(item => item !== value));
       } else {
@@ -127,30 +124,24 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     if (e.key === 'Enter') {
       const currentKeyword = e.currentTarget.value;
       setKeyword(currentKeyword);
-      const queryString = new URLSearchParams({ keyword: currentKeyword }).toString();
-
-      router.push(`?${queryString}`);
     }
   };
 
   useEffect(() => {
     setKeyword('');
-
-    const query = new URLSearchParams(window.location.search);
-    query.delete('keyword');
-    query.delete('category');
-    router.push(`${window.location.pathname}?${query.toString()}`);
   }, []);
 
-  const handleApply = (view: string, media: string[], status: string) => {
-    const count = (view ? 1 : 0) + media.length + (status ? 1 : 0);
+  const handleApply = (orderBy: string, mediaType: string[], status: string) => {
+    const count = (orderBy ? 1 : 0) + mediaType.length + (status ? 1 : 0);
     setSelectedCount(count);
     setIsFilterApplied(count > 0);
-    handleToggleDropdown();
+
+    onFilterApply(orderBy, mediaType, status);
+    toggleDropdown(false);
   };
 
   return (
-    <div>
+    <div className="z-20">
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
         <div
           className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}
@@ -159,7 +150,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
         >
           <p
             className={`font-normal text-[1.6rem] leading-[1.909rem]
-          ${isFilterApplied ? 'text-[#ffffff]' : 'text-gray-400'}`}
+          ${isFilterApplied ? 'text-primary-white' : 'text-gray-400'}`}
           >
             {getSelectedSortLabel()}
           </p>
@@ -178,7 +169,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
           />
         </div>
       </div>
-      <div className="z-9999">
+      <div>
         {isDropdownOpen && (
           <Dropdown
             isOpen={isDropdownOpen}

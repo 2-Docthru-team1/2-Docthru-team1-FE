@@ -77,7 +77,7 @@ export interface MonthlyChallengeData {
   id: string;
   title: string;
   mediaType: 'youtube' | 'blog' | 'socialMedia' | 'recipeWeb';
-  status: 'onGoing' | 'finished'; // NOTE | 'aborted' 아마 필요 없겠지만, 참고.
+  status: 'onGoing' | 'finished';
   deadline: string;
 }
 

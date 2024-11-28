@@ -69,7 +69,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
               <ChipCard type={status} />
             </div>
             {role === 'admin' || userId === requestUser.id ? (
-              <div className="relative">
+              <div className="relative z-10">
                 <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
                 <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
                   {dropdownOpen && (
