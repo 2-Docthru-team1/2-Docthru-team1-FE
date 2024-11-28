@@ -10,33 +10,21 @@ import useStore from '@/store/store';
 import Dropdown from '../Dropdown/Dropdown';
 
 const filterBarWidths = {
-  recipe: 'w-[69.6rem]',
   challenge: 'w-[69.6rem]',
   admin: 'w-[99.2rem]'
 };
 
 const sortBarWidths = {
-  recipe: 'w-[15.1rem]',
   challenge: 'w-[14rem]',
   admin: 'w-[18.1rem]'
 };
 
 const searchBarWidths = {
-  recipe: 'w-[52.5rem]',
   challenge: 'w-[53.5rem]',
   admin: 'w-[80.1rem]'
 };
 
 const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
-  recipe: [
-    { label: 'Like Highest', value: 'like highest' },
-    { label: 'Like Lowest', value: 'like lowest' },
-    { label: 'School Food', value: 'Boonsik' },
-    { label: 'Traditional', value: 'Traditional' },
-    { label: 'Noodle', value: 'Noodle' },
-    { label: 'Dessert', value: 'Dessert' },
-    { label: 'BanChan', value: 'BanChan' }
-  ],
   challenge: [
     {
       orderBy: [
@@ -69,7 +57,7 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
 };
 
 export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
-  const { keyword, category, setKeyword, setCategory, toggleDropdown } = useStore();
+  const { keyword, setKeyword, toggleDropdown } = useStore();
 
   const filterBarType = filterBarWidths[type] || '';
   const sortBarType = sortBarWidths[type] || '';

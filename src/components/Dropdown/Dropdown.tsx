@@ -11,7 +11,6 @@ import useStore from '@/store/store';
 
 const dropdownWidths = {
   language: 'w-[44.8rem]',
-  recipe: 'w-[15.1rem]',
   challenge: 'w-[34.3rem]',
   admin: 'w-[16.3rem]'
 };

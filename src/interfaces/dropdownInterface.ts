@@ -4,7 +4,7 @@ import type { ChallengeOption, Option } from './filterBarInterface';
 export interface DropdownProps {
   isOpen: boolean;
   items: Option[] | ChallengeOption[];
-  type: 'language' | 'recipe' | 'admin' | 'challenge';
+  type: 'language' | 'admin' | 'challenge';
   onSelect: OnSelectFunction;
   onApply: (view: string, media: string[], status: string) => void;
   onClose: () => void;
