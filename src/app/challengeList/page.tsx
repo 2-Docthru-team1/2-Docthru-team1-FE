@@ -33,9 +33,9 @@ export default async function ChallengeListPage() {
   ];
 
   const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
-  const queryParams = `?monthly=${currentMonth}`;
+  const monthParams = `?monthly=${currentMonth}`;
 
-  const adminchallengeData = await fetchAdminChallenge(queryParams);
+  const adminchallengeData = await fetchAdminChallenge(monthParams);
   const { list, totalCount } = await fetchChallenge();
   // const rankerData = await fetchRanker();
 

@@ -90,7 +90,15 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
           </div>
         </div>
       </div>
-      {isModalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
+      {isModalOpen && (
+        <ConfirmModal
+          onCancel={handleModalCancel}
+          onDelete={handleDeleteWork}
+          role={role}
+          abortReason={abortReason}
+          setAbortReason={setAbortReason}
+        />
+      )}
     </div>
   );
 }

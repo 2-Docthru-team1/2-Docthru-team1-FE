@@ -39,7 +39,6 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
     setIsModalOpen(true);
   };
 
-  // NOTE API 연결해서 챌린지 상태 수정하기 abort
   const handleDeleteWork = async () => {
     try {
       const newStatus = 'aborted';
@@ -82,7 +81,15 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
               </div>
             ) : null}
           </div>
-          {isModalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
+          {isModalOpen && (
+            <ConfirmModal
+              onCancel={handleModalCancel}
+              onDelete={handleDeleteWork}
+              role={role}
+              abortReason={abortReason}
+              setAbortReason={setAbortReason}
+            />
+          )}
           <h2 className="text-[2rem] leading-[2.39rem] mt-[1.2rem] mb-[1.4rem] font-semibold text-left text-gray-700">{title}</h2>
 
           <div>
