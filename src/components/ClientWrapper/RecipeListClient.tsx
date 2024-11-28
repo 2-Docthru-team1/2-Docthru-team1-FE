@@ -38,10 +38,15 @@ export default function RecipeListClient() {
 
   useEffect(() => {
     if (!isPlaceholderData && hasMore) {
-      queryClient.prefetchQuery({
-        queryKey: ['recipies', currentPage + 1, keyword, category],
-        queryFn: () => fetchMenu(currentPage + 1, itemsPerPage, keyword, category)
-      });
+      const pagesToPrefetch = 5;
+      const nextPage = currentPage + 1;
+
+      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+        queryClient.prefetchQuery({
+          queryKey: ['recipies', i, currentPage + 1, keyword, category],
+          queryFn: () => fetchMenu(i, itemsPerPage, keyword, category)
+        });
+      }
     }
   }, [currentPage, hasMore, isPlaceholderData, keyword, category]);
 
