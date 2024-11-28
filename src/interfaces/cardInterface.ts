@@ -127,6 +127,7 @@ export interface ChallengeDetailContentCardData {
   description: string;
   id: string;
   requestUser: requestUserData;
+  deadline: string;
 }
 
 export interface requestUserData {
