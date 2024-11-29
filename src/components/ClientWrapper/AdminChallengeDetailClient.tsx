@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchChallenge_detail } from '@/api/challengeService';
 import type { ChallengeApplicationDetailHeaderData } from '@/interfaces/challengeInterface';
+import ChallengeApplicationDetailBody from '../Body/ChallengeApplicationDetailBody';
+import ChallengeApplicationDetailHeader from '../Header/ChallengeApplicationDetailHeader';
 import Pagination from '../Pagination/Pagination';
 
 export default function AdminChallengeDetailClient() {
@@ -17,6 +19,9 @@ export default function AdminChallengeDetailClient() {
   const itemsPerPage = 1;
   const totalPages =
     currentData && typeof currentData.number === 'number' ? Math.max(1, Math.ceil(currentData.number / itemsPerPage)) : 1;
+
+  console.log(totalPages, 'totalpage');
+  console.log(currentPage, 'current page');
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -48,8 +53,8 @@ export default function AdminChallengeDetailClient() {
   }
 
   return (
-    <div>
-      <div className="flex justify-between w-full items-center">
+    <div className="w-full justify-center items-center flex pt-[2.4rem] pb-[7rem] flex-col">
+      <div className="flex justify-between w-[120rem] items-center">
         <p className="font-normal text-[1.6rem]">No. {currentData.number}</p>
         <Pagination
           totalPages={totalPages}
@@ -58,6 +63,13 @@ export default function AdminChallengeDetailClient() {
           hasNext={currentPage < totalPages}
           type="admin"
         />
+      </div>
+      <div className="pt-[2.4rem]">
+        <ChallengeApplicationDetailHeader data={currentData} />
+      </div>
+      <div className="border border-gray-200 w-[120rem] mt-[4rem] mb-[4rem]" />
+      <div>
+        <ChallengeApplicationDetailBody data={currentData} />
       </div>
     </div>
   );

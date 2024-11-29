@@ -17,6 +17,13 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
     return format(date, 'yyyy-MM-dd');
   };
 
+  const renderImage = (imageUrl: string) => {
+    if (!imageUrl || imageUrl.trim() === '') {
+      return null;
+    }
+    return <Image src={imageUrl} alt="picture" width={343} height={294} />;
+  };
+
   return (
     <div className="w-[120rem] items-center justify-center flex flex-col">
       <div className="flex flex-col w-full gap-[1.6rem]">
@@ -41,8 +48,8 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
           </div>
         </div>
         <div className="flex gap-[2.4rem]">
-          <Image src={data.imageUrl} alt="picture" width={343} height={294} />
-          <Image src={data.imageUrl2} alt="picture" width={343} height={294} />
+          {renderImage(data.imageUrl)}
+          {renderImage(data.imageUrl2)}
         </div>
       </div>
     </div>

@@ -38,6 +38,7 @@ export interface ChallengeApplicationDetailHeaderData {
   deadline: string;
   imageUrl: string;
   imageUrl2: string;
+  embedUrl: string;
 }
 
 export interface requestUser {
