@@ -2,7 +2,6 @@
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { getUser } from '@/api/userService';
 import { getFeedbackList } from '@/api/workService';
@@ -12,17 +11,14 @@ import FeedbackCard from '../Card/FeedbackCard';
 import WorkCard from '../Card/WorkCard';
 import WorkInput from '../Input/WorkInput';
 
-export default function WorkDetailClient() {
-  const { workId } = useParams();
-  const workIdParam = String(workId);
-
+export default function WorkDetailClient({ workId }: { workId: string }) {
   const {
     data: work,
     isLoading: workLoading,
     error: workError
   } = useQuery({
-    queryKey: ['work', workIdParam],
-    queryFn: () => getWorkDetail(workIdParam)
+    queryKey: ['work', workId],
+    queryFn: () => getWorkDetail(workId)
   });
 
   const {
@@ -33,9 +29,9 @@ export default function WorkDetailClient() {
     hasNextPage,
     isFetchingNextPage
   } = useInfiniteQuery<FeedbackResponse>({
-    queryKey: ['feedback', workIdParam],
+    queryKey: ['feedback', workId],
     queryFn: ({ pageParam }) => {
-      return getFeedbackList(workIdParam, pageParam as number, 4);
+      return getFeedbackList(workId, pageParam as number, 4);
     },
     getNextPageParam: (lastPage, allPages) => {
       const currentPage = allPages.length;
@@ -53,10 +49,6 @@ export default function WorkDetailClient() {
   if (workLoading || feedbackLoading || userLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        {/* <div className="relative w-[16rem] h-[16rem]">
-          <div className="absolute inset-0 w-full h-full border-[4rem] border-t-[4rem] border-gray-300 border-t-primary-blue rounded-full animate-spin"></div>
-          <span className="absolute inset-0 flex justify-center items-center text-[1.5rem] text-gray-500">Loading...</span>
-        </div> */}
         <Image src={loading} alt="loading" />
       </div>
     );
