@@ -55,7 +55,6 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     queryFn: () => fetchChallenge(currentPage, itemsPerPage, queryParams),
     placeholderData: keepPreviousData
   });
-  console.log(challenges);
   const totalPages = challenges ? Math.ceil(challenges.totalCount / itemsPerPage) : 1;
   const hasMore = currentPage < totalPages;
 
