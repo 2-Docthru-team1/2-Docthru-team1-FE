@@ -10,7 +10,6 @@ import more from '@/../public/assets/icon_more.png';
 import userImg from '@/../public/assets/img_profile_member.png';
 import { deleteFeedback, patchFeedback } from '@/api/feedbackService';
 import type { FeedbackCardProps } from '@/interfaces/feedbackInterface';
-import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 
 export default function FeedbackCard({
@@ -82,8 +81,6 @@ export default function FeedbackCard({
     setDeletingCommentId('');
   };
 
-  // const formattedDates = comments.map(comment => useFormatter(Formatter.Date, comment.createdAt));
-
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [inView]);
@@ -93,7 +90,6 @@ export default function FeedbackCard({
       <div>
         <ul className="flex-col">
           {comments.map(comment => {
-            /*const formattedDate = formattedDates[index]; */
             const formattedDate = format(new Date(comment.createdAt), 'yy/MM/dd HH:mm');
             return (
               <li key={comment.id} className="flex-col p-[1.2rem]">
@@ -105,11 +101,7 @@ export default function FeedbackCard({
                   <div className="flex justify-between items-center gap-[3rem] mb-[1.2rem]">
                     <div className="flex gap-[1rem] items-center">
                       <div className="w-[3.2rem] h-[3.2rem] relative">
-                        {user.role === 'admin' ? (
-                          <Image src={userImg} alt="유저 이미지" layout="fill" />
-                        ) : (
-                          <Image src={userImg} alt="유저 이미지" layout="fill" />
-                        )}
+                        <Image src={userImg} alt="유저 이미지" layout="fill" />
                       </div>
                       <div>
                         <p className="text-[1.4rem] font-medium text-gray-800">{comment.owner.name}</p>
