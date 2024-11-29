@@ -48,10 +48,11 @@ Default.args = {
       id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
       createdAt: '2024-11-25T02:12:14.440Z',
       updatedAt: '2024-11-25T02:12:14.440Z',
-      deletedAt: '2024-11-25T02:12:14.440Z',
-      title: 'string',
-      content: 'string',
-      likeCount: 0,
+      deletedAt: null,
+      title: 'Delicious Bibimbap',
+      content: 'A step-by-step guide to making a perfect Bibimbap.',
+      likeCount: 10,
+      feedbackCount: 5,
       images: [
         {
           imageUrl: 'https://hancook-bucket.s3.ap-northeast-2.amazonaws.com/bibimbab.png'
@@ -59,9 +60,9 @@ Default.args = {
       ],
       challengeId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
       owner: {
-        id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        name: 'string',
-        email: 'user@example.com',
+        id: 'user123',
+        name: 'John Doe',
+        email: 'johndoe@example.com',
         role: 'normal'
       }
     }
