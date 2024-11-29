@@ -15,6 +15,15 @@ export interface SavedSelection {
   endOffset: number;
 }
 
+export interface ChallengeApplicationDetailBody {
+  data: ChallengeApplicationDetailBodyData;
+}
+
+export interface ChallengeApplicationDetailBodyData {
+  id: string;
+  embedUrl: string;
+}
+
 export interface ChallengeApplicationDetailHeader {
   data: ChallengeApplicationDetailHeaderData;
   totalCount: number;
