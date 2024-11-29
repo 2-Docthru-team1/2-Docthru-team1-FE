@@ -15,10 +15,15 @@ export const Default = Template.bind({});
 Default.args = {
   type: 'onGoing',
   data: {
+    id: '1',
     title: 'Sample Title',
     mediaType: 'youtube',
     description: 'This is a sample content for the challenge detail card.',
-    ownerId: 'JohnDoe'
+    requestUser: {
+      id: 'JohnDoe',
+      name: 'John Doe'
+    },
+    deadline: '2024-12-31T23:59:59.000Z'
   }
 };
 
@@ -26,9 +31,14 @@ export const WithDifferentType = Template.bind({});
 WithDifferentType.args = {
   type: 'finished',
   data: {
+    id: '2',
     title: 'Another Title',
     mediaType: 'recipeWeb',
     description: 'This is another sample content for the challenge detail card.',
-    ownerId: 'JaneSmith'
+    requestUser: {
+      id: 'JaneSmith',
+      name: 'Jane Smith'
+    },
+    deadline: '2024-11-30T23:59:59.000Z'
   }
 };
