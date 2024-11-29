@@ -11,12 +11,15 @@ const Template: StoryFn<typeof ChallengeMostLikedCard> = args => <ChallengeMostL
 export const Default = Template.bind({});
 Default.args = {
   data: {
+    id: '1',
     title: 'Delicious Kimchi',
-    createdAt: '2024-11-31T00:00:00.000Z',
+    createdAt: '2024-11-30T00:00:00.000Z',
     description: 'A wonderful recipe for making kimchi at home.',
-    role: 'normal',
-    ownerId: 'Alice',
-    Feedback: [],
-    likeCount: 25
+    likeCount: 25,
+    owner: {
+      id: 'Alice',
+      name: 'Alice Johnson'
+    },
+    Feedback: []
   }
 };
