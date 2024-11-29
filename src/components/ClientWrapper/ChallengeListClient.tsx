@@ -38,7 +38,6 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
       const fetchFilteredData = async () => {
         try {
           const queryParams = createQueryParams(orderBy, mediaType, status, keyword);
-          console.log(queryParams);
           const filteredData = await fetchChallenge(queryParams);
           setMedium(filteredData.list);
         } catch (error) {

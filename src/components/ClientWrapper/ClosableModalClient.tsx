@@ -30,7 +30,6 @@ export default function ClosableModalClient({ isOpen, setIsModalOpen }: Closable
   };
 
   const handleApply = () => {
-    console.log(`Selected language: ${selectedLanguage}`);
     setIsModalOpen(false);
   };
 

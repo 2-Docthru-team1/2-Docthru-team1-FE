@@ -60,7 +60,6 @@ export default function ChallengeMgmtClient() {
   }
 
   const handleFilterChange = (category: string) => {
-    console.log(category, 'client!!!!!');
     setCurrentPage(1);
     setCategory(category);
   };
