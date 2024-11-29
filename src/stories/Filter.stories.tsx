@@ -20,12 +20,6 @@ const handleFilterChange = () => {
   router.push(`?${params.toString()}`);
 };
 
-export const Recipe = () => (
-  <FilterBar type="recipe" onKeywordChange={setKeyword} onCategoryChange={setCategory} onFilterApply={handleFilterChange} />
-);
-export const Challenge = () => (
-  <FilterBar type="challenge" onKeywordChange={setKeyword} onCategoryChange={setCategory} onFilterApply={handleFilterChange} />
-);
-export const Admin = () => (
-  <FilterBar type="admin" onKeywordChange={setKeyword} onCategoryChange={setCategory} onFilterApply={handleFilterChange} />
-);
+export const Challenge = () => <FilterBar type="challenge" onKeywordChange={setKeyword} onFilterApply={handleFilterChange} />;
+
+export const Admin = () => <FilterBar type="admin" onKeywordChange={setKeyword} onFilterApply={handleFilterChange} />;
