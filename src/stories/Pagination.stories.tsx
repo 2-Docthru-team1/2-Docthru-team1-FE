@@ -54,3 +54,12 @@ FirstPage.args = {
   onPageChange: (page: number) => console.log(`Page changed to: ${page}`),
   hasNext: true
 };
+
+export const AdminPagination = Template.bind({});
+AdminPagination.args = {
+  currentPage: 1,
+  totalPages: 10,
+  onPageChange: (page: number) => console.log(`Page changed to: ${page}`),
+  hasNext: true,
+  type: 'admin'
+};
