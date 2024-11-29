@@ -93,12 +93,13 @@ export const fetchUpdateStatus = async (challengeId: string, newStatus: 'cancele
   }
 };
 
-export const fetchChallengeApplication = async (page: string, pageSize: number = 10, keyword: string, filter: string) => {
+export const fetchChallengeApplication = async (page: string, pageSize: number = 10, keyword: string, category: string) => {
   try {
-    console.log('123');
+    console.log(category, 'apiiiii!!!!');
     const response = await getRequest(
-      `/challenges/admin-requests?page=${page}&pageSize=${pageSize}&keyword=${keyword}&filter=${filter}`
+      `/challenges/admin-requests?page=${page}&pageSize=${pageSize}&keyword=${keyword}&filter=${category}`
     );
+    console.log('response!!!!!!', response);
     return response.data;
   } catch (error) {
     console.log('error', error);

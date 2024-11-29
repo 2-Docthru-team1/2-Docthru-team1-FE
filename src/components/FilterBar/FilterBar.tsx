@@ -50,10 +50,10 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
     { label: 'Pending', value: 'pending' },
     { label: 'Approved', value: 'approved' },
     { label: 'Denied', value: 'denied' },
-    { label: 'Earliest First', value: 'earliest first' },
-    { label: 'Latest First', value: 'latest first' },
-    { label: 'Deadline Earliest', value: 'deadline earliest' },
-    { label: 'Deadline Latest', value: 'deadline latest' }
+    { label: 'Earliest First', value: 'earliestFirst' },
+    { label: 'Latest First', value: 'latestFirst' },
+    { label: 'Deadline Earliest', value: 'deadlineEarliest' },
+    { label: 'Deadline Latest', value: 'deadlineLatest' }
   ]
 };
 
@@ -82,6 +82,14 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
   const getSelectedSortLabel = () => {
     if (isFilterApplied) {
       return `Filtered (${selectedCount})`;
+    }
+    if (type === 'admin' && selectedSort) {
+      const adminOptions = optionsByType.admin;
+      const selectedOption = (adminOptions as { label: string; value: string }[]).find(option => option.value === selectedSort);
+
+      if (selectedOption) {
+        return selectedOption.label;
+      }
     }
     return selectedSort || 'Sort';
   };
@@ -140,8 +148,8 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
           onClick={handleToggleDropdown}
         >
           <p
-            className={`font-normal text-[1.6rem] leading-[1.909rem]
-          ${isFilterApplied ? 'text-primary-white' : 'text-gray-400'}`}
+            className={`font-normal text-[1.6rem] leading-[1.909rem] 
+    ${isFilterApplied ? 'text-primary-white' : 'text-gray-400'} ${type === 'admin' && getSelectedSortLabel() === 'Sort' ? 'text-gray-400' : 'text-gray-700'}`}
           >
             {getSelectedSortLabel()}
           </p>

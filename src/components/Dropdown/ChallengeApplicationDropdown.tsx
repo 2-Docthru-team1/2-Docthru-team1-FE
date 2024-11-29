@@ -7,23 +7,36 @@ import filter from '@/../public/assets/ic_filter.png';
 interface SortDropdownProps {
   type: string;
   sortOption: string;
-  onSortSelect: (option: string) => void;
+  onSortSelect: (apiValue: string) => void;
 }
+
+const optionsMap: { [key: string]: string } = {
+  Pending: 'pending',
+  Approved: 'approved',
+  Denied: 'denied',
+  'Earliest First': 'earliestFirst',
+  'Latest First': 'latestFirst',
+  'Deadline Earliest': 'deadlineEarliest',
+  'Deadline Latest': 'deadlineLatest'
+};
 
 export default function ChallengeApplicationDropdown({ type, sortOption, onSortSelect }: SortDropdownProps) {
   const [showSortOptions, setShowSortOptions] = useState(false);
+  const [selectedUIOption, setSelectedUIOption] = useState(sortOption || 'Sort');
 
   const handleOptionClick = () => {
     setShowSortOptions(!showSortOptions);
   };
 
-  const handleSortSelect = (option: string) => {
-    onSortSelect(option);
+  const handleSortSelect = (uiOption: string) => {
+    const apiValue = optionsMap[uiOption];
+    setSelectedUIOption(uiOption);
+    onSortSelect(apiValue);
     setShowSortOptions(false);
   };
 
   const isDropdownOpen = type === 'admin' || showSortOptions;
-  const options = ['Pending', 'Approved', 'Denied', 'Earliest First', 'Latest First', 'Deadline Earliest', 'Deadline Latest'];
+  const options = Object.keys(optionsMap);
 
   return (
     <div>
@@ -33,9 +46,11 @@ export default function ChallengeApplicationDropdown({ type, sortOption, onSortS
           onClick={handleOptionClick}
         >
           <p
-            className={`font-normal text-[1.6rem] leading-[1.909rem] ${sortOption === 'Sort' ? 'text-gray-400' : 'text-gray-700'}`}
+            className={`font-normal text-[1.6rem] leading-[1.909rem] ${
+              selectedUIOption === 'Sort' ? 'text-gray-400' : 'text-gray-700'
+            }`}
           >
-            {sortOption}
+            {selectedUIOption}
           </p>
           <Image src={filter} alt="Filter" />
         </div>
