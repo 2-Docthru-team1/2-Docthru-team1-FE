@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import crownIcon from '@/../public/assets/icon_crown.png';
 import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
 import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
+import { fetchUpdateStatus } from '@/api/challengeService';
 import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';
 import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
@@ -15,9 +15,7 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
     return <div>로딩 중...</div>;
   }
 
-  const router = useRouter();
-
-  const { title, mediaType, status, deadline } = data;
+  const { id, title, mediaType, status, deadline } = data;
   const formattedDeadline = new Date(deadline).toISOString().split('T')[0];
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -38,14 +36,13 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
     setIsModalOpen(true);
   };
 
-  // NOTE API 연결해서 챌린지 상태 수정하기 abort
   const handleDeleteWork = async () => {
     try {
       const newStatus = 'aborted';
       const reason = abortReason;
-      // await fetchUpdateStatus(id, newStatus, reason);
+      await fetchUpdateStatus(id, newStatus, reason);
       setIsModalOpen(false);
-      router.refresh();
+      window.location.reload();
     } catch (error) {
       console.error('Failed to update challenge status:', error);
     }
@@ -73,15 +70,23 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
               </div>
             </div>
             {role === 'admin' ? (
-              <div className="relative">
+              <div className="relative z-10">
                 <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
-                <div className="absolute right-[1rem] top-[2.5rem]">
+                <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
                   {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Abort</CancelDropdown>}
                 </div>
               </div>
             ) : null}
           </div>
-          {isModalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
+          {isModalOpen && (
+            <ConfirmModal
+              onCancel={handleModalCancel}
+              onDelete={handleDeleteWork}
+              role={role}
+              abortReason={abortReason}
+              setAbortReason={setAbortReason}
+            />
+          )}
           <h2 className="text-[2rem] leading-[2.39rem] mt-[1.2rem] mb-[1.4rem] font-semibold text-left text-gray-700">{title}</h2>
 
           <div>

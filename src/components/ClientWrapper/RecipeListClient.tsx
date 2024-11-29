@@ -15,10 +15,14 @@ import MonthlyChallengeCard from '../Card/MonthlyChallengeCard';
 import RecipeFilterBar from '../FilterBar/RecipeFilterBar';
 import Pagination from '../Pagination/Pagination';
 
-export default function RecipeListClient() {
+interface AdminListClientProps {
+  adminchallengeData: AdminData[];
+}
+
+export default function RecipeListClient({ adminchallengeData }: AdminListClientProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { keyword, category, setKeyword, setCategory } = useStore();
+  const { role, keyword, category, setKeyword, setCategory } = useStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -38,14 +42,17 @@ export default function RecipeListClient() {
 
   useEffect(() => {
     if (!isPlaceholderData && hasMore) {
-      queryClient.prefetchQuery({
-        queryKey: ['recipies', currentPage + 1, keyword, category],
-        queryFn: () => fetchMenu(currentPage + 1, itemsPerPage, keyword, category)
-      });
+      const pagesToPrefetch = 5;
+      const nextPage = currentPage + 1;
+
+      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+        queryClient.prefetchQuery({
+          queryKey: ['recipies', i, keyword, category],
+          queryFn: async () => await fetchMenu(i, itemsPerPage, keyword, category)
+        });
+      }
     }
   }, [currentPage, hasMore, isPlaceholderData, keyword, category]);
-
-  const [adminData, setAdminData] = useState<AdminData[]>();
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -59,13 +66,9 @@ export default function RecipeListClient() {
     setCategory(category);
   };
 
-  useEffect(() => {
-    const getAdminChallengeData = async () => {
-      const data = await fetchAdminChallenge();
-      setAdminData(data);
-    };
-    getAdminChallengeData();
-  }, []);
+  const handleChallengeClick = (id: string) => {
+    router.push(`/challengeList/${id}`);
+  };
 
   if (isLoading) {
     return (
@@ -89,8 +92,11 @@ export default function RecipeListClient() {
         <div className="flex flex-col gap-[2.4rem] justify-center">
           <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">This Month's Challenge</p>
           <div className="flex justify-between">
-            {Array.isArray(adminData) &&
-              adminData.map(items => <MonthlyChallengeCard key={items.id} data={items} role="normal" />)}
+            {adminchallengeData.map((data, index) => (
+              <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
+                <MonthlyChallengeCard data={data} role={role} />
+              </div>
+            ))}
           </div>
         </div>
         <div className="flex flex-col gap-[1.6rem]">

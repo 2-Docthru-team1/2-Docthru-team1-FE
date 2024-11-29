@@ -2,20 +2,10 @@ import { headers } from 'next/headers';
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
 import { getRequest, patchRequest, postRequest } from './api';
 
-export const fetchChallenge = async (queryParams: string = '') => {
+export const fetchChallenge = async (page: number, pageSize: number, queryParams: string = '') => {
   try {
-    const response = await getRequest(`/challenges${queryParams}`);
+    const response = await getRequest(`/challenges?page=${page}&pageSize=${pageSize}${queryParams}`);
     return response.data;
-  } catch (error) {
-    throw new Error('Failed to get challenge');
-  }
-};
-
-export const getFilteredChallenges = async () => {
-  try {
-    const { list, totalCount } = await fetchChallenge();
-    const filteredList = list.filter((list: { status: string }) => ['onGoing', 'finished'].includes(list.status));
-    return { list: filteredList, totalCount };
   } catch (error) {
     throw new Error('Failed to get challenge');
   }
@@ -31,10 +21,9 @@ export const fetchRanker = async () => {
   }
 };
 
-export const fetchAdminChallenge = async () => {
+export const fetchAdminChallenge = async (queryParams: string = '') => {
   try {
-    const response = await getRequest('http://localhost:3000/adminchallengeMockData.json');
-    // const response = await getRequest('https://2-docthru-team1-n10tvnaef-team1-hancook.vercel.app/adminchallengeMockData.json');
+    const response = await getRequest(`/challenges/monthly${queryParams}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get admin challenge data');
