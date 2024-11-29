@@ -1,34 +1,68 @@
 'use client';
 
+import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
+import { fetchChallengeApplication } from '@/api/challengeService';
 import FilterBar from '@/components/FilterBar/FilterBar';
-import type { ChallengeApplicationBodyProps } from '@/interfaces/bodyInterface';
+import type { ChallengeApplicationClientProps } from '@/interfaces/bodyInterface';
 import useStore from '@/store/store';
 import ChallengeApplicationBody from '../Body/ChallengeApplicationBody';
 import Pagination from '../Pagination/Pagination';
 
-export default function ChallengeMgmtClient({ data }: ChallengeApplicationBodyProps) {
+export default function ChallengeMgmtClient() {
   const router = useRouter();
-
-  const { keyword, category, setKeyword, setCategory } = useStore();
-
-  const handleFilterChange = () => {
-    const params = new URLSearchParams();
-    if (keyword) params.set('keyword', keyword);
-    if (category) params.set('category', category);
-
-    router.push(`?${params.toString()}`);
-  };
-
+  const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const mediumItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const { keyword, category, setKeyword, setCategory } = useStore();
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const {
+    data: challengeApply,
+    isLoading,
+    isError,
+    isPlaceholderData
+  } = useQuery<ChallengeApplicationClientProps>({
+    queryKey: ['challengeApply', currentPage, keyword, category],
+    queryFn: async () => await fetchChallengeApplication(String(currentPage), itemsPerPage, keyword, category),
+    placeholderData: keepPreviousData
+  });
+
+  const totalPages = Math.ceil((challengeApply?.totalCount || 0) / itemsPerPage);
+  const hasMore = currentPage < totalPages;
+
+  useEffect(() => {
+    if (!isPlaceholderData && hasMore) {
+      queryClient.prefetchQuery({
+        queryKey: ['challengeApply', currentPage + 1, keyword, category],
+        queryFn: () => fetchChallengeApplication(String(currentPage + 1), itemsPerPage, keyword, category)
+      });
+    }
+  }, [currentPage, hasMore, isPlaceholderData, keyword, category]);
+
+  if (isLoading) {
+    return (
+      <div className="flex w-full justify-center items-center min-h-screen">
+        <Image src={loading} alt="loading" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 text-[1.5rem]">Failed to load data. Please try again later.</p>
+      </div>
+    );
+  }
+
+  const handleFilterChange = (category: string) => {
+    setCurrentPage(1);
+    setCategory(category);
+  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -39,15 +73,10 @@ export default function ChallengeMgmtClient({ data }: ChallengeApplicationBodyPr
       <div className="w-[99.6rem]">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">Manage Challenge Application</p>
         <div className="mt-[4rem]">
-          <FilterBar
-            type="admin"
-            onKeywordChange={setKeyword}
-            onCategoryChange={setCategory}
-            onFilterApply={handleFilterChange}
-          />
+          <FilterBar type="admin" onKeywordChange={setKeyword} onFilterApply={handleFilterChange} />
         </div>
         <div className="mt-[2.4rem]">
-          <ChallengeApplicationBody data={mediumItems} />
+          <ChallengeApplicationBody data={challengeApply?.list || []} />
         </div>
       </div>
       <div className="flex mt-[3.8rem]">

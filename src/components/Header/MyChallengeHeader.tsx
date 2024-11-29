@@ -71,7 +71,7 @@ export default function MyChallengeHeader() {
         ) : (
           <div>
             <div className="flex gap-[2rem]">
-              <ChallengeApplicationDropdown sortOption={sortOption} onSortSelect={handleSortSelect} />
+              <ChallengeApplicationDropdown type="me" sortOption={sortOption} onSortSelect={handleSortSelect} />
               <div className="flex h-[4rem] items-center w-full border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
                 <Image src={search} alt="search" />
                 <input placeholder="Search Challenge" className="font-normal text-[1.6rem] leading-[1.909rem]" />

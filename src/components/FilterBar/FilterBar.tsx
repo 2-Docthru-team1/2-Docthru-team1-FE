@@ -7,6 +7,7 @@ import activeFilter from '@/../public/assets/icon_filter_active.png';
 import search from '@/../public/assets/icon_search.png';
 import type { ChallengeOption, FilterBarProps, Option } from '@/interfaces/filterBarInterface';
 import useStore from '@/store/store';
+import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdown';
 import Dropdown from '../Dropdown/Dropdown';
 
 const filterBarWidths = {
@@ -49,10 +50,10 @@ const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
     { label: 'Pending', value: 'pending' },
     { label: 'Approved', value: 'approved' },
     { label: 'Denied', value: 'denied' },
-    { label: 'Earliest First', value: 'earliest first' },
-    { label: 'Latest First', value: 'latest first' },
-    { label: 'Deadline Earliest', value: 'deadline earliest' },
-    { label: 'Deadline Latest', value: 'deadline latest' }
+    { label: 'Earliest First', value: 'earliestFirst' },
+    { label: 'Latest First', value: 'latestFirst' },
+    { label: 'Deadline Earliest', value: 'deadlineEarliest' },
+    { label: 'Deadline Latest', value: 'deadlineLatest' }
   ]
 };
 
@@ -82,15 +83,15 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     if (isFilterApplied) {
       return `Filtered (${selectedCount})`;
     }
+    if (type === 'admin' && selectedSort) {
+      const adminOptions = optionsByType.admin;
+      const selectedOption = (adminOptions as { label: string; value: string }[]).find(option => option.value === selectedSort);
 
-    if (type === 'challenge') {
-      const flattenedOptions = Object.values(options[0]).flat();
-      const selectedOption = flattenedOptions.find((option: Option) => option.value === selectedSort);
-      return selectedOption ? selectedOption.label : 'Sort';
-    } else {
-      const selectedOption = (options as Option[]).find(option => option.value === selectedSort);
-      return selectedOption ? selectedOption.label : 'Sort';
+      if (selectedOption) {
+        return selectedOption.label;
+      }
     }
+    return selectedSort || 'Sort';
   };
 
   const handleSelect = (value: string, category?: 'orderBy' | 'mediaType' | 'status') => {
@@ -132,17 +133,23 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
     toggleDropdown(false);
   };
 
+  const handleSortSelect = (option: string) => {
+    setSelectedSort(option);
+    onFilterApply(option, selectedMedia, selectedStatus);
+    setIsDropdownOpen(false);
+  };
+
   return (
     <div className="z-20">
       <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
         <div
-          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] ${sortBarType}
+          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] cursor-pointer ${sortBarType}
             ${isFilterApplied ? 'bg-gray-700' : 'bg-primary-white'}`}
           onClick={handleToggleDropdown}
         >
           <p
-            className={`font-normal text-[1.6rem] leading-[1.909rem]
-          ${isFilterApplied ? 'text-primary-white' : 'text-gray-400'}`}
+            className={`font-normal text-[1.6rem] leading-[1.909rem] 
+    ${isFilterApplied ? 'text-primary-white' : 'text-gray-400'} ${type === 'admin' && getSelectedSortLabel() === 'Sort' ? 'text-gray-400' : 'text-gray-700'}`}
           >
             {getSelectedSortLabel()}
           </p>
@@ -160,7 +167,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
         </div>
       </div>
       <div>
-        {isDropdownOpen && (
+        {isDropdownOpen && type === 'challenge' && (
           <Dropdown
             isOpen={isDropdownOpen}
             items={options}
@@ -169,6 +176,9 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
             onApply={handleApply}
             onClose={handleToggleDropdown}
           />
+        )}
+        {isDropdownOpen && type === 'admin' && (
+          <ChallengeApplicationDropdown type="admin" sortOption={selectedSort || 'Sort'} onSortSelect={handleSortSelect} />
         )}
       </div>
     </div>
