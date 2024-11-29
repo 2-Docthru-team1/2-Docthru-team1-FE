@@ -61,32 +61,41 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
     <div className="w-[120rem] items-center justify-center flex flex-col">
       <div className="flex flex-col w-full gap-[1.6rem]">
         {(data.status === 'denied' || data.status === 'aborted') && (
-          <div className="w-full flex flex-col items-center mt-[1.2rem]">
-            <p className="w-full h-[3.5rem] rounded-[1.75rem] bg-[#FFF0F0] flex items-center justify-center font-semibold text-[1.6rem] leading-[1.909rem] text-error-red">
-              This challenge has been declined
-            </p>
-            <div className="flex flex-col items-end bg-primary-white w-full h-[11.7rem] rounded-[0.8rem] border border-gray-200 mt-[2.4rem] py-[1.8rem] px-[3rem]">
-              <div className="flex flex-col items-center justify-center w-full">
-                <p className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-800">Reason for declining</p>
-                <p className="pt-[1.2rem] font-medium text-[1.6rem] leading-[1.909rem] text-gray-700">
-                  HanCook is for sharing moments of cooking Korean cuisine. Content with violent themes may be removed.
+          <>
+            <div className="w-full flex flex-col items-center mt-[1.2rem]">
+              <p className="w-full h-[3.5rem] rounded-[1.75rem] bg-[#FFF0F0] flex items-center justify-center font-semibold text-[1.6rem] leading-[1.909rem] text-error-red">
+                This challenge has been declined
+              </p>
+              <div className="flex flex-col items-end bg-primary-white w-full h-[11.7rem] rounded-[0.8rem] border border-gray-200 mt-[2.4rem] py-[1.8rem] px-[3rem]">
+                <div className="flex flex-col items-center justify-center w-full">
+                  <p className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-800">Reason for declining</p>
+                  <p className="pt-[1.2rem] font-medium text-[1.6rem] leading-[1.909rem] text-gray-700">
+                    HanCook is for sharing moments of cooking Korean cuisine. Content with violent themes may be removed.
+                  </p>
+                </div>
+                <p className="mt-[1.2rem] font-normal text-[1.4rem] leading-[1.671rem] text-gray-500">
+                  {formatUpdatedDate(data.updatedAt)}
                 </p>
               </div>
-              <p className="mt-[1.2rem] font-normal text-[1.4rem] leading-[1.671rem] text-gray-500">
-                {formatUpdatedDate(data.updatedAt)}
-              </p>
             </div>
-          </div>
+            <div className="border border-gray-200 w-full mt-[1.2em]" />
+          </>
         )}
         {(data.status === 'finished' || data.status === 'onGoing') && (
-          <div className="flex w-full items-center justify-center h-[3.5rem] rounded-[1.75rem] bg-[#DFF0FF] mt-[1.2rem]">
-            <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-[#4095DE]">This challenge has been approved</p>
-          </div>
+          <>
+            <div className="flex w-full items-center justify-center h-[3.5rem] rounded-[1.75rem] bg-[#DFF0FF] mt-[1.2rem]">
+              <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-[#4095DE]">This challenge has been approved</p>
+            </div>
+            <div className="border border-gray-200 w-full mt-[2.4rem] mb-[4rem]" />
+          </>
         )}
         {data.status === 'canceled' && (
-          <div className="w-full h-[3.5rem] flex items-center justify-center bg-gray-200 rounded-[1.75rem] mt-[1.2rem]">
-            <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-gray-600">This challenge has been canceled</p>
-          </div>
+          <>
+            <div className="w-full h-[3.5rem] flex items-center justify-center bg-gray-200 rounded-[1.75rem] mt-[1.2rem]">
+              <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-gray-600">This challenge has been canceled</p>
+            </div>
+            <div className="border border-gray-200 w-full mt-[1.2em]" />
+          </>
         )}
         <div className="flex justify-between w-full">
           <p className="font-semibold text-[2.4rem] leading-[2.864rem]">{data.title}</p>

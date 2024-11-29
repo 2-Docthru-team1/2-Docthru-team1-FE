@@ -92,3 +92,25 @@ export const fetchChallengeApplication = async (page: string, pageSize: number =
     throw new Error('Failed to get Challenge Application Data');
   }
 };
+
+export const fetchChallengeAbortReason = async (id: string) => {
+  try {
+    const response = await getRequest(`/challenges/${id}/reason`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get abort reason');
+  }
+};
+
+export const fetchChallengeStatusChange = async (id: string, status: string, abortReason?: string) => {
+  const requestBody = {
+    status: status,
+    abortReason: abortReason
+  };
+  try {
+    const response = await patchRequest(`/challenges/${id}/status`, requestBody);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to change challenge status`);
+  }
+};

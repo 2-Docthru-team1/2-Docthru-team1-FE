@@ -2,16 +2,34 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import arrow from '@/../public/assets/icon_click.png';
+import { fetchChallengeAbortReason, fetchChallengeStatusChange } from '@/api/challengeService';
 import type { ChallengeApplicationDetailBody } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
 import ConfirmModal from '../Modal/ConfirmModal';
 
 export default function ChallengeApplicationDetailBody({ data }: ChallengeApplicationDetailBody) {
+  const [currentData, setCurrentData] = useState();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [abortReason, setAbortReason] = useState('');
   const { userStatus } = useStore();
+
+  // useEffect(() => {
+  //   const getChallengeAbortReason = async () => {
+  //     const response = await fetchChallengeAbortReason(String(data.id));
+  //     console.log(response);
+  //     setCurrentData(response);
+  //   };
+
+  //   getChallengeAbortReason();
+  // }, [data.id]);
+
+  // useEffect(() => {
+  //   const getChallengeStatusChange = async () => {
+  //     const response = await fetchChallengeStatusChange(String(data.id), )
+  //   }
+  // })
 
   const handleDeclineClick = () => {
     setIsConfirmModalOpen(true);
