@@ -17,7 +17,10 @@ Default.args = {
     mediaType: 'blog',
     status: 'onGoing',
     deadline: '2024-12-31T23:59:59.000Z',
-    requestUserId: 'user1',
+    requestUser: {
+      id: 'user1',
+      name: 'John Doe'
+    },
     totalLikes: 0,
     createdAt: '2024-11-25T01:23:10.409Z',
     updatedAt: '2024-11-25T01:23:10.409Z'
@@ -34,7 +37,10 @@ ClosedChallenge.args = {
     mediaType: 'socialMedia',
     status: 'finished',
     deadline: '2024-11-30T23:59:59.000Z',
-    requestUserId: 'user2',
+    requestUser: {
+      id: 'user2',
+      name: 'Jane Smith'
+    },
     totalLikes: 0,
     createdAt: '2024-11-25T01:23:10.409Z',
     updatedAt: '2024-11-25T01:23:10.409Z'
@@ -51,7 +57,10 @@ TestChallenge.args = {
     mediaType: 'recipeWeb',
     status: 'onGoing',
     deadline: '2024-11-01T23:59:59.000Z',
-    requestUserId: 'user3',
+    requestUser: {
+      id: 'user3',
+      name: 'Chris Johnson'
+    },
     totalLikes: 0,
     createdAt: '2024-11-25T01:23:10.409Z',
     updatedAt: '2024-11-25T01:23:10.409Z'

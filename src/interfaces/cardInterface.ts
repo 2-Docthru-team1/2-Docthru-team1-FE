@@ -112,13 +112,10 @@ export interface ParticipantStatusData {
   title: string;
   content: string;
   likeCount: number;
-  // likeUsers: string[];
   feedbackCount: number;
   owner: ownerData;
   challengeId: string;
   images: { imageUrl: string }[];
-  // nickname: string;
-  // role: string;
 }
 
 export interface ChallengeDetailContentCardProps {

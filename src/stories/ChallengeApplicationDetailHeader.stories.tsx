@@ -22,7 +22,12 @@ Default.args = {
     id: '1',
     number: '1023',
     title: 'Sample Challenge Title',
-    mediaType: 'recipeWeb'
+    mediaType: 'recipeWeb',
+    description: 'A sample description for the challenge.',
+    requestUser: { id: 'user1', name: 'John Doe' },
+    deadline: '2024-12-31',
+    imageUrl: 'https://via.placeholder.com/150',
+    imageUrl2: 'https://via.placeholder.com/150/0000FF'
   },
   totalCount: 5
 };
@@ -30,9 +35,15 @@ Default.args = {
 export const WithSocialMedia = Template.bind({});
 WithSocialMedia.args = {
   data: {
-    ...mockData,
+    id: '2',
+    number: '1024',
+    title: 'Social Media Challenge',
     mediaType: 'socialMedia',
-    title: 'Social Media Challenge'
+    description: 'A challenge focused on social media platforms.',
+    requestUser: { id: 'user2', name: 'Jane Smith' },
+    deadline: '2024-11-30',
+    imageUrl: 'https://via.placeholder.com/150',
+    imageUrl2: 'https://via.placeholder.com/150/FF0000'
   },
   totalCount: 10
 };
@@ -40,9 +51,15 @@ WithSocialMedia.args = {
 export const WithYoutube = Template.bind({});
 WithYoutube.args = {
   data: {
-    ...mockData,
+    id: '3',
+    number: '1025',
+    title: 'YouTube Challenge',
     mediaType: 'youtube',
-    title: 'YouTube Challenge'
+    description: 'A challenge for creating YouTube content.',
+    requestUser: { id: 'user3', name: 'Chris Johnson' },
+    deadline: '2024-10-15',
+    imageUrl: 'https://via.placeholder.com/150',
+    imageUrl2: 'https://via.placeholder.com/150/00FF00'
   },
   totalCount: 3
 };
@@ -50,9 +67,15 @@ WithYoutube.args = {
 export const WithBlog = Template.bind({});
 WithBlog.args = {
   data: {
-    ...mockData,
+    id: '4',
+    number: '1026',
+    title: 'Blog Challenge',
     mediaType: 'blog',
-    title: 'Blog Challenge'
+    description: 'A challenge for writing blog posts.',
+    requestUser: { id: 'user4', name: 'Emily Brown' },
+    deadline: '2024-09-01',
+    imageUrl: 'https://via.placeholder.com/150',
+    imageUrl2: 'https://via.placeholder.com/150/FFFF00'
   },
   totalCount: 8
 };
