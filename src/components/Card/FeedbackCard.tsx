@@ -10,7 +10,6 @@ import more from '@/../public/assets/icon_more.png';
 import userImg from '@/../public/assets/img_profile_member.png';
 import { patchFeedback } from '@/api/feedbackService';
 import type { FeedbackCardProps } from '@/interfaces/feedbackInterface';
-import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 
 export default function FeedbackCard({

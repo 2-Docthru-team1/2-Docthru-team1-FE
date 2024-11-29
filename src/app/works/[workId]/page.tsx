@@ -3,7 +3,7 @@ import { getFeedbackList, getWorkDetail } from '@/api/workService';
 import WorkDetailClient from '@/components/ClientWrapper/WorkDetailClient';
 import type { FeedbackResponse } from '@/interfaces/feedbackInterface';
 
-export default function WorkPage({ params }: { params: { workId: string } }) {
+export default async function WorkPage({ params }: { params: { workId: string } }) {
   const { workId } = params;
   const queryClient = new QueryClient();
 
