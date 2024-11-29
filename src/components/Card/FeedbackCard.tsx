@@ -8,7 +8,7 @@ import { useInView } from 'react-intersection-observer';
 import kebab from '@/../public/assets/icon_kebab_cancel.png';
 import more from '@/../public/assets/icon_more.png';
 import userImg from '@/../public/assets/img_profile_member.png';
-import { patchFeedback } from '@/api/feedbackService';
+import { deleteFeedback, patchFeedback } from '@/api/feedbackService';
 import type { FeedbackCardProps } from '@/interfaces/feedbackInterface';
 import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
@@ -26,6 +26,7 @@ export default function FeedbackCard({
 }) {
   if (!comments || comments.length === 0) return null;
   const [editingCommentId, setEditingCommentId] = useState<string>('');
+  const [deletingCommentId, setDeletingCommentId] = useState<string>('');
   const [editingContent, setEditingContent] = useState<string>('');
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
   const { ref, inView } = useInView();
@@ -38,6 +39,11 @@ export default function FeedbackCard({
   const handleEditClick = (comment: { id: string; content: string }) => {
     setEditingCommentId(comment.id);
     setEditingContent(comment.content);
+    setOpenDropdownId(null);
+  };
+
+  const handleDeleteClick = (comment: { id: string }) => {
+    setDeletingCommentId(comment.id);
     setOpenDropdownId(null);
   };
 
@@ -55,10 +61,25 @@ export default function FeedbackCard({
     }
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteFeedback(deletingCommentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['feedback'] });
+    },
+    onError: () => {
+      alert('Failed to delete your feedback. Please try again.');
+    }
+  });
+
   const handleEdit = async () => {
     await mutation.mutate(editingContent);
     setEditingContent('');
     setEditingCommentId('');
+  };
+
+  const handleDelete = async () => {
+    await deleteMutation.mutate();
+    setDeletingCommentId('');
   };
 
   // const formattedDates = comments.map(comment => useFormatter(Formatter.Date, comment.createdAt));
@@ -107,7 +128,23 @@ export default function FeedbackCard({
                         </button>
                       </div>
                     )}
-                    {user.id === comment.ownerId && editingCommentId !== comment.id && (
+                    {deletingCommentId === comment.id && (
+                      <div className="flex gap-[0.5rem]">
+                        <button
+                          className="w-[8.9rem] h-[3.2rem] rounded-[0.8rem] border border-gray-200 text-[1.4rem] font-semibold text-gray-700"
+                          onClick={() => setDeletingCommentId('')}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="w-[8.9rem] h-[3.2rem] rounded-[0.8rem] border bg-primary-blue border-gray-200 text-[1.4rem] font-semibold text-primary-white"
+                          onClick={handleDelete}
+                        >
+                          Complete
+                        </button>
+                      </div>
+                    )}
+                    {user.id === comment.ownerId && editingCommentId !== comment.id && deletingCommentId !== comment.id && (
                       <div className="flex-col relative">
                         <Image
                           src={kebab}
@@ -117,9 +154,16 @@ export default function FeedbackCard({
                           width={24}
                           height={24}
                         />
-                        <div className="absolute right-0" onClick={() => handleEditClick(comment)}>
+                        <div className="absolute right-0">
                           {openDropdownId === comment.id && (
-                            <CancelDropdown onCancel={() => handleEditClick(comment)}>Edit</CancelDropdown>
+                            <>
+                              <div onClick={() => handleEditClick(comment)}>
+                                <CancelDropdown onCancel={() => handleEditClick(comment)}>Edit</CancelDropdown>
+                              </div>
+                              <div onClick={() => handleDeleteClick(comment)}>
+                                <CancelDropdown onCancel={() => handleDeleteClick(comment)}>Delete</CancelDropdown>
+                              </div>
+                            </>
                           )}
                         </div>
                       </div>
