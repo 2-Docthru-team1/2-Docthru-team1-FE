@@ -24,6 +24,7 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
   const handleDecline = () => {
     console.log('Challenge Declined');
     setIsConfirmModalOpen(false);
+    console.log(abortReason);
   };
 
   return (

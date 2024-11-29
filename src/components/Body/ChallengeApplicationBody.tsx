@@ -82,7 +82,7 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
               statusLabel = 'cancel';
               break;
             case Status.Aborted:
-              statusLabel = 'cancel';
+              statusLabel = 'deny';
               break;
             default:
               statusLabel = 'pend';

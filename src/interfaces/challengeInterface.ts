@@ -22,6 +22,7 @@ export interface ChallengeApplicationDetailBody {
 export interface ChallengeApplicationDetailBodyData {
   id: string;
   embedUrl: string;
+  status: 'pending' | 'finished' | 'denied' | 'onGoing' | 'canceled' | 'aborted';
 }
 
 export interface ChallengeApplicationDetailHeader {
@@ -39,6 +40,8 @@ export interface ChallengeApplicationDetailHeaderData {
   imageUrl: string;
   imageUrl2: string;
   embedUrl: string;
+  status: 'pending' | 'finished' | 'denied' | 'onGoing' | 'canceled' | 'aborted';
+  updatedAt: string;
 }
 
 export interface requestUser {

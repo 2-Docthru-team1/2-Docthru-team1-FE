@@ -20,7 +20,7 @@ export default function AdminChallengeDetailClient() {
   const totalPages =
     currentData && typeof currentData.number === 'number' ? Math.max(1, Math.ceil(currentData.number / itemsPerPage)) : 1;
 
-  console.log(totalPages, 'totalpage');
+  console.log(totalPages, 'total page');
   console.log(currentPage, 'current page');
 
   const handlePageChange = (page: number) => {
@@ -64,7 +64,7 @@ export default function AdminChallengeDetailClient() {
           type="admin"
         />
       </div>
-      <div className="pt-[2.4rem]">
+      <div>
         <ChallengeApplicationDetailHeader data={currentData} />
       </div>
       <div className="border border-gray-200 w-[120rem] mt-[4rem] mb-[4rem]" />
