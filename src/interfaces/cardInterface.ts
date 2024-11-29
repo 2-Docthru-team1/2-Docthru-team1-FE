@@ -52,6 +52,11 @@ export interface ChallengeCardProps {
   role: 'admin' | 'normal' | null;
 }
 
+export interface ChallengePaginationProps {
+  list: ChallengeData[];
+  totalCount: number;
+}
+
 export interface ChallengeData {
   id: string;
   title: string;

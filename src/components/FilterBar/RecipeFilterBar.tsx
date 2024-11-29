@@ -97,7 +97,7 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
           />
         </div>
       </div>
-      <div ref={dropdownRef} className="absolute top-100% left-0 z-1000">
+      <div ref={dropdownRef} className="absolute top-100% left-[5.4rem] z-20">
         {isDropdownOpen && <RecipeDropdown items={options} onApply={handleOptionClick} />}
       </div>
     </div>
