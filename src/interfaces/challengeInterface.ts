@@ -16,7 +16,7 @@ export interface SavedSelection {
 }
 
 export interface ChallengeApplicationDetailHeader {
-  data: ChallengeApplicationDetailHeaderData[];
+  data: ChallengeApplicationDetailHeaderData;
   totalCount: number;
 }
 
@@ -25,4 +25,14 @@ export interface ChallengeApplicationDetailHeaderData {
   number: string;
   title: string;
   mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  description: string;
+  requestUser: requestUser;
+  deadline: string;
+  imageUrl: string;
+  imageUrl2: string;
+}
+
+export interface requestUser {
+  id: string;
+  name: string;
 }

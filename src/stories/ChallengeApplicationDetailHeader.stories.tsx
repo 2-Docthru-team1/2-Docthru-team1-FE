@@ -1,4 +1,5 @@
 import type { StoryFn } from '@storybook/react';
+import React from 'react';
 import ChallengeApplicationDetailHeader from '@/components/Header/ChallengeApplicationDetailHeader';
 
 export default {
@@ -8,144 +9,50 @@ export default {
 
 const Template: StoryFn<typeof ChallengeApplicationDetailHeader> = args => <ChallengeApplicationDetailHeader {...args} />;
 
+const mockData = {
+  id: '1',
+  number: '1023',
+  title: 'Sample Challenge Title',
+  mediaType: 'recipeWeb'
+};
+
 export const Default = Template.bind({});
 Default.args = {
-  data: [
-    {
-      id: '1',
-      number: '1023',
-      title: 'Sample Challenge Title',
-      mediaType: 'recipeWeb'
-    },
-    {
-      id: '1',
-      number: '1023',
-      title: 'Sample Challenge Title',
-      mediaType: 'recipeWeb'
-    },
-    {
-      id: '1',
-      number: '1023',
-      title: 'Sample Challenge Title',
-      mediaType: 'recipeWeb'
-    },
-    {
-      id: '1',
-      number: '1023',
-      title: 'Sample Challenge Title',
-      mediaType: 'recipeWeb'
-    },
-    {
-      id: '1',
-      number: '1023',
-      title: 'Sample Challenge Title',
-      mediaType: 'recipeWeb'
-    }
-  ],
+  data: {
+    id: '1',
+    number: '1023',
+    title: 'Sample Challenge Title',
+    mediaType: 'recipeWeb'
+  },
   totalCount: 5
 };
 
 export const WithSocialMedia = Template.bind({});
 WithSocialMedia.args = {
-  data: [
-    {
-      id: '1',
-      number: '1024',
-      title: 'Social Media Challenge',
-      mediaType: 'socialMedia'
-    },
-    {
-      id: '1',
-      number: '1023',
-      title: 'Sample Challenge Title',
-      mediaType: 'recipeWeb'
-    },
-    {
-      id: '1',
-      number: '1023',
-      title: 'Sample Challenge Title',
-      mediaType: 'recipeWeb'
-    },
-    {
-      id: '1',
-      number: '1023',
-      title: 'Sample Challenge Title',
-      mediaType: 'recipeWeb'
-    }
-  ],
+  data: {
+    ...mockData,
+    mediaType: 'socialMedia',
+    title: 'Social Media Challenge'
+  },
   totalCount: 10
 };
 
 export const WithYoutube = Template.bind({});
 WithYoutube.args = {
-  data: [
-    {
-      id: '1',
-      number: '1025',
-      title: 'YouTube Challenge',
-      mediaType: 'youtube'
-    },
-    {
-      id: '1',
-      number: '1025',
-      title: 'YouTube Challenge',
-      mediaType: 'youtube'
-    },
-    {
-      id: '1',
-      number: '1025',
-      title: 'YouTube Challenge',
-      mediaType: 'youtube'
-    },
-    {
-      id: '1',
-      number: '1025',
-      title: 'YouTube Challenge',
-      mediaType: 'youtube'
-    },
-    {
-      id: '1',
-      number: '1025',
-      title: 'YouTube Challenge',
-      mediaType: 'youtube'
-    }
-  ],
+  data: {
+    ...mockData,
+    mediaType: 'youtube',
+    title: 'YouTube Challenge'
+  },
   totalCount: 3
 };
 
 export const WithBlog = Template.bind({});
 WithBlog.args = {
-  data: [
-    {
-      id: '1',
-      number: '1026',
-      title: 'Blog Challenge',
-      mediaType: 'blog'
-    },
-    {
-      id: '1',
-      number: '1026',
-      title: 'Blog Challenge',
-      mediaType: 'blog'
-    },
-    {
-      id: '1',
-      number: '1026',
-      title: 'Blog Challenge',
-      mediaType: 'blog'
-    },
-    {
-      id: '1',
-      number: '1026',
-      title: 'Blog Challenge',
-      mediaType: 'blog'
-    },
-    {
-      id: '1',
-      number: '1026',
-      title: 'Blog Challenge',
-      mediaType: 'blog'
-    }
-  ],
+  data: {
+    ...mockData,
+    mediaType: 'blog',
+    title: 'Blog Challenge'
+  },
   totalCount: 8
 };
