@@ -9,7 +9,7 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
       </div>
       <div className="border border-gray-200 w-full mt-[2.4rem] mb-[4rem]" />
       <div className="flex gap-[1.2rem] h-[4.8rem] justify-end">
-        <button className="w-[15.3rem] bg-[#FFE7E7] text-[#F24744] rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center">
+        <button className="w-[15.3rem] bg-primary-blue text-[#F24744] rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center">
           Decline
         </button>
         <button className="w-[15.3rem] bg-[#73A8CD] text-primary-white rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center">
