@@ -1,7 +1,7 @@
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
 import { getRequest, patchRequest, postRequest } from './api';
 
-export const fetchChallenge = async (page: number = 2, pageSize: number = 4, queryParams: string = '') => {
+export const fetchChallenge = async (page: number, pageSize: number, queryParams: string = '') => {
   try {
     const response = await getRequest(`/challenges?page=${page}&pageSize=${pageSize}${queryParams}`);
     return response.data;
