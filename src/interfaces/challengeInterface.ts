@@ -16,9 +16,13 @@ export interface SavedSelection {
 }
 
 export interface ChallengeApplicationDetailHeader {
-  data: ChallengeApplicationDetailHeaderData;
+  data: ChallengeApplicationDetailHeaderData[];
+  totalCount: number;
 }
 
 export interface ChallengeApplicationDetailHeaderData {
+  id: string;
   number: string;
+  title: string;
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
 }
