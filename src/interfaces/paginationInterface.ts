@@ -3,5 +3,5 @@ export interface PaginationProps {
   totalPages: number;
   onPageChange: (page: number) => void;
   hasNext?: boolean;
-  type: 'small' | 'default';
+  type: 'small' | 'default' | 'admin';
 }
