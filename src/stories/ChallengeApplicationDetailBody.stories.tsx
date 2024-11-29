@@ -8,7 +8,6 @@ export default {
 
 const Template: StoryFn<typeof ChallengeApplicationDetailBody> = args => <ChallengeApplicationDetailBody {...args} />;
 
-// Mock data
 const mockData = {
   id: '1',
   embedUrl: 'https://www.example.com/embedded-content'
