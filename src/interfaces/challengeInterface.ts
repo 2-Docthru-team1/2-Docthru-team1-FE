@@ -14,3 +14,11 @@ export interface SavedSelection {
   endContainer: Node;
   endOffset: number;
 }
+
+export interface ChallengeApplicationDetailHeader {
+  data: ChallengeApplicationDetailHeaderData;
+}
+
+export interface ChallengeApplicationDetailHeaderData {
+  number: string;
+}
