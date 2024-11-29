@@ -1,12 +1,14 @@
 'use client';
 
+import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import plus from '@/../public/assets/icon_plus_medium.png';
 import { fetchChallenge } from '@/api/challengeService';
 import ChallengeCard from '@/components/Card/ChallengeCard';
-import type { ChallengeData, MonthlyChallengeData } from '@/interfaces/cardInterface';
+import type { ChallengeData, ChallengePaginationProps, MonthlyChallengeData } from '@/interfaces/cardInterface';
 import type { ChallengeListClientProps } from '@/interfaces/challengelistInterface';
 import useStore from '@/store/store';
 import MonthlyChallengeCard from '../Card/MonthlyChallengeCard';
@@ -30,25 +32,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const mediumItems = medium.slice(indexOfFirstItem, indexOfLastItem);
-
-  const totalPages = Math.ceil(medium.length / itemsPerPage);
-
-  useEffect(() => {
-    if (isFilterApplied || keyword) {
-      const fetchFilteredData = async () => {
-        try {
-          const queryParams = createQueryParams(orderBy, mediaType, status, keyword);
-          console.log(queryParams);
-          const filteredData = await fetchChallenge(queryParams);
-          setMedium(filteredData.list);
-        } catch (error) {
-          console.error('Error fetching filtered challenges:', error);
-        }
-      };
-
-      fetchFilteredData();
-    }
-  }, [isFilterApplied, orderBy, mediaType, status, keyword]);
+  const queryClient = useQueryClient();
 
   const createQueryParams = (orderBy: string, mediaType: string[], status: string, keyword: string): string => {
     const params: string[] = [];
@@ -56,8 +40,54 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     if (status) params.push(`status=${status}`);
     if (keyword) params.push(`keyword=${keyword}`);
     mediaType.forEach(type => params.push(`mediaType=${type}`));
-    return `?${params.join('&')}`;
+    return `&${params.join('&')}`;
   };
+
+  const queryParams = createQueryParams(orderBy, mediaType, status, keyword);
+
+  const {
+    data: challenges,
+    isPlaceholderData,
+    isLoading,
+    isError
+  } = useQuery<ChallengePaginationProps>({
+    queryKey: ['challenges', currentPage, queryParams],
+    queryFn: () => fetchChallenge(currentPage, itemsPerPage, queryParams),
+    placeholderData: keepPreviousData
+  });
+  console.log(challenges);
+  const totalPages = challenges ? Math.ceil(challenges.totalCount / itemsPerPage) : 1;
+  const hasMore = currentPage < totalPages;
+
+  useEffect(() => {
+    if (!isPlaceholderData && hasMore) {
+      const pagesToPrefetch = 1;
+      const nextPage = currentPage + 1;
+
+      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+        queryClient.prefetchQuery({
+          queryKey: ['challenges', i, queryParams],
+          queryFn: () => fetchChallenge(i, itemsPerPage, queryParams)
+        });
+      }
+    }
+  }, [currentPage, hasMore, isPlaceholderData, queryParams]);
+
+  if (isLoading) {
+    return (
+      <div className="flex w-full justify-center items-center min-h-screen">
+        <Image src={loading} alt="loading" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 text-[1.5rem]">Failed to load data. Please try again later.</p>
+      </div>
+    );
+  }
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -128,10 +158,10 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
             )}
           </div>
         </div>
-        {mediumItems.length > 0 ? (
-          <div className="flex justify-between grid grid-cols-2 grid-rows-2 gap-[2.4rem]">
-            {mediumItems.map((data, index) => (
-              <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
+        {challenges?.list.length ? (
+          <div className="justify-between grid grid-cols-2 grid-rows-2 gap-[2.4rem]">
+            {challenges.list.map((data: ChallengeData) => (
+              <div key={data.id} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
                 <ChallengeCard data={data} userId={id} role={role} />
               </div>
             ))}

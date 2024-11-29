@@ -43,8 +43,8 @@ export default function RecipeListClient() {
 
       for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
         queryClient.prefetchQuery({
-          queryKey: ['recipies', i, currentPage + 1, keyword, category],
-          queryFn: () => fetchMenu(i, itemsPerPage, keyword, category)
+          queryKey: ['recipies', i, keyword, category],
+          queryFn: async () => await fetchMenu(i, itemsPerPage, keyword, category)
         });
       }
     }
