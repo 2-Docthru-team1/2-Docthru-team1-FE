@@ -8,6 +8,9 @@ export interface ClosableModalProps {
 export interface ConfirmModalProps {
   onCancel: () => void;
   onDelete: () => void;
+  role?: string | null;
+  abortReason?: string;
+  setAbortReason?: (reason: string) => void;
 }
 
 export interface ImageModalProps {

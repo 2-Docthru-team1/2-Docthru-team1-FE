@@ -126,11 +126,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
           {adminchallengeData.length > 0 ? (
             <div className="flex gap-[2.55rem]">
               {adminchallengeData.map((data, index) => (
-                <div
-                  key={index}
-                  // onClick={() => handleChallengeClick(data.id)}
-                  // className="cursor-pointer"
-                >
+                <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
                   <MonthlyChallengeCard data={data} role={role} />
                 </div>
               ))}

@@ -10,16 +10,6 @@ export const fetchChallenge = async (page: number = 2, pageSize: number = 4, que
   }
 };
 
-export const getFilteredChallenges = async () => {
-  try {
-    const { list, totalCount } = await fetchChallenge();
-    const filteredList = list.filter((list: { status: string }) => ['onGoing', 'finished'].includes(list.status));
-    return { list: filteredList, totalCount };
-  } catch (error) {
-    throw new Error('Failed to get challenge');
-  }
-};
-
 export const fetchRanker = async () => {
   try {
     const response = await getRequest('http://localhost:3000/rankerMockData.json');
@@ -30,10 +20,9 @@ export const fetchRanker = async () => {
   }
 };
 
-export const fetchAdminChallenge = async () => {
+export const fetchAdminChallenge = async (queryParams: string = '') => {
   try {
-    const response = await getRequest('http://localhost:3000/adminchallengeMockData.json');
-    // const response = await getRequest('https://2-docthru-team1-n10tvnaef-team1-hancook.vercel.app/adminchallengeMockData.json');
+    const response = await getRequest(`/challenges/monthly${queryParams}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get admin challenge data');
