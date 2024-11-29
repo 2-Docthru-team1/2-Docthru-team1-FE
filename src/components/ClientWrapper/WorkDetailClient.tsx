@@ -2,6 +2,7 @@
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { getUser } from '@/api/userService';
 import { getFeedbackList } from '@/api/workService';
@@ -11,7 +12,9 @@ import FeedbackCard from '../Card/FeedbackCard';
 import WorkCard from '../Card/WorkCard';
 import WorkInput from '../Input/WorkInput';
 
-export default function WorkDetailClient({ workId }: { workId: string }) {
+export default function WorkDetailClient() {
+  const { id } = useParams();
+  const workId = String(id);
   const {
     data: work,
     isLoading: workLoading,
