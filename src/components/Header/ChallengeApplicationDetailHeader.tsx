@@ -2,13 +2,19 @@
 
 import { format } from 'date-fns';
 import Image from 'next/image';
+import { useState } from 'react';
 import clock from '@/../public/assets/icon_deadline_clock_large.png';
 import toggle from '@/../public/assets/icon_kebab_toggle.png';
 import profile from '@/../public/assets/img_profile_member.png';
 import type { ChallengeApplicationDetailHeader } from '@/interfaces/challengeInterface';
 import ChipCategory from '../Chip/ChipCategory';
+import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 
 export default function ChallengeApplicationDetailHeader({ data }: ChallengeApplicationDetailHeader) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState<string>('');
+  const [modalAlt, setModalAlt] = useState<string>('');
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
@@ -17,11 +23,30 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
     return format(date, 'yyyy-MM-dd');
   };
 
-  const renderImage = (imageUrl: string) => {
+  const renderImage = (imageUrl: string, alt: string) => {
     if (!imageUrl || imageUrl.trim() === '') {
       return null;
     }
-    return <Image src={imageUrl} alt="picture" width={343} height={294} />;
+    return (
+      <Image
+        src={imageUrl}
+        alt={alt}
+        width={343}
+        height={294}
+        className="cursor-pointer"
+        onClick={() => handleImageClick(imageUrl, alt)}
+      />
+    );
+  };
+
+  const handleImageClick = (imageUrl: string, alt: string) => {
+    setModalImage(imageUrl);
+    setModalAlt(alt);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -48,10 +73,11 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
           </div>
         </div>
         <div className="flex gap-[2.4rem]">
-          {renderImage(data.imageUrl)}
-          {renderImage(data.imageUrl2)}
+          {renderImage(data.imageUrl, 'Image 1')}
+          {renderImage(data.imageUrl2, 'Image 2')}
         </div>
       </div>
+      {isModalOpen && <ImageEnlargeModal src={modalImage} alt={modalAlt} onClose={handleModalClose} />}
     </div>
   );
 }
