@@ -2,7 +2,6 @@
 
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchChallengeApplication } from '@/api/challengeService';
@@ -13,7 +12,6 @@ import ChallengeApplicationBody from '../Body/ChallengeApplicationBody';
 import Pagination from '../Pagination/Pagination';
 
 export default function ChallengeMgmtClient() {
-  const router = useRouter();
   const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

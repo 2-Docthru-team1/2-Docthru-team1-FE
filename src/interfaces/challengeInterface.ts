@@ -26,7 +26,6 @@ export interface ChallengeApplicationDetailBodyData {
 
 export interface ChallengeApplicationDetailHeader {
   data: ChallengeApplicationDetailHeaderData;
-  totalCount: number;
 }
 
 export interface ChallengeApplicationDetailHeaderData {
