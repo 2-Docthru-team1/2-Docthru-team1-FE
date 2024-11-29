@@ -1,9 +1,31 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import arrow from '@/../public/assets/icon_click.png';
 import type { ChallengeApplicationDetailBody } from '@/interfaces/challengeInterface';
+import useStore from '@/store/store';
+import ConfirmModal from '../Modal/ConfirmModal';
 
 export default function ChallengeApplicationDetailBody({ data }: ChallengeApplicationDetailBody) {
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [abortReason, setAbortReason] = useState('');
+  const { userStatus } = useStore();
+
+  const handleDeclineClick = () => {
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsConfirmModalOpen(false);
+  };
+
+  const handleDecline = () => {
+    console.log('Challenge Declined');
+    setIsConfirmModalOpen(false);
+  };
+
   return (
     <div className="w-[120rem]">
       <p className="font-semibold text-[1.8rem] leading-[2.148rem] text-gray-800">Recipe Link / Attached Article</p>
@@ -23,13 +45,25 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
       </div>
       <div className="border border-gray-200 w-full mt-[2.4rem] mb-[4rem]" />
       <div className="flex gap-[1.2rem] h-[4.8rem] justify-end">
-        <button className="w-[15.3rem] bg-[#FFE7E7] text-[#F24744] rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center">
+        <button
+          onClick={handleDeclineClick}
+          className="w-[15.3rem] bg-[#FFE7E7] text-[#F24744] rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center"
+        >
           Decline
         </button>
         <button className="w-[15.3rem] bg-primary-blue text-primary-white rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center">
           Approve
         </button>
       </div>
+      {isConfirmModalOpen && (
+        <ConfirmModal
+          onCancel={handleCancel}
+          onDelete={handleDecline}
+          role={userStatus}
+          abortReason={abortReason}
+          setAbortReason={setAbortReason}
+        />
+      )}
     </div>
   );
 }
