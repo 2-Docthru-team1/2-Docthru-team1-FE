@@ -35,14 +35,14 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
           <ChipCategory mediaType={data.mediaType} />
         </div>
       </div>
-      <div className="flex flex-col gap-[2.4rem]">
+      <div className="flex flex-col mt-[2.4rem] gap-[2.4rem] w-full">
         <p className="font-normal text-[1.6rem] leading-[2.08rem] text-gray-700">{data.description}</p>
-        <div className="flex w-[13.1rem] justify-between items-center">
-          <div className="flex gap-[0.8rem]">
+        <div className="flex w-[30rem] justify-between items-center">
+          <div className="flex gap-[0.8rem] items-center">
             <Image src={profile} alt="profile" />
             <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-800">{data.requestUser.name}</p>
           </div>
-          <div className="flex gap-[4rem] items-center">
+          <div className="flex gap-[0.44rem] items-center">
             <Image src={clock} alt="clock" />
             <p className="font-normal text-[1.3rem] leading-[1.551rem] text-gray-600">Closing on {formatDate(data.deadline)}</p>
           </div>

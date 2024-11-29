@@ -68,7 +68,7 @@ export default function AdminChallengeDetailClient() {
         <ChallengeApplicationDetailHeader data={currentData} />
       </div>
       <div className="border border-gray-200 w-[120rem] mt-[4rem] mb-[4rem]" />
-      <div>
+      <div className="w-[120rem]">
         <ChallengeApplicationDetailBody data={currentData} />
       </div>
     </div>
