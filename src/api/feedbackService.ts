@@ -1,4 +1,4 @@
-import { patchRequest } from './api';
+import { deleteRequest, patchRequest } from './api';
 
 export const patchFeedback = async (feedbackId: string, content: string) => {
   try {
@@ -6,5 +6,14 @@ export const patchFeedback = async (feedbackId: string, content: string) => {
     return res.data;
   } catch (error) {
     throw new Error('Failed to patch feedback');
+  }
+};
+
+export const deleteFeedback = async (feedbackId: string) => {
+  try {
+    const res = await deleteRequest(`/feedbacks/${feedbackId}`);
+    return res.data;
+  } catch (error) {
+    throw new Error('Failed to delete feedback');
   }
 };
