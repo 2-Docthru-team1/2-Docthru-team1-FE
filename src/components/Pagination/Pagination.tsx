@@ -36,7 +36,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange, hasN
             <Image src={!hasNext || currentPage === totalPages ? arrowInActRight : arrowActRight} alt="화살표" />
           </button>
         </>
-      ) : (
+      ) : type === 'small' ? (
         <div className="flex items-center w-[9.7rem] justify-between">
           <div className="flex items-center">
             <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
@@ -50,6 +50,17 @@ export default function Pagination({ currentPage, totalPages, onPageChange, hasN
             <p className="text-[1.3rem] leading-[1.551rem] text-medium text-primary-blue">{currentPage}</p>
             <p className="text-[1.3rem] leading-[1.551rem] text-medium text-gray-800">/</p>
             <p className="text-[1.3rem] leading-[1.551rem] text-medium text-gray-800">{totalPages}</p>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="flex items-center">
+            <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
+              <Image src={currentPage === 1 ? arrowInActLeft : arrowActLeft} alt="화살표" />
+            </button>
+            <button onClick={() => onPageChange(currentPage + 1)} disabled={!hasNext || currentPage === totalPages}>
+              <Image src={!hasNext || currentPage === totalPages ? arrowInActRight : arrowActRight} alt="화살표" />
+            </button>
           </div>
         </div>
       )}
