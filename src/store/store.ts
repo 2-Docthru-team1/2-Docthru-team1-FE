@@ -9,6 +9,7 @@ interface StoreState {
   selectedStatus: string;
   isFilterApplied: boolean;
   isDropdownOpen: boolean;
+  challengeMgmtTotalCount: number;
   setKeyword: (keyword: string) => void;
   setCategory: (category: string) => void;
   setSelectedSort: (sort: string | null) => void;
@@ -25,6 +26,7 @@ interface StoreState {
   logout: () => void;
   setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => void;
   setLoading: (isLoading: boolean) => void;
+  setChallengeMgmtTotalCount: (count: number) => void;
 }
 
 const useStore = create<StoreState>(set => ({
@@ -37,6 +39,10 @@ const useStore = create<StoreState>(set => ({
   isFilterApplied: false,
   isDropdownOpen: false,
   isLoading: true,
+  challengeMgmtTotalCount:
+    typeof window !== 'undefined' && localStorage.getItem('challengeMgmtTotalCount')
+      ? Number(localStorage.getItem('challengeMgmtTotalCount'))
+      : 0,
 
   setKeyword: keyword => set({ keyword }),
   setCategory: category => set({ category }),
@@ -70,7 +76,14 @@ const useStore = create<StoreState>(set => ({
   },
 
   setUserStatus: status => set({ userStatus: status }),
-  setLoading: (isLoading: boolean) => set({ isLoading })
+  setLoading: (isLoading: boolean) => set({ isLoading }),
+
+  setChallengeMgmtTotalCount: count => {
+    set({ challengeMgmtTotalCount: count });
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('challengeMgmtTotalCount', count.toString());
+    }
+  }
 }));
 
 export default useStore;

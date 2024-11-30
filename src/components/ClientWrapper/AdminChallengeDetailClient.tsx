@@ -1,61 +1,63 @@
 'use client';
 
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchAdminChallengeDetailNext, fetchAdminChallengeDetailPrev, fetchChallenge_detail } from '@/api/challengeService';
 import type { ChallengeApplicationDetailHeaderData } from '@/interfaces/challengeInterface';
+import useStore from '@/store/store';
 import ChallengeApplicationDetailBody from '../Body/ChallengeApplicationDetailBody';
 import ChallengeApplicationDetailHeader from '../Header/ChallengeApplicationDetailHeader';
 import Pagination from '../Pagination/Pagination';
 
 export default function AdminChallengeDetailClient() {
   const { id } = useParams();
+  const router = useRouter();
+  const { challengeMgmtTotalCount } = useStore();
 
   const [currentData, setCurrentData] = useState<ChallengeApplicationDetailHeaderData | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage = 1;
   const totalPages =
-    currentData && typeof currentData.number === 'number' ? Math.max(1, Math.ceil(currentData.number / itemsPerPage)) : 1;
-
-  console.log(totalPages, 'total page');
-  console.log(currentPage, 'current page');
+    currentData && typeof currentData.number === 'number' ? Math.max(1, Math.ceil(challengeMgmtTotalCount / itemsPerPage)) : 1;
 
   const handlePageChange = async (page: number) => {
+    if (page === currentPage) return;
+
+    setCurrentPage(page);
+
     let response;
 
     if (page < currentPage) {
       response = await fetchAdminChallengeDetailPrev(String(id));
-      console.log('prev', response);
     } else if (page > currentPage) {
       response = await fetchAdminChallengeDetailNext(String(id));
-      console.log('next', response);
     }
 
     if (response) {
       setCurrentData(response);
-      setCurrentPage(page);
     }
+
+    router.push(`/auth/challenge/${response.id}`);
   };
 
   useEffect(() => {
     const getChallengeDetailData = async () => {
       const response = await fetchChallenge_detail(String(id));
       setCurrentData(response);
+      setCurrentPage(response.number);
     };
 
     getChallengeDetailData();
-  }, [currentPage, id]);
+  }, [id]);
 
   useEffect(() => {
     if (currentData) {
       setCurrentPage(Number(currentData.number));
     }
   }, [currentData]);
-
-  console.log(currentData);
 
   if (!currentData) {
     return (

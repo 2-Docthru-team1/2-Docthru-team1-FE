@@ -16,7 +16,7 @@ export default function ChallengeMgmtClient() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const { keyword, category, setKeyword, setCategory } = useStore();
+  const { keyword, category, setKeyword, setCategory, setChallengeMgmtTotalCount } = useStore();
 
   const {
     data: challengeApply,
@@ -40,6 +40,12 @@ export default function ChallengeMgmtClient() {
       });
     }
   }, [currentPage, hasMore, isPlaceholderData, keyword, category]);
+
+  useEffect(() => {
+    if (challengeApply) {
+      setChallengeMgmtTotalCount(challengeApply?.totalCount || 0);
+    }
+  }, [challengeApply]);
 
   if (isLoading) {
     return (

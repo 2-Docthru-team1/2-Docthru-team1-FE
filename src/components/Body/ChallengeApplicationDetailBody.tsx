@@ -17,7 +17,6 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
 
   const patchChallengeStatusChange = async (status: string, declineReason?: string) => {
     const response = await fetchChallengeStatusChange(String(data.id), status, declineReason);
-    console.log(response);
     if (response) {
       window.location.reload();
     } else {

@@ -25,13 +25,14 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
   const { userStatus } = useStore();
 
   useEffect(() => {
-    const getChallengeAbortReason = async () => {
-      const response = await fetchChallengeAbortReason(String(data.id));
-      console.log(response);
-      setAbortReason(response.content);
-    };
+    if (data.status === 'aborted' || data.status === 'denied') {
+      const getChallengeAbortReason = async () => {
+        const response = await fetchChallengeAbortReason(String(data.id));
+        setAbortReason(response.content);
+      };
 
-    getChallengeAbortReason();
+      getChallengeAbortReason();
+    }
   }, [data.id]);
 
   const formatDate = (dateString: string) => {
@@ -50,9 +51,18 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
     return format(date, 'yy/MM/dd HH:mm');
   };
 
+  const isValidUrl = (url: string): boolean => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const renderImage = (imageUrl: string, alt: string) => {
-    if (!imageUrl || imageUrl.trim() === '') {
-      return null;
+    if (!imageUrl || imageUrl.trim() === '' || !isValidUrl(imageUrl)) {
+      return <p className="text-gray-500 text-sm italic">{alt}</p>;
     }
     return (
       <Image
@@ -78,7 +88,6 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
 
   const patchChallengeStatusChange = async (status: string, declineReason?: string) => {
     const response = await fetchChallengeStatusChange(String(data.id), status, declineReason);
-    console.log(response);
     if (response) {
       window.location.reload();
     } else {
