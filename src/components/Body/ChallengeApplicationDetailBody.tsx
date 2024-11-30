@@ -55,7 +55,13 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
     <div className="w-[120rem]">
       <p className="font-semibold text-[1.8rem] leading-[2.148rem] text-gray-800">Recipe Link / Attached Article</p>
       <div className="relative mt-[4rem] w-[89rem] h-[42.4rem]">
-        <iframe src={data.embedUrl} title="Embedded Content" width="100%" height="100%" />
+        <iframe
+          src={data.embedUrl}
+          title="Embedded Content"
+          width="100%"
+          height="100%"
+          sandbox="allow-same-origin allow-scripts"
+        />
         <div className="absolute top-[2%] right-[1%] bg-primary-white opacity-50 z-2 rounded-[1rem] px-2 py-1">
           <Link
             href={data.embedUrl}
