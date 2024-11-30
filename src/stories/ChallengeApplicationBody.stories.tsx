@@ -13,6 +13,7 @@ export const Default = Template.bind({});
 Default.args = {
   data: [
     {
+      id: '1',
       number: 10,
       mediaType: 'socialMedia',
       title: 'Test3',
@@ -21,6 +22,7 @@ Default.args = {
       status: 'canceled'
     },
     {
+      id: '2',
       number: 9,
       mediaType: 'recipeWeb',
       title: 'Test4',
@@ -29,6 +31,7 @@ Default.args = {
       status: 'denied'
     },
     {
+      id: '3',
       number: 8,
       mediaType: 'youtube',
       title: 'Test5',
@@ -37,6 +40,7 @@ Default.args = {
       status: 'onGoing'
     },
     {
+      id: '4',
       number: 7,
       mediaType: 'blog',
       title: 'Test6',
@@ -45,6 +49,7 @@ Default.args = {
       status: 'aborted'
     },
     {
+      id: '5',
       number: 6,
       mediaType: 'youtube',
       title: 'Test1Test1Test1Test1Test1Test1Test1Test1Test1Test1Test1Test1Test1Test1Test1Test1Test1',
@@ -53,6 +58,7 @@ Default.args = {
       status: 'pending'
     },
     {
+      id: '6',
       number: 5,
       mediaType: 'blog',
       title: 'Test2Test2Test2Test2Test2Test2Test2Test2Test2Test2Test2Test2Test2Test2',
@@ -61,6 +67,7 @@ Default.args = {
       status: 'finished'
     },
     {
+      id: '7',
       number: 4,
       mediaType: 'socialMedia',
       title: 'Test3',
@@ -69,6 +76,7 @@ Default.args = {
       status: 'canceled'
     },
     {
+      id: '8',
       number: 3,
       mediaType: 'recipeWeb',
       title: 'Test4',
@@ -77,6 +85,7 @@ Default.args = {
       status: 'denied'
     },
     {
+      id: '9',
       number: 2,
       mediaType: 'youtube',
       title: 'Test5',
@@ -85,6 +94,7 @@ Default.args = {
       status: 'onGoing'
     },
     {
+      id: '10',
       number: 1,
       mediaType: 'blog',
       title: 'Test6',
