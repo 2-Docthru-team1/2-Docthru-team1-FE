@@ -1,11 +1,23 @@
+'use client';
+
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import Cta from '@/components/Button/Cta';
 import pcLogo from '../../public/assets/img_logo_pc.png';
 import pcLanding from '../../public/assets/img_pc_landing.png';
 
-export default async function Home() {
+export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      router.push('/recipeList');
+    }
+  }, []);
   return (
-    <div className="flex flex-col justify-center items-center h-[calc(100vh-60px)] bg-gradient-to-b from-[#F5F5F5] to-primary-beige relative">
+    <div className="flex flex-col justify-center items-center h-[calc(100vh)] bg-gradient-to-b from-[#F5F5F5] to-primary-beige relative">
       <Image
         src={pcLanding}
         alt="Korean flag with seaweed paper"
