@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signIn } from '@/api/signService';
 import useStore from '@/store/store';
@@ -13,6 +13,13 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      router.push('/recipeList');
+    }
+  }, []);
 
   const isFormValid = () => {
     return email.trim() !== '' && password.trim() !== '';

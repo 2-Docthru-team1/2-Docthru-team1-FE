@@ -34,3 +34,21 @@ export const postFeedback = async (workId: string, content: string) => {
     throw new Error('Failed to create feedback');
   }
 };
+
+export const likePost = async (workId: string) => {
+  try {
+    const res = await postRequest(`/works/${workId}/like`);
+    return res.data;
+  } catch (error) {
+    throw new Error('Failed to create like');
+  }
+};
+
+export const unLikePost = async (workId: string) => {
+  try {
+    const res = await deleteRequest(`/works/${workId}/like`);
+    return res.data;
+  } catch (error) {
+    throw new Error('Failed to create unlike');
+  }
+};

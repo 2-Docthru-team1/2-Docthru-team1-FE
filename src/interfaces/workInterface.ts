@@ -12,6 +12,9 @@ export interface WorkDetailData {
     name: string;
     role: string;
   };
+  likeUsers: {
+    id: string;
+  };
 }
 
 export interface WorkDataProps {

@@ -33,6 +33,7 @@ export interface ChallengeParticipantStatusProps {
 export interface ChallengeParticipantStatusData {
   id: string;
   title: string;
+  challengeId: string;
   feedbackCount: number;
   likeCount: number;
   owner: ownerData;

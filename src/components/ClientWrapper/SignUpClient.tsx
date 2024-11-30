@@ -9,11 +9,19 @@ import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signUp } from '@/api/authService';
 import type { SignUpData } from '@/interfaces/userInterface';
+import useStore from '@/store/store';
 import useSignUpValidate from '../../../hooks/useSignUpValidate';
 import SignInput from '../Input/SignInput';
 
 export default function SignUpClient() {
   const router = useRouter();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      router.push('/recipeList');
+    }
+  }, []);
 
   const { values, errors, validate, handleChange } = useSignUpValidate({
     email: '',
