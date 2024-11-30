@@ -23,7 +23,8 @@ const mockComments = [
 ];
 
 const mockUser = {
-  id: '123'
+  id: '123',
+  role: 'normal' as 'normal'
 };
 
 export default {

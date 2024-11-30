@@ -16,7 +16,8 @@ const data = {
 };
 
 const user = {
-  id: 'u123'
+  id: 'u123',
+  role: 'normal' as 'normal'
 };
 
 export default {
