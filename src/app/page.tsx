@@ -17,7 +17,7 @@ export default function Home() {
     }
   }, []);
   return (
-    <div className="flex flex-col justify-center items-center h-[calc(100vh)] bg-gradient-to-b from-[#F5F5F5] to-primary-beige relative">
+    <div className="flex flex-col justify-center items-center h-[100vh] bg-gradient-to-b from-[#F5F5F5] to-primary-beige relative">
       <Image
         src={pcLanding}
         alt="Korean flag with seaweed paper"
