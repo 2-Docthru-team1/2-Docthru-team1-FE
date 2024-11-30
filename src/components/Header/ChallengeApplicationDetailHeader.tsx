@@ -6,9 +6,12 @@ import { useEffect, useState } from 'react';
 import clock from '@/../public/assets/icon_deadline_clock_large.png';
 import toggle from '@/../public/assets/icon_kebab_toggle.png';
 import profile from '@/../public/assets/img_profile_member.png';
-import { fetchChallengeAbortReason } from '@/api/challengeService';
+import { fetchChallengeAbortReason, fetchChallengeStatusChange } from '@/api/challengeService';
 import type { ChallengeApplicationDetailHeader } from '@/interfaces/challengeInterface';
+import useStore from '@/store/store';
 import ChipCategory from '../Chip/ChipCategory';
+import CancelDropdown from '../Dropdown/CancelDropdown';
+import ConfirmModal from '../Modal/ConfirmModal';
 import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 
 export default function ChallengeApplicationDetailHeader({ data }: ChallengeApplicationDetailHeader) {
@@ -16,6 +19,10 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
   const [modalImage, setModalImage] = useState<string>('');
   const [modalAlt, setModalAlt] = useState<string>('');
   const [abortReason, setAbortReason] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isAbortModalOpen, setIsAbortModalOpen] = useState(false);
+
+  const { userStatus } = useStore();
 
   useEffect(() => {
     const getChallengeAbortReason = async () => {
@@ -69,6 +76,35 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
     setIsModalOpen(false);
   };
 
+  const patchChallengeStatusChange = async (status: string, declineReason?: string) => {
+    const response = await fetchChallengeStatusChange(String(data.id), status, declineReason);
+    console.log(response);
+    if (response) {
+      window.location.reload();
+    } else {
+      console.error('Status update failed:', response);
+    }
+  };
+
+  const handleAbort = () => {
+    setIsAbortModalOpen(false);
+    patchChallengeStatusChange('aborted', abortReason);
+    setAbortReason('');
+  };
+
+  const handleDropdownClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setDropdownOpen(prev => !prev);
+  };
+
+  const handleAbortModalCancel = () => {
+    setIsAbortModalOpen(false);
+  };
+
+  const handleAbortModalOpen = () => {
+    setIsAbortModalOpen(true);
+  };
+
   return (
     <div className="w-[120rem] items-center justify-center flex flex-col">
       <div className="flex flex-col w-full gap-[1.6rem]">
@@ -109,7 +145,16 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
         )}
         <div className="flex justify-between w-full">
           <p className="font-semibold text-[2.4rem] leading-[2.864rem]">{data.title}</p>
-          {data.status === 'onGoing' && <Image src={toggle} alt="toggle" />}
+          {data.status === 'onGoing' && (
+            <>
+              <div className="relative z-10">
+                <Image src={toggle} alt="toggle" onClick={handleDropdownClick} className="cursor-pointer" />
+                <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
+                  {dropdownOpen && <CancelDropdown onCancel={handleAbortModalOpen}>Abort</CancelDropdown>}
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <div>
           <ChipCategory mediaType={data.mediaType} />
@@ -133,6 +178,15 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
         </div>
       </div>
       {isModalOpen && <ImageEnlargeModal src={modalImage} alt={modalAlt} onClose={handleModalClose} />}
+      {isAbortModalOpen && (
+        <ConfirmModal
+          onCancel={handleAbortModalCancel}
+          onDelete={handleAbort}
+          role={userStatus}
+          abortReason={abortReason}
+          setAbortReason={setAbortReason}
+        />
+      )}
     </div>
   );
 }

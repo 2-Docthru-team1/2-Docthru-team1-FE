@@ -18,6 +18,11 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
   const patchChallengeStatusChange = async (status: string, declineReason?: string) => {
     const response = await fetchChallengeStatusChange(String(data.id), status, declineReason);
     console.log(response);
+    if (response) {
+      window.location.reload();
+    } else {
+      console.error('Status update failed:', response);
+    }
   };
 
   const handleDeclineClick = () => {
@@ -29,15 +34,12 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
   };
 
   const handleDecline = () => {
-    console.log('Challenge Declined');
     setIsConfirmModalOpen(false);
-    console.log(abortReason);
     patchChallengeStatusChange('denied', abortReason);
     setAbortReason('');
   };
 
   const handleApprove = () => {
-    console.log('Challenge Approved');
     patchChallengeStatusChange('onGoing');
     setIsApproveModalOpen(false);
   };
@@ -69,18 +71,22 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
       </div>
       <div className="border border-gray-200 w-full mt-[2.4rem] mb-[4rem]" />
       <div className="flex gap-[1.2rem] h-[4.8rem] justify-end">
-        <button
-          onClick={handleDeclineClick}
-          className="w-[15.3rem] bg-[#FFE7E7] text-[#F24744] rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center"
-        >
-          Decline
-        </button>
-        <button
-          className="w-[15.3rem] bg-primary-blue text-primary-white rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center"
-          onClick={handleApproveClick}
-        >
-          Approve
-        </button>
+        {data.status === 'pending' && (
+          <button
+            onClick={handleDeclineClick}
+            className="w-[15.3rem] bg-[#FFE7E7] text-[#F24744] rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center"
+          >
+            Decline
+          </button>
+        )}
+        {(data.status === 'pending' || data.status === 'denied' || data.status === 'aborted') && (
+          <button
+            className="w-[15.3rem] bg-primary-blue text-primary-white rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center"
+            onClick={handleApproveClick}
+          >
+            Approve
+          </button>
+        )}
       </div>
       {isConfirmModalOpen && (
         <ConfirmModal
