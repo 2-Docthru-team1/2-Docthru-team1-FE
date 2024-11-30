@@ -33,7 +33,7 @@ export default function SignIn() {
       localStorage.setItem('refreshToken', res.refreshToken);
       router.push('/recipeList');
       const { login } = useStore.getState();
-      login(res.id, res.role);
+      login(res.id, res.role, res.name);
     } catch (err: any) {
       let errorMessage = 'An unexpected error occurred. Please try again.';
       if (err?.response?.data?.field === '이메일 또는 비밀번호가 잘못되었습니다.') {

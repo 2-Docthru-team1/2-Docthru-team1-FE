@@ -20,8 +20,9 @@ interface StoreState {
   userStatus: 'loggedOut' | 'normal' | 'admin';
   id: string | null;
   role: 'normal' | 'admin' | null;
+  name: string | null;
   isLoading: boolean;
-  login: (id: string, role: 'normal' | 'admin') => void;
+  login: (id: string, role: 'normal' | 'admin', name: string) => void;
   logout: () => void;
   setUserStatus: (status: 'loggedOut' | 'normal' | 'admin') => void;
   setLoading: (isLoading: boolean) => void;
@@ -50,20 +51,23 @@ const useStore = create<StoreState>(set => ({
   userStatus: 'loggedOut',
   id: null,
   role: null,
+  name: null,
 
-  login: (id, role) => {
-    set({ id, role, userStatus: role === 'admin' ? 'admin' : 'normal' });
+  login: (id, role, name) => {
+    set({ id, role, userStatus: role === 'admin' ? 'admin' : 'normal', name });
     if (typeof window !== 'undefined') {
       localStorage.setItem('userId', id);
       localStorage.setItem('role', role);
+      localStorage.setItem('name', name);
     }
   },
 
   logout: () => {
-    set({ id: null, role: null, userStatus: 'loggedOut' });
+    set({ id: null, role: null, userStatus: 'loggedOut', name: null });
     if (typeof window !== 'undefined') {
       localStorage.removeItem('userId');
       localStorage.removeItem('role');
+      localStorage.removeItem('name');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
     }

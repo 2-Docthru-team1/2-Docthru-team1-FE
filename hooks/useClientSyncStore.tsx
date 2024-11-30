@@ -10,9 +10,10 @@ export const useClientSyncStore = () => {
     const syncWithLocalStorage = async () => {
       const storedUserId = localStorage.getItem('userId');
       const storedRole = localStorage.getItem('role') as 'normal' | 'admin' | null;
+      const storedName = localStorage.getItem('name');
 
-      if (storedUserId && storedRole) {
-        setUserId(storedUserId, storedRole);
+      if (storedUserId && storedRole && storedName) {
+        setUserId(storedUserId, storedRole, storedName);
         setLoading(false);
       } else {
         logout();

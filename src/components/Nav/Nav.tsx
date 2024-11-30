@@ -10,6 +10,7 @@ import adminProfile from '@/../public/assets/img_profile_admin.png';
 import userProfile from '@/../public/assets/img_profile_member.png';
 import useStore from '@/store/store';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
+import ProfileModal from '../Modal/ProfileModal';
 
 export default function Nav() {
   const userStatus = useStore(state => state.userStatus);
@@ -21,12 +22,15 @@ export default function Nav() {
   const isMgmt = pathname.startsWith('/auth');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   const handleSignOut = () => {
     const { logout } = useStore.getState();
     router.push('/');
     logout();
   };
+
+  const { name, role } = useStore();
 
   return (
     <div className="w-full h-full flex">
@@ -78,7 +82,19 @@ export default function Nav() {
             {userStatus === 'normal' ? (
               <>
                 <Image src={bell} alt="벨" />
-                <Image src={userProfile} alt="프로필" />
+                <div className="relative">
+                  <Image
+                    src={userProfile}
+                    alt="프로필"
+                    onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                    className="cursor-pointer"
+                  />
+                  {isProfileModalOpen && (
+                    <div className="z-[15] absolute right-0 top-full mt-[0.8rem]">
+                      <ProfileModal name={name ?? 'Unknown'} role={role ?? 'normal'} />
+                    </div>
+                  )}
+                </div>
                 <button
                   className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
                   onClick={handleSignOut}
@@ -88,7 +104,19 @@ export default function Nav() {
               </>
             ) : userStatus === 'admin' ? (
               <>
-                <Image src={adminProfile} alt="프로필" width={24} height={24} />
+                <Image
+                  src={adminProfile}
+                  alt="프로필"
+                  width={24}
+                  height={24}
+                  onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                  className="cursor-pointer"
+                />
+                {isProfileModalOpen && (
+                  <div className="z-[15] absolute top-[6.5rem] right-[30rem]">
+                    <ProfileModal name={name ?? 'Unknown'} role={role ?? 'normal'} />
+                  </div>
+                )}
                 <button
                   className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
                   onClick={handleSignOut}
@@ -107,7 +135,7 @@ export default function Nav() {
           </div>
         </div>
       </div>
-      <div className="z-30">
+      <div className="z-50">
         <ClosableModalClient isOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </div>
