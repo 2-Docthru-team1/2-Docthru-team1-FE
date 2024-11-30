@@ -8,20 +8,20 @@ export default {
 
 const Template: StoryFn<typeof ChallengeApplicationDetailBody> = args => <ChallengeApplicationDetailBody {...args} />;
 
-const mockData = {
-  id: '1',
-  embedUrl: 'https://www.example.com/embedded-content'
-};
-
 export const Default = Template.bind({});
 Default.args = {
-  data: mockData
+  data: {
+    id: '1',
+    status: 'onGoing',
+    embedUrl: 'https://www.example.com/embedded-content'
+  }
 };
 
 export const WithDifferentUrl = Template.bind({});
 WithDifferentUrl.args = {
   data: {
     id: '2',
+    status: 'onGoing',
     embedUrl: 'https://www.example.com/another-embedded-content'
   }
 };
