@@ -1,12 +1,26 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import AdminProfile from '@/../public/assets/img_profile_admin.png';
 import MemProfile from '@/../public/assets/img_profile_member.png';
 import type { ProfileModalProps } from '@/interfaces/userInterface';
+import useStore from '@/store/store';
 
 export default function ProfileModal({ name, role }: ProfileModalProps) {
+  const router = useRouter();
+
   const isMem = role === 'normal' ? true : false;
   const profileImg = role === 'normal' ? MemProfile : AdminProfile;
   const userRole = role === 'normal' ? 'Koo-koo' : 'Admin';
+
+  const handleSignOut = () => {
+    const { logout } = useStore.getState();
+    router.push('/');
+    logout();
+  };
+
+  const handleRouteMyPage = () => {
+    router.push('/me');
+  };
 
   return (
     <div className="w-full h-[100vh] ">
@@ -20,8 +34,14 @@ export default function ProfileModal({ name, role }: ProfileModalProps) {
         </div>
         <div className="border border-gray-200 w-full" /> {/* 직선 */}
         <div className="flex flex-col gap-[1.2rem]">
-          {isMem ? <p className="font-medium text-[1.6rem] leading-[1.909rem] text-gray-600">My Challenge</p> : null}
-          <p className="font-medium text-[1.6rem] leading-[1.909rem] text-error-red">Sign out</p>
+          {isMem ? (
+            <p className="font-medium text-[1.6rem] leading-[1.909rem] text-gray-600" onClick={handleRouteMyPage}>
+              My Challenge
+            </p>
+          ) : null}
+          <p className="font-medium text-[1.6rem] leading-[1.909rem] text-error-red" onClick={handleSignOut}>
+            Sign out
+          </p>
         </div>
       </div>
     </div>
