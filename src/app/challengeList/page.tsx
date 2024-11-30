@@ -2,12 +2,6 @@ import { fetchAdminChallenge, fetchChallenge, fetchRanker } from '@/api/challeng
 import ChallengeListClient from '@/components/ClientWrapper/ChallengeListClient';
 
 export default async function ChallengeListPage() {
-  const DUMMY: any[] = [];
-
-  if (process.env.NODE_ENV === 'production') {
-    return DUMMY;
-  }
-
   const rankerData = [
     {
       id: '1',
