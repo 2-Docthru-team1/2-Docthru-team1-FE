@@ -2,10 +2,11 @@
 
 import { format } from 'date-fns';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clock from '@/../public/assets/icon_deadline_clock_large.png';
 import toggle from '@/../public/assets/icon_kebab_toggle.png';
 import profile from '@/../public/assets/img_profile_member.png';
+import { fetchChallengeAbortReason } from '@/api/challengeService';
 import type { ChallengeApplicationDetailHeader } from '@/interfaces/challengeInterface';
 import ChipCategory from '../Chip/ChipCategory';
 import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
@@ -14,6 +15,17 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState<string>('');
   const [modalAlt, setModalAlt] = useState<string>('');
+  const [abortReason, setAbortReason] = useState('');
+
+  useEffect(() => {
+    const getChallengeAbortReason = async () => {
+      const response = await fetchChallengeAbortReason(String(data.id));
+      console.log(response);
+      setAbortReason(response.content);
+    };
+
+    getChallengeAbortReason();
+  }, [data.id]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -69,9 +81,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
               <div className="flex flex-col items-end bg-primary-white w-full h-[11.7rem] rounded-[0.8rem] border border-gray-200 mt-[2.4rem] py-[1.8rem] px-[3rem]">
                 <div className="flex flex-col items-center justify-center w-full">
                   <p className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-800">Reason for declining</p>
-                  <p className="pt-[1.2rem] font-medium text-[1.6rem] leading-[1.909rem] text-gray-700">
-                    HanCook is for sharing moments of cooking Korean cuisine. Content with violent themes may be removed.
-                  </p>
+                  <p className="pt-[1.2rem] font-medium text-[1.6rem] leading-[1.909rem] text-gray-700">{abortReason}</p>
                 </div>
                 <p className="mt-[1.2rem] font-normal text-[1.4rem] leading-[1.671rem] text-gray-500">
                   {formatUpdatedDate(data.updatedAt)}

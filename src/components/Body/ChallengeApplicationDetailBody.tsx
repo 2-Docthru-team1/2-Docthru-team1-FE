@@ -13,23 +13,14 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
   const [currentData, setCurrentData] = useState();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [abortReason, setAbortReason] = useState('');
+  const [dataStatus, setDataStatus] = useState();
   const { userStatus } = useStore();
 
-  // useEffect(() => {
-  //   const getChallengeAbortReason = async () => {
-  //     const response = await fetchChallengeAbortReason(String(data.id));
-  //     console.log(response);
-  //     setCurrentData(response);
-  //   };
-
-  //   getChallengeAbortReason();
-  // }, [data.id]);
-
-  // useEffect(() => {
-  //   const getChallengeStatusChange = async () => {
-  //     const response = await fetchChallengeStatusChange(String(data.id), )
-  //   }
-  // })
+  const patchChallengeStatusChange = async (status: string, declineReason?: string) => {
+    const response = await fetchChallengeStatusChange(String(data.id), status, declineReason);
+    console.log(response);
+    // setDataStatus(response);
+  };
 
   const handleDeclineClick = () => {
     setIsConfirmModalOpen(true);
@@ -43,6 +34,13 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
     console.log('Challenge Declined');
     setIsConfirmModalOpen(false);
     console.log(abortReason);
+    patchChallengeStatusChange('denied', abortReason);
+    setAbortReason('');
+  };
+
+  const handleApprove = () => {
+    console.log('Challenge Approved');
+    patchChallengeStatusChange('onGoing');
   };
 
   return (
@@ -70,7 +68,10 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
         >
           Decline
         </button>
-        <button className="w-[15.3rem] bg-primary-blue text-primary-white rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center">
+        <button
+          className="w-[15.3rem] bg-primary-blue text-primary-white rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center"
+          onClick={handleApprove}
+        >
           Approve
         </button>
       </div>

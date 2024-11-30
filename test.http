@@ -1,2 +1,11 @@
 GET http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/challenges/3508f13c-7399-48d1-b35a-a9e5e2ed4b06/reason
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNjY2YTc2Yy00NmExLTRhYTItOTc0MS1iZGJiMjA3ODVmYzQiLCJpYXQiOjE3MzI5MDgzNjEsImV4cCI6MTczMjkxMTk2MX0.DeZR0Sc-EqkvKSMS1GrGai_NuXO7crfPkyi1FeoUioI
+
+###
+
+PATCH http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/challenges/958c1ab0-0647-4345-89c5-e1b8fa618e4e/status
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNjY2YTc2Yy00NmExLTRhYTItOTc0MS1iZGJiMjA3ODVmYzQiLCJpYXQiOjE3MzI5NDcxNTcsImV4cCI6MTczMjk1MDc1N30.7-xWb8_U57nO2WpYXTZd8PaiF-0MbzdqA1yFxVwfdnY
+{
+  "status": "pending"
+}
