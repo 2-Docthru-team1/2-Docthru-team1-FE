@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
-import { fetchChallenge_detail } from '@/api/challengeService';
+import { fetchAdminChallengeDetailNext, fetchAdminChallengeDetailPrev, fetchChallenge_detail } from '@/api/challengeService';
 import type { ChallengeApplicationDetailHeaderData } from '@/interfaces/challengeInterface';
 import ChallengeApplicationDetailBody from '../Body/ChallengeApplicationDetailBody';
 import ChallengeApplicationDetailHeader from '../Header/ChallengeApplicationDetailHeader';
@@ -23,8 +23,21 @@ export default function AdminChallengeDetailClient() {
   console.log(totalPages, 'total page');
   console.log(currentPage, 'current page');
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const handlePageChange = async (page: number) => {
+    let response;
+
+    if (page < currentPage) {
+      response = await fetchAdminChallengeDetailPrev(String(id));
+      console.log('prev', response);
+    } else if (page > currentPage) {
+      response = await fetchAdminChallengeDetailNext(String(id));
+      console.log('next', response);
+    }
+
+    if (response) {
+      setCurrentData(response);
+      setCurrentPage(page);
+    }
   };
 
   useEffect(() => {

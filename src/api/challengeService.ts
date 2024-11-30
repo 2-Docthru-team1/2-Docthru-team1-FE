@@ -114,3 +114,21 @@ export const fetchChallengeStatusChange = async (id: string, status: string, abo
     throw new Error(`Failed to change challenge status`);
   }
 };
+
+export const fetchAdminChallengeDetailPrev = async (id: string) => {
+  try {
+    const response = await getRequest(`/challenges/${id}/prev`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get prev data');
+  }
+};
+
+export const fetchAdminChallengeDetailNext = async (id: string) => {
+  try {
+    const response = await getRequest(`/challenges/${id}/next`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get next data');
+  }
+};
