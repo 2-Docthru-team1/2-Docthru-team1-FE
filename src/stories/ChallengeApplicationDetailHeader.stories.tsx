@@ -9,13 +9,6 @@ export default {
 
 const Template: StoryFn<typeof ChallengeApplicationDetailHeader> = args => <ChallengeApplicationDetailHeader {...args} />;
 
-const mockData = {
-  id: '1',
-  number: '1023',
-  title: 'Sample Challenge Title',
-  mediaType: 'recipeWeb'
-};
-
 export const Default = Template.bind({});
 Default.args = {
   data: {
@@ -27,9 +20,11 @@ Default.args = {
     requestUser: { id: 'user1', name: 'John Doe' },
     deadline: '2024-12-31',
     imageUrl: 'https://via.placeholder.com/150',
-    imageUrl2: 'https://via.placeholder.com/150/0000FF'
-  },
-  totalCount: 5
+    imageUrl2: 'https://via.placeholder.com/150/0000FF',
+    embedUrl: 'https://www.youtube.com/embed/samplevideo',
+    status: 'onGoing',
+    updatedAt: '2024-11-01T00:00:00Z'
+  }
 };
 
 export const WithSocialMedia = Template.bind({});
@@ -43,9 +38,11 @@ WithSocialMedia.args = {
     requestUser: { id: 'user2', name: 'Jane Smith' },
     deadline: '2024-11-30',
     imageUrl: 'https://via.placeholder.com/150',
-    imageUrl2: 'https://via.placeholder.com/150/FF0000'
-  },
-  totalCount: 10
+    imageUrl2: 'https://via.placeholder.com/150/FF0000',
+    embedUrl: 'https://www.youtube.com/embed/samplevideo',
+    status: 'finished',
+    updatedAt: '2024-10-15T00:00:00Z'
+  }
 };
 
 export const WithYoutube = Template.bind({});
@@ -59,9 +56,11 @@ WithYoutube.args = {
     requestUser: { id: 'user3', name: 'Chris Johnson' },
     deadline: '2024-10-15',
     imageUrl: 'https://via.placeholder.com/150',
-    imageUrl2: 'https://via.placeholder.com/150/00FF00'
-  },
-  totalCount: 3
+    imageUrl2: 'https://via.placeholder.com/150/00FF00',
+    embedUrl: 'https://www.youtube.com/embed/samplevideo',
+    status: 'onGoing',
+    updatedAt: '2024-09-01T00:00:00Z'
+  }
 };
 
 export const WithBlog = Template.bind({});
@@ -75,7 +74,9 @@ WithBlog.args = {
     requestUser: { id: 'user4', name: 'Emily Brown' },
     deadline: '2024-09-01',
     imageUrl: 'https://via.placeholder.com/150',
-    imageUrl2: 'https://via.placeholder.com/150/FFFF00'
-  },
-  totalCount: 8
+    imageUrl2: 'https://via.placeholder.com/150/FFFF00',
+    embedUrl: 'https://www.youtube.com/embed/samplevideo',
+    status: 'canceled',
+    updatedAt: '2024-08-15T00:00:00Z'
+  }
 };
