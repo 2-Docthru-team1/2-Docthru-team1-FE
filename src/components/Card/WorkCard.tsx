@@ -152,17 +152,15 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           <Image src={member} alt="유저이미지" width={24} height={24} priority />
           <p className="text-[1.4rem] font-medium text-gray-800">{data.owner.name}</p>
           <p className="text-[1.2rem] font-medium text-gray-500 mr-[0.5rem]">{role}</p>
-          <div className="cursor-pointer">
-            <Image
-              src={liked ? activeHeart : inactiveHeart}
-              alt="비활성 하트"
-              width={24}
-              height={24}
-              priority
-              onClick={toggleLike}
-            />
-          </div>
-
+          <Image
+            src={liked ? activeHeart : inactiveHeart}
+            alt="비활성 하트"
+            width={24}
+            height={24}
+            priority
+            onClick={toggleLike}
+            className="cursor-pointer"
+          />
           <p className="text-[1.4rem] font-medium text-gray-800">{formattedNumber}</p>
         </div>
         <div>
