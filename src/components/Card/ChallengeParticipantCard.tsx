@@ -19,12 +19,12 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
   const borderClass = type === 'first' ? 'border-2 border-primary-beige' : 'border border-gray-200';
   const router = useRouter();
 
-  const handleClick = (workId: string) => {
-    router.push(`/works/${workId}`);
+  const handleClick = (workId: string, challengeId: string) => {
+    router.push(`/challengeList/${challengeId}/${workId}`);
   };
 
   return (
-    <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`} onClick={() => handleClick(data.id)}>
+    <div className={`relative w-[27.8rem] h-[34.6rem] ${borderClass}`} onClick={() => handleClick(data.challengeId, data.id)}>
       <div className="relative w-[27.45rem] h-[23.9rem]">
         {data.images.length > 0 && <Image src={data.images[0].imageUrl} alt="음식 이미지" layout="fill" objectFit="cover" />}
       </div>

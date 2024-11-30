@@ -5,11 +5,12 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import nextImage from '@/../public/assets/btn_photo_swipe.png';
+import activeHeart from '@/../public/assets/icon_heart_active_large.png';
 import inactiveHeart from '@/../public/assets/icon_heart_inactive_large.png';
 import kebab from '@/../public/assets/icon_kebab_cancel.png';
 import admin from '@/../public/assets/img_profile_admin.png';
 import member from '@/../public/assets/img_profile_member.png';
-import { deleteWorkDetail } from '@/api/workService';
+import { deleteWorkDetail, likePost, unLikePost } from '@/api/workService';
 import type { WorkDataProps } from '@/interfaces/workInterface';
 import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
@@ -31,6 +32,12 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
+  const [liked, setLiked] = useState(
+    Array.isArray(data.likeUsers)
+      ? data.likeUsers.some((likeUser: { id: string }) => likeUser.id === user.id)
+      : data.likeUsers.id === user.id
+  );
+
   const openImg = () => setIsImageOpen(true);
   const closeImg = () => setIsImageOpen(false);
   const handleNextImage = () => {
@@ -45,7 +52,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
     setIsModalOpen(false);
   };
   const mutation = useMutation({
-    mutationFn: () => deleteWorkDetail(data.id),
+    mutationFn: async () => await deleteWorkDetail(data.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['work'] });
       router.push('/challengeList');
@@ -58,6 +65,68 @@ export default function WorkCard({ data, user }: WorkDataProps) {
     mutation.mutate();
   };
   const role = data.owner.role === 'normal' ? 'Koo-koo' : data.owner.role;
+
+  const useLikeMutation = (workId: string) => {
+    const queryClient = useQueryClient();
+
+    return {
+      likeMutate: useMutation({
+        mutationFn: async () => await likePost(workId),
+        onMutate: async () => {
+          const previousWork = queryClient.getQueryData(['work', workId]);
+          queryClient.setQueryData(['work', workId], (oldData: any) => ({
+            ...oldData,
+            likeCount: oldData.likeCount + 1,
+            likeUsers: [...oldData.likeUsers, { id: user.id }]
+          }));
+          return { previousWork };
+        },
+
+        onError: (context: any) => {
+          queryClient.setQueryData(['work', workId], context.previousWork);
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries({ queryKey: ['work', workId] });
+        }
+      }),
+
+      // 좋아요 취소 Mutation
+      unLikeMutate: useMutation({
+        mutationFn: () => unLikePost(workId),
+
+        onMutate: async () => {
+          const previousWork = queryClient.getQueryData(['work', workId]);
+
+          queryClient.setQueryData(['work', workId], (oldData: any) => ({
+            ...oldData,
+            likeCount: oldData.likeCount - 1,
+            likeUsers: oldData.likeUsers.filter((data: any) => data.id !== user.id)
+          }));
+
+          return { previousWork };
+        },
+
+        onError: (context: any) => {
+          queryClient.setQueryData(['work', workId], context.previousWork);
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries({ queryKey: ['work', workId] });
+        }
+      })
+    };
+  };
+
+  const { likeMutate, unLikeMutate } = useLikeMutation(data.id);
+
+  const toggleLike = () => {
+    if (liked) {
+      unLikeMutate.mutate();
+    } else {
+      likeMutate.mutate();
+    }
+    setLiked(prevLiked => !prevLiked);
+  };
+
   return (
     <div className="flex flex-col w-[120rem] gap-[1rem] mt-[2rem]">
       <div className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center">
@@ -89,7 +158,15 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           )}
           <p className="text-[1.4rem] font-medium text-gray-800">{data.owner.name}</p>
           <p className="text-[1.2rem] font-medium text-gray-500 mr-[0.5rem]">{role}</p>
-          <Image src={inactiveHeart} alt="비활성 하트" width={24} height={24} priority />
+          <Image
+            src={liked ? activeHeart : inactiveHeart}
+            alt={liked ? '활성 하트' : '비활성 하트'}
+            width={24}
+            height={24}
+            priority
+            onClick={toggleLike}
+            className="cursor-pointer"
+          />
           <p className="text-[1.4rem] font-medium text-gray-800">{formattedNumber}</p>
         </div>
         <div>
@@ -109,7 +186,14 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         </div>
         {!(data.images.length === 1) ? (
           <div className="flex items-center">
-            <Image src={nextImage} alt="다음 이미지 버튼" onClick={handleNextImage} className="cursor-pointer" />
+            <Image
+              src={nextImage}
+              alt="다음 이미지 버튼"
+              onClick={handleNextImage}
+              className="cursor-pointer"
+              width={40}
+              height={40}
+            />
           </div>
         ) : (
           <div></div>
