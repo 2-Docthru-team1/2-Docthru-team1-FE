@@ -86,17 +86,36 @@ export default function FeedbackCard({
   }, [inView]);
 
   return (
-    <div className="pb-[2rem]">
-      <div>
-        <ul className="flex-col">
+    <div
+      className="pb-[2rem] flex items-center justify-center
+    lg:px-0
+    md:w-full md:px-[2rem]
+    sm:w-full sm:px-[0.8rem]"
+    >
+      <div className="flex flex-col  lg:w-full md:w-full sm:w-full">
+        <ul
+          className="flex-col flex items-center
+        md:w-full
+        sm:w-full"
+        >
           {comments.map(comment => {
             const formattedDate = format(new Date(comment.createdAt), 'yy/MM/dd HH:mm');
             return (
-              <li key={comment.id} className="flex-col p-[1.2rem]">
+              <li
+                key={comment.id}
+                className="flex-col py-[1.2rem] 
+              lg:w-[120rem] 
+              md:w-full 
+              sm:w-full"
+              >
                 <div
-                  className={`w-[120rem] p-[1rem] rounded-[0.8rem] bg-primary-white ${
-                    editingCommentId === comment.id ? 'border border-gray-200' : 'bg-gray-50 border-none'
-                  }`}
+                  className={`lg:w-[120rem] 
+                    md:w-full 
+                    sm:w-full 
+                    p-[1rem] 
+                    rounded-[0.8rem] bg-primary-white ${
+                      editingCommentId === comment.id ? 'border border-gray-200' : 'bg-gray-50 border-none'
+                    }`}
                 >
                   <div className="flex justify-between items-center gap-[3rem] mb-[1.2rem]">
                     <div className="flex gap-[1rem] items-center">
