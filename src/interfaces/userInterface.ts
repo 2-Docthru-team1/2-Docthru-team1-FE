@@ -1,5 +1,6 @@
 export interface UserData {
   id: string;
+  role: 'admin' | 'normal';
 }
 
 export interface SignUpData {
