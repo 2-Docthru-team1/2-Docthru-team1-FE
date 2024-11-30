@@ -27,7 +27,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
   useEffect(() => {
     if (data.status === 'aborted' || data.status === 'denied') {
       const getChallengeAbortReason = async () => {
-        const response = await fetchChallengeAbortReason(String(data.id));
+        const response = await fetchChallengeAbortReason(data.id);
         setAbortReason(response.content);
       };
 
@@ -87,7 +87,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
   };
 
   const patchChallengeStatusChange = async (status: string, declineReason?: string) => {
-    const response = await fetchChallengeStatusChange(String(data.id), status, declineReason);
+    const response = await fetchChallengeStatusChange(data.id, status, declineReason);
     if (response) {
       window.location.reload();
     } else {
