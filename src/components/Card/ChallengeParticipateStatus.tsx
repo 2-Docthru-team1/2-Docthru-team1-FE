@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import crown from '@/../public/assets/icon_crown_small.png';
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
 import Pagination from '../Pagination/Pagination';
@@ -7,7 +7,27 @@ import ChallengeParticipantCard from './ChallengeParticipantCard';
 
 export default function ChallengeParticipateStatus({ list, totalCount }: ChallengeParticipateStatusProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth <= 744) {
+        setItemsPerPage(2);
+      } else if (window.innerWidth <= 343) {
+        setItemsPerPage(1);
+      } else {
+        setItemsPerPage(4);
+      }
+    };
+
+    updateItemsPerPage();
+
+    window.addEventListener('resize', updateItemsPerPage);
+
+    return () => {
+      window.removeEventListener('resize', updateItemsPerPage);
+    };
+  });
 
   const currentItems = list.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const totalPages = Math.max(1, Math.ceil(totalCount / itemsPerPage));
