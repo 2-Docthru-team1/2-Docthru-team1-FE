@@ -4,6 +4,7 @@ export interface ChallengeApplicationClientProps {
 }
 
 export interface ChallengeApplicationBodyData {
+  id: string;
   number: number;
   mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
   title: string;

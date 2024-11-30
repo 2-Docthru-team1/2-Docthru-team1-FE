@@ -69,7 +69,7 @@ export const fetchChallengeRequest = async (data: object) => {
   }
 };
 
-export const fetchUpdateStatus = async (challengeId: string, newStatus: 'canceled' | 'aborted', reason: string) => {
+export const fetchUpdateStatus = async (challengeId: string, newStatus: string, reason?: string) => {
   try {
     const response = await patchRequest(`/challenges/${challengeId}/status`, {
       status: newStatus,
@@ -90,5 +90,45 @@ export const fetchChallengeApplication = async (page: string, pageSize: number =
     return response.data;
   } catch (error) {
     throw new Error('Failed to get Challenge Application Data');
+  }
+};
+
+export const fetchChallengeAbortReason = async (id: string) => {
+  try {
+    const response = await getRequest(`/challenges/${id}/reason`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get abort reason');
+  }
+};
+
+export const fetchChallengeStatusChange = async (id: string, status: string, abortReason?: string) => {
+  const requestBody = {
+    status: status,
+    abortReason: abortReason
+  };
+  try {
+    const response = await patchRequest(`/challenges/${id}/status`, requestBody);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to change challenge status`);
+  }
+};
+
+export const fetchAdminChallengeDetailPrev = async (id: string) => {
+  try {
+    const response = await getRequest(`/challenges/${id}/prev`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get prev data');
+  }
+};
+
+export const fetchAdminChallengeDetailNext = async (id: string) => {
+  try {
+    const response = await getRequest(`/challenges/${id}/next`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get next data');
   }
 };

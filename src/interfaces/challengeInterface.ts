@@ -22,11 +22,11 @@ export interface ChallengeApplicationDetailBody {
 export interface ChallengeApplicationDetailBodyData {
   id: string;
   embedUrl: string;
+  status: 'pending' | 'finished' | 'denied' | 'onGoing' | 'canceled' | 'aborted';
 }
 
 export interface ChallengeApplicationDetailHeader {
   data: ChallengeApplicationDetailHeaderData;
-  totalCount: number;
 }
 
 export interface ChallengeApplicationDetailHeaderData {
@@ -39,6 +39,9 @@ export interface ChallengeApplicationDetailHeaderData {
   deadline: string;
   imageUrl: string;
   imageUrl2: string;
+  embedUrl: string;
+  status: 'pending' | 'finished' | 'denied' | 'onGoing' | 'canceled' | 'aborted';
+  updatedAt: string;
 }
 
 export interface requestUser {

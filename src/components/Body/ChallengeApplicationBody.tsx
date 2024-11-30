@@ -1,6 +1,7 @@
 'use client';
 
 import { format } from 'date-fns';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { ChallengeApplicationBodyProps } from '@/interfaces/bodyInterface';
 import ChipStatus from '../Chip/ChipStatus';
@@ -23,12 +24,18 @@ enum MediaType {
 }
 
 export default function ChallengeApplicationBody({ data }: ChallengeApplicationBodyProps) {
+  const router = useRouter();
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
       return '';
     }
     return format(date, 'yy/MM/dd');
+  };
+
+  const handleListClick = (id: string) => {
+    router.push(`/auth/challenge/${id}`);
   };
 
   return (
@@ -75,7 +82,7 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
               statusLabel = 'cancel';
               break;
             case Status.Aborted:
-              statusLabel = 'cancel';
+              statusLabel = 'deny';
               break;
             default:
               statusLabel = 'pend';
@@ -99,7 +106,11 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
           }
 
           return (
-            <div key={index} className="flex items-center justify-between h-[4.8rem] border-b border-gray-300">
+            <div
+              key={index}
+              className="flex items-center justify-between h-[4.8rem] border-b border-gray-300 cursor-pointer"
+              onClick={() => handleListClick(item.id)}
+            >
               <p className="w-[6.8rem] flex items-center justify-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
                 {item.number}
               </p>

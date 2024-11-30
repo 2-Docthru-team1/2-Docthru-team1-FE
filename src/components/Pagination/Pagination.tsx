@@ -55,11 +55,11 @@ export default function Pagination({ currentPage, totalPages, onPageChange, hasN
       ) : (
         <div>
           <div className="flex items-center">
-            <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
-              <Image src={currentPage === 1 ? arrowInActLeft : arrowActLeft} alt="화살표" />
-            </button>
             <button onClick={() => onPageChange(currentPage + 1)} disabled={!hasNext || currentPage === totalPages}>
-              <Image src={!hasNext || currentPage === totalPages ? arrowInActRight : arrowActRight} alt="화살표" />
+              <Image src={!hasNext || currentPage === totalPages ? arrowInActLeft : arrowActLeft} alt="화살표" />
+            </button>
+            <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
+              <Image src={currentPage === 1 ? arrowInActRight : arrowActRight} alt="화살표" />
             </button>
           </div>
         </div>
