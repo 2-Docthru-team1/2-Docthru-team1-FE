@@ -69,7 +69,7 @@ export const fetchChallengeRequest = async (data: object) => {
   }
 };
 
-export const fetchUpdateStatus = async (challengeId: string, newStatus: 'canceled' | 'aborted', reason: string) => {
+export const fetchUpdateStatus = async (challengeId: string, newStatus: string, reason?: string) => {
   try {
     const response = await patchRequest(`/challenges/${challengeId}/status`, {
       status: newStatus,

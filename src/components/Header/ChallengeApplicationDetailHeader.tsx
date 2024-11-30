@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import clock from '@/../public/assets/icon_deadline_clock_large.png';
 import toggle from '@/../public/assets/icon_kebab_toggle.png';
 import profile from '@/../public/assets/img_profile_member.png';
-import { fetchChallengeAbortReason, fetchChallengeStatusChange } from '@/api/challengeService';
+import { fetchChallengeAbortReason, fetchUpdateStatus } from '@/api/challengeService';
 import type { ChallengeApplicationDetailHeader } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
 import ChipCategory from '../Chip/ChipCategory';
@@ -87,7 +87,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
   };
 
   const patchChallengeStatusChange = async (status: string, declineReason?: string) => {
-    const response = await fetchChallengeStatusChange(data.id, status, declineReason);
+    const response = await fetchUpdateStatus(data.id, status, declineReason);
     if (response) {
       window.location.reload();
     } else {

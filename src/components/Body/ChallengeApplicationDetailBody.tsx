@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import arrow from '@/../public/assets/icon_click.png';
-import { fetchChallengeStatusChange } from '@/api/challengeService';
+import { fetchUpdateStatus } from '@/api/challengeService';
 import type { ChallengeApplicationDetailBody } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
 import ConfirmModal from '../Modal/ConfirmModal';
@@ -16,7 +16,7 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
   const { userStatus } = useStore();
 
   const patchChallengeStatusChange = async (status: string, declineReason?: string) => {
-    const response = await fetchChallengeStatusChange(data.id, status, declineReason);
+    const response = await fetchUpdateStatus(data.id, status, declineReason);
     if (response) {
       window.location.reload();
     } else {
