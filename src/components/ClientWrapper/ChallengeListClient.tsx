@@ -118,14 +118,14 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
   return (
     <div className="flex flex-col w-full items-center justify-center">
       <div>
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center ">
           <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 pt-[2rem] pb-[2.4rem]">
             This Month's Challenge
           </p>
           {adminchallengeData.length > 0 ? (
-            <div className="flex gap-[2.55rem]">
+            <div className="flex gap-[2.55rem] lg:w-full md:w-[calc(100vh-60px)] md:overflow-x-auto">
               {adminchallengeData.map((data, index) => (
-                <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
+                <div key={index} onClick={() => handleChallengeClick(data.id)} className="inline-block cursor-pointer">
                   <MonthlyChallengeCard data={data} role={role} />
                 </div>
               ))}
@@ -137,7 +137,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
           )}
         </div>
         <div className="flex justify-between items-center mt-[4rem] mb-[2.4rem]">
-          <p className="font-semibold text-[2rem] leading-[2.387rem text-gray-800">Challenge List</p>
+          <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800">Challenge List</p>
           <div className="flex gap-[2rem]">
             <FilterBar type="challenge" onKeywordChange={setKeyword} onFilterApply={handleFilterChange} />
             {role === 'normal' ? (
