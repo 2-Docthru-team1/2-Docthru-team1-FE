@@ -31,7 +31,7 @@ export default function Nav() {
   return (
     <div className="w-full h-full flex">
       <div className="flex w-full h-[6rem] justify-center items-center border-b border-gray-100">
-        <div className="w-[120rem] flex justify-between items-center">
+        <div className="lg:w-[120rem] md:w-[69.6rem] flex justify-between items-center">
           <div className="gap-[2.4rem] flex items-center justify-center">
             <Image
               className="w-[14.6rem] h-[2.92rem] cursor-pointer"

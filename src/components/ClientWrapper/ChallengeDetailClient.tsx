@@ -51,9 +51,9 @@ export default function ChallengeDetailClient() {
   }
 
   return (
-    <div className="flex flex-col w-full">
-      <div className="flex mx-auto flex-col">
-        <div className="mt-[2rem] flex">
+    <div className="flex flex-col w-full md:p-[2.4rem]">
+      <div className="flex flex-col">
+        <div className="flex">
           <ChallengeDetailContentCard
             type={medium.status}
             data={{
