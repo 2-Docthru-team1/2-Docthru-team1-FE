@@ -2,24 +2,22 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import arrow from '@/../public/assets/icon_click.png';
-import { fetchChallengeAbortReason, fetchChallengeStatusChange } from '@/api/challengeService';
+import { fetchChallengeStatusChange } from '@/api/challengeService';
 import type { ChallengeApplicationDetailBody } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
 import ConfirmModal from '../Modal/ConfirmModal';
 
 export default function ChallengeApplicationDetailBody({ data }: ChallengeApplicationDetailBody) {
-  const [currentData, setCurrentData] = useState();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isApproveModalOpen, setIsApproveModalOpen] = useState(false);
   const [abortReason, setAbortReason] = useState('');
-  const [dataStatus, setDataStatus] = useState();
   const { userStatus } = useStore();
 
   const patchChallengeStatusChange = async (status: string, declineReason?: string) => {
     const response = await fetchChallengeStatusChange(String(data.id), status, declineReason);
     console.log(response);
-    // setDataStatus(response);
   };
 
   const handleDeclineClick = () => {
@@ -41,6 +39,15 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
   const handleApprove = () => {
     console.log('Challenge Approved');
     patchChallengeStatusChange('onGoing');
+    setIsApproveModalOpen(false);
+  };
+
+  const handleApproveClick = () => {
+    setIsApproveModalOpen(true);
+  };
+
+  const handleApproveCancel = () => {
+    setIsApproveModalOpen(false);
   };
 
   return (
@@ -70,7 +77,7 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
         </button>
         <button
           className="w-[15.3rem] bg-primary-blue text-primary-white rounded-[1.2rem] font-semibold text-[1.6rem] leading-[2.6rem] flex items-center justify-center"
-          onClick={handleApprove}
+          onClick={handleApproveClick}
         >
           Approve
         </button>
@@ -84,6 +91,7 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
           setAbortReason={setAbortReason}
         />
       )}
+      {isApproveModalOpen && <ConfirmModal onCancel={handleApproveCancel} role={userStatus} onApprove={handleApprove} />}
     </div>
   );
 }
