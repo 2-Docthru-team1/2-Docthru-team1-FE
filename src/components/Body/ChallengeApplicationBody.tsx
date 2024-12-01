@@ -47,7 +47,7 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
         <p className="w-[12rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           Media
         </p>
-        <p className="md:w-[32.2rem] sm:w-[29rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
+        <p className="md:w-[32.2rem] sm:w-[21rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           Challenge Title
         </p>
         <p className="md:w-[18.3rem] sm:w-[10rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
@@ -118,7 +118,7 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
                 {mediaLabel}
               </p>
               <div
-                className="md:w-[32.2rem] sm:w-[20rem] flex items-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-700 
+                className="md:w-[32.2rem] sm:w-[21rem] flex items-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-700 
                   overflow-hidden text-ellipsis whitespace-nowrap max-h-[3rem] py-[1.5rem] px-[1.6rem]"
               >
                 <p className="block overflow-hidden text-ellipsis overflow-hidden whitespace-normal">{item.title}</p>
