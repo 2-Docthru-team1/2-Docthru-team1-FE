@@ -134,7 +134,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     <div className="flex flex-col w-full items-center justify-center">
       <div>
         <div className="flex flex-col justify-center">
-          <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 pt-[2.2rem] pb-[2.4rem]">
+          <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 pt-[2rem] lg:pb-[2.4rem] md:pb-[2rem] sm:pb-[1.6rem]">
             This Month's Challenge
           </p>
           {adminchallengeData.length > 0 ? (
@@ -151,7 +151,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
             </div>
           )}
         </div>
-        <div className="mt-[4rem] mb-[2.4rem]">
+        <div className="md:mt-[4rem] sm:mt-[2.4rem] md:mb-[2.4rem] sm:mb-[1.6rem]">
           <div className="grid gap-[1.6rem] lg:grid-cols-[1fr_auto_auto] lg:grid-rows-1 sm:grid-cols-[1fr_auto] sm:grid-rows-2 items-center">
             <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 lg:col-start-1 lg:col-end-2">
               Challenge List
@@ -200,10 +200,10 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
           type="default"
         />
       </div>
-      {/* <div className="mb-[2.4rem]">
+      <div className="lg:mb-[2.4rem] md:mb-[3.2rem] sm:mb-[1.6rem]">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 mb-[2.4rem]">This Month's Ranker</p>
         <MonthlyRankerCard data={rankerData} />
-      </div> */}
+      </div>
     </div>
   );
 }

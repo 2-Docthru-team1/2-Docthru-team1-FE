@@ -13,11 +13,11 @@ export default function MonthlyRankerCard({ data }: MonthlyRankerCardProps) {
   const rankImages = [rank1, rank2, rank3];
 
   return (
-    <div className="flex flex-row gap-[0.45rem]">
+    <div className="flex lg:flex-row sm:flex-col lg:gap-[0.45rem] md:gap-[2rem] sm:gap-[1.6rem]">
       {data.map((ranker, index) => (
         <div
           key={ranker.id}
-          className="w-[39.7rem] gap-[1rem] border-[0.3rem] rounded-[1.2rem] border-solid border-primary-beige bg-primary-white"
+          className="lg:w-[39.7rem] md:w-[calc(100vw-2.6rem)] sm:w-[calc(100vw-1.8rem)] gap-[1rem] border-[0.3rem] rounded-[1.2rem] border-solid border-primary-beige bg-primary-white"
         >
           <div className="font-medium m-[2.4rem] flex justify-between">
             <div>
