@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchMyFinishedChallenge, fetchMyOngoingChallenge, fetchMyRequestChallenge } from '@/api/challengeService';
@@ -85,8 +84,6 @@ export default function MyChallengeClient() {
     setCurrentPage(1);
   };
 
-  const currentData = activeTab === 'participating' ? participateData : activeTab === 'applied' ? requestData : null;
-
   if (!requestData || !participateData || !finishedData) {
     return (
       <div className="flex items-center justify-center h-[100vh]">
@@ -105,34 +102,46 @@ export default function MyChallengeClient() {
 
   const totalPages =
     activeTab === 'participating'
-      ? Math.max(1, Math.ceil(participateData?.totalCount / itemsPerPage))
+      ? Math.max(0, Math.ceil(participateData?.totalCount / itemsPerPage))
       : activeTab === 'applied'
-        ? Math.max(1, Math.ceil(requestData?.totalCount / itemsPerPage))
+        ? Math.max(0, Math.ceil(requestData?.totalCount / itemsPerPage))
         : activeTab === 'finished'
-          ? Math.max(1, Math.ceil(finishedData?.totalCount / itemsPerPage))
+          ? Math.max(0, Math.ceil(finishedData?.totalCount / itemsPerPage))
           : 1;
 
   return (
     <div className="flex flex-col justify-center items-center">
       <MyChallengeHeader activeTab={activeTab} onTabChange={handleTabChange} />
-      {activeTab === 'participating' && (
-        <div className="grid grid-cols-2 gap-4 my-[2rem]">
-          {participateData.list.map((item, index) => (
-            <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
-              <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
-            </div>
-          ))}
-        </div>
-      )}
-      {activeTab === 'finished' && (
-        <div className="grid grid-cols-2 gap-4 my-[2rem]">
-          {finishedData.list.slice(0, 4).map((item, index) => (
-            <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
-              <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
-            </div>
-          ))}
-        </div>
-      )}
+      {activeTab === 'participating' &&
+        (participateData.totalCount === 0 ? (
+          <div className="flex items-center justify-center mt-[2rem]">
+            <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-400">There is no challenge participate yet</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-4 my-[2rem]">
+            {participateData.list.map((item, index) => (
+              <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
+                <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
+              </div>
+            ))}
+          </div>
+        ))}
+
+      {activeTab === 'finished' &&
+        (finishedData.totalCount === 0 ? (
+          <div className="flex items-center justify-center mt-[2rem]">
+            <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-400">There is no challenge participate yet</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-4 my-[2rem]">
+            {finishedData.list.slice(0, 4).map((item, index) => (
+              <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
+                <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
+              </div>
+            ))}
+          </div>
+        ))}
+
       {activeTab === 'applied' && (
         <>
           <div className="my-[2.4rem]">
@@ -140,13 +149,15 @@ export default function MyChallengeClient() {
           </div>
         </>
       )}
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-        hasNext={currentPage < totalPages}
-        type="default"
-      />
+      {totalPages === 0 ? null : (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          hasNext={currentPage < totalPages}
+          type="default"
+        />
+      )}
     </div>
   );
 }
