@@ -1,23 +1,33 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import plus from '@/../public/assets/icon_plus_medium.png';
 import search from '@/../public/assets/icon_search.png';
 import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdown';
 
 export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTab: string; onTabChange: (tab: string) => void }) {
+  const router = useRouter();
+
   const [sortOption, setSortOption] = useState('Sort');
 
   const handleSortSelect = (option: string) => {
     setSortOption(option);
   };
 
+  const handleRequestClick = () => {
+    router.push('/challengeList/request');
+  };
+
   return (
     <div className="pt-[2.4rem] w-[120rem] flex flex-col">
       <div className="flex justify-between items-center">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">My Challenge</p>
-        <button className="w-[21rem] h-[3.7rem] bg-primary-beige rounded-[1.95rem] flex items-center justify-center gap-[0.8rem] font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white">
+        <button
+          className="w-[21rem] h-[3.7rem] bg-primary-beige rounded-[1.95rem] flex items-center justify-center gap-[0.8rem] font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
+          onClick={handleRequestClick}
+        >
           Request a Challenge
           <Image src={plus} alt="plus" />
         </button>
@@ -65,9 +75,9 @@ export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTa
           </div>
         ) : (
           <div>
-            <div className="flex gap-[2rem]">
+            <div className="flex gap-[2rem] justify-center">
               <ChallengeApplicationDropdown type="me" sortOption={sortOption} onSortSelect={handleSortSelect} />
-              <div className="flex h-[4rem] items-center w-full border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
+              <div className="flex h-[4rem] items-center w-[81.1rem] border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
                 <Image src={search} alt="search" />
                 <input placeholder="Search Challenge" className="font-normal text-[1.6rem] leading-[1.909rem]" />
               </div>

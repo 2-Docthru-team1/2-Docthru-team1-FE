@@ -61,5 +61,26 @@ export interface MyRequestDataDetail {
   title: string;
   updatedAt: string;
   deadline: string;
+  requestUser: requestUser;
+  totalLikes: number;
+  createdAt: string;
   status: 'pending' | 'finished' | 'denied' | 'onGoing' | 'canceled' | 'aborted';
+}
+
+export interface MyParticipateData {
+  totalCount: number;
+  list: MyParticipateDataDetail[];
+}
+
+export interface MyParticipateDataDetail {
+  id: string;
+  number: number;
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  title: string;
+  updatedAt: string;
+  deadline: string;
+  requestUser: requestUser;
+  totalLikes: number;
+  createdAt: string;
+  status: 'finished' | 'onGoing';
 }
