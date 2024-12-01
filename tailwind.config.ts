@@ -38,9 +38,7 @@ const config: Config = {
         DEFAULT: '#374151'
       }
     }
-  },
-  plugins: [require('@tailwindcss/forms')],
-  safelist: ['scrollbar-thin', 'scrollbar-thumb-rounded', 'scrollbar-thumb-gray-200']
+  }
 };
 
 export default config;
