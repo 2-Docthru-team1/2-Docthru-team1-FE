@@ -115,18 +115,24 @@ export default function MyChallengeClient() {
   return (
     <div className="flex flex-col justify-center items-center">
       <MyChallengeHeader activeTab={activeTab} onTabChange={handleTabChange} />
-      {activeTab === 'participating' &&
-        participateData.list.map((item, index) => (
-          <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
-            <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
-          </div>
-        ))}
-      {activeTab === 'finished' &&
-        finishedData.list.map((item, index) => (
-          <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
-            <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
-          </div>
-        ))}
+      {activeTab === 'participating' && (
+        <div className="grid grid-cols-2 gap-4 my-[2rem]">
+          {participateData.list.map((item, index) => (
+            <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
+              <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
+            </div>
+          ))}
+        </div>
+      )}
+      {activeTab === 'finished' && (
+        <div className="grid grid-cols-2 gap-4 my-[2rem]">
+          {finishedData.list.slice(0, 4).map((item, index) => (
+            <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
+              <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
+            </div>
+          ))}
+        </div>
+      )}
       {activeTab === 'applied' && (
         <>
           <div className="my-[2.4rem]">
