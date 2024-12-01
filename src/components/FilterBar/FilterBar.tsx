@@ -22,7 +22,7 @@ const sortBarWidths = {
 
 const searchBarWidths = {
   challenge: 'w-[53.5rem]',
-  admin: 'lg:w-[80.1rem] md:w-[calc(100vw-22.5rem)] sm:w-[calc(100vw-21rem)]'
+  admin: 'lg:w-[80.1rem] md:w-[calc(100vw-22.5rem)] sm:w-[calc(100vw-22.5rem)]'
 };
 
 const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
@@ -141,7 +141,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
 
   return (
     <div className="z-20">
-      <div className={`h-[4rem] justify-between items-center flex ${filterBarType}`}>
+      <div className={`h-[4rem] gap-[1.2rem] justify-between items-center flex ${filterBarType}`}>
         <div
           className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] cursor-pointer ${sortBarType}
             ${isFilterApplied ? 'bg-gray-700' : 'bg-primary-white'}`}
