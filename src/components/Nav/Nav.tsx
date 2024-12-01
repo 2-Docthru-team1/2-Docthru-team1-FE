@@ -35,10 +35,10 @@ export default function Nav() {
   return (
     <div className="w-full h-full flex">
       <div className="flex w-full h-[6rem] justify-center items-center border-b border-gray-100">
-        <div className="lg:w-[120rem] md:w-[69.6rem] flex justify-between items-center">
+        <div className="lg:w-[120rem] md:w-[69.6rem] sm:w-[37.5rem] flex justify-between items-center">
           <div className="gap-[2.4rem] flex items-center justify-center">
             <Image
-              className="w-[14.6rem] h-[2.92rem] cursor-pointer"
+              className="md:w-[14.6rem] md:h-[2.92rem] sm:w-[10rem] sm:h-[2rem] cursor-pointer"
               src={logo}
               alt="로고"
               onClick={() => {
@@ -54,20 +54,20 @@ export default function Nav() {
               {userStatus !== 'loggedOut' && (
                 <>
                   <p
-                    className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] cursor-pointer ${isRecipe ? 'text-primary-blue' : 'text-gray-600'}`}
+                    className={`flex items-center justify-center py-[2.1rem] md:px-[1.7rem] md:px-[0.6rem] gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isRecipe ? 'text-primary-blue' : 'text-gray-600'}`}
                     onClick={() => router.push('/recipeList')}
                   >
                     Recipe
                   </p>
                   <p
-                    className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] cursor-pointer  ${isChallenge ? 'text-primary-blue' : 'text-gray-600'}`}
+                    className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer  ${isChallenge ? 'text-primary-blue' : 'text-gray-600'}`}
                     onClick={() => router.push('/challengeList')}
                   >
                     Challenge
                   </p>
                   {userStatus === 'admin' && (
                     <p
-                      className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
+                      className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
                       onClick={() => router.push('/auth/challenge')}
                     >
                       Mgmt.
@@ -95,12 +95,6 @@ export default function Nav() {
                     </div>
                   )}
                 </div>
-                <button
-                  className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
-                  onClick={handleSignOut}
-                >
-                  Log Out
-                </button>
               </>
             ) : userStatus === 'admin' ? (
               <>
@@ -117,12 +111,6 @@ export default function Nav() {
                     <ProfileModal name={name ?? 'Unknown'} role={role ?? 'normal'} />
                   </div>
                 )}
-                <button
-                  className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
-                  onClick={handleSignOut}
-                >
-                  Log Out
-                </button>
               </>
             ) : (
               <button

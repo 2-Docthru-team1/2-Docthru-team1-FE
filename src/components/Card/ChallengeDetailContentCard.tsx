@@ -29,7 +29,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
   return (
     <div className="w-full">
       <div className="w-full flex flex-col">
-        <div className="w-full flex mb-[2rem] md:justify-between">
+        <div className="w-full lg:flex mb-[2rem] md:justify-between sm:flex-col">
           <div className="flex flex-col">
             <div className="flex flex-col mb-[2rem] lg:w-[87.4rem] md:w-[39.9rem]">
               <ChipCard type={type} />

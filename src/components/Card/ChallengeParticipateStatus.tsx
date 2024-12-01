@@ -11,12 +11,12 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
 
   useEffect(() => {
     const updateItemsPerPage = () => {
-      if (window.innerWidth <= 744) {
-        setItemsPerPage(2);
-      } else if (window.innerWidth <= 343) {
-        setItemsPerPage(1);
-      } else {
+      if (window.innerWidth >= 1200) {
         setItemsPerPage(4);
+      } else if (window.innerWidth >= 744) {
+        setItemsPerPage(2);
+      } else {
+        setItemsPerPage(1);
       }
     };
 
@@ -42,7 +42,7 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
   };
 
   return (
-    <div className="w-[120.4rem] rounded-[0.8rem] border border-gray-200 gap-[2rem] py-[1.9rem] px-[1.6rem] bg-primary-white">
+    <div className="lg:w-[120.4rem] md:w-[69.6rem] rounded-[0.8rem] border border-gray-200 gap-[2rem] py-[1.9rem] px-[1.6rem] bg-primary-white">
       <div className="flex items-center justify-between gap-[2rem]">
         <p className="font-semibold	text-[1.6rem] leading-[1.909rem] text-gray-800">Participant Status</p>
         <Pagination
@@ -53,7 +53,7 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
           type="small"
         />
       </div>
-      <div className="flex gap-[2rem]">
+      <div className="flex gap-[2rem] lg:justify-start md:justify-center">
         {currentItems.length === 0 ? (
           <div className="w-full items-center justify-center flex my-[2rem]">
             <p className="flex text-center text-normal text-[1.6rem] leading-[1.909rem] text-gray-400">
