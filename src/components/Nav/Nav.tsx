@@ -29,11 +29,11 @@ export default function Nav() {
   return (
     <div className="w-full h-full flex justify-center">
       <div className="flex w-full h-[6rem] justify-center items-center border-b border-gray-100">
-        <div className="mx-[2rem]">
-          <div className="lg:w-[120rem] md:w-[69.6rem] sm:w-[37.5rem] sm:p-[1.6rem] md:p-0 flex justify-between items-center">
-            <div className="md:gap-[2.4rem] sm:gap-[0.8rem] flex items-center justify-center">
+        <div className="w-full lg:px-[18rem] md:px-[2.4rem] sm:px-[1.5rem]">
+          <div className="flex justify-between items-center">
+            <div className="md:gap-[2.4rem] flex items-center justify-center">
               <Image
-                className="md:w-[14.6rem] md:h-[2.92rem] sm:w-[10rem] sm:h-[2rem] cursor-pointer"
+                className="md:w-[14.6rem] md:h-[2.92rem] sm:w-[10rem] sm:h-[2rem] cursor-pointer sm:mr-[0.8rem]"
                 src={logo}
                 alt="로고"
                 onClick={() => {
@@ -62,7 +62,7 @@ export default function Nav() {
                     </p>
                     {userStatus === 'admin' && (
                       <p
-                        className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
+                        className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] sm:px-0 gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
                         onClick={() => router.push('/auth/challenge')}
                       >
                         Mgmt.
@@ -72,7 +72,7 @@ export default function Nav() {
                 )}
               </div>
             </div>
-            <div className="flex gap-[1.6rem] items-center justify-center cursor-pointer">
+            <div className="flex md:gap-[1.6rem] sm:gap-[1rem] items-center justify-center cursor-pointer">
               <Image src={translate} alt="번역" onClick={() => setIsModalOpen(true)} width={24} height={24} />
               {userStatus === 'normal' ? (
                 <>
