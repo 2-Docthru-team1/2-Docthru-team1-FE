@@ -17,16 +17,19 @@ export default function Home() {
     }
   }, []);
   return (
-    <div className="flex flex-col justify-center items-center h-[100vh] bg-gradient-to-b from-[#F5F5F5] to-primary-beige relative">
+    <div className="flex flex-col items-center h-[100vh] bg-gradient-to-b from-[#F5F5F5] to-primary-beige relative">
       <Image
         src={pcLanding}
         alt="Korean flag with seaweed paper"
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mb-8"
+        className="absolute lg:top-[45rem] md:top-[35rem] sm:top-[27rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        priority
       />
-      <div className="flex flex-col items-center text-center gap-[8rem] relative">
+      <div className="flex flex-col items-center text-center lg:gap-[8rem] md:gap-[6.1rem] sm:gap-[3.1rem] lg:mt-[35.1rem] md:mt-[23rem] sm:mt-[20.3rem] relative">
         <div className="flex flex-col items-center text-center">
-          <Image src={pcLogo} alt="HanCook Logo" width={462} height={92.4} />
-          <p className="text-[2rem] font-semibold text-color-700">Capture and share your Hansik(Korean Food) cooking!</p>
+          <Image src={pcLogo} alt="HanCook Logo" className="md:w-[46.2rem] md:h-auto sm:w-[23rem] sm:h-auto" />
+          <p className="mt-[1.2rem] md:text-[2rem] sm:text-[1.4rem] font-semibold text-gray-700 md:leading-[2.6rem] sm:leading-[1.8rem]">
+            Capture and share your <br className="sm:block md:hidden" /> Hansik(Korean Food) cooking!
+          </p>
         </div>
         <Cta url="/signIn">Go to Sign-in</Cta>
       </div>
