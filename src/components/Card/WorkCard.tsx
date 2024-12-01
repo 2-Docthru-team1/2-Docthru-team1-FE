@@ -171,7 +171,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           className="flex items-center 
         lg:gap-[0.5rem]
         md:gap-[0.5rem]
-        sm:gap-[0.1rem]"
+        sm:gap-[0.5rem]"
         >
           {data.owner.role === 'admin' ? (
             <Image src={admin} alt="어드민 이미지" width={24} height={24} priority />
@@ -183,7 +183,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
             className="text-[1.2rem] font-medium text-gray-500 
           lg:mr-[0.5rem]
           md:mr-[0.5rem]
-          sm:mr-[0.1rem]"
+          sm:mr-[0.5rem]"
           >
             {role}
           </p>
