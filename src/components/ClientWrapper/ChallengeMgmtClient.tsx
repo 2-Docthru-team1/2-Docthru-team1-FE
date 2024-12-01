@@ -73,13 +73,13 @@ export default function ChallengeMgmtClient() {
   };
 
   return (
-    <div className="pt-[2.4rem] flex flex-col w-full items-center md:p-[2.4rem]">
-      <div className="lg:w-[99.6rem] md:w-full">
+    <div className="pt-[2.4rem] flex flex-col w-full items-center md:p-[2.4rem] sm:p-[1.6rem]">
+      <div className="lg:w-[99.6rem] sm:w-full">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">Manage Challenge Application</p>
-        <div className="mt-[2.4rem]">
+        <div className="mt-[2.4rem] flex w-full">
           <FilterBar type="admin" onKeywordChange={setKeyword} onFilterApply={handleFilterChange} />
         </div>
-        <div className="mt-[2.4rem] max-w-full lg:justify-center md:justify-start flex overflow-x-auto overflow-y-hidden">
+        <div className="mt-[2.4rem] max-w-full lg:justify-center sm:justify-start flex sm:overflow-x-auto sm:overflow-y-hidden">
           <ChallengeApplicationBody data={challengeApply?.list || []} />
         </div>
       </div>

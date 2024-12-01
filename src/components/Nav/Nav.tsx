@@ -29,8 +29,8 @@ export default function Nav() {
   return (
     <div className="w-full h-full flex justify-center">
       <div className="flex w-full h-[6rem] justify-center items-center border-b border-gray-100">
-        <div className="mx-[2rem]">
-          <div className="lg:w-[120rem] md:w-[69.6rem] sm:w-[37.5rem] sm:p-[1.6rem] md:p-0 flex justify-between items-center">
+        <div className="md:mx-[2rem] lg:mx-0">
+          <div className="lg:w-[120rem] md:w-[69.6rem] sm:w-[37.5rem] flex justify-between items-center">
             <div className="md:gap-[2.4rem] sm:gap-[0.8rem] flex items-center justify-center">
               <Image
                 className="md:w-[14.6rem] md:h-[2.92rem] sm:w-[10rem] sm:h-[2rem] cursor-pointer"
@@ -62,7 +62,7 @@ export default function Nav() {
                     </p>
                     {userStatus === 'admin' && (
                       <p
-                        className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
+                        className={`flex items-center justify-center py-[2.1rem] gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
                         onClick={() => router.push('/auth/challenge')}
                       >
                         Mgmt.

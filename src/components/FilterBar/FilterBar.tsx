@@ -22,7 +22,7 @@ const sortBarWidths = {
 
 const searchBarWidths = {
   challenge: 'w-[53.5rem]',
-  admin: 'lg:w-[80.1rem] md:w-[54.9rem]'
+  admin: 'lg:w-[80.1rem] md:w-[calc(100vw-22.5rem)] sm:w-[calc(100vw-21rem)]'
 };
 
 const optionsByType: Record<string, Option[] | ChallengeOption[]> = {
