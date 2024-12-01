@@ -39,7 +39,8 @@ const config: Config = {
       }
     }
   },
-  plugins: []
+  plugins: [require('@tailwindcss/forms')],
+  safelist: ['scrollbar-thin', 'scrollbar-thumb-rounded', 'scrollbar-thumb-gray-200']
 };
 
 export default config;
