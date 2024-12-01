@@ -52,9 +52,9 @@ export default function ChallengeApplicationDetailBody({ data }: ChallengeApplic
   };
 
   return (
-    <div className="w-[120rem]">
+    <div className="lg:w-[120rem] md:w-[69.6rem]">
       <p className="font-semibold text-[1.8rem] leading-[2.148rem] text-gray-800">Recipe Link / Attached Article</p>
-      <div className="relative mt-[4rem] w-[89rem] h-[42.4rem]">
+      <div className="relative mt-[4rem] lg:w-[89rem] md:w-[69.6rem] lg:h-[42.4rem] md:h-[38.3rem]">
         <iframe
           src={data.embedUrl}
           title="Embedded Content"
