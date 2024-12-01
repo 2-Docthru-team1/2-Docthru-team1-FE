@@ -132,20 +132,22 @@ export const fetchAdminChallengeDetailNext = async (id: string) => {
   }
 };
 
-// export const fetchMyChallenge = async () => {
-//   try {
-//     const response = await getRequest('/challenges/participation');
-//     console.log(response);
-//     return response.data;
-//   } catch (error) {
-//     throw new Error('Failed to get participating challenge');
-//   }
-// };
+export const fetchMyChallenge = async (status: string) => {
+  const params = {
+    status: status
+  };
+  try {
+    const response = await getRequest('/challenges/participation', { params });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get participating challenge');
+  }
+};
 
 export const fetchMyRequestChallenge = async () => {
   try {
     const response = await getRequest('/challenges/my-requests');
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get my request challenge data');

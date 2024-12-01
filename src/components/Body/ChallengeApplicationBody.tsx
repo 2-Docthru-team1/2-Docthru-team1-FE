@@ -21,7 +21,7 @@ enum MediaType {
   SocialMedia = 'socialMedia'
 }
 
-export default function ChallengeApplicationBody({ data }: ChallengeApplicationBodyProps) {
+export default function ChallengeApplicationBody({ type, data }: ChallengeApplicationBodyProps) {
   const router = useRouter();
 
   const formatDate = (dateString: string) => {
@@ -33,7 +33,11 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
   };
 
   const handleListClick = (id: string) => {
-    router.push(`/auth/challenge/${id}`);
+    if (type === 'admin') {
+      router.push(`/auth/challenge/${id}`);
+    } else if (type === 'normal') {
+      router.push(`/me/challenge/${id}`);
+    }
   };
 
   return (

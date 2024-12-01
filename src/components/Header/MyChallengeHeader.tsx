@@ -6,13 +6,8 @@ import plus from '@/../public/assets/icon_plus_medium.png';
 import search from '@/../public/assets/icon_search.png';
 import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdown';
 
-export default function MyChallengeHeader() {
-  const [activeTab, setActiveTab] = useState('participating');
+export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTab: string; onTabChange: (tab: string) => void }) {
   const [sortOption, setSortOption] = useState('Sort');
-
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
-  };
 
   const handleSortSelect = (option: string) => {
     setSortOption(option);
@@ -30,7 +25,7 @@ export default function MyChallengeHeader() {
       <div className="w-full flex items-center border-b border-gray-400">
         <div
           className="w-[16.2rem] flex flex-col gap-[1rem] items-center h-[5.3rem] pt-[1.6rem] cursor-pointer"
-          onClick={() => handleTabClick('participating')}
+          onClick={() => onTabChange('participating')}
         >
           <p
             className={`font-semibold text-[1.8rem] leading-[2.148rem] hover:text-gray-500 ${activeTab === 'participating' ? 'text-gray-700' : 'text-gray-400'}`}
@@ -41,7 +36,7 @@ export default function MyChallengeHeader() {
         </div>
         <div
           className="w-[11.9rem] flex flex-col gap-[1rem] items-center h-[5.3rem] pt-[1.6rem] cursor-pointer"
-          onClick={() => handleTabClick('finished')}
+          onClick={() => onTabChange('finished')}
         >
           <p
             className={`font-semibold text-[1.8rem] leading-[2.148rem] hover:text-gray-500 ${activeTab === 'finished' ? 'text-gray-700' : 'text-gray-400'}`}
@@ -52,7 +47,7 @@ export default function MyChallengeHeader() {
         </div>
         <div
           className="w-[11.2rem] flex flex-col gap-[1rem] items-center h-[5.3rem] pt-[1.6rem] cursor-pointer"
-          onClick={() => handleTabClick('applied')}
+          onClick={() => onTabChange('applied')}
         >
           <p
             className={`font-semibold text-[1.8rem] leading-[2.148rem] hover:text-gray-500 ${activeTab === 'applied' ? 'text-gray-700' : 'text-gray-400'}`}
