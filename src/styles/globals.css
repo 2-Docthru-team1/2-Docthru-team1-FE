@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   color: #111827;
   font-family: Pretendard;
@@ -44,6 +48,6 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gray-200);
+  background: var(--gray-400);
   border-radius: 10px;
 }
