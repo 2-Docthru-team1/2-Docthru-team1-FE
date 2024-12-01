@@ -128,9 +128,26 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   };
 
   return (
-    <div className="flex flex-col w-[120rem] gap-[1rem] mt-[2rem]">
-      <div className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center">
-        <p className="text-[2.4rem] font-bold text-left text-gray-700">{data.title}</p>
+    <div
+      className="flex flex-col gap-[1rem] mt-[2rem] 
+    lg:w-[120rem] lg:px-0  
+    md:w-full  md:px-[2.7rem] 
+    sm:w-full sm:px-[1.2rem]"
+    >
+      <div
+        className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center
+    
+      md:w-full 
+      sm:w-full"
+      >
+        <p
+          className="text-[2.4rem] font-bold text-left text-gray-700 
+        lg:text-[2.4rem]
+        md:text-[2.4rem]
+        sm:text-[2rem]"
+        >
+          {data.title}
+        </p>
         {(user?.id === data?.owner?.id || user.role === 'admin') && (
           <div className="relative">
             <Image
@@ -149,14 +166,26 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         )}
       </div>
       <div className="flex items-center justify-between border-b border-b-gray-200 pb-[1.5rem] mb-[1rem]">
-        <div className="flex items-center gap-[0.5rem]">
+        <div
+          className="flex items-center 
+        lg:gap-[0.5rem]
+        md:gap-[0.5rem]
+        sm:gap-[0.5rem]"
+        >
           {data.owner.role === 'admin' ? (
             <Image src={admin} alt="어드민 이미지" width={24} height={24} priority />
           ) : (
             <Image src={member} alt="유저이미지" width={24} height={24} priority />
           )}
           <p className="text-[1.4rem] font-medium text-gray-800">{data.owner.name}</p>
-          <p className="text-[1.2rem] font-medium text-gray-500 mr-[0.5rem]">{role}</p>
+          <p
+            className="text-[1.2rem] font-medium text-gray-500 
+          lg:mr-[0.5rem]
+          md:mr-[0.5rem]
+          sm:mr-[0.5rem]"
+          >
+            {role}
+          </p>
           <Image
             src={liked ? activeHeart : inactiveHeart}
             alt={liked ? '활성 하트' : '비활성 하트'}
@@ -172,32 +201,51 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           <p className="text-[1.4rem] font-medium text-gray-400">{formattedDate}</p>
         </div>
       </div>
-      <div className="flex border-b border-b-gray-200 pb-[4rem]">
-        <div className="mr-[0.3rem] w-[47.6rem] h-[47.9rem] relative cursor-pointer ]">
-          <Image
-            src={data.images.length === 1 ? data.images[0].imageUrl : data.images[currentOrder].imageUrl}
-            alt="작업물 이미지"
-            fill
-            className="object-cover"
-            onClick={openImg}
-            priority
-          />
-        </div>
-        {!(data.images.length === 1) ? (
-          <div className="flex items-center">
+      <div
+        className="flex border-b border-b-gray-200 pb-[4rem] 
+      lg:flex-row lg:items-start 
+      md:flex-col md:items-center
+      sm:flex-col sm:items-center"
+      >
+        <div
+          className="mr-[0.3rem] relative cursor-pointer
+        lg:w-[47.6rem] lg:h-[47.9rem]
+        md:w-[47.6rem] md:h-[47.9rem]
+        sm:w-[30rem] sm:h-[30rem] "
+        >
+          <div className="flex">
             <Image
-              src={nextImage}
-              alt="다음 이미지 버튼"
-              onClick={handleNextImage}
-              className="cursor-pointer"
-              width={40}
-              height={40}
+              src={data.images.length === 1 ? data.images[0].imageUrl : data.images[currentOrder].imageUrl}
+              alt="작업물 이미지"
+              fill
+              className="object-cover"
+              onClick={openImg}
+              priority
             />
           </div>
-        ) : (
-          <div></div>
-        )}
-        <p className="text-[1.6rem] font-normal text-gray-800">{data.content}</p>{' '}
+          {!(data.images.length === 1) ? (
+            <div className="flex items-center">
+              <Image
+                src={nextImage}
+                alt="다음 이미지 버튼"
+                onClick={handleNextImage}
+                className="cursor-pointer"
+                width={40}
+                height={40}
+              />
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+        <p
+          className="font-normal text-gray-800 
+        lg:mt-0 text-[1.6rem]
+        md:mt-[2rem] md:self-start
+        sm:mt-[1.6rem] sm:self-start"
+        >
+          {data.content}
+        </p>{' '}
       </div>
       {isImageOpen && (
         <ImageEnlargeModal

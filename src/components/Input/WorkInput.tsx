@@ -38,16 +38,36 @@ export default function WorkInput({ data }: WorkInputProps) {
   };
 
   return (
-    <div className="w-[120rem] mt-[2rem]">
-      <form onSubmit={handleSubmit} className="flex justify-between relative">
+    <div
+      className=" mt-[2rem]
+    lg:w-[120rem] lg:px-0
+    md:w-full md:px-[2.4rem]
+    sm:w-full sm:px-[1.5rem]"
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="flex justify-between relative
+      lg:gap-[2.8rem]
+      md:gap-[2.4rem]
+      sm:gap-[1.6rem]"
+      >
         <textarea
           id="content"
           value={content}
           onChange={handleChange}
           placeholder="Please write your comment"
-          className="resize-none w-[113.2rem] h-[8.9rem] rounded-[1rem] border border-gray-200 text-gray-700 text-[1.6rem] font-medium placeholder-gray-400 p-5 focus:outline-none"
+          className="resize-none h-[8.9rem] rounded-[1rem] border border-gray-200 text-gray-700 text-[1.6rem] font-medium placeholder-gray-400 p-5 focus:outline-none
+          lg:w-[113.2rem]
+          md:w-full
+          sm:w-full"
         />
-        <button type="submit" disabled={!isInputEmpty()} className="absolute top-0 right-0">
+        <button
+          type="submit"
+          disabled={!isInputEmpty()}
+          className=" lg:absolute lg:top-0 lg:right-0
+        md:self-start
+        sm:self-start"
+        >
           {isInputEmpty() ? (
             <Image src={activeSubmit} alt="active 제출 이미지" width={40} height={40} />
           ) : (
