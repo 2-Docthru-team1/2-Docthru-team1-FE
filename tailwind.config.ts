@@ -36,10 +36,13 @@ const config: Config = {
     extend: {
       textColor: {
         DEFAULT: '#374151'
+      },
+      scrollbar: {
+        DEFAULT: 'scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-200'
       }
     }
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('tailwind-scrollbar')],
   safelist: ['scrollbar-thin', 'scrollbar-thumb-rounded', 'scrollbar-thumb-gray-200']
 };
 

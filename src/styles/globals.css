@@ -38,3 +38,12 @@ html {
 .shadow-sm {
   box-shadow: none !important;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-200);
+  border-radius: 10px;
+}
