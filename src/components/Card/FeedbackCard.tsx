@@ -89,8 +89,8 @@ export default function FeedbackCard({
     <div
       className="pb-[2rem] flex items-center justify-center
     lg:px-0
-    md:w-full md:px-[2rem]
-    sm:w-full sm:px-[0.8rem]"
+    md:w-full md:px-[2.4rem]
+    sm:w-full sm:px-[1.6rem]"
     >
       <div className="flex flex-col  lg:w-full md:w-full sm:w-full">
         <ul
