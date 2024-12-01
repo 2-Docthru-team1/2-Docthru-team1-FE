@@ -148,23 +148,22 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         >
           {data.title}
         </p>
-        {user?.id === data?.owner?.id ||
-          (user.role === 'admin' && (
-            <div className="relative">
-              <Image
-                src={kebab}
-                alt="드롭다운 이미지"
-                onClick={handleDropdownClick}
-                className="cursor-pointer"
-                width={24}
-                height={24}
-                priority
-              />
-              <div onClick={handleCancelClick} className="absolute right-[0] top-[4.4rem]">
-                {isDropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
-              </div>
+        {(user?.id === data?.owner?.id || user.role === 'admin') && (
+          <div className="relative">
+            <Image
+              src={kebab}
+              alt="드롭다운 이미지"
+              onClick={handleDropdownClick}
+              className="cursor-pointer"
+              width={24}
+              height={24}
+              priority
+            />
+            <div onClick={handleCancelClick} className="absolute right-[0] top-[4.4rem]">
+              {isDropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
             </div>
-          ))}
+          </div>
+        )}
       </div>
       <div className="flex items-center justify-between border-b border-b-gray-200 pb-[1.5rem] mb-[1rem]">
         <div

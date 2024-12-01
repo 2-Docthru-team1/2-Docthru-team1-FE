@@ -12,18 +12,18 @@ export default function SignInput({ type, label, placeholder, value, onChange, .
   };
 
   return (
-    <div className="flex flex-col w-[51.8rem] mb-[2.4rem]">
-      <label htmlFor={type} className="text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.6rem]">
+    <div className="flex flex-col lg:w-[51.8rem] md:w-[51.8rem] mb-[2.4rem] sm:w-full">
+      <label htmlFor={type} className=" text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.6rem] sm:w-full">
         {label}
       </label>
-      <div className="relative">
+      <div className="relative sm: w-full">
         {type === 'password' || type === 'passwordConfirm' ? (
-          <>
+          <div className="w-full">
             <input
               id={type}
               type={showPassword ? 'text' : 'password'}
               placeholder={placeholder}
-              className="w-full bg-primary-white border border-gray-200 rounded-[1.2rem] focus:outline-none focus:border-primary-beige py-[1.1rem] px-[2rem] text-[1.6rem] text-left placeholder-gray-400 text-gray-700"
+              className=" w-full bg-primary-white border border-gray-200 rounded-[1.2rem] focus:outline-none focus:border-primary-beige py-[1.1rem] px-[2rem] text-[1.6rem] text-left placeholder-gray-400 text-gray-700"
               value={value}
               onChange={onChange}
               {...props}
@@ -35,7 +35,7 @@ export default function SignInput({ type, label, placeholder, value, onChange, .
             >
               <Image src={showPassword ? pw_on : pw_off} alt="Toggle password visibility" className="w-[2.4rem] h-[2.4rem]" />
             </button>
-          </>
+          </div>
         ) : (
           <input
             id={type}
