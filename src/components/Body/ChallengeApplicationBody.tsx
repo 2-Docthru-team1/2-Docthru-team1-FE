@@ -56,7 +56,7 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
         <p className="md:w-[18.3rem] sm:w-[10rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           Deadline
         </p>
-        <p className="md:w-[12rem] sm:w-[10rem] flex items-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white px-[3rem]">
+        <p className="md:w-[12rem] flex items-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white px-[3.6rem]">
           Status
         </p>
       </div>
