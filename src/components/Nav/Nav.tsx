@@ -24,12 +24,6 @@ export default function Nav() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  const handleSignOut = () => {
-    const { logout } = useStore.getState();
-    router.push('/');
-    logout();
-  };
-
   const { name, role } = useStore();
 
   return (
@@ -95,12 +89,6 @@ export default function Nav() {
                     </div>
                   )}
                 </div>
-                <button
-                  className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
-                  onClick={handleSignOut}
-                >
-                  Log Out
-                </button>
               </>
             ) : userStatus === 'admin' ? (
               <>
@@ -117,12 +105,6 @@ export default function Nav() {
                     <ProfileModal name={name ?? 'Unknown'} role={role ?? 'normal'} />
                   </div>
                 )}
-                <button
-                  className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
-                  onClick={handleSignOut}
-                >
-                  Log Out
-                </button>
               </>
             ) : (
               <button

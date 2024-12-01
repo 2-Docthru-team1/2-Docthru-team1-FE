@@ -41,19 +41,12 @@ instance.interceptors.response.use(
       const refreshToken = localStorage.getItem('refreshToken');
       if (refreshToken) {
         const refreshInstance = axios.create({
-          baseURL: `${BASE_URL}`
+          baseURL: `${BASE_URL}`,
+          withCredentials: true
         });
 
         try {
-          const response = await refreshInstance.post(
-            '/auth/refresh',
-            {},
-            {
-              headers: {
-                Cookie: `refreshToken=${refreshToken}`
-              }
-            }
-          );
+          const response = await refreshInstance.post('/auth/refresh', {}, { withCredentials: true });
 
           const newAccessToken = response.data.accessToken;
           localStorage.setItem('accessToken', newAccessToken);

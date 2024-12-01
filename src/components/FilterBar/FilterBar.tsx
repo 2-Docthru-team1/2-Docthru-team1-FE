@@ -11,17 +11,17 @@ import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdo
 import Dropdown from '../Dropdown/Dropdown';
 
 const filterBarWidths = {
-  challenge: 'w-[69.6rem]',
+  challenge: 'lg:w-[69.6rem]',
   admin: 'w-[99.2rem]'
 };
 
 const sortBarWidths = {
-  challenge: 'w-[14rem]',
+  challenge: 'lg:w-[14rem] md:w-[12.1rem] sm:w-[10rem]',
   admin: 'w-[18.1rem]'
 };
 
 const searchBarWidths = {
-  challenge: 'w-[53.5rem]',
+  challenge: 'lg:w-[53.5rem] md:w-[calc(100vw-18.9rem)] sm:w-[calc(100vw-13.8rem)]',
   admin: 'w-[80.1rem]'
 };
 
