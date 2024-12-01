@@ -62,11 +62,7 @@ export default function Nav() {
                     </p>
                     {userStatus === 'admin' && (
                       <p
-<<<<<<< HEAD
-                        className={`flex items-center justify-center py-[2.1rem] gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
-=======
                         className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] sm:px-0 gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
->>>>>>> 99f54dcc88a7e3410eaba985d0e41371d2a14147
                         onClick={() => router.push('/auth/challenge')}
                       >
                         Mgmt.
