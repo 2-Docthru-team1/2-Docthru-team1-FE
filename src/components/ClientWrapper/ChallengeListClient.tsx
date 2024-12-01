@@ -23,12 +23,11 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
   const [itemsPerPage, setItemsPerPage] = useState(4);
   useEffect(() => {
     const updateItemsPerPage = () => {
-      if (window.innerWidth <= 744) {
-        setItemsPerPage(2);
-      } else if (window.innerWidth <= 343) {
-        setItemsPerPage(1);
-      } else {
+      const width = window.innerWidth;
+      if (width >= 1200) {
         setItemsPerPage(4);
+      } else if (width >= 375) {
+        setItemsPerPage(2);
       }
     };
     updateItemsPerPage();
@@ -67,7 +66,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     isLoading,
     isError
   } = useQuery<ChallengePaginationProps>({
-    queryKey: ['challenges', currentPage, queryParams],
+    queryKey: ['challenges', currentPage, itemsPerPage, queryParams],
     queryFn: () => fetchChallenge(currentPage, itemsPerPage, queryParams),
     placeholderData: keepPreviousData
   });
@@ -76,17 +75,17 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
 
   useEffect(() => {
     if (!isPlaceholderData && hasMore) {
-      const pagesToPrefetch = 1;
+      const pagesToPrefetch = 5;
       const nextPage = currentPage + 1;
 
       for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
         queryClient.prefetchQuery({
-          queryKey: ['challenges', i, queryParams],
+          queryKey: ['challenges', i, queryParams, itemsPerPage],
           queryFn: () => fetchChallenge(i, itemsPerPage, queryParams)
         });
       }
     }
-  }, [currentPage, hasMore, isPlaceholderData, queryParams]);
+  }, [currentPage, hasMore, isPlaceholderData, queryParams, itemsPerPage]);
 
   if (isLoading) {
     return (
@@ -177,8 +176,8 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
             </div>
           </div>
         </div>
-        {/* {challenges?.list.length ? (
-          <div className="justify-between grid grid-cols-2 grid-rows-2 gap-[2.4rem]">
+        {challenges?.list.length ? (
+          <div className="flex justify-between items-center grid lg:grid-cols-2 sm:grid-cols-1 grid-rows-2 md:gap-[2.4rem] sm:gap-[1.4rem]">
             {challenges.list.map((data: ChallengeData) => (
               <div key={data.id} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
                 <ChallengeCard data={data} userId={id} role={role} />
@@ -190,9 +189,9 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
             <p className="font-normal text-[1.6rem] leading-[2.387rem] text-gray-500">There’s no challenge in running,</p>
             <p className="font-normal text-[1.6rem] leading-[2.387rem] text-gray-500">Let’s get it started!</p>
           </div>
-        )} */}
+        )}
       </div>
-      {/* <div className="mt-[4rem] mb-[2.4rem]">
+      <div className="md:mt-[4rem] sm:mt-[1.4rem] mb-[2.4rem]">
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
@@ -200,7 +199,7 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
           hasNext={currentPage < totalPages}
           type="default"
         />
-      </div> */}
+      </div>
       {/* <div className="mb-[2.4rem]">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 mb-[2.4rem]">This Month's Ranker</p>
         <MonthlyRankerCard data={rankerData} />
