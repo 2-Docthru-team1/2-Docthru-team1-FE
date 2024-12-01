@@ -48,6 +48,6 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gray-400);
+  background: #e5e7eb;
   border-radius: 10px;
 }
