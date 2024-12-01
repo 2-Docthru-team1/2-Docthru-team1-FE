@@ -33,7 +33,7 @@ export default function Nav() {
   const { name, role } = useStore();
 
   return (
-    <div className="w-full h-full flex">
+    <div className="w-full h-full flex justify-center sm:px-[2rem]">
       <div className="flex w-full h-[6rem] justify-center items-center border-b border-gray-100">
         <div className="w-[120rem] flex justify-between items-center">
           <div className="gap-[2.4rem] flex items-center justify-center">
@@ -126,7 +126,7 @@ export default function Nav() {
               </>
             ) : (
               <button
-                className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
+                className="whitespace-nowrap flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
                 onClick={() => router.push('/signIn')}
               >
                 Sign in
