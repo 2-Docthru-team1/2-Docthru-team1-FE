@@ -1,14 +1,15 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import clock from '@/../public/assets/icon_deadline_clock_large.png';
 import type { OptionBoxProps } from '@/interfaces/optionboxInterface';
 
 // TODO: 추후 button Link는 수정 예정입니다.
 
 export default function OptionBox({ type, id, date }: OptionBoxProps) {
+  const [buttonText, setButtonText] = useState('Participate Challenge');
   const isFinished = type === 'finished';
-  const participateButtonText = type === 'onGoing' ? 'Participate Challenge' : 'Keep Participating';
   const bgColor = type === 'finished' ? 'bg-gray-200' : 'bg-primary-beige';
 
   const formatDate = (dateString: string) => {
@@ -18,6 +19,25 @@ export default function OptionBox({ type, id, date }: OptionBoxProps) {
     }
     return format(date, 'yyyy-MM-dd');
   };
+
+  useEffect(() => {
+    const updateButtonText = () => {
+      if (window.innerWidth < 744) {
+        setButtonText('Participate');
+      } else if (type === 'onGoing') {
+        setButtonText('Participate Challenge');
+      } else {
+        setButtonText('Keep Participating');
+      }
+    };
+
+    updateButtonText();
+    window.addEventListener('resize', updateButtonText);
+
+    return () => {
+      window.removeEventListener('resize', updateButtonText);
+    };
+  }, [type]);
 
   return (
     <div className="md:w-[28.5rem] md:h-[17.6rem] sm:w-[34.3rem] sm:h-[10.4rem] rounded-[1.6rem] border-2 border-gray-100 flex items-center justify-center bg-primary-white">
@@ -37,7 +57,7 @@ export default function OptionBox({ type, id, date }: OptionBoxProps) {
               className={`rounded-[0.8rem] w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-primary-white ${bgColor}`}
               disabled={isFinished}
             >
-              {participateButtonText}
+              {buttonText}
             </button>
           </Link>
         </div>
