@@ -12,7 +12,7 @@ import Dropdown from '../Dropdown/Dropdown';
 
 const filterBarWidths = {
   challenge: 'w-[69.6rem]',
-  admin: 'w-[99.2rem]'
+  admin: 'lg:w-[99.2rem]'
 };
 
 const sortBarWidths = {
@@ -22,7 +22,7 @@ const sortBarWidths = {
 
 const searchBarWidths = {
   challenge: 'w-[53.5rem]',
-  admin: 'w-[80.1rem]'
+  admin: 'lg:w-[80.1rem] md:w-[54.9rem]'
 };
 
 const optionsByType: Record<string, Option[] | ChallengeOption[]> = {

@@ -39,7 +39,7 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
   };
 
   return (
-    <div className="w-[99.6rem]">
+    <div className="w-[99.6rem] mb-[1rem]">
       <div className="flex rounded-[0.8rem] bg-primary-beige h-[3.6rem]">
         <p className="w-[6.8rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           No.
