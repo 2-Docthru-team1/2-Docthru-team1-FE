@@ -36,9 +36,6 @@ const config: Config = {
     extend: {
       textColor: {
         DEFAULT: '#374151'
-      },
-      scrollbar: {
-        DEFAULT: 'scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-200'
       }
     }
   }
