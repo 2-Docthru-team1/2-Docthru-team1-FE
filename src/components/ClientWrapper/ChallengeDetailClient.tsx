@@ -70,7 +70,7 @@ export default function ChallengeDetailClient() {
           />
         </div>
         {medium.status === 'finished' && (
-          <div className="mt-[4rem] flex md:justify-center lg:justify-start">
+          <div className="mt-[4rem] flex sm:justify-center lg:justify-start">
             {challengeStatusMedium.list.length > 0 && (
               <ChallengeMostLikedCard
                 data={{
@@ -90,7 +90,7 @@ export default function ChallengeDetailClient() {
             )}
           </div>
         )}
-        <div className="mt-[4rem] flex mb-[2rem] md:justify-center lg:justify-start">
+        <div className="mt-[4rem] flex mb-[2rem] sm:justify-center lg:justify-start">
           <ChallengeParticipateStatus list={challengeStatusMedium.list} totalCount={challengeStatusMedium.totalCount} />
         </div>
       </div>
