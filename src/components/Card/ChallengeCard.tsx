@@ -22,7 +22,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
     if (isNaN(date.getTime())) {
       return '';
     }
-    return format(date, 'yy/MM/dd');
+    return format(date, 'yyyy-MM-dd');
   };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);

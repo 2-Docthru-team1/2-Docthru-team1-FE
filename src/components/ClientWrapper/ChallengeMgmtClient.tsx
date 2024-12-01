@@ -80,7 +80,7 @@ export default function ChallengeMgmtClient() {
           <FilterBar type="admin" onKeywordChange={setKeyword} onFilterApply={handleFilterChange} />
         </div>
         <div className="mt-[2.4rem]">
-          <ChallengeApplicationBody data={challengeApply?.list || []} />
+          <ChallengeApplicationBody type="admin" data={challengeApply?.list || []} />
         </div>
       </div>
       <div className="flex mt-[3.8rem]">

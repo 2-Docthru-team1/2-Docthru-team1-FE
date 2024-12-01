@@ -13,6 +13,7 @@ import Pagination from '../Pagination/Pagination';
 
 export default function MyChallengeClient() {
   const router = useRouter();
+
   const [activeTab, setActiveTab] = useState('participating');
   const [finishedData, setFinishedData] = useState<MyParticipateData>();
   const [participateData, setParticipateData] = useState<MyParticipateData>();
@@ -38,6 +39,7 @@ export default function MyChallengeClient() {
   useEffect(() => {
     const getMyChallenge = async () => {
       const response = await fetchMyOngoingChallenge();
+      console.log(response);
       setParticipateData(response);
     };
 

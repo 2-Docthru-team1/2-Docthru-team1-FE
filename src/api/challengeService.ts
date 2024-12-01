@@ -137,7 +137,7 @@ export const fetchMyOngoingChallenge = async () => {
     status: 'onGoing'
   };
   try {
-    const response = await getRequest('/challenges/participation', { params });
+    const response = await getRequest(`/challenges/participation`, { params });
     return response.data;
   } catch (error) {
     throw new Error('Failed to get participating challenge');

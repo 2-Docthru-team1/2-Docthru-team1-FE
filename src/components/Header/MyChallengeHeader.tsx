@@ -5,10 +5,13 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import plus from '@/../public/assets/icon_plus_medium.png';
 import search from '@/../public/assets/icon_search.png';
+import useStore from '@/store/store';
 import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdown';
 
 export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTab: string; onTabChange: (tab: string) => void }) {
   const router = useRouter();
+
+  const { keyword, setKeyword, toggleDropdown } = useStore();
 
   const [sortOption, setSortOption] = useState('Sort');
 
@@ -18,6 +21,17 @@ export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTa
 
   const handleRequestClick = () => {
     router.push('/challengeList/request');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const currentKeyword = e.currentTarget.value.trim();
+      setKeyword(currentKeyword || '');
+      if (!currentKeyword) {
+        window.location.reload();
+        return;
+      }
+    }
   };
 
   return (
@@ -71,7 +85,11 @@ export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTa
         {activeTab === 'participating' || activeTab === 'finished' ? (
           <div className="flex h-[4rem] items-center w-full border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
             <Image src={search} alt="search" />
-            <input placeholder="Search Challenge" className="font-normal text-[1.6rem] leading-[1.909rem]" />
+            <input
+              placeholder="Search Challenge"
+              className="font-normal text-[1.6rem] leading-[1.909rem] w-full focus:outline-none"
+              onKeyDown={handleKeyDown}
+            />
           </div>
         ) : (
           <div>
@@ -79,7 +97,11 @@ export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTa
               <ChallengeApplicationDropdown type="me" sortOption={sortOption} onSortSelect={handleSortSelect} />
               <div className="flex h-[4rem] items-center w-[81.1rem] border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
                 <Image src={search} alt="search" />
-                <input placeholder="Search Challenge" className="font-normal text-[1.6rem] leading-[1.909rem]" />
+                <input
+                  placeholder="Search Challenge"
+                  className="font-normal text-[1.6rem] leading-[1.909rem] w-full focus:outline-none"
+                  onKeyDown={handleKeyDown}
+                />
               </div>
             </div>
           </div>
