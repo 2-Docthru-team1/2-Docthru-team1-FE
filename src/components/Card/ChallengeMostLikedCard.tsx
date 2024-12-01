@@ -37,7 +37,7 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
   const rol = data.owner.role === 'normal' ? 'koo-koo' : data.owner.role === 'admin' ? 'admin' : '';
 
   return (
-    <div className="flex flex-col w-[88.9rem] border-2 border-gray-100 rounded-[1.6rem] bg-primary-white">
+    <div className="flex flex-col lg:w-[88.9rem] md:w-[64.7rem] border-2 border-gray-100 rounded-[1.6rem] bg-primary-white">
       <div className="flex w-[15.09rem] h-[4rem] items-center bg-gray-700 rounded-tl-[1.4rem] rounded-br-[1.4rem] justify-center gap-[0.4rem]">
         <Image src={medal} alt="medal" />
         <p className="font-medium text-[1.4rem] leading-[1.671rem] text-primary-white">The Most Liked</p>
@@ -46,7 +46,7 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
         <div className="w-[28rem] h-[28.2rem] relative">
           <Image src={food} alt="food" layout="fill" objectFit="cover" />
         </div>
-        <div className="flex flex-col w-[47.427rem]">
+        <div className="flex flex-col lg:w-[47.427rem] md:w-[30.6rem]">
           <p className="font-bold text-[2rem] leading-[2.6rem] text-gray-700">{data.title}</p>
           <div className="flex justify-between">
             <div className="flex gap-[1rem] items-center">
@@ -62,11 +62,14 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
                 <p className="font-medium text-[1.4rem] leading-[1.671rem] text-gray-800">{data.likeCount}</p>
               </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center md:hidden lg:block">
               <p className="text-medium text-[1.4rem] leading-[1.671rem] text-gray-400">{formatDate(data.createdAt)}</p>
             </div>
           </div>
           <div className="border border-gray-200 w-full mt-[1.2rem] mb-[1.2rem]" /> {/* 직선 */}
+          <div className="flex items-center mb-[3rem] lg:hidden">
+            <p className="text-medium text-[1.4rem] leading-[1.671rem] text-gray-400">{formatDate(data.createdAt)}</p>
+          </div>
           <div className="flex">
             <p className="font-normal text-[1.6rem] leading-[2.56rem] text-gray-800">{data.description}</p>
           </div>

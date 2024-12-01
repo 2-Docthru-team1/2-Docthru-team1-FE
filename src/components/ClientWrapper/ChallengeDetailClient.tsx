@@ -51,7 +51,7 @@ export default function ChallengeDetailClient() {
   }
 
   return (
-    <div className="flex flex-col w-full md:p-[2.4rem]">
+    <div className="flex flex-col w-full md:p-[2.4rem] lg:justify-center lg:items-center">
       <div className="flex flex-col">
         <div className="flex">
           <ChallengeDetailContentCard
