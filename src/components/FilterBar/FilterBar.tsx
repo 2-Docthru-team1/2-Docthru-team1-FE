@@ -149,7 +149,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
         >
           <p
             className={`font-normal text-[1.6rem] leading-[1.909rem] 
-    ${isFilterApplied ? 'text-primary-white' : 'text-gray-400'} ${type === 'admin' && getSelectedSortLabel() === 'Sort' ? 'text-gray-400' : 'text-gray-700'}`}
+            ${isFilterApplied ? 'text-primary-white' : 'text-gray-400'} ${type === 'admin' && getSelectedSortLabel() === 'Sort' ? 'text-gray-400' : 'text-gray-700'}`}
           >
             {getSelectedSortLabel()}
           </p>
