@@ -48,3 +48,18 @@ export interface requestUser {
   id: string;
   name: string;
 }
+
+export interface MyRequestData {
+  totalCount: number;
+  list: MyRequestDataDetail[];
+}
+
+export interface MyRequestDataDetail {
+  id: string;
+  number: number;
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  title: string;
+  updatedAt: string;
+  deadline: string;
+  status: 'pending' | 'finished' | 'denied' | 'onGoing' | 'canceled' | 'aborted';
+}

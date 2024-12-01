@@ -2,10 +2,8 @@
 
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import type { ChallengeApplicationBodyProps } from '@/interfaces/bodyInterface';
 import ChipStatus from '../Chip/ChipStatus';
-import Pagination from '../Pagination/Pagination';
 
 enum Status {
   Pending = 'pending',

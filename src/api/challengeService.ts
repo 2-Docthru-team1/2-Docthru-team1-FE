@@ -1,4 +1,3 @@
-import { headers } from 'next/headers';
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
 import { getRequest, patchRequest, postRequest } from './api';
 
@@ -130,5 +129,25 @@ export const fetchAdminChallengeDetailNext = async (id: string) => {
     return response.data;
   } catch (error) {
     throw new Error('Failed to get next data');
+  }
+};
+
+// export const fetchMyChallenge = async () => {
+//   try {
+//     const response = await getRequest('/challenges/participation');
+//     console.log(response);
+//     return response.data;
+//   } catch (error) {
+//     throw new Error('Failed to get participating challenge');
+//   }
+// };
+
+export const fetchMyRequestChallenge = async () => {
+  try {
+    const response = await getRequest('/challenges/my-requests');
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get my request challenge data');
   }
 };
