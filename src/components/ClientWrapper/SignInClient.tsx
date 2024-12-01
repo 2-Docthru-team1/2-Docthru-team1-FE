@@ -44,10 +44,15 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="flex flex-col w-[51.8rem]">
+    <div className="flex justify-center flex-col items-center">
+      <div className="md:w-[51.8rem] sm:w-[34.3rem]">
         <div className="flex justify-center">
-          <Image src={logoImg} alt="로고 이미지" className="mt-[12.7rem] mb-[4rem]" />
+          <Image
+            src={logoImg}
+            alt="로고 이미지"
+            priority
+            className="block md:w-[37.5rem] sm:w-3/4 md:mt-[12.7rem] sm:mt-[8.65rem] mb-[4rem]"
+          />
         </div>
         <form onSubmit={handleSignIn}>
           <SignInput
