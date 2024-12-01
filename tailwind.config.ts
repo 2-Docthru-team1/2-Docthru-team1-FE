@@ -41,9 +41,7 @@ const config: Config = {
         DEFAULT: 'scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-200'
       }
     }
-  },
-  plugins: [require('@tailwindcss/forms'), require('tailwind-scrollbar')],
-  safelist: ['scrollbar-thin', 'scrollbar-thumb-rounded', 'scrollbar-thumb-gray-200']
+  }
 };
 
 export default config;
