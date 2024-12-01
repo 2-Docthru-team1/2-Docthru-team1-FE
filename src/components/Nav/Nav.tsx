@@ -24,19 +24,13 @@ export default function Nav() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  const handleSignOut = () => {
-    const { logout } = useStore.getState();
-    router.push('/');
-    logout();
-  };
-
   const { name, role } = useStore();
 
   return (
     <div className="w-full h-full flex">
       <div className="flex w-full h-[6rem] justify-center items-center border-b border-gray-100">
-        <div className="lg:w-[120rem] md:w-[69.6rem] sm:w-[37.5rem] flex justify-between items-center">
-          <div className="gap-[2.4rem] flex items-center justify-center">
+        <div className="lg:w-[120rem] md:w-[69.6rem] sm:w-[37.5rem] sm:p-[1.6rem] md:p-0 flex justify-between items-center">
+          <div className="md:gap-[2.4rem] sm:gap-[0.8rem] flex items-center justify-center">
             <Image
               className="md:w-[14.6rem] md:h-[2.92rem] sm:w-[10rem] sm:h-[2rem] cursor-pointer"
               src={logo}

@@ -51,7 +51,7 @@ export default function ChallengeDetailClient() {
   }
 
   return (
-    <div className="flex flex-col w-full md:p-[2.4rem] lg:justify-center lg:items-center">
+    <div className="flex flex-col w-full md:p-[2.4rem] sm:p-[1.2rem] lg:justify-center lg:items-center">
       <div className="flex flex-col">
         <div className="flex">
           <ChallengeDetailContentCard
@@ -70,7 +70,7 @@ export default function ChallengeDetailClient() {
           />
         </div>
         {medium.status === 'finished' && (
-          <div className="mt-[4rem] flex">
+          <div className="mt-[4rem] flex md:justify-center lg:justify-start">
             {challengeStatusMedium.list.length > 0 && (
               <ChallengeMostLikedCard
                 data={{
@@ -84,14 +84,13 @@ export default function ChallengeDetailClient() {
                   id: challengeStatusMedium.list[0].id,
                   likeCount: challengeStatusMedium.list[0].likeCount,
                   description: challengeStatusMedium.list[0].content,
-                  // Feedback: challengeStatusMedium.list[0].owner,
                   createdAt: challengeStatusMedium.list[0].createdAt
                 }}
               />
             )}
           </div>
         )}
-        <div className="mt-[4rem] flex mb-[2rem]">
+        <div className="mt-[4rem] flex mb-[2rem] md:justify-center lg:justify-start">
           <ChallengeParticipateStatus list={challengeStatusMedium.list} totalCount={challengeStatusMedium.totalCount} />
         </div>
       </div>
