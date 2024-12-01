@@ -79,7 +79,7 @@ export default function ChallengeMgmtClient() {
         <div className="mt-[2.4rem]">
           <FilterBar type="admin" onKeywordChange={setKeyword} onFilterApply={handleFilterChange} />
         </div>
-        <div className="mt-[2.4rem] max-w-full justify-center flex overflow-x-auto overflow-y-hidden">
+        <div className="mt-[2.4rem] max-w-full lg:justify-center md:justify-start flex overflow-x-auto overflow-y-hidden">
           <ChallengeApplicationBody data={challengeApply?.list || []} />
         </div>
       </div>
