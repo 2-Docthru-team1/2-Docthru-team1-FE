@@ -42,7 +42,7 @@ export default function ChallengeApplicationDropdown({ type, sortOption, onSortS
     <div>
       {type === 'me' ? (
         <div
-          className="flex items-center h-[4rem] border border-gray-200 rounded-[0.8rem] py-[0.8rem] px-[1.2rem] gap-[1rem] justify-between w-[16.5rem] cursor-pointer"
+          className="flex items-center h-[4rem] border border-gray-200 rounded-[0.8rem] py-[0.8rem] px-[1.2rem] gap-[1rem] justify-between w-[16.5rem] cursor-pointer bg-primary-white"
           onClick={handleOptionClick}
         >
           <p
@@ -56,7 +56,7 @@ export default function ChallengeApplicationDropdown({ type, sortOption, onSortS
         </div>
       ) : null}
       {isDropdownOpen && (
-        <div className="absolute bg-primary-white border border-gray-200 mt-[0.8rem] rounded-[0.8rem] w-[16.3rem]">
+        <div className="absolute bg-primary-white border border-gray-200 mt-[0.8rem] rounded-[0.8rem]">
           {options.map((option, index) => (
             <div
               key={option}
