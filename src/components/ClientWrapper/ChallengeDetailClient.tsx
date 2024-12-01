@@ -50,6 +50,8 @@ export default function ChallengeDetailClient() {
     );
   }
 
+  console.log(medium);
+
   return (
     <div className="flex flex-col w-full md:p-[2.4rem] sm:p-[1.2rem] lg:justify-center lg:items-center">
       <div className="flex flex-col">
@@ -65,7 +67,9 @@ export default function ChallengeDetailClient() {
                 id: medium.requestUser.id,
                 name: medium.requestUser.name
               },
-              deadline: medium.deadline
+              deadline: medium.deadline,
+              imageUrl: medium.imageUrl,
+              imageUrl2: medium.imageUrl2
             }}
           />
         </div>
