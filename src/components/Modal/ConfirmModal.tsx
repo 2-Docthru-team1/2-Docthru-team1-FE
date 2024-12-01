@@ -8,7 +8,7 @@ export default function ConfirmModal({ onCancel, onDelete, role, abortReason, se
     <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-30">
       {role === 'admin' && abortReason !== undefined && setAbortReason && (
         <>
-          <div className="flex fixed max-w-[49.6rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center items-center w-full rounded-[1.2rem] p-[2.4rem] bg-primary-white">
+          <div className="flex fixed max-w-[49.6rem] sm:w-[34.3rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center items-center w-full rounded-[1.2rem] p-[2.4rem] bg-primary-white">
             <div className="flex justify-between items-center mb-[2.4rem] w-full">
               <p className="text-[1.8rem] font-bold text-gray-700 leading-[1.8rem]">Reason for Decline</p>
               <Image src={close} alt="close" className="cursor-pointer" onClick={onCancel} />

@@ -115,7 +115,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
   };
 
   return (
-    <div className="lg:w-[120rem] md:w-[69.6rem] items-center justify-center flex flex-col">
+    <div className="lg:w-[120rem] md:w-[69.6rem] sm:w-[34.3rem] items-center justify-center flex flex-col">
       <div className="flex flex-col w-full gap-[1.6rem]">
         {(data.status === 'denied' || data.status === 'aborted') && (
           <>
@@ -181,7 +181,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
             <p className="font-normal text-[1.3rem] leading-[1.551rem] text-gray-600">Closing on {formatDate(data.deadline)}</p>
           </div>
         </div>
-        <div className="flex gap-[2.4rem]">
+        <div className="flex gap-[2.4rem] md:flex-row sm:flex-col">
           {renderImage(data.imageUrl, 'Image 1')}
           {renderImage(data.imageUrl2, 'Image 2')}
         </div>
