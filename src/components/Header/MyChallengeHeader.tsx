@@ -1,28 +1,56 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import plus from '@/../public/assets/icon_plus_medium.png';
 import search from '@/../public/assets/icon_search.png';
+import useStore from '@/store/store';
 import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdown';
 
-export default function MyChallengeHeader() {
-  const [activeTab, setActiveTab] = useState('participating');
+export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTab: string; onTabChange: (tab: string) => void }) {
+  const router = useRouter();
+
+  const { keyword, setKeyword, setCategory } = useStore();
+
   const [sortOption, setSortOption] = useState('Sort');
 
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
-  };
+  useEffect(() => {
+    setKeyword('');
+  }, []);
 
   const handleSortSelect = (option: string) => {
     setSortOption(option);
+  };
+
+  const handleRequestClick = () => {
+    router.push('/challengeList/request');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const currentKeyword = e.currentTarget.value.trim();
+      setKeyword(currentKeyword || '');
+      if (!currentKeyword) {
+        window.location.reload();
+        return;
+      }
+    }
+  };
+
+  const handleFilterChange = (category: string) => {
+    setSortOption(category);
+    setCategory(category);
   };
 
   return (
     <div className="pt-[2.4rem] w-[120rem] flex flex-col">
       <div className="flex justify-between items-center">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">My Challenge</p>
-        <button className="w-[21rem] h-[3.7rem] bg-primary-beige rounded-[1.95rem] flex items-center justify-center gap-[0.8rem] font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white">
+        <button
+          className="w-[21rem] h-[3.7rem] bg-primary-beige rounded-[1.95rem] flex items-center justify-center gap-[0.8rem] font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
+          onClick={handleRequestClick}
+        >
           Request a Challenge
           <Image src={plus} alt="plus" />
         </button>
@@ -30,7 +58,7 @@ export default function MyChallengeHeader() {
       <div className="w-full flex items-center border-b border-gray-400">
         <div
           className="w-[16.2rem] flex flex-col gap-[1rem] items-center h-[5.3rem] pt-[1.6rem] cursor-pointer"
-          onClick={() => handleTabClick('participating')}
+          onClick={() => onTabChange('participating')}
         >
           <p
             className={`font-semibold text-[1.8rem] leading-[2.148rem] hover:text-gray-500 ${activeTab === 'participating' ? 'text-gray-700' : 'text-gray-400'}`}
@@ -41,7 +69,7 @@ export default function MyChallengeHeader() {
         </div>
         <div
           className="w-[11.9rem] flex flex-col gap-[1rem] items-center h-[5.3rem] pt-[1.6rem] cursor-pointer"
-          onClick={() => handleTabClick('finished')}
+          onClick={() => onTabChange('finished')}
         >
           <p
             className={`font-semibold text-[1.8rem] leading-[2.148rem] hover:text-gray-500 ${activeTab === 'finished' ? 'text-gray-700' : 'text-gray-400'}`}
@@ -52,7 +80,7 @@ export default function MyChallengeHeader() {
         </div>
         <div
           className="w-[11.2rem] flex flex-col gap-[1rem] items-center h-[5.3rem] pt-[1.6rem] cursor-pointer"
-          onClick={() => handleTabClick('applied')}
+          onClick={() => onTabChange('applied')}
         >
           <p
             className={`font-semibold text-[1.8rem] leading-[2.148rem] hover:text-gray-500 ${activeTab === 'applied' ? 'text-gray-700' : 'text-gray-400'}`}
@@ -66,15 +94,23 @@ export default function MyChallengeHeader() {
         {activeTab === 'participating' || activeTab === 'finished' ? (
           <div className="flex h-[4rem] items-center w-full border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
             <Image src={search} alt="search" />
-            <input placeholder="Search Challenge" className="font-normal text-[1.6rem] leading-[1.909rem]" />
+            <input
+              placeholder="Search Challenge"
+              className="font-normal text-[1.6rem] leading-[1.909rem] w-full focus:outline-none"
+              onKeyDown={handleKeyDown}
+            />
           </div>
         ) : (
           <div>
-            <div className="flex gap-[2rem]">
-              <ChallengeApplicationDropdown type="me" sortOption={sortOption} onSortSelect={handleSortSelect} />
-              <div className="flex h-[4rem] items-center w-full border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
+            <div className="flex gap-[2rem] justify-center">
+              <ChallengeApplicationDropdown type="me" sortOption={sortOption} onSortSelect={handleFilterChange} />
+              <div className="flex h-[4rem] items-center w-[81.1rem] border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
                 <Image src={search} alt="search" />
-                <input placeholder="Search Challenge" className="font-normal text-[1.6rem] leading-[1.909rem]" />
+                <input
+                  placeholder="Search Challenge"
+                  className="font-normal text-[1.6rem] leading-[1.909rem] w-full focus:outline-none"
+                  onKeyDown={handleKeyDown}
+                />
               </div>
             </div>
           </div>
