@@ -10,7 +10,7 @@ import type { ChallengeOption, Option } from '@/interfaces/filterBarInterface';
 import useStore from '@/store/store';
 
 const dropdownWidths = {
-  language: 'w-[44.8rem]',
+  language: 'md:w-[44.8rem] sm:w-[31.1rem]',
   challenge: 'w-[34.3rem]',
   admin: 'w-[16.3rem]'
 };
