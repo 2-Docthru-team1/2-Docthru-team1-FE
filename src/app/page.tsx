@@ -2,13 +2,35 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Cta from '@/components/Button/Cta';
 import pcLogo from '../../public/assets/img_logo_pc.png';
-import pcLanding from '../../public/assets/img_pc_landing.png';
+import smLanding from '../../public/assets/img_mobile_landing.png';
+import lgLanding from '../../public/assets/img_pc_landing.png';
+import mdLanding from '../../public/assets/img_tablet_landing.png';
 
 export default function Home() {
   const router = useRouter();
+  const [currentImage, setCurrentImage] = useState(lgLanding);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width >= 1200) {
+        setCurrentImage(lgLanding);
+      } else if (width >= 744) {
+        setCurrentImage(mdLanding);
+      } else {
+        setCurrentImage(smLanding);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -19,9 +41,9 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center h-[100vh] bg-gradient-to-b from-[#F5F5F5] to-primary-beige relative">
       <Image
-        src={pcLanding}
+        src={currentImage}
         alt="Korean flag with seaweed paper"
-        className="absolute lg:top-[45rem] md:top-[35rem] sm:top-[27rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        className="absolute lg:top-[45rem] md:top-[33rem] sm:top-[27rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         priority
       />
       <div className="flex flex-col items-center text-center lg:gap-[8rem] md:gap-[6.1rem] sm:gap-[3.1rem] lg:mt-[35.1rem] md:mt-[23rem] sm:mt-[20.3rem] relative">
