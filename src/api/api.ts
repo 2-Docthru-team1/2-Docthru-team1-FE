@@ -88,3 +88,7 @@ export async function patchRequest(url: string, body: object = {}) {
 export async function deleteRequest(url: string) {
   return instance.delete(url);
 }
+
+export async function putRequest(url: string, body: object = {}, headers: object = {}) {
+  return instance.put(url, body, headers);
+}
