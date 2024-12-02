@@ -38,17 +38,27 @@ instance.interceptors.response.use(
     console.error('Response error:', err);
     const request = err.config;
     if (err.response?.status === 401 && !request._retry) {
-      const refreshInstance = axios.create({
-        baseURL: `${BASE_URL}`,
-        withCredentials: true
-      });
       const refreshToken = localStorage.getItem('refreshToken');
       if (refreshToken) {
-        const response = await refreshInstance.post('/auth/refresh');
-        const newAccessToken = response.data.accessToken;
-        localStorage.setItem('accessToken', newAccessToken);
-        request._retry = true;
-        return instance(request);
+        const refreshInstance = axios.create({
+          baseURL: `${BASE_URL}`,
+          withCredentials: true
+        });
+
+        try {
+          const response = await refreshInstance.post('/auth/refresh', {}, { withCredentials: true });
+
+          const newAccessToken = response.data.accessToken;
+          localStorage.setItem('accessToken', newAccessToken);
+          request.headers['Authorization'] = `Bearer ${newAccessToken}`;
+          request._retry = true;
+          return instance(request);
+        } catch (refreshError) {
+          console.error('Refresh token failed:', refreshError);
+          const { logout } = useStore.getState();
+          logout();
+          window.location.href = '/';
+        }
       } else {
         const { logout } = useStore.getState();
         logout();

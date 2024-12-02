@@ -57,7 +57,7 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
 
   return (
     <div
-      className="w-[38.4rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-primary-beige bg-primary-white"
+      className="md:w-[38.4rem] sm:w-[34.3rem] gap-[1rem] rounded-[1.2rem] border-[0.2rem] border-solid border-primary-beige bg-primary-white"
       onClick={handleCardClick}
     >
       <div>

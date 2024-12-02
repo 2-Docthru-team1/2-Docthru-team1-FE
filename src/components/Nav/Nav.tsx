@@ -24,114 +24,98 @@ export default function Nav() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  const handleSignOut = () => {
-    const { logout } = useStore.getState();
-    router.push('/');
-    logout();
-  };
-
   const { name, role } = useStore();
 
   return (
-    <div className="w-full h-full flex justify-center sm:px-[2rem]">
+    <div className="w-full h-full flex justify-center">
       <div className="flex w-full h-[6rem] justify-center items-center border-b border-gray-100">
-        <div className="w-[120rem] flex justify-between items-center">
-          <div className="gap-[2.4rem] flex items-center justify-center">
-            <Image
-              className="w-[14.6rem] h-[2.92rem] cursor-pointer"
-              src={logo}
-              alt="로고"
-              onClick={() => {
-                if (userStatus !== 'loggedOut') {
-                  router.push('/recipeList');
-                } else {
-                  router.push('/');
-                }
-              }}
-            />
+        <div className="w-full md:px-[2.4rem] sm:px-[1.5rem] flex justify-center">
+          <div className="lg:max-w-[120rem] lg:w-full sm:w-full flex justify-between items-center">
+            <div className="md:gap-[2.4rem] flex items-center justify-center">
+              <Image
+                className="md:w-[14.6rem] md:h-[2.92rem] sm:w-[10rem] sm:h-[2rem] cursor-pointer sm:mr-[0.8rem]"
+                src={logo}
+                alt="로고"
+                onClick={() => {
+                  if (userStatus !== 'loggedOut') {
+                    router.push('/recipeList');
+                  } else {
+                    router.push('/');
+                  }
+                }}
+              />
 
-            <div className="flex">
-              {userStatus !== 'loggedOut' && (
-                <>
-                  <p
-                    className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] cursor-pointer ${isRecipe ? 'text-primary-blue' : 'text-gray-600'}`}
-                    onClick={() => router.push('/recipeList')}
-                  >
-                    Recipe
-                  </p>
-                  <p
-                    className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] cursor-pointer  ${isChallenge ? 'text-primary-blue' : 'text-gray-600'}`}
-                    onClick={() => router.push('/challengeList')}
-                  >
-                    Challenge
-                  </p>
-                  {userStatus === 'admin' && (
+              <div className="flex">
+                {userStatus !== 'loggedOut' && (
+                  <>
                     <p
-                      className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] text-[1.5rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
-                      onClick={() => router.push('/auth/challenge')}
+                      className={`flex items-center justify-center py-[2.1rem] md:px-[1.7rem] md:px-[0.6rem] gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isRecipe ? 'text-primary-blue' : 'text-gray-600'}`}
+                      onClick={() => router.push('/recipeList')}
                     >
-                      Mgmt.
+                      Recipe
                     </p>
-                  )}
-                </>
-              )}
+                    <p
+                      className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer  ${isChallenge ? 'text-primary-blue' : 'text-gray-600'}`}
+                      onClick={() => router.push('/challengeList')}
+                    >
+                      Challenge
+                    </p>
+                    {userStatus === 'admin' && (
+                      <p
+                        className={`flex items-center justify-center py-[2.1rem] px-[1.7rem] sm:px-0 gap-[1rem] font-semibold leading-[1.79rem] md:text-[1.5rem] sm:text-[1.3rem] cursor-pointer ${isMgmt ? 'text-primary-blue' : 'text-gray-600'}`}
+                        onClick={() => router.push('/auth/challenge')}
+                      >
+                        Mgmt.
+                      </p>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="flex gap-[1.6rem] items-center justify-center cursor-pointer">
-            <Image src={translate} alt="번역" onClick={() => setIsModalOpen(true)} width={24} height={24} />
-            {userStatus === 'normal' ? (
-              <>
-                <Image src={bell} alt="벨" />
+            <div className="flex md:gap-[1.6rem] sm:gap-[1rem] items-center justify-center cursor-pointer">
+              <Image src={translate} alt="번역" onClick={() => setIsModalOpen(true)} width={24} height={24} />
+              {userStatus === 'normal' ? (
+                <>
+                  <Image src={bell} alt="벨" />
+                  <div className="relative">
+                    <Image
+                      src={userProfile}
+                      alt="프로필"
+                      onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                      className="cursor-pointer"
+                    />
+                    {isProfileModalOpen && (
+                      <div className="z-[15] absolute right-0 top-full mt-[0.8rem]">
+                        <ProfileModal name={name ?? 'Unknown'} role={role ?? 'normal'} />
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : userStatus === 'admin' ? (
                 <div className="relative">
                   <Image
-                    src={userProfile}
+                    src={adminProfile}
                     alt="프로필"
+                    width={24}
+                    height={24}
                     onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                     className="cursor-pointer"
                   />
                   {isProfileModalOpen && (
                     <div className="z-[15] absolute right-0 top-full mt-[0.8rem]">
-                      <ProfileModal name={name ?? 'Unknown'} role={role ?? 'normal'} />
+                      <ProfileModal name={name ?? 'Unknown'} role={role ?? 'admin'} />
                     </div>
                   )}
                 </div>
+              ) : (
                 <button
-                  className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
-                  onClick={handleSignOut}
+                  className="whitespace-nowrap flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
+                  onClick={() => router.push('/signIn')}
                 >
-                  Log Out
+                  Sign in
                 </button>
-              </>
-            ) : userStatus === 'admin' ? (
-              <>
-                <Image
-                  src={adminProfile}
-                  alt="프로필"
-                  width={24}
-                  height={24}
-                  onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
-                  className="cursor-pointer"
-                />
-                {isProfileModalOpen && (
-                  <div className="z-[15] absolute top-[6.5rem] right-[30rem]">
-                    <ProfileModal name={name ?? 'Unknown'} role={role ?? 'normal'} />
-                  </div>
-                )}
-                <button
-                  className="flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
-                  onClick={handleSignOut}
-                >
-                  Log Out
-                </button>
-              </>
-            ) : (
-              <button
-                className="whitespace-nowrap flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
-                onClick={() => router.push('/signIn')}
-              >
-                Sign in
-              </button>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
