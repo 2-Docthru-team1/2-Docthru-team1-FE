@@ -14,9 +14,10 @@ import Pagination from '../Pagination/Pagination';
 export default function AdminChallengeDetailClient() {
   const { id } = useParams();
   const router = useRouter();
-  const { challengeMgmtTotalCount, id: userId, role } = useStore();
+  const { challengeMgmtTotalCount, role } = useStore();
   useEffect(() => {
-    if (!userId && role !== 'admin') {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken || role !== 'admin') {
       router.push('/');
     }
   }, []);
