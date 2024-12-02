@@ -7,7 +7,7 @@ import { useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
 import close from '@/../public/assets/icon_out_circle_small.png';
 import { fetchChallengeRequest } from '@/api/challengeService';
-import { uploadImage } from '@/api/uploadService';
+import { uploadImageToEC2 } from '@/api/uploadService';
 import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
 import DateDropdown from '../Dropdown/DateDropdown';
 
@@ -108,19 +108,12 @@ export default function ChallengeRequestClient() {
       const res = await fetchChallengeRequest(data);
       const { challenge, uploadUrls } = res;
 
-      const uploadResults = await Promise.all(
+      await Promise.all(
         images.map(async (image, index) => {
           const uploadUrl = uploadUrls[index]?.uploadUrl;
-          console.log(uploadUrl);
-          return uploadImage(uploadUrl, image);
+          return uploadImageToEC2(uploadUrl, image);
         })
       );
-
-      const failedUploads = uploadResults.filter(result => !result.success);
-      if (failedUploads?.length) {
-        alert('Some images failed to upload. Please try again.');
-        return;
-      }
 
       alert('Request a Challenge Successfully!');
       router.push('/challengeList');

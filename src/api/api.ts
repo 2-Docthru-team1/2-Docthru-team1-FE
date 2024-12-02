@@ -89,6 +89,16 @@ export async function deleteRequest(url: string) {
   return instance.delete(url);
 }
 
-export async function putRequest(url: string, body: object = {}, headers: object = {}) {
-  return instance.put(url, body, headers);
+export async function putRequest(url: string, data: Blob | File, headers: Record<string, string> = {}): Promise<any> {
+  try {
+    const response = await axios.put(url, data, {
+      headers: {
+        ...headers,
+        'Content-Type': data.type || 'application/octet-stream'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }

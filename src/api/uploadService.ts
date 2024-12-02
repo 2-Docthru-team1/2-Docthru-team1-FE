@@ -1,32 +1,10 @@
 import { putRequest } from './api';
 
-export const uploadImage = async (uploadUrl: string, image: File) => {
-  if (!uploadUrl) {
-    return {
-      success: false,
-      error: 'Upload URL not provided'
-    };
+export async function uploadImageToEC2(ec2Url: string, imageFile: Blob | File) {
+  if (!(imageFile instanceof File || imageFile instanceof Blob)) {
+    throw new Error('유효하지 않은 이미지 파일입니다.');
   }
 
-  try {
-    const response = await putRequest(uploadUrl, image, {
-      'Content-Type': image.type || 'application/octet-stream'
-    });
-
-    if (response.status !== 200) {
-      return {
-        success: false,
-        error: `HTTP ${response.status}: ${response.statusText}`
-      };
-    }
-
-    return {
-      success: true
-    };
-  } catch (error) {
-    return {
-      success: false,
-      error
-    };
-  }
-};
+  const result = await putRequest(ec2Url, imageFile);
+  return result;
+}
