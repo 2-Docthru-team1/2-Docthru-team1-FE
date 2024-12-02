@@ -50,10 +50,12 @@ export default function ChallengeDetailClient() {
     );
   }
 
+  console.log(medium);
+
   return (
-    <div className="flex flex-col w-full">
-      <div className="flex mx-auto flex-col">
-        <div className="mt-[2rem] flex">
+    <div className="flex flex-col w-full md:p-[2.4rem] sm:p-[1.2rem] lg:justify-center lg:items-center">
+      <div className="flex flex-col">
+        <div className="flex">
           <ChallengeDetailContentCard
             type={medium.status}
             data={{
@@ -65,12 +67,14 @@ export default function ChallengeDetailClient() {
                 id: medium.requestUser.id,
                 name: medium.requestUser.name
               },
-              deadline: medium.deadline
+              deadline: medium.deadline,
+              imageUrl: medium.imageUrl,
+              imageUrl2: medium.imageUrl2
             }}
           />
         </div>
         {medium.status === 'finished' && (
-          <div className="mt-[4rem] flex">
+          <div className="mt-[4rem] flex sm:justify-center lg:justify-start">
             {challengeStatusMedium.list.length > 0 && (
               <ChallengeMostLikedCard
                 data={{
@@ -84,14 +88,13 @@ export default function ChallengeDetailClient() {
                   id: challengeStatusMedium.list[0].id,
                   likeCount: challengeStatusMedium.list[0].likeCount,
                   description: challengeStatusMedium.list[0].content,
-                  // Feedback: challengeStatusMedium.list[0].owner,
                   createdAt: challengeStatusMedium.list[0].createdAt
                 }}
               />
             )}
           </div>
         )}
-        <div className="mt-[4rem] flex mb-[2rem]">
+        <div className="mt-[4rem] flex mb-[2rem] sm:justify-center lg:justify-start">
           <ChallengeParticipateStatus list={challengeStatusMedium.list} totalCount={challengeStatusMedium.totalCount} />
         </div>
       </div>

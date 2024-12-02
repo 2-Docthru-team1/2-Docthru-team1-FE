@@ -164,9 +164,8 @@ export default function ChallengeRequestClient() {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="flex flex-col w-[59rem]">
+      <div className="flex flex-col md:w-[59rem] sm:w-[calc(100vw-3.2rem)] sm:max-w-[59rem]">
         <h2 className="mt-[2rem] mb-[2.4rem] text-[2rem] font-semibold text-gray-700">Request a challenge</h2>
-
         <div>
           <p className="text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.7rem]">*Title</p>
           <input
@@ -268,7 +267,7 @@ export default function ChallengeRequestClient() {
           onClick={handleSubmit}
           disabled={!isFormValid}
           className={`mt-[2.4rem] mb-[2.4rem] w-full py-[1.2rem] rounded-[0.8rem] text-[1.6rem] font-semibold text-primary-white ${
-            isFormValid ? 'bg-primary-beige' : 'bg-gray-400 cursor-not-allowed'
+            isFormValid ? 'bg-primary-beige' : 'bg-gray-200 cursor-not-allowed'
           }`}
         >
           Submit

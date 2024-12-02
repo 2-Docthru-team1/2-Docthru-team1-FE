@@ -39,32 +39,85 @@ export default function RecipeDetailClient() {
   };
 
   return (
-    <div className="flex flex-col pt-[2rem] w-full items-center">
-      <div className="relative w-[120rem] h-[33rem] overflow-hidden">
-        {/* {recipe?.images.length > 0 && (
-          <Image src={recipe.images[0]} alt="음식 이미지" layout="fill" objectFit="cover" objectPosition="center" />
-        )} */}
+    <div
+      className="flex flex-col pt-[2rem] w-full items-center
+    lg:px-0
+    md:px-[2.4rem]
+    sm:px-[1.6rem]"
+    >
+      <div
+        className="relative overflow-hidden
+      lg:w-[120rem] lg:h-[33rem]
+      md:w-[69.6rem] md:h-[33rem]
+      sm:w-[34.3rem] sm:h-[29.4rem]"
+      >
         <Image src={food} alt="음식 이미지" layout="fill" objectFit="cover" objectPosition="center" />
       </div>
-      <div className="mt-[2rem] flex flex-col w-[120rem] gap-[1rem]">
-        <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800">{recipe.category}</p>
+      <div
+        className="mt-[2rem] flex flex-col gap-[1rem]
+      lg:w-[120rem]
+      md:w-full
+      sm:w-full"
+      >
+        <p
+          className="font-semibold leading-[2.387rem] text-gray-800
+        lg:text-[2rem]
+        md:text-[2rem]
+        sm:text-[1.4rem]"
+        >
+          {recipe.category}
+        </p>
         <div className="flex w-full gap-[2rem] items-center">
-          <p className="font-semibold text-[3.2rem] leading-[3.819rem] text-gray-700">{recipe.title}</p>
+          <p
+            className="font-semibold leading-[3.819rem] text-gray-700
+          lg:text-[3.2rem]
+          md:text-[3.2rem]
+          sm:text-[2.4rem]"
+          >
+            {recipe.title}
+          </p>
           <div className="flex gap-[0.4rem] items-center">
             <Image src={inactiveHeart} alt="하트" width={24} height={24} />
-            <p className="font-medium text-[1.4rem] leading-[1.671rem] text-gray-700">{recipe.likeCount}</p>
+            <p
+              className="font-medium leading-[1.671rem] text-gray-700
+            lg:text-[1.4rem]
+            md:text-[1.4rem]
+            sm:text-[1.3rem]"
+            >
+              {recipe.likeCount}
+            </p>
           </div>
         </div>
       </div>
-      <div className="border border-gray-200 w-[120rem] mt-[2rem]"></div>
-      <div className="flex flex-col w-[120rem] mt-[2rem]">
-        <div className="flex justify-between">
-          <DetailTextCard type="ingredient" content={recipe.ingredients} />
-          <DetailTextCard type="nutrition" content={NutritionData} />
+      <div
+        className="border border-gray-200 mt-[2rem]
+      lg:w-[120rem]
+      md:w-full
+      sm:w-full"
+      ></div>
+      <div
+        className="flex flex-col mt-[2rem]
+      lg:w-[120rem] 
+      md:w-full 
+      sm:w-full"
+      >
+        <div
+          className="flex 
+        lg:flex-row lg:justify-between lg:gap-0 lg:mb-10rem
+        md:flex-col md:gap-[4rem] md:mb-[4rem]
+        sm:flex-col sm:gap-[2.8rem] sm:mb-[2.8rem]"
+        >
+          <DetailTextCard type="ingredient" content={recipe.ingredients} className="lg: order-1 md:order-2 sm:order-2" />
+          <DetailTextCard type="nutrition" content={NutritionData} className="lg: order-2 md:order-1 sm:order-1" />
         </div>
-        <div className="flex justify-between mt-[4rem]">
-          <DetailTextCard type="direction" content={recipe.direction} />
-          <DetailTextCard type="benefit" content={recipe.benefits} />
+        <div
+          className="flex 
+        lg:flex-row lg:justify-between lg:mb-10rem
+        md:flex-col md:gap-[4rem] md:mb-[4rem]
+        sm:flex-col sm:gap-[2.8rem] sm:mb-[2.8rem]"
+        >
+          <DetailTextCard type="direction" content={recipe.direction} className="lg: order-1 md:order-2 sm:order-2" />
+          <DetailTextCard type="benefit" content={recipe.benefits} className="lg: order-2 md:order-1 sm:order-1" />
         </div>
       </div>
     </div>

@@ -100,7 +100,7 @@ export default function RecipeListClient({ adminchallengeData }: AdminListClient
           </div>
         </div>
         <div className="flex flex-col gap-[1.6rem]">
-          <div className="flex justify-between items-center z-[1000] ">
+          <div className="flex justify-between items-center z-[20] ">
             <p className="font-bold text-[2rem] leading-[3.2rem] text-gray-700">Recipe</p>
             <RecipeFilterBar onFilterApply={handleFilterChange} />
           </div>
