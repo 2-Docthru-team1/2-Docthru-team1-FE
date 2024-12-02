@@ -34,10 +34,15 @@ export default function ChallengeMgmtClient() {
 
   useEffect(() => {
     if (!isPlaceholderData && hasMore) {
-      queryClient.prefetchQuery({
-        queryKey: ['challengeApply', currentPage + 1, keyword, category],
-        queryFn: () => fetchChallengeApplication(String(currentPage + 1), itemsPerPage, keyword, category)
-      });
+      const pagesToPrefetch = 5;
+      const nextPage = currentPage + 1;
+
+      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+        queryClient.prefetchQuery({
+          queryKey: ['challengeApply', i, keyword, category],
+          queryFn: async () => await fetchChallengeApplication(String(i), itemsPerPage, keyword, category)
+        });
+      }
     }
   }, [currentPage, hasMore, isPlaceholderData, keyword, category]);
 

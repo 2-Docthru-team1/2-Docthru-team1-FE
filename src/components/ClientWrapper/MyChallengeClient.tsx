@@ -1,11 +1,13 @@
 'use client';
 
+import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchMyFinishedChallenge, fetchMyOngoingChallenge, fetchMyRequestChallenge } from '@/api/challengeService';
 import type { MyParticipateData, MyRequestData } from '@/interfaces/challengeInterface';
+import useStore from '@/store/store';
 import ChallengeApplicationBody from '../Body/ChallengeApplicationBody';
 import ChallengeCard from '../Card/ChallengeCard';
 import MyChallengeHeader from '../Header/MyChallengeHeader';
@@ -13,86 +15,137 @@ import Pagination from '../Pagination/Pagination';
 
 export default function MyChallengeClient() {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const { keyword, category } = useStore();
 
   const [activeTab, setActiveTab] = useState('participating');
-  const [finishedData, setFinishedData] = useState<MyParticipateData>();
-  const [participateData, setParticipateData] = useState<MyParticipateData>();
-  const [requestData, setRequestData] = useState<MyRequestData>();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
   useEffect(() => {
-    const width = window.innerWidth;
-
-    if (activeTab === 'participating' || activeTab === 'finished') {
+    if (activeTab === 'applied') {
+      setItemsPerPage(10);
+    } else if (activeTab === 'participating' || activeTab === 'finished') {
+      const width = window.innerWidth;
       if (width >= 1200) {
         setItemsPerPage(4);
       } else if (width >= 375) {
         setItemsPerPage(2);
       }
-    } else if (activeTab === 'applied') {
-      setItemsPerPage(10);
     }
-  }, [activeTab]);
-
-  useEffect(() => {
-    const getMyChallenge = async () => {
-      const response = await fetchMyOngoingChallenge();
-      console.log(response);
-      setParticipateData(response);
-    };
-
-    getMyChallenge();
   }, []);
 
+  const {
+    data: participateOngoingChallenge,
+    isLoading: ongoingLoading,
+    isError: ongoingError,
+    isPlaceholderData: ongoingPlaceholder
+  } = useQuery({
+    queryKey: ['participateOngoingChallenge', currentPage, keyword, category],
+    queryFn: async () => await fetchMyOngoingChallenge(currentPage, itemsPerPage, keyword),
+    placeholderData: keepPreviousData
+  });
+
+  const {
+    data: participateFinishedChallenge,
+    isLoading: finishedLoading,
+    isError: finishedError,
+    isPlaceholderData: finishedPlaceholder
+  } = useQuery({
+    queryKey: ['participateFinishedChallenge', currentPage, keyword, category],
+    queryFn: async () => await fetchMyFinishedChallenge(currentPage, itemsPerPage, keyword),
+    placeholderData: keepPreviousData
+  });
+
+  const {
+    data: requestChallenge,
+    isLoading: requestLoading,
+    isError: requestError,
+    isPlaceholderData: requestPlaceholder
+  } = useQuery({
+    queryKey: ['requestChallenge', currentPage, keyword, category],
+    queryFn: async () => await fetchMyRequestChallenge(currentPage, itemsPerPage, keyword),
+    placeholderData: keepPreviousData
+  });
+
+  const totalPages =
+    activeTab === 'participating'
+      ? Math.max(0, Math.ceil(participateOngoingChallenge?.totalCount / itemsPerPage))
+      : activeTab === 'applied'
+        ? Math.max(0, Math.ceil(requestChallenge?.totalCount / itemsPerPage))
+        : activeTab === 'finished'
+          ? Math.max(0, Math.ceil(participateFinishedChallenge?.totalCount / itemsPerPage))
+          : 0;
+
+  console.log(totalPages);
+  console.log('Items Per Page:', itemsPerPage);
+
+  const hasMore = currentPage < totalPages;
+
   useEffect(() => {
-    const getMyFinishedChallenge = async () => {
-      const response = await fetchMyFinishedChallenge();
-      setFinishedData(response);
-    };
+    if (!ongoingPlaceholder && hasMore) {
+      const pagesToPrefetch = 5;
+      const nextPage = currentPage + 1;
 
-    getMyFinishedChallenge();
-  }, []);
-
-  useEffect(() => {
-    const getMyRequestChallenge = async () => {
-      const response = await fetchMyRequestChallenge();
-      setRequestData(response);
-    };
-
-    getMyRequestChallenge();
-  }, []);
-
-  useEffect(() => {
-    const fetchChallenges = async () => {
-      if (activeTab === 'participating') {
-        const response = await fetchMyOngoingChallenge();
-        setParticipateData(response);
-      } else if (activeTab === 'finished') {
-        const response = await fetchMyFinishedChallenge();
-        setFinishedData(response);
-      } else if (activeTab === 'applied') {
-        const response = await fetchMyRequestChallenge();
-        setRequestData(response);
+      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+        queryClient.prefetchQuery({
+          queryKey: ['participateOngoingChallenge', i, keyword],
+          queryFn: async () => await fetchMyOngoingChallenge(i, itemsPerPage, keyword)
+        });
       }
-    };
+    }
+  }, [currentPage, hasMore, ongoingPlaceholder, keyword, category]);
 
-    fetchChallenges();
-  }, [activeTab]);
+  useEffect(() => {
+    if (!finishedPlaceholder && hasMore) {
+      const pagesToPrefetch = 5;
+      const nextPage = currentPage + 1;
 
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    setCurrentPage(1);
-  };
+      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+        queryClient.prefetchQuery({
+          queryKey: ['finishedPlaceholder', i, keyword],
+          queryFn: async () => await fetchMyFinishedChallenge(i, itemsPerPage, keyword)
+        });
+      }
+    }
+  }, [currentPage, hasMore, finishedPlaceholder, keyword, category]);
 
-  if (!requestData || !participateData || !finishedData) {
+  useEffect(() => {
+    if (!requestPlaceholder && hasMore) {
+      const pagesToPrefetch = 5;
+      const nextPage = currentPage + 1;
+
+      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+        queryClient.prefetchQuery({
+          queryKey: ['requestChallenge', i, keyword, category],
+          queryFn: async () => await fetchMyRequestChallenge(i, itemsPerPage, keyword, category)
+        });
+      }
+    }
+  }, [currentPage, hasMore, requestPlaceholder, keyword, category]);
+
+  if (ongoingLoading || finishedLoading || requestLoading) {
     return (
       <div className="flex items-center justify-center h-[100vh]">
         <Image src={loading} alt="loading" />
       </div>
     );
   }
+
+  if (ongoingError || finishedError || requestError) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 text-[1.5rem]">Failed to load data. Please try again later.</p>
+      </div>
+    );
+  }
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    setCurrentPage(1);
+  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -102,26 +155,17 @@ export default function MyChallengeClient() {
     router.push(`/challengeList/${id}`);
   };
 
-  const totalPages =
-    activeTab === 'participating'
-      ? Math.max(0, Math.ceil(participateData?.totalCount / itemsPerPage))
-      : activeTab === 'applied'
-        ? Math.max(0, Math.ceil(requestData?.totalCount / itemsPerPage))
-        : activeTab === 'finished'
-          ? Math.max(0, Math.ceil(finishedData?.totalCount / itemsPerPage))
-          : 1;
-
   return (
     <div className="flex flex-col justify-center items-center">
       <MyChallengeHeader activeTab={activeTab} onTabChange={handleTabChange} />
       {activeTab === 'participating' &&
-        (participateData.totalCount === 0 ? (
+        (participateOngoingChallenge.totalCount === 0 ? (
           <div className="flex items-center justify-center mt-[2rem]">
             <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-400">There is no challenge participate yet</p>
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-4 my-[2rem]">
-            {participateData.list.map((item, index) => (
+            {participateOngoingChallenge.list.map((item: any, index: number) => (
               <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
                 <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
               </div>
@@ -130,13 +174,13 @@ export default function MyChallengeClient() {
         ))}
 
       {activeTab === 'finished' &&
-        (finishedData.totalCount === 0 ? (
+        (participateFinishedChallenge.totalCount === 0 ? (
           <div className="flex items-center justify-center mt-[2rem]">
             <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-400">There is no challenge participate yet</p>
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-4 my-[2rem]">
-            {finishedData.list.slice(0, 4).map((item, index) => (
+            {participateFinishedChallenge.list.slice(0, 4).map((item: any, index: number) => (
               <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
                 <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
               </div>
@@ -147,11 +191,11 @@ export default function MyChallengeClient() {
       {activeTab === 'applied' && (
         <>
           <div className="my-[2.4rem]">
-            <ChallengeApplicationBody type="normal" data={requestData.list} />
+            <ChallengeApplicationBody type="normal" data={requestChallenge.list} />
           </div>
         </>
       )}
-      {totalPages === 0 ? null : (
+      {totalPages >= 1 && (
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}

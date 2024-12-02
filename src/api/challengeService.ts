@@ -132,10 +132,14 @@ export const fetchAdminChallengeDetailNext = async (id: string) => {
   }
 };
 
-export const fetchMyOngoingChallenge = async () => {
+export const fetchMyOngoingChallenge = async (page: number, pageSize: number, keyword?: string) => {
   const params = {
+    page: page,
+    pageSize: pageSize,
+    keyword: keyword,
     status: 'onGoing'
   };
+
   try {
     const response = await getRequest(`/challenges/participation`, { params });
     return response.data;
@@ -144,8 +148,10 @@ export const fetchMyOngoingChallenge = async () => {
   }
 };
 
-export const fetchMyFinishedChallenge = async () => {
+export const fetchMyFinishedChallenge = async (page: number, pageSize: number, keyword?: string) => {
   const params = {
+    page: page,
+    pageSize: pageSize,
     status: 'finished'
   };
   try {
@@ -156,9 +162,16 @@ export const fetchMyFinishedChallenge = async () => {
   }
 };
 
-export const fetchMyRequestChallenge = async () => {
+export const fetchMyRequestChallenge = async (page: number, pageSize: number, keyword?: string, filter?: string) => {
+  const params = {
+    page: page,
+    pageSize: pageSize,
+    keyword: keyword,
+    filter: filter
+  };
+
   try {
-    const response = await getRequest('/challenges/my-requests');
+    const response = await getRequest('/challenges/my-requests', { params });
     return response.data;
   } catch (error) {
     throw new Error('Failed to get my request challenge data');

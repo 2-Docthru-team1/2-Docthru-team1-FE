@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import plus from '@/../public/assets/icon_plus_medium.png';
 import search from '@/../public/assets/icon_search.png';
 import useStore from '@/store/store';
@@ -11,9 +11,13 @@ import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdo
 export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTab: string; onTabChange: (tab: string) => void }) {
   const router = useRouter();
 
-  const { keyword, setKeyword, toggleDropdown } = useStore();
+  const { keyword, setKeyword } = useStore();
 
   const [sortOption, setSortOption] = useState('Sort');
+
+  useEffect(() => {
+    setKeyword('');
+  }, []);
 
   const handleSortSelect = (option: string) => {
     setSortOption(option);
