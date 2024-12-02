@@ -95,7 +95,7 @@ export default function SignUpClient() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="flex justify-center w-[33.5rem] h-[6.7rem] sm:px-[4.6rem] sm:w-[25rem] sm:h-[5rem] relative">
+      <div className="flex justify-center w-[33.5rem] h-[6.7rem] sm:px-[4.6rem] sm:w-[25rem] sm:h-[5rem] relative lg:mt-0 md:mt-[12rem] sm:mt-[9.9rem]">
         <Image src={logoImg} alt="로고 이미지" className="mt-[5rem]" fill priority />
       </div>
       <div className="flex justify-center mt-[8rem] relative sm:px-[1.6rem] sm:w-full md:px-[10rem] md:w-full">
@@ -159,7 +159,7 @@ export default function SignUpClient() {
           <button
             type="submit"
             disabled={!isFormValid || isLoading}
-            className={`lg:w-[51.8rem] md:w-[51.8rem] h-[4.8rem] rounded-[0.8rem] border-none text-[1.6rem] font-semibold text-primary-white sm:w-full ${isFormValid ? 'bg-primary-beige cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}
+            className={`lg:w-[51.8rem] md:w-[51.8rem] h-[4.8rem] rounded-[0.8rem] border-none text-[1.6rem] font-semibold text-primary-white sm:w-full sm:max-w-[51.8rem] ${isFormValid ? 'bg-primary-beige cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}
           >
             Sign up
           </button>
