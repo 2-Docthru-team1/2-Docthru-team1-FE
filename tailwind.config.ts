@@ -38,8 +38,7 @@ const config: Config = {
         DEFAULT: '#374151'
       }
     }
-  },
-  plugins: []
+  }
 };
 
 export default config;
