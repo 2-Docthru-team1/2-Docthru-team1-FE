@@ -62,7 +62,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
 
   const renderImage = (imageUrl: string, alt: string) => {
     if (!imageUrl || imageUrl.trim() === '' || !isValidUrl(imageUrl)) {
-      return <p className="text-gray-500 text-sm italic">{alt}</p>;
+      return <p className="text-gray-500 text-sm italic"></p>;
     }
     return (
       <Image
@@ -173,7 +173,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
         <p className="font-normal text-[1.6rem] leading-[2.08rem] text-gray-700">{data.description}</p>
         <div className="flex w-[30rem] justify-between items-center">
           <div className="flex gap-[0.8rem] items-center">
-            <Image src={profile} alt="profile" />
+            <Image src={profile} width={24} height={24} alt="profile" />
             <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-800">{data.requestUser.name}</p>
           </div>
           <div className="flex gap-[0.44rem] items-center">
