@@ -39,7 +39,7 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
   };
 
   return (
-    <div className="w-[99.6rem]">
+    <div className="w-[99.6rem] mb-[1rem] ">
       <div className="flex rounded-[0.8rem] bg-primary-beige h-[3.6rem]">
         <p className="w-[6.8rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           No.
@@ -47,16 +47,16 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
         <p className="w-[12rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           Media
         </p>
-        <p className="w-[32.2rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
+        <p className="md:w-[32.2rem] sm:w-[21rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           Challenge Title
         </p>
-        <p className="w-[18.3rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
+        <p className="md:w-[18.3rem] sm:w-[10rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           Request Date
         </p>
-        <p className="w-[18.3rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
+        <p className="md:w-[18.3rem] sm:w-[10rem] flex items-center justify-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white">
           Deadline
         </p>
-        <p className="w-[12rem] flex items-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white px-[3rem]">
+        <p className="md:w-[12rem] flex items-center font-medium text-[1.3rem] leading-[1.551rem] text-primary-white px-[3.6rem]">
           Status
         </p>
       </div>
@@ -118,18 +118,18 @@ export default function ChallengeApplicationBody({ data }: ChallengeApplicationB
                 {mediaLabel}
               </p>
               <div
-                className="w-[32.2rem] flex items-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-700 
+                className="md:w-[32.2rem] sm:w-[21rem] flex items-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-700 
                   overflow-hidden text-ellipsis whitespace-nowrap max-h-[3rem] py-[1.5rem] px-[1.6rem]"
               >
                 <p className="block overflow-hidden text-ellipsis overflow-hidden whitespace-normal">{item.title}</p>
               </div>
-              <p className="w-[18.3rem] flex items-center justify-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
+              <p className="md:w-[18.3rem] sm:w-[10rem] flex items-center justify-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
                 {formatDate(item.updatedAt)}
               </p>
-              <p className="w-[18.3rem] flex items-center justify-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
+              <p className="md:w-[18.3rem] sm:w-[10rem] flex items-center justify-center font-normal text-[1.3rem] leading-[1.551rem] text-gray-500 py-[1.5rem] px-[1.6rem]">
                 {formatDate(item.deadline)}
               </p>
-              <div className="w-[12rem] flex items-center font-normal py-[1.5rem] px-[1.6rem]">
+              <div className="md:w-[12rem] sm:w-[10rem] flex items-center font-normal py-[1.5rem] px-[1.6rem]">
                 <ChipStatus type={statusLabel} />
               </div>
             </div>
