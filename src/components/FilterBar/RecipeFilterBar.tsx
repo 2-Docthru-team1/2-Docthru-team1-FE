@@ -67,20 +67,20 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
   return (
     <div className="relative w-full">
       <div
-        className={`h-[4rem] justify-between items-center flex 
-        lg:w-[74.6rem]
+        className={`h-[4rem] justify-between items-center flex gap-0
+        lg:w-[74.6rem] 
         md:w-full
-        sm:w-full `}
+        sm:w-full sm:gap-[1rem] `}
       >
         <div className="flex gap-[1rem] items-center">
           <div
             className=" border border-gray-200  px-[1.2rem] py-[0.8rem] rounded-[0.8rem] bg-primary-white cursor-pointer"
             onClick={handleReset}
           >
-            <Image src={reset} alt="리셋 이미지" width={24} height={24} />
+            <Image src={reset} alt="리셋 이미지" width={20} height={20} />
           </div>
           <div
-            className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] w-[15.1rem] cursor-pointer
+            className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] w-[15.1rem] cursor-pointer whitespace-nowrap
             ${isFilterApplied ? 'bg-gray-700' : 'bg-primary-white'}`}
             onClick={handleToggleDropdown}
           >

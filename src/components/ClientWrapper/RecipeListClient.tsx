@@ -123,7 +123,11 @@ export default function RecipeListClient({ adminchallengeData }: AdminListClient
           sm:gap-[1.5rem] sm:overflow-x-auto"
           >
             {adminchallengeData.map((data, index) => (
-              <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
+              <div
+                key={index}
+                onClick={() => handleChallengeClick(data.id)}
+                className="cursor-pointer lg:mb-0 md:mb-[1rem] sm:mb-[1rem]"
+              >
                 <MonthlyChallengeCard data={data} role={role} />
               </div>
             ))}
