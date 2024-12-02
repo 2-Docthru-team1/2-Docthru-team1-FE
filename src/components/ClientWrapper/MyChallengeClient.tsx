@@ -35,7 +35,7 @@ export default function MyChallengeClient() {
         setItemsPerPage(2);
       }
     }
-  }, []);
+  }, [activeTab]);
 
   const {
     data: participateOngoingChallenge,
@@ -43,7 +43,7 @@ export default function MyChallengeClient() {
     isError: ongoingError,
     isPlaceholderData: ongoingPlaceholder
   } = useQuery({
-    queryKey: ['participateOngoingChallenge', currentPage, keyword, category],
+    queryKey: ['participateOngoingChallenge', currentPage, itemsPerPage, keyword, category],
     queryFn: async () => await fetchMyOngoingChallenge(currentPage, itemsPerPage, keyword),
     placeholderData: keepPreviousData
   });
@@ -54,7 +54,7 @@ export default function MyChallengeClient() {
     isError: finishedError,
     isPlaceholderData: finishedPlaceholder
   } = useQuery({
-    queryKey: ['participateFinishedChallenge', currentPage, keyword, category],
+    queryKey: ['participateFinishedChallenge', currentPage, itemsPerPage, keyword, category],
     queryFn: async () => await fetchMyFinishedChallenge(currentPage, itemsPerPage, keyword),
     placeholderData: keepPreviousData
   });
@@ -65,7 +65,7 @@ export default function MyChallengeClient() {
     isError: requestError,
     isPlaceholderData: requestPlaceholder
   } = useQuery({
-    queryKey: ['requestChallenge', currentPage, keyword, category],
+    queryKey: ['requestChallenge', currentPage, keyword, itemsPerPage, category],
     queryFn: async () => await fetchMyRequestChallenge(currentPage, itemsPerPage, keyword),
     placeholderData: keepPreviousData
   });
@@ -79,10 +79,10 @@ export default function MyChallengeClient() {
           ? Math.max(0, Math.ceil(participateFinishedChallenge?.totalCount / itemsPerPage))
           : 0;
 
-  console.log(totalPages);
-  console.log('Items Per Page:', itemsPerPage);
-
   const hasMore = currentPage < totalPages;
+  console.log('Active Tab:', activeTab);
+  console.log('Items Per Page:', itemsPerPage);
+  console.log('Total Pages:', totalPages);
 
   useEffect(() => {
     if (!ongoingPlaceholder && hasMore) {
@@ -91,7 +91,7 @@ export default function MyChallengeClient() {
 
       for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
         queryClient.prefetchQuery({
-          queryKey: ['participateOngoingChallenge', i, keyword],
+          queryKey: ['participateOngoingChallenge', i, keyword, category, itemsPerPage],
           queryFn: async () => await fetchMyOngoingChallenge(i, itemsPerPage, keyword)
         });
       }
@@ -105,7 +105,7 @@ export default function MyChallengeClient() {
 
       for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
         queryClient.prefetchQuery({
-          queryKey: ['finishedPlaceholder', i, keyword],
+          queryKey: ['finishedPlaceholder', i, keyword, category, itemsPerPage],
           queryFn: async () => await fetchMyFinishedChallenge(i, itemsPerPage, keyword)
         });
       }
@@ -119,7 +119,7 @@ export default function MyChallengeClient() {
 
       for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
         queryClient.prefetchQuery({
-          queryKey: ['requestChallenge', i, keyword, category],
+          queryKey: ['requestChallenge', i, keyword, category, itemsPerPage],
           queryFn: async () => await fetchMyRequestChallenge(i, itemsPerPage, keyword, category)
         });
       }
