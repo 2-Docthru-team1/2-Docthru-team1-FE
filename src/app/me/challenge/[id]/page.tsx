@@ -5,11 +5,11 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchAdminChallengeDetailNext, fetchAdminChallengeDetailPrev, fetchChallenge_detail } from '@/api/challengeService';
+import ChallengeApplicationDetailBody from '@/components/Body/ChallengeApplicationDetailBody';
+import ChallengeApplicationDetailHeader from '@/components/Header/ChallengeApplicationDetailHeader';
+import Pagination from '@/components/Pagination/Pagination';
 import type { ChallengeApplicationDetailHeaderData } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
-import ChallengeApplicationDetailBody from '../Body/ChallengeApplicationDetailBody';
-import ChallengeApplicationDetailHeader from '../Header/ChallengeApplicationDetailHeader';
-import Pagination from '../Pagination/Pagination';
 
 export default function AdminChallengeDetailClient() {
   const { id } = useParams();
@@ -69,22 +69,12 @@ export default function AdminChallengeDetailClient() {
 
   return (
     <div className="w-full justify-center items-center flex pt-[2.4rem] pb-[7rem] flex-col">
-      <div className="flex justify-between w-[120rem] items-center">
-        <p className="font-normal text-[1.6rem]">No. {currentData.number}</p>
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-          hasNext={currentPage < totalPages}
-          type="admin"
-        />
-      </div>
       <div>
-        <ChallengeApplicationDetailHeader type="admin" data={currentData} />
+        <ChallengeApplicationDetailHeader type="normal" data={currentData} />
       </div>
       <div className="border border-gray-200 w-[120rem] mt-[4rem] mb-[4rem]" />
       <div className="w-[120rem]">
-        <ChallengeApplicationDetailBody type="admin" data={currentData} />
+        <ChallengeApplicationDetailBody type="normal" data={currentData} />
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import filter from '@/../public/assets/ic_filter.png';
+import useStore from '@/store/store';
 
 interface SortDropdownProps {
   type: string;

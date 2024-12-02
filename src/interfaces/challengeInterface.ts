@@ -16,6 +16,7 @@ export interface SavedSelection {
 }
 
 export interface ChallengeApplicationDetailBody {
+  type: 'normal' | 'admin';
   data: ChallengeApplicationDetailBodyData;
 }
 
@@ -26,6 +27,7 @@ export interface ChallengeApplicationDetailBodyData {
 }
 
 export interface ChallengeApplicationDetailHeader {
+  type: 'normal' | 'admin';
   data: ChallengeApplicationDetailHeaderData;
 }
 

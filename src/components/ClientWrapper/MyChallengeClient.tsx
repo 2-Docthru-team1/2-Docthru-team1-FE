@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchMyFinishedChallenge, fetchMyOngoingChallenge, fetchMyRequestChallenge } from '@/api/challengeService';
-import type { MyParticipateData, MyRequestData } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
 import ChallengeApplicationBody from '../Body/ChallengeApplicationBody';
 import ChallengeCard from '../Card/ChallengeCard';
@@ -37,6 +36,10 @@ export default function MyChallengeClient() {
     }
   }, [activeTab]);
 
+  useEffect(() => {
+    console.log('Category value:', category); // category 값 확인
+  }, [category]);
+
   const {
     data: participateOngoingChallenge,
     isLoading: ongoingLoading,
@@ -66,7 +69,7 @@ export default function MyChallengeClient() {
     isPlaceholderData: requestPlaceholder
   } = useQuery({
     queryKey: ['requestChallenge', currentPage, keyword, itemsPerPage, category],
-    queryFn: async () => await fetchMyRequestChallenge(currentPage, itemsPerPage, keyword),
+    queryFn: async () => await fetchMyRequestChallenge(currentPage, itemsPerPage, keyword, category),
     placeholderData: keepPreviousData
   });
 
@@ -151,7 +154,7 @@ export default function MyChallengeClient() {
   };
 
   const handleClickEvent = (id: string) => {
-    router.push(`/challengeList/${id}`);
+    router.push(`/me/${id}`);
   };
 
   return (

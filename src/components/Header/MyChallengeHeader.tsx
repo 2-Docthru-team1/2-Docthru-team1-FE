@@ -11,7 +11,7 @@ import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdo
 export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTab: string; onTabChange: (tab: string) => void }) {
   const router = useRouter();
 
-  const { keyword, setKeyword } = useStore();
+  const { keyword, setKeyword, setCategory } = useStore();
 
   const [sortOption, setSortOption] = useState('Sort');
 
@@ -36,6 +36,11 @@ export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTa
         return;
       }
     }
+  };
+
+  const handleFilterChange = (category: string) => {
+    setSortOption(category);
+    setCategory(category);
   };
 
   return (
@@ -98,7 +103,7 @@ export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTa
         ) : (
           <div>
             <div className="flex gap-[2rem] justify-center">
-              <ChallengeApplicationDropdown type="me" sortOption={sortOption} onSortSelect={handleSortSelect} />
+              <ChallengeApplicationDropdown type="me" sortOption={sortOption} onSortSelect={handleFilterChange} />
               <div className="flex h-[4rem] items-center w-[81.1rem] border border-gray-200 rounded-[2rem] bg-primary-white p-[0.8rem] box-border gap-[0.4rem]">
                 <Image src={search} alt="search" />
                 <input
