@@ -79,7 +79,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
             <OptionBox type={type} id={data.id} date={data.deadline} />
           </div>
         </div>
-        <div className="flex items-center w-full h-[29.4rem] gap-[2rem] sm:flex-col md:flex-row">
+        <div className="flex items-center w-full mt-[2rem] h-[29.4rem] gap-[2rem] sm:flex-col md:flex-row">
           {renderImage(data.imageUrl, 'Image 1')}
           {renderImage(data.imageUrl2, 'Image 2')}
         </div>
