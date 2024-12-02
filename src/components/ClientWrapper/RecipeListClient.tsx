@@ -25,7 +25,27 @@ export default function RecipeListClient({ adminchallengeData }: AdminListClient
   const { role, keyword, category, setKeyword, setCategory } = useStore();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const [itemsPerPage, setItemsPerPage] = useState(8);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      if (width >= 1200) {
+        setItemsPerPage(8);
+      } else if (width >= 744) {
+        setItemsPerPage(4);
+      } else if (width >= 375) {
+        setItemsPerPage(2);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const {
     data: recipes,
@@ -33,7 +53,7 @@ export default function RecipeListClient({ adminchallengeData }: AdminListClient
     isError,
     isPlaceholderData
   } = useQuery<RecipeListClientProps>({
-    queryKey: ['recipies', currentPage, keyword, category],
+    queryKey: ['recipies', currentPage, itemsPerPage, keyword, category],
     queryFn: async () => await fetchMenu(currentPage, itemsPerPage, keyword, category),
     placeholderData: keepPreviousData
   });
@@ -47,12 +67,12 @@ export default function RecipeListClient({ adminchallengeData }: AdminListClient
 
       for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
         queryClient.prefetchQuery({
-          queryKey: ['recipies', i, keyword, category],
+          queryKey: ['recipies', i, keyword, category, itemsPerPage],
           queryFn: async () => await fetchMenu(i, itemsPerPage, keyword, category)
         });
       }
     }
-  }, [currentPage, hasMore, isPlaceholderData, keyword, category]);
+  }, [currentPage, hasMore, isPlaceholderData, keyword, category, itemsPerPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -88,23 +108,56 @@ export default function RecipeListClient({ adminchallengeData }: AdminListClient
 
   return (
     <div className="flex flex-col pt-[2rem] w-full items-center justify-center pb-[7rem]">
-      <div className="flex flex-col w-[120rem] gap-[4rem] mb-[4rem]">
-        <div className="flex flex-col gap-[2.4rem] justify-center">
+      <div
+        className="flex flex-col gap-[4rem] mb-[4rem]
+      lg:w-[124rem]
+      md:w-full md:px-[2.6rem]
+      sm:w-full sm:px-[1.8rem]"
+      >
+        <div className="flex flex-col gap-[2.4rem] justify-center w-full">
           <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">This Month's Challenge</p>
-          <div className="flex justify-between">
+          <div
+            className="flex  w-full
+          lg:justify-between lg:overflow-hidden lg:max-w-full
+          md:gap-[1rem] md:overflow-x-auto
+          sm:gap-[1.5rem] sm:overflow-x-auto"
+          >
             {adminchallengeData.map((data, index) => (
-              <div key={index} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
+              <div
+                key={index}
+                onClick={() => handleChallengeClick(data.id)}
+                className="cursor-pointer lg:mb-0 md:mb-[1rem] sm:mb-[1rem]"
+              >
                 <MonthlyChallengeCard data={data} role={role} />
               </div>
             ))}
           </div>
         </div>
-        <div className="flex flex-col gap-[1.6rem]">
-          <div className="flex justify-between items-center z-[20] ">
-            <p className="font-bold text-[2rem] leading-[3.2rem] text-gray-700">Recipe</p>
-            <RecipeFilterBar onFilterApply={handleFilterChange} />
+        <div className="flex flex-col gap-[1.6rem] justify-center items-center w-full">
+          <div
+            className="flex z-[1000] w-full
+          lg:flex-row lg:justify-between lg:items-center 
+          md:flex-col
+          sm:flex-col "
+          >
+            <p
+              className="font-bold text-[2rem] leading-[3.2rem] text-gray-700
+            lg:self-start
+            md:self-start md:pb-[2rem]
+            sm:self-start sm:pb=[1rem]"
+            >
+              Recipe
+            </p>
+            <div>
+              <RecipeFilterBar onFilterApply={handleFilterChange} />
+            </div>
           </div>
-          <div className="grid grid-cols-4 grid-rows-2 gap-[2.4rem]">
+          <div
+            className="grid gap-[2.4rem] 
+          lg:grid-cols-4 lg:grid-rows-2 
+          md:grid-cols-2 md: grid-row-2  
+          sm:grind-cols-1 grid-row-2"
+          >
             {!isLoading &&
               recipes?.list.map((recipe: RecipeData) => (
                 <div key={recipe.id} onClick={() => handleRecipeClick(recipe.id)} className="cursor-pointer">

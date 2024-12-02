@@ -68,8 +68,8 @@ export default function AdminChallengeDetailClient() {
   }
 
   return (
-    <div className="w-full justify-center items-center flex pt-[2.4rem] pb-[7rem] flex-col">
-      <div className="flex justify-between w-[120rem] items-center">
+    <div className="w-full justify-center items-center flex md:px-[2.4rem] sm:px-[1.6rem] pt-[2.4rem] pb-[7rem] flex-col">
+      <div className="flex justify-between lg:w-[115.2rem] sm:w-full items-center">
         <p className="font-normal text-[1.6rem]">No. {currentData.number}</p>
         <Pagination
           totalPages={totalPages}
@@ -79,11 +79,11 @@ export default function AdminChallengeDetailClient() {
           type="admin"
         />
       </div>
-      <div>
+      <div className="lg:w-[115.2rem] sm:w-full">
         <ChallengeApplicationDetailHeader type="admin" data={currentData} />
       </div>
-      <div className="border border-gray-200 w-[120rem] mt-[4rem] mb-[4rem]" />
-      <div className="w-[120rem]">
+      <div className="border border-gray-200 lg:w-[115.2rem] sm:w-full mt-[4rem] mb-[4rem]" />
+      <div className="lg:w-[115.2rem] sm:w-full">
         <ChallengeApplicationDetailBody type="admin" data={currentData} />
       </div>
     </div>
