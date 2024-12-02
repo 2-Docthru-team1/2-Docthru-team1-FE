@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import click from '@/../public/assets/icon_click.png';
 import close from '@/../public/assets/icon_out_circle_large.png';
 import ref from '@/../public/assets/icon_ref.png';
@@ -11,6 +11,32 @@ import type { ChallengeRefPageCardProps } from '@/interfaces/ChallengeRefInterfa
 export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardProps) {
   const [showLinkButton, setShowLinkButton] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
+  const [isPcScreen, setIsPcScreen] = useState<boolean>(false);
+  const [isTabletScreen, setIsTabletScreen] = useState<boolean>(false);
+  const [isMobileScreen, setIsMobileScreen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const updatePcScreenSize = () => {
+      setIsPcScreen(window.innerWidth >= 1200);
+    };
+    const updateTabletScreenSize = () => {
+      setIsTabletScreen(window.innerWidth < 1200);
+    };
+    const updateMobileScreenSize = () => {
+      setIsMobileScreen(window.innerWidth < 744);
+    };
+    updatePcScreenSize();
+    updateTabletScreenSize();
+    updateMobileScreenSize();
+    window.addEventListener('pcResize', updatePcScreenSize);
+    window.addEventListener('tabletResize', updateTabletScreenSize);
+    window.addEventListener('mobileResize', updateMobileScreenSize);
+    return () => {
+      window.removeEventListener('pcResize', updatePcScreenSize);
+      window.removeEventListener('tabletResize', updateTabletScreenSize);
+      window.removeEventListener('mobileResize', updateMobileScreenSize);
+    };
+  }, []);
 
   const handleRefButtonClick = useCallback(() => {
     setShowLinkButton(true);
@@ -27,7 +53,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
   }, []);
 
   return (
-    <div className="relative w-full h-full rounded-lg overflow-hidden flex justify-end items-start">
+    <div className="relative lg:w-full md:w-full lg:h-[60rem] md:h-[60rem] sm:w-full rounded-lg overflow-hidden flex justify-end items-start sm:h-[36rem]">
       {!showLinkButton ? (
         <div
           className="mt-[7.6rem] w-[5.2rem] h-[9.9rem] flex items-center justify-center rounded-tl-[2.4rem] rounded-bl-[2.4rem] border-2 border-gray-100 bg-primary-white"
@@ -42,11 +68,11 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           </button>
         </div>
       ) : (
-        <div className="flex w-[60.8rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
+        <div className="flex lg:w-[60.8rem] md:w-[16rem] sm:w-[12rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
           <Image src={close} alt="닫기" onClick={handleRefCloseButtonClick} className="cursor-pointer" />
           <Link href={embedUrl}>
             <button
-              className="flex items-center font-bold text-[1.4rem] leading-[2.6rem] text-gray-700"
+              className="flex items-center font-bold text-[1.4rem] leading-[2.6rem] text-gray-700 whitespace-nowrap"
               onClick={handleLinkButtonClick}
             >
               Open Link
@@ -55,7 +81,15 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           </Link>
         </div>
       )}
-      {showIframe && <iframe src={embedUrl} title="Embedded Content" width={640} height="100%" allowFullScreen />}
+      {showIframe && (
+        <iframe
+          src={embedUrl}
+          title="Embedded Content"
+          width={isMobileScreen ? 375 : isTabletScreen ? 300 : isPcScreen ? 640 : 0}
+          height="100%"
+          allowFullScreen
+        />
+      )}
     </div>
   );
 }

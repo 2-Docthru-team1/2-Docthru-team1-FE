@@ -49,8 +49,8 @@ export default function ChallengeBody() {
   };
 
   return (
-    <div className="border-none w-[87.1rem] bg-primary-white p-[1.5rem] rounded-[2rem]">
-      <div className="border-none bg-white rounded-lg shadow-sm">
+    <div className="border-none h-full lg:max-w-[87.1rem] md:max-w-[79.1rem] md:w-full sm:w-full bg-primary-white p-[1.5rem] rounded-[2rem]">
+      <div className="border-none bg-white rounded-lg shadow-sm ">
         <ReactQuill
           theme="snow"
           value={content}
@@ -59,7 +59,7 @@ export default function ChallengeBody() {
           placeholder="Please write your challenge"
         />
       </div>
-      <div className="mt-[10rem] flex flex-col gap-[0.8rem] font-semibold text-[2rem] leading-[2.6rem]">
+      <div className="mt-[10rem] flex flex-col gap-[0.8rem] font-semibold lg:text-[2rem] md:text-[2rem] sm:text-[1.6rem] leading-[2.6rem]">
         <p>Photo (*required)</p>
         <div className="flex gap-[0.8rem]">
           {images.map((file, index) => (
