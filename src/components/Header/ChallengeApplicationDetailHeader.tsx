@@ -115,7 +115,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
   };
 
   return (
-    <div className="lg:w-[120rem] md:w-[69.6rem] sm:w-[34.3rem] items-center justify-center flex flex-col">
+    <div className="lg:w-[115.2rem] sm:w-full items-center justify-center flex flex-col">
       <div className="flex flex-col w-full gap-[1.6rem]">
         {(data.status === 'denied' || data.status === 'aborted') && (
           <>

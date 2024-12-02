@@ -27,7 +27,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
 
   const renderImage = (imageUrl: string, alt: string) => {
     if (!imageUrl || imageUrl.trim() === '' || !isValidUrl(imageUrl)) {
-      return <p className="text-gray-500 text-sm italic">{alt}</p>;
+      return <p className="text-gray-500 text-sm italic"></p>;
     }
     return (
       <div className="relative w-[34.3rem] h-[29.4rem] overflow-hidden">
