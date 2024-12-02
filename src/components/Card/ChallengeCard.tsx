@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import Image from 'next/image';
 import { useState } from 'react';
 import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
@@ -16,7 +17,13 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
 
   const { id, title, deadline, status, mediaType, requestUser } = data;
 
-  const formattedDeadline = new Date(deadline).toISOString().split('T')[0];
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return '';
+    }
+    return format(date, 'yyyy-MM-dd');
+  };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [abortReason, setAbortReason] = useState('');
@@ -84,7 +91,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
           <div className="lg:w-[54rem] sm:w-[calc(100vw-9.6rem)] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
           <div className="flex items-center gap-[0.2rem]">
             <Image src={clockIcon} alt="Deadline" />
-            <div className="text-[1.3rem] text-gray-500">Closing on {formattedDeadline}</div>
+            <div className="text-[1.3rem] text-gray-500">Closing on {formatDate(deadline)}</div>
           </div>
         </div>
       </div>
