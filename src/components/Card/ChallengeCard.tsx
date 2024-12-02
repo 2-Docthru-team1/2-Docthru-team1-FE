@@ -64,7 +64,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
 
   return (
     <div
-      className="bg-primary-white w-[58.8rem] gap-[1rem] rounded-[0.8rem] border-[0.2rem] border-solid border-gray-200"
+      className="bg-primary-white lg:w-[58.8rem] md:w-[calc(100vw-2.6rem)] sm:w-[calc(100vw-1.8rem)] gap-[1rem] rounded-[0.8rem] border-[0.2rem] border-solid border-gray-200"
       onClick={handleCardClick}
     >
       <div>
@@ -88,7 +88,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
           <div>
             <ChipCategoryCard mediaType={mediaType} />
           </div>
-          <div className="w-[54rem] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
+          <div className="lg:w-[54rem] sm:w-[calc(100vw-9.6rem)] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
           <div className="flex items-center gap-[0.2rem]">
             <Image src={clockIcon} alt="Deadline" />
             <div className="text-[1.3rem] text-gray-500">Closing on {formatDate(deadline)}</div>
