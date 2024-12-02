@@ -17,7 +17,7 @@ export default function MyChallengeClient() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { keyword, category } = useStore();
+  const { keyword, category, setKeyword, setCategory } = useStore();
 
   const [activeTab, setActiveTab] = useState('participating');
 
@@ -80,9 +80,6 @@ export default function MyChallengeClient() {
           : 0;
 
   const hasMore = currentPage < totalPages;
-  console.log('Active Tab:', activeTab);
-  console.log('Items Per Page:', itemsPerPage);
-  console.log('Total Pages:', totalPages);
 
   useEffect(() => {
     if (!ongoingPlaceholder && hasMore) {
@@ -145,6 +142,8 @@ export default function MyChallengeClient() {
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
     setCurrentPage(1);
+    setKeyword('');
+    setCategory('');
   };
 
   const handlePageChange = (page: number) => {
