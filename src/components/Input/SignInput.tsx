@@ -12,7 +12,7 @@ export default function SignInput({ type, label, placeholder, value, onChange, .
   };
 
   return (
-    <div className="flex flex-col lg:w-[51.8rem] md:w-[51.8rem] mb-[2.4rem] sm:w-full">
+    <div className="flex flex-col lg:w-[51.8rem] md:w-[51.8rem] mb-[2.4rem] sm:w-full sm:max-w-[51.8rem]">
       <label htmlFor={type} className=" text-gray-700 font-medium mb-[0.8rem] text-[1.4rem] leading-[1.6rem] sm:w-full">
         {label}
       </label>

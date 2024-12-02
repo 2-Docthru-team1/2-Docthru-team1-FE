@@ -159,7 +159,7 @@ export default function SignUpClient() {
           <button
             type="submit"
             disabled={!isFormValid || isLoading}
-            className={`lg:w-[51.8rem] md:w-[51.8rem] h-[4.8rem] rounded-[0.8rem] border-none text-[1.6rem] font-semibold text-primary-white sm:w-full ${isFormValid ? 'bg-primary-beige cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}
+            className={`lg:w-[51.8rem] md:w-[51.8rem] h-[4.8rem] rounded-[0.8rem] border-none text-[1.6rem] font-semibold text-primary-white sm:w-full sm:max-w-[51.8rem] ${isFormValid ? 'bg-primary-beige cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}
           >
             Sign up
           </button>
