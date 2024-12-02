@@ -13,6 +13,7 @@ export interface RecipeData {
 export interface DetailTextCardProps {
   type: 'ingredient' | 'direction' | 'nutrition' | 'benefit';
   content: string[] | NutritionContent;
+  className?: string;
 }
 
 export interface NutritionContent {
@@ -131,6 +132,8 @@ export interface ChallengeDetailContentCardData {
   id: string;
   requestUser: requestUserData;
   deadline: string;
+  imageUrl: string;
+  imageUrl2: string;
 }
 
 export interface requestUserData {
