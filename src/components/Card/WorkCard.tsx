@@ -1,6 +1,7 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import DOMPurify from 'dompurify';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -238,14 +239,15 @@ export default function WorkCard({ data, user }: WorkDataProps) {
             <div></div>
           )}
         </div>
-        <p
+        <div
           className="font-normal text-gray-800 
         lg:mt-0 text-[1.6rem]
         md:mt-[2rem] md:self-start
         sm:mt-[1.6rem] sm:self-start"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.content) }}
         >
           {data.content}
-        </p>{' '}
+        </div>
       </div>
       {isImageOpen && (
         <ImageEnlargeModal
