@@ -72,7 +72,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
             </div>
           </div>
           <div className="lg:mt-[6.8rem] md:h-[17.6rem] sm:justify-center sm:flex sm:mt-[2rem]">
-            <OptionBox type={type} id={data.id} date={data.deadline} />
+            <OptionBox type={type} id={data.id} date={data.deadline} url={data.embedUrl} />
           </div>
         </div>
         <div className="flex items-center w-full mt-[2rem] h-[29.4rem] gap-[2rem] sm:flex-col md:flex-row">
