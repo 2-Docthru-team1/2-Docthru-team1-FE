@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import click from '@/../public/assets/icon_click.png';
 import close from '@/../public/assets/icon_out_circle_large.png';
 import ref from '@/../public/assets/icon_ref.png';
@@ -11,6 +11,7 @@ import type { ChallengeRefPageCardProps } from '@/interfaces/ChallengeRefInterfa
 export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardProps) {
   const [showLinkButton, setShowLinkButton] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
+  const [processedUrl, setProcessedUrl] = useState<string>('');
 
   const handleRefButtonClick = useCallback(() => {
     setShowLinkButton(true);
@@ -25,6 +26,17 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
   const handleLinkButtonClick = useCallback(() => {
     setShowIframe(true);
   }, []);
+
+  useEffect(() => {
+    if (embedUrl) {
+      if (embedUrl.includes('youtube.com/watch?v=')) {
+        const videoId = embedUrl.split('v=')[1]?.split('&')[0];
+        setProcessedUrl(`https://www.youtube.com/embed/${videoId}`);
+      } else {
+        setProcessedUrl(embedUrl);
+      }
+    }
+  }, [embedUrl]);
 
   return (
     <div className="relative w-full h-full rounded-lg overflow-hidden flex justify-end items-start">
@@ -44,7 +56,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
       ) : (
         <div className="flex w-[60.8rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
           <Image src={close} alt="닫기" onClick={handleRefCloseButtonClick} className="cursor-pointer" />
-          <Link href={embedUrl} target="_blank" rel="noopener noreferrer">
+          <Link href={processedUrl} target="_blank" rel="noopener noreferrer">
             <button
               className="flex items-center font-bold text-[1.4rem] leading-[2.6rem] text-gray-700"
               onClick={handleLinkButtonClick}
@@ -55,16 +67,19 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           </Link>
         </div>
       )}
-      {showIframe && (
-        <iframe
-          src={embedUrl}
-          title="Embedded Content"
-          width={640}
-          height="100%"
-          allowFullScreen
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        />
-      )}
+      {showIframe &&
+        (processedUrl.includes('youtube.com') ? (
+          <iframe
+            src={processedUrl}
+            title="Embedded Content"
+            width="640"
+            height="100%"
+            allowFullScreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          />
+        ) : (
+          <iframe src={processedUrl} title="Embedded Content" width="640" height="100%" allowFullScreen />
+        ))}
     </div>
   );
 }

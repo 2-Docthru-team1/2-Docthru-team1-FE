@@ -25,15 +25,7 @@ export default function ChallengeTryClient() {
       try {
         if (!id) return;
         const detail = await fetchChallenge_detail(String(id));
-        let url = detail.embedUrl || '';
-        if (url.includes('youtube.com/watch?v=')) {
-          const videoId = url.split('v=')[1]?.split('&')[0];
-          if (videoId) {
-            url = `https://www.youtube.com/embed/${videoId}`;
-          }
-        }
-
-        setEmbedUrl(url);
+        setEmbedUrl(detail.embedUrl || '');
       } catch (error) {
         setEmbedUrl('');
       }
