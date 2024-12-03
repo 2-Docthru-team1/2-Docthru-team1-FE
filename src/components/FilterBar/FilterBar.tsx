@@ -114,7 +114,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
       const currentKeyword = e.currentTarget.value.trim();
       setKeyword(currentKeyword || '');
       if (!currentKeyword) {
-        window.location.reload();
+        setKeyword('');
         return;
       }
     }

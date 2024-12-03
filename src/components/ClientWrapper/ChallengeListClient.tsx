@@ -115,7 +115,9 @@ export default function ChallengeListClient({ adminchallengeData, rankerData }: 
     setStatus(status);
 
     if (!orderBy && mediaType.length === 0 && !status) {
-      window.location.reload();
+      setOrderBy('');
+      setMediaType([]);
+      setStatus('');
       return;
     }
   };
