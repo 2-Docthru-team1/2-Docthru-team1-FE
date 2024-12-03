@@ -14,13 +14,14 @@ import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
 import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 
-export default function ChallengeApplicationDetailHeader({ data }: ChallengeApplicationDetailHeader) {
+export default function ChallengeApplicationDetailHeader({ type, data }: ChallengeApplicationDetailHeader) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState<string>('');
   const [modalAlt, setModalAlt] = useState<string>('');
   const [abortReason, setAbortReason] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isAbortModalOpen, setIsAbortModalOpen] = useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   const { userStatus } = useStore();
 
@@ -101,6 +102,11 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
     setAbortReason('');
   };
 
+  const handleCancel = () => {
+    setIsCancelModalOpen(false);
+    patchChallengeStatusChange('canceled');
+  };
+
   const handleDropdownClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     setDropdownOpen(prev => !prev);
@@ -112,6 +118,14 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
 
   const handleAbortModalOpen = () => {
     setIsAbortModalOpen(true);
+  };
+
+  const handleCancelModalCancel = () => {
+    setIsCancelModalOpen(false);
+  };
+
+  const handleCancelModalOpen = () => {
+    setIsCancelModalOpen(true);
   };
 
   return (
@@ -152,14 +166,34 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
             <div className="border border-gray-200 w-full mt-[1.2em]" />
           </>
         )}
+        {data.status === 'pending' && (
+          <>
+            <div className="w-full flex flex-col items-center mt-[1.2rem]">
+              <p className="w-full h-[3.5rem] rounded-[1.75rem] bg-[#FFFDE7] flex items-center justify-center font-semibold text-[1.6rem] leading-[1.909rem] text-[#F2BC00]">
+                It is under review
+              </p>
+            </div>
+            <div className="border border-gray-200 w-full mt-[1.2em]" />
+          </>
+        )}
         <div className="flex justify-between w-full">
           <p className="font-semibold text-[2.4rem] leading-[2.864rem]">{data.title}</p>
-          {data.status === 'onGoing' && (
+          {data.status === 'onGoing' && type === 'admin' && (
             <>
               <div className="relative z-10">
                 <Image src={toggle} alt="toggle" onClick={handleDropdownClick} className="cursor-pointer" />
                 <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
                   {dropdownOpen && <CancelDropdown onCancel={handleAbortModalOpen}>Abort</CancelDropdown>}
+                </div>
+              </div>
+            </>
+          )}
+          {type === 'normal' && data.status === 'onGoing' && (
+            <>
+              <div className="relative z-10">
+                <Image src={toggle} alt="toggle" onClick={handleDropdownClick} className="cursor-pointer" />
+                <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
+                  {dropdownOpen && <CancelDropdown onCancel={handleCancelModalOpen}>Cancel</CancelDropdown>}
                 </div>
               </div>
             </>
@@ -196,6 +230,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
           setAbortReason={setAbortReason}
         />
       )}
+      {isCancelModalOpen && <ConfirmModal onCancel={handleCancelModalCancel} onDelete={handleCancel} role={userStatus} />}
     </div>
   );
 }

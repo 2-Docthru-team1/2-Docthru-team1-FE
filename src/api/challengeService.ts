@@ -1,4 +1,3 @@
-import { headers } from 'next/headers';
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
 import { getRequest, patchRequest, postRequest } from './api';
 
@@ -145,5 +144,54 @@ export const fetchRegisterWork = async (id: string, title: string, content: stri
     return response.data;
   } catch (error) {
     throw new Error('Failed to patch work');
+  }
+};
+
+export const fetchMyOngoingChallenge = async (page: number, pageSize: number, keyword?: string) => {
+  const params = {
+    page: page,
+    pageSize: pageSize,
+    keyword: keyword,
+    status: 'onGoing'
+  };
+
+  try {
+    const response = await getRequest(`/challenges/participation`, { params });
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get participating challenge');
+  }
+};
+
+export const fetchMyFinishedChallenge = async (page: number, pageSize: number, keyword?: string) => {
+  const params = {
+    page: page,
+    pageSize: pageSize,
+    keyword: keyword,
+    status: 'finished'
+  };
+  try {
+    const response = await getRequest('/challenges/participation', { params });
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get finished challenge');
+  }
+};
+
+export const fetchMyRequestChallenge = async (page: number, pageSize: number, keyword?: string, filter?: string) => {
+  const params = {
+    page: page,
+    pageSize: pageSize,
+    keyword: keyword,
+    filter: filter
+  };
+
+  try {
+    const response = await getRequest('/challenges/my-requests', { params });
+    console.log(response.data);
+    console.log(filter);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get my request challenge data');
   }
 };

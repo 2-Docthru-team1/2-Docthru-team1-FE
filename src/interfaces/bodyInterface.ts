@@ -14,5 +14,6 @@ export interface ChallengeApplicationBodyData {
 }
 
 export interface ChallengeApplicationBodyProps {
+  type: 'admin' | 'normal';
   data: ChallengeApplicationBodyData[];
 }
