@@ -1,9 +1,8 @@
 'use client';
 
-import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { fetchRegisterWork } from '@/api/challengeService';
+import { useEffect, useState } from 'react';
+import { fetchChallenge_detail, fetchRegisterWork } from '@/api/challengeService';
 import { uploadImageToEC2 } from '@/api/uploadService';
 import ChallengeBody from '../Body/ChallengeBody';
 import ChallengeRefPageCard from '../Card/ChallengeRefPageCard';
@@ -18,6 +17,22 @@ export default function ChallengeTryClient() {
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState(false);
   const [uploadImages, setUploadImages] = useState<File[]>([]);
+
+  const [embedUrl, setEmbedUrl] = useState<string>('');
+
+  useEffect(() => {
+    const fetchEmbedUrl = async () => {
+      try {
+        if (!id) return;
+        const detail = await fetchChallenge_detail(String(id));
+        setEmbedUrl(detail.embedUrl || '');
+      } catch (error) {
+        setEmbedUrl('');
+      }
+    };
+
+    fetchEmbedUrl();
+  }, [id]);
 
   const handleSubmit = async () => {
     if (!title.trim() || !content.trim() || uploadImages.length === 0) {
@@ -62,7 +77,7 @@ export default function ChallengeTryClient() {
         </div>
       </div>
       <div>
-        <ChallengeRefPageCard embedUrl="https://www.example.com" />
+        <ChallengeRefPageCard embedUrl={embedUrl} />
       </div>
     </div>
   );
