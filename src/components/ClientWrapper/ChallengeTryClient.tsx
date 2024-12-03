@@ -27,14 +27,11 @@ export default function ChallengeTryClient() {
 
     try {
       const res = await fetchRegisterWork(String(id), title, content, uploadImages.length);
-      console.log('Server Response:', res);
       const { images } = res;
 
       const uploadResults = await Promise.all(
         uploadImages.map(async (image: any, index: number) => {
-          console.log('Image Object:', image);
           const uploadUrl = images[index]?.uploadUrl;
-          console.log('Upload URL:', uploadUrl);
           if (!uploadUrl) {
             return {
               success: false,
@@ -49,8 +46,6 @@ export default function ChallengeTryClient() {
                 'Content-Type': image.type || 'application/octet-stream'
               }
             });
-
-            console.log('Upload Response:', response);
 
             if (response.status < 200 || response.status >= 300) {
               return {
@@ -78,7 +73,6 @@ export default function ChallengeTryClient() {
       const failedUploads = uploadResults.filter(result => !result.success);
       if (failedUploads?.length) {
         alert('Some images failed to upload. Please try again.');
-        console.log('Failed uploads:', failedUploads);
         return;
       }
 

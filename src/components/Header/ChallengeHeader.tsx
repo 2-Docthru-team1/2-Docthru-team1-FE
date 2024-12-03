@@ -28,7 +28,7 @@ export default function ChallengeHeader({ onSubmit }: ChallengeHeaderProps) {
           </button>
           <button
             onClick={onSubmit}
-            className="w-[9rem] rounded-[0.8rem] bg-primary-blue py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] text-[#ffffff] leading-[1.909rem]"
+            className="w-[9rem] rounded-[0.8rem] bg-primary-blue py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] text-primary-white leading-[1.909rem]"
           >
             Submit
           </button>

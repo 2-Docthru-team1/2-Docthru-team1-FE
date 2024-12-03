@@ -50,8 +50,6 @@ export default function ChallengeDetailClient() {
     );
   }
 
-  console.log(medium);
-
   return (
     <div className="flex flex-col w-full md:p-[2.4rem] sm:p-[1.2rem] lg:justify-center lg:items-center">
       <div className="flex flex-col">

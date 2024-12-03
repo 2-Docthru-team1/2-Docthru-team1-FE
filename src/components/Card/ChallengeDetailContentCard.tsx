@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import nextImage from '@/../public/assets/btn_photo_swipe.png';
 import profileMem from '@/../public/assets/img_profile_member.png';
-import food from '@/../public/temporaryAssets/Food.svg';
 import type { ChallengeDetailContentCardProps } from '@/interfaces/cardInterface';
 import ChipCard from '../Chip/ChipCard';
 import ChipCategory from '../Chip/ChipCategory';
@@ -13,8 +11,6 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
   const [modalImage, setModalImage] = useState<string>('');
   const [modalAlt, setModalAlt] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  console.log(data);
 
   const isValidUrl = (url: string): boolean => {
     try {
