@@ -5,25 +5,26 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchAdminChallengeDetailNext, fetchAdminChallengeDetailPrev, fetchChallenge_detail } from '@/api/challengeService';
+import ChallengeApplicationDetailBody from '@/components/Body/ChallengeApplicationDetailBody';
+import ChallengeApplicationDetailHeader from '@/components/Header/ChallengeApplicationDetailHeader';
+import Pagination from '@/components/Pagination/Pagination';
 import type { ChallengeApplicationDetailHeaderData } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
-import ChallengeApplicationDetailBody from '../Body/ChallengeApplicationDetailBody';
-import ChallengeApplicationDetailHeader from '../Header/ChallengeApplicationDetailHeader';
-import Pagination from '../Pagination/Pagination';
 
 export default function AdminChallengeDetailClient() {
   const { id } = useParams();
   const router = useRouter();
-  const { challengeMgmtTotalCount, role } = useStore();
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken || role !== 'admin') {
-      router.push('/');
-    }
-  }, []);
+  const { challengeMgmtTotalCount } = useStore();
 
   const [currentData, setCurrentData] = useState<ChallengeApplicationDetailHeaderData | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      router.push('/');
+    }
+  }, []);
 
   const itemsPerPage = 1;
   const totalPages =
@@ -74,23 +75,13 @@ export default function AdminChallengeDetailClient() {
   }
 
   return (
-    <div className="w-full justify-center items-center flex md:px-[2.4rem] sm:px-[1.6rem] pt-[2.4rem] pb-[7rem] flex-col">
-      <div className="flex justify-between lg:w-[115.2rem] sm:w-full items-center">
-        <p className="font-normal text-[1.6rem]">No. {currentData.number}</p>
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-          hasNext={currentPage < totalPages}
-          type="admin"
-        />
+    <div className="w-full justify-center items-center flex pt-[2.4rem] pb-[7rem] flex-col">
+      <div>
+        <ChallengeApplicationDetailHeader type="normal" data={currentData} />
       </div>
-      <div className="lg:w-[115.2rem] sm:w-full">
-        <ChallengeApplicationDetailHeader type="admin" data={currentData} />
-      </div>
-      <div className="border border-gray-200 lg:w-[115.2rem] sm:w-full mt-[4rem] mb-[4rem]" />
-      <div className="lg:w-[115.2rem] sm:w-full">
-        <ChallengeApplicationDetailBody type="admin" data={currentData} />
+      <div className="border border-gray-200 w-[120rem] mt-[4rem] mb-[4rem]" />
+      <div className="w-[120rem]">
+        <ChallengeApplicationDetailBody type="normal" data={currentData} />
       </div>
     </div>
   );

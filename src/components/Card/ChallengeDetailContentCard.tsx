@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import nextImage from '@/../public/assets/btn_photo_swipe.png';
 import profileMem from '@/../public/assets/img_profile_member.png';
-import food from '@/../public/temporaryAssets/Food.svg';
 import type { ChallengeDetailContentCardProps } from '@/interfaces/cardInterface';
 import ChipCard from '../Chip/ChipCard';
 import ChipCategory from '../Chip/ChipCategory';
@@ -13,8 +11,6 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
   const [modalImage, setModalImage] = useState<string>('');
   const [modalAlt, setModalAlt] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  console.log(data);
 
   const isValidUrl = (url: string): boolean => {
     try {
@@ -27,7 +23,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
 
   const renderImage = (imageUrl: string, alt: string) => {
     if (!imageUrl || imageUrl.trim() === '' || !isValidUrl(imageUrl)) {
-      return <p className="text-gray-500 text-sm italic">{alt}</p>;
+      return <p className="text-gray-500 text-sm italic"></p>;
     }
     return (
       <div className="relative w-[34.3rem] h-[29.4rem] overflow-hidden">
@@ -79,7 +75,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
             <OptionBox type={type} id={data.id} date={data.deadline} />
           </div>
         </div>
-        <div className="flex items-center w-full h-[29.4rem] gap-[2rem] sm:flex-col md:flex-row">
+        <div className="flex items-center w-full mt-[2rem] h-[29.4rem] gap-[2rem] sm:flex-col md:flex-row">
           {renderImage(data.imageUrl, 'Image 1')}
           {renderImage(data.imageUrl2, 'Image 2')}
         </div>

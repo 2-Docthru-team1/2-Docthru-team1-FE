@@ -14,13 +14,14 @@ import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
 import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 
-export default function ChallengeApplicationDetailHeader({ data }: ChallengeApplicationDetailHeader) {
+export default function ChallengeApplicationDetailHeader({ type, data }: ChallengeApplicationDetailHeader) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState<string>('');
   const [modalAlt, setModalAlt] = useState<string>('');
   const [abortReason, setAbortReason] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isAbortModalOpen, setIsAbortModalOpen] = useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   const { userStatus } = useStore();
 
@@ -62,7 +63,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
 
   const renderImage = (imageUrl: string, alt: string) => {
     if (!imageUrl || imageUrl.trim() === '' || !isValidUrl(imageUrl)) {
-      return <p className="text-gray-500 text-sm italic">{alt}</p>;
+      return <p className="text-gray-500 text-sm italic"></p>;
     }
     return (
       <Image
@@ -101,6 +102,11 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
     setAbortReason('');
   };
 
+  const handleCancel = () => {
+    setIsCancelModalOpen(false);
+    patchChallengeStatusChange('canceled');
+  };
+
   const handleDropdownClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     setDropdownOpen(prev => !prev);
@@ -114,8 +120,16 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
     setIsAbortModalOpen(true);
   };
 
+  const handleCancelModalCancel = () => {
+    setIsCancelModalOpen(false);
+  };
+
+  const handleCancelModalOpen = () => {
+    setIsCancelModalOpen(true);
+  };
+
   return (
-    <div className="w-[120rem] items-center justify-center flex flex-col">
+    <div className="lg:w-[115.2rem] sm:w-full items-center justify-center flex flex-col">
       <div className="flex flex-col w-full gap-[1.6rem]">
         {(data.status === 'denied' || data.status === 'aborted') && (
           <>
@@ -152,14 +166,34 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
             <div className="border border-gray-200 w-full mt-[1.2em]" />
           </>
         )}
+        {data.status === 'pending' && (
+          <>
+            <div className="w-full flex flex-col items-center mt-[1.2rem]">
+              <p className="w-full h-[3.5rem] rounded-[1.75rem] bg-[#FFFDE7] flex items-center justify-center font-semibold text-[1.6rem] leading-[1.909rem] text-[#F2BC00]">
+                It is under review
+              </p>
+            </div>
+            <div className="border border-gray-200 w-full mt-[1.2em]" />
+          </>
+        )}
         <div className="flex justify-between w-full">
           <p className="font-semibold text-[2.4rem] leading-[2.864rem]">{data.title}</p>
-          {data.status === 'onGoing' && (
+          {data.status === 'onGoing' && type === 'admin' && (
             <>
               <div className="relative z-10">
                 <Image src={toggle} alt="toggle" onClick={handleDropdownClick} className="cursor-pointer" />
                 <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
                   {dropdownOpen && <CancelDropdown onCancel={handleAbortModalOpen}>Abort</CancelDropdown>}
+                </div>
+              </div>
+            </>
+          )}
+          {type === 'normal' && data.status === 'onGoing' && (
+            <>
+              <div className="relative z-10">
+                <Image src={toggle} alt="toggle" onClick={handleDropdownClick} className="cursor-pointer" />
+                <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
+                  {dropdownOpen && <CancelDropdown onCancel={handleCancelModalOpen}>Cancel</CancelDropdown>}
                 </div>
               </div>
             </>
@@ -173,7 +207,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
         <p className="font-normal text-[1.6rem] leading-[2.08rem] text-gray-700">{data.description}</p>
         <div className="flex w-[30rem] justify-between items-center">
           <div className="flex gap-[0.8rem] items-center">
-            <Image src={profile} alt="profile" />
+            <Image src={profile} width={24} height={24} alt="profile" />
             <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-800">{data.requestUser.name}</p>
           </div>
           <div className="flex gap-[0.44rem] items-center">
@@ -181,7 +215,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
             <p className="font-normal text-[1.3rem] leading-[1.551rem] text-gray-600">Closing on {formatDate(data.deadline)}</p>
           </div>
         </div>
-        <div className="flex gap-[2.4rem]">
+        <div className="flex gap-[2.4rem] md:flex-row sm:flex-col">
           {renderImage(data.imageUrl, 'Image 1')}
           {renderImage(data.imageUrl2, 'Image 2')}
         </div>
@@ -196,6 +230,7 @@ export default function ChallengeApplicationDetailHeader({ data }: ChallengeAppl
           setAbortReason={setAbortReason}
         />
       )}
+      {isCancelModalOpen && <ConfirmModal onCancel={handleCancelModalCancel} onDelete={handleCancel} role={userStatus} />}
     </div>
   );
 }

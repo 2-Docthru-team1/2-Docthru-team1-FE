@@ -16,6 +16,7 @@ export interface SavedSelection {
 }
 
 export interface ChallengeApplicationDetailBody {
+  type: 'normal' | 'admin';
   data: ChallengeApplicationDetailBodyData;
 }
 
@@ -26,6 +27,7 @@ export interface ChallengeApplicationDetailBodyData {
 }
 
 export interface ChallengeApplicationDetailHeader {
+  type: 'normal' | 'admin';
   data: ChallengeApplicationDetailHeaderData;
 }
 
@@ -47,4 +49,55 @@ export interface ChallengeApplicationDetailHeaderData {
 export interface requestUser {
   id: string;
   name: string;
+}
+
+export interface ChallengeHeaderProps {
+  onSubmit: () => void;
+  isCardClicked: boolean;
+}
+
+export interface ChallengeBodyProps {
+  title: string;
+  setTitle: (value: string) => void;
+  content: string;
+  setContent: (value: string) => void;
+  images: File[];
+  setImages: React.Dispatch<React.SetStateAction<File[]>>;
+  isCardClicked: boolean;
+}
+
+export interface MyRequestData {
+  totalCount: number;
+  list: MyRequestDataDetail[];
+}
+
+export interface MyRequestDataDetail {
+  id: string;
+  number: number;
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  title: string;
+  updatedAt: string;
+  deadline: string;
+  requestUser: requestUser;
+  totalLikes: number;
+  createdAt: string;
+  status: 'pending' | 'finished' | 'denied' | 'onGoing' | 'canceled' | 'aborted';
+}
+
+export interface MyParticipateData {
+  totalCount: number;
+  list: MyParticipateDataDetail[];
+}
+
+export interface MyParticipateDataDetail {
+  id: string;
+  number: number;
+  mediaType: 'recipeWeb' | 'socialMedia' | 'youtube' | 'blog';
+  title: string;
+  updatedAt: string;
+  deadline: string;
+  requestUser: requestUser;
+  totalLikes: number;
+  createdAt: string;
+  status: 'finished' | 'onGoing';
 }

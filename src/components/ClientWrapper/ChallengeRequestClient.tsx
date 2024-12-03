@@ -7,6 +7,7 @@ import { useRef, useState } from 'react';
 import plus from '@/../public/assets/icon_add_photo_plus.png';
 import close from '@/../public/assets/icon_out_circle_small.png';
 import { fetchChallengeRequest } from '@/api/challengeService';
+import { uploadImageToEC2 } from '@/api/uploadService';
 import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
 import DateDropdown from '../Dropdown/DateDropdown';
 
@@ -107,51 +108,12 @@ export default function ChallengeRequestClient() {
       const res = await fetchChallengeRequest(data);
       const { challenge, uploadUrls } = res;
 
-      const uploadResults = await Promise.all(
+      await Promise.all(
         images.map(async (image, index) => {
           const uploadUrl = uploadUrls[index]?.uploadUrl;
-          if (!uploadUrl) {
-            return {
-              success: false,
-              error: 'Upload URL not provided',
-              index
-            };
-          }
-
-          try {
-            const response = await axios.put(uploadUrl, image, {
-              headers: {
-                'Content-Type': image.type || 'application/octet-stream'
-              }
-            });
-
-            if (response.status !== 200) {
-              return {
-                success: false,
-                error: `HTTP ${response.status}: ${response.statusText}`,
-                index
-              };
-            }
-
-            return {
-              success: true,
-              index
-            };
-          } catch (error) {
-            return {
-              success: false,
-              error,
-              index
-            };
-          }
+          return uploadImageToEC2(uploadUrl, image);
         })
       );
-
-      const failedUploads = uploadResults.filter(result => !result.success);
-      if (failedUploads?.length) {
-        alert('Some images failed to upload. Please try again.');
-        return;
-      }
 
       alert('Request a Challenge Successfully!');
       router.push('/challengeList');

@@ -53,10 +53,10 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
   }, []);
 
   return (
-    <div className="relative lg:w-full md:w-full lg:h-[60rem] md:h-[60rem] sm:w-full rounded-lg overflow-hidden flex justify-end items-start sm:h-[36rem]">
+    <div className="relative lg:w-full md:w-[31.4rem] lg:h-[60rem] md:h-[65rem] sm:w-full sm:h-[36rem] rounded-lg overflow-hidden flex justify-end items-start">
       {!showLinkButton ? (
         <div
-          className="mt-[7.6rem] w-[5.2rem] h-[9.9rem] flex items-center justify-center rounded-tl-[2.4rem] rounded-bl-[2.4rem] border-2 border-gray-100 bg-primary-white"
+          className="mt-[7.6rem] lg:w-[5.2rem] lg:h-[9.9rem] md:w-[6.9rem] md:h-[5.2rem] sm:w-[6.9rem] sm:h-[5.2rem]  flex items-center justify-center rounded-tl-[2.4rem] rounded-bl-[2.4rem] border-2 border-gray-100 bg-primary-white"
           style={{ boxShadow: '0 4px 4px 4px #585C820D' }}
         >
           <button
@@ -68,7 +68,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           </button>
         </div>
       ) : (
-        <div className="flex lg:w-[60.8rem] md:w-[16rem] sm:w-[12rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
+        <div className="flex lg:w-[36.8rem] md:w-[30rem] sm:w-[36rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
           <Image src={close} alt="닫기" onClick={handleRefCloseButtonClick} className="cursor-pointer" />
           <Link href={embedUrl}>
             <button
@@ -85,7 +85,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
         <iframe
           src={embedUrl}
           title="Embedded Content"
-          width={isMobileScreen ? 375 : isTabletScreen ? 300 : isPcScreen ? 640 : 0}
+          width={isMobileScreen ? 640 : isTabletScreen ? 314 : isPcScreen ? 400 : 0}
           height="100%"
           allowFullScreen
         />
