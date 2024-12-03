@@ -17,6 +17,11 @@ export default function ChallengeTryClient() {
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState(false);
   const [uploadImages, setUploadImages] = useState<File[]>([]);
+  const [isCardClicked, setIsCardClicked] = useState(false);
+
+  const handleCardClick = () => {
+    setIsCardClicked(prev => !prev);
+  };
 
   const [embedUrl, setEmbedUrl] = useState<string>('');
 
@@ -60,12 +65,17 @@ export default function ChallengeTryClient() {
   };
 
   return (
-    <div className="flex justify-center w-full">
-      <div className="flex-1 flex-col w-[120rem] items-center flex mr-[3.8rem]">
-        <div>
-          <ChallengeHeader onSubmit={handleSubmit} />
+    <div
+      className={`flex justify-center w-full lg:flex-row lg:items-start md:flex-row md:items-start ${!isCardClicked ? 'sm:flex-row sm:items-start' : 'sm:flex-col sm:items-center'}`}
+    >
+      <div
+        className={`flex-1 flex-col items-center justify-center flex lg:mr-[3.8rem] md:mr-0 sm:mr-0 lg:px-0 md:pl-[1.5rem] md:pr-[0] sm:px-[3.4rem] lg:w-[120rem] sm:w-full lg:order-1 md:order-1
+      ${isCardClicked ? 'md:w-[38.8rem] sm:order-2' : 'md:w-full sm:order-1'}`}
+      >
+        <div className="w-full flex justify-center">
+          <ChallengeHeader onSubmit={handleSubmit} isCardClicked={isCardClicked} />
         </div>
-        <div className="mt-[2.4rem] mb-[5rem]">
+        <div className="mt-[2.4rem] mb-[5rem] w-full flex justify-center lg:px-0 md:pl-[0.2rem] md:pr-0 sm:px-[0.6rem]">
           <ChallengeBody
             title={title}
             setTitle={setTitle}
@@ -73,10 +83,11 @@ export default function ChallengeTryClient() {
             setContent={setContent}
             images={uploadImages}
             setImages={setUploadImages}
+            isCardClicked={isCardClicked}
           />
         </div>
       </div>
-      <div>
+      <div onClick={handleCardClick} className={`${!isCardClicked ? 'sm:order-2' : 'sm:order-1'} lg:order-2 md:order-2`}>
         <ChallengeRefPageCard embedUrl={embedUrl} />
       </div>
     </div>
