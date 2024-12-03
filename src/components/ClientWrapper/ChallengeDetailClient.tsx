@@ -67,7 +67,8 @@ export default function ChallengeDetailClient() {
               },
               deadline: medium.deadline,
               imageUrl: medium.imageUrl,
-              imageUrl2: medium.imageUrl2
+              imageUrl2: medium.imageUrl2,
+              embedUrl: medium.embedUrl
             }}
           />
         </div>
