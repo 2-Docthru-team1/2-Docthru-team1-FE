@@ -47,9 +47,10 @@ instance.interceptors.response.use(
         request._retry = true;
         return instance(request);
       } catch (refreshError) {
-        const { logout } = useStore.getState();
-        logout();
-        window.location.href = '/';
+        console.log(refreshError);
+        // const { logout } = useStore.getState();
+        // logout();
+        // window.location.href = '/';
       }
     } else if (err.response?.status !== 401) {
       console.error(err);
