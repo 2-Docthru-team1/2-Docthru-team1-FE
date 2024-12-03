@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { fetchRegisterWork } from '@/api/challengeService';
+import { uploadImageToEC2 } from '@/api/uploadService';
 import ChallengeBody from '../Body/ChallengeBody';
 import ChallengeRefPageCard from '../Card/ChallengeRefPageCard';
 import ChallengeHeader from '../Header/ChallengeHeader';
@@ -27,59 +28,18 @@ export default function ChallengeTryClient() {
 
     try {
       const res = await fetchRegisterWork(String(id), title, content, uploadImages.length);
-      const { images } = res;
+      const { work, uploadUrls } = res;
 
-      const uploadResults = await Promise.all(
-        uploadImages.map(async (image: any, index: number) => {
-          const uploadUrl = images[index]?.uploadUrl;
-          if (!uploadUrl) {
-            return {
-              success: false,
-              error: 'Upload URL not provided',
-              index
-            };
-          }
-
-          try {
-            const response = await axios.put(uploadUrl, image, {
-              headers: {
-                'Content-Type': image.type || 'application/octet-stream'
-              }
-            });
-
-            if (response.status < 200 || response.status >= 300) {
-              return {
-                success: false,
-                error: `HTTP ${response.status}: ${response.statusText}`,
-                index
-              };
-            }
-
-            return {
-              success: true,
-              index
-            };
-          } catch (error) {
-            console.error('Upload Error:', error);
-            return {
-              success: false,
-              error,
-              index
-            };
-          }
+      await Promise.all(
+        uploadImages.map(async (image, index) => {
+          const uploadUrl = uploadUrls[index]?.uploadUrl;
+          return uploadImageToEC2(uploadUrl, image);
         })
       );
 
-      const failedUploads = uploadResults.filter(result => !result.success);
-      if (failedUploads?.length) {
-        alert('Some images failed to upload. Please try again.');
-        return;
-      }
-
-      alert('Request a Challenge Successfully!');
-      router.push(`/challengeList/${id}`);
+      alert('Submit Successfully!');
+      router.push(`/challengeList/${work.challengeId}`);
     } catch (error) {
-      console.error('Submission Error:', error);
       alert('Error submitting the form. Please try again.');
     }
   };
