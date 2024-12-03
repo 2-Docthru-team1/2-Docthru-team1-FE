@@ -1,3 +1,4 @@
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { fetchAdminChallenge, fetchChallenge, fetchRanker } from '@/api/challengeService';
 import ChallengeListClient from '@/components/ClientWrapper/ChallengeListClient';
 
@@ -30,22 +31,30 @@ export default async function ChallengeListPage() {
   const monthParams = `?monthly=${currentMonth}`;
 
   const adminchallengeData = await fetchAdminChallenge(monthParams);
-  const { list, totalCount } = await fetchChallenge(1, 4);
+
+  const queryClient = new QueryClient();
+  queryClient.prefetchQuery({
+    queryKey: ['challenges'],
+    queryFn: () => fetchChallenge(1, 4, '')
+  });
+  const dehydratedState = dehydrate(queryClient);
+
   // const rankerData = await fetchRanker();
 
   const Data = {
     adminchallengeData,
-    list,
     rankerData
   };
 
   return (
-    <div>
-      {Object.values(Data).every(value => !!value) ? (
-        <ChallengeListClient adminchallengeData={adminchallengeData} challengeData={list} rankerData={rankerData} />
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    <HydrationBoundary state={dehydratedState}>
+      <div>
+        {Object.values(Data).every(value => !!value) ? (
+          <ChallengeListClient adminchallengeData={adminchallengeData} rankerData={rankerData} />
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
+    </HydrationBoundary>
   );
 }

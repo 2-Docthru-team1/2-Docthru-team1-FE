@@ -16,7 +16,7 @@ import MonthlyRankerCard from '../Card/MonthlyRankerCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
 
-export default function ChallengeListClient({ adminchallengeData, challengeData, rankerData }: ChallengeListClientProps) {
+export default function ChallengeListClient({ adminchallengeData, rankerData }: ChallengeListClientProps) {
   const router = useRouter();
   const { id, role, keyword, setKeyword } = useStore();
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,16 +37,10 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     };
   });
 
-  const [medium, setMedium] = useState<ChallengeData[]>(challengeData);
   const [orderBy, setOrderBy] = useState<string>('');
   const [mediaType, setMediaType] = useState<string[]>([]);
   const [status, setStatus] = useState<string>('');
-  const [selectedCount, setSelectedCount] = useState<number>(0);
-  const [isFilterApplied, setIsFilterApplied] = useState<boolean>(false);
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const mediumItems = medium.slice(indexOfFirstItem, indexOfLastItem);
   const queryClient = useQueryClient();
 
   const createQueryParams = (orderBy: string, mediaType: string[], status: string, keyword: string): string => {
@@ -119,10 +113,6 @@ export default function ChallengeListClient({ adminchallengeData, challengeData,
     setOrderBy(orderBy);
     setMediaType(mediaType);
     setStatus(status);
-
-    const count = (orderBy ? 1 : 0) + mediaType.length + (status ? 1 : 0);
-    setSelectedCount(count);
-    setIsFilterApplied(count > 0);
 
     if (!orderBy && mediaType.length === 0 && !status) {
       window.location.reload();
