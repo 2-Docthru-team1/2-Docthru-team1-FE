@@ -89,7 +89,7 @@ export default function FilterBar({ onFilterApply }: RecipeFilterBarProps) {
               {getSelectedSortLabel()}
             </p>
             <Image
-              src={isFilterApplied ? `${S3_BASE_URL}/ic_filter.svg` : `${S3_BASE_URL}/icon_filter_active.svg`}
+              src={isFilterApplied ? `${S3_BASE_URL}/icon_filter_active.svg` : `${S3_BASE_URL}/ic_filter.svg`}
               alt="깔때기"
               width={16}
               height={16}
