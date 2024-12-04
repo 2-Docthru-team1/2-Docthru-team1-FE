@@ -1,10 +1,10 @@
 import type { Meta, StoryFn } from '@storybook/react';
-import { title } from 'process';
 import React from 'react';
 import WorkCard from '@/components/Card/WorkCard';
 import type { WorkDataProps } from '@/interfaces/workInterface';
 
 const data = {
+  challengeId: 'c456',
   id: '1',
   title: 'My first Bibimbap!',
   createdAt: '2024-11-19T04:44:08.912Z',
