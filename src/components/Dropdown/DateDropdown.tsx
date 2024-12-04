@@ -1,12 +1,9 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import calendarIcon from '@/../public/assets/icon_calendar.png';
+import type { DateDropdownProps } from '@/interfaces/dropdownInterface';
 
-interface DateDropdownProps {
-  setSelectedDate: (date: string) => void;
-  selectedDate: string;
-  setTypeError: (error: boolean) => void;
-}
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function DateDropdown({ setSelectedDate, selectedDate, setTypeError }: DateDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -106,7 +103,7 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
           placeholder="YY/MM/DD"
           className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 bg-transparent outline-none placeholder:text-[1.6rem] placeholder-gray-400"
         />
-        <Image src={calendarIcon} alt="calendar" className="cursor-pointer" />
+        <Image src={`${S3_BASE_URL}/ic_calendar.svg`} alt="calendar" className="cursor-pointer" />
       </div>
 
       {isErrorTriggered && !selectedDate && (

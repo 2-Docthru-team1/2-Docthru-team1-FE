@@ -30,3 +30,9 @@ export interface RecipeDropdownProps {
   items: Option[];
   onApply: (option: Option) => void;
 }
+
+export interface DateDropdownProps {
+  setSelectedDate: (date: string) => void;
+  selectedDate: string;
+  setTypeError: (error: boolean) => void;
+}
