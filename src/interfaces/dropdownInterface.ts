@@ -36,3 +36,9 @@ export interface DateDropdownProps {
   selectedDate: string;
   setTypeError: (error: boolean) => void;
 }
+
+export interface SortDropdownProps {
+  type: string;
+  sortOption: string;
+  onSortSelect: (apiValue: string) => void;
+}

@@ -1,17 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import filter from '@/../public/assets/ic_filter.png';
-import useStore from '@/store/store';
+import { useState } from 'react';
+import type { SortDropdownProps } from '@/interfaces/dropdownInterface';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
-
-interface SortDropdownProps {
-  type: string;
-  sortOption: string;
-  onSortSelect: (apiValue: string) => void;
-}
 
 const optionsMap: { [key: string]: string } = {
   Pending: 'pending',
