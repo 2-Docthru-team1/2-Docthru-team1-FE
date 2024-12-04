@@ -18,6 +18,13 @@ export default function MyChallengeClient() {
 
   const { keyword, category, setKeyword, setCategory } = useStore();
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      router.push('/');
+    }
+  }, []);
+
   const [activeTab, setActiveTab] = useState('participating');
 
   const [currentPage, setCurrentPage] = useState(1);

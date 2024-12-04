@@ -10,7 +10,15 @@ import 'react-quill-new/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
-export default function ChallengeBody({ title, setTitle, content, setContent, images, setImages }: ChallengeBodyProps) {
+export default function ChallengeBody({
+  title,
+  setTitle,
+  content,
+  setContent,
+  images,
+  setImages,
+  isCardClicked
+}: ChallengeBodyProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleContentChange = (value: string) => {
@@ -48,7 +56,9 @@ export default function ChallengeBody({ title, setTitle, content, setContent, im
   };
 
   return (
-    <div className="border-none w-[87.1rem]">
+    <div
+      className={`border-none lg:w-[87.1rem] lg:px-0 ${isCardClicked ? 'md:w-[38.8rem]' : 'md:w-full'} md:max-w-[87.1rem] md:px-0 sm:w-full sm:max-w-[69.6rem] sm:pl-0`}
+    >
       <input
         value={title}
         onChange={e => setTitle(e.target.value)}

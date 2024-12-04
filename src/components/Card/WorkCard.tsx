@@ -56,7 +56,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
     mutationFn: async () => await deleteWorkDetail(data.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['work'] });
-      router.push('/challengeList');
+      router.push(`/challengeList/${data.challengeId}`);
     },
     onError: () => {
       alert('Failed to delete the work. Please try again.');

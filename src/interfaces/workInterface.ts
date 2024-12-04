@@ -1,6 +1,7 @@
 import type { UserData } from './userInterface';
 
 export interface WorkDetailData {
+  challengeId: string;
   id: string;
   title: string;
   content: string;
