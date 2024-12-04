@@ -1,13 +1,8 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import arrowDown from '@/../public/assets/chevron_down.png';
-import arrowUp from '@/../public/assets/chevron_up.png';
+import type { ChallengeApplyDropdownProps } from '@/interfaces/challengeInterface';
 
-interface ChallengeApplyDropdownProps {
-  setSelectedOption: (option: string) => void;
-  selectedOption: string;
-  setTypeError: (error: boolean) => void;
-}
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeApplyDropdown({ setSelectedOption, selectedOption, setTypeError }: ChallengeApplyDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -54,7 +49,12 @@ export default function ChallengeApplyDropdown({ setSelectedOption, selectedOpti
         <p className={`font-normal text-[1.6rem] leading-[1.909rem] ${selectedOption ? 'text-gray-900' : 'text-gray-400'}`}>
           {selectedOption || 'Choose a category'}
         </p>
-        <Image src={isDropdownOpen ? arrowUp : arrowDown} alt="arrow" />
+        <Image
+          src={isDropdownOpen ? `${S3_BASE_URL}/chevron_up.svg` : `${S3_BASE_URL}/chevron_down.svg`}
+          alt="arrow"
+          width={24}
+          height={24}
+        />
       </div>
       {isErrorTriggered && !selectedOption && (
         <div className="absolute text-error-red text-[1.2rem] mt-[6rem] ml-[0.5rem]">This field is required.</div>

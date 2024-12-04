@@ -1,9 +1,7 @@
 import Image from 'next/image';
-import arrowActLeft from '@/../public/assets/icon_arrow_act_left_large.png';
-import arrowActRight from '@/../public/assets/icon_arrow_act_right_large.png';
-import arrowInActLeft from '@/../public/assets/icon_arrow_inact_left_large.png';
-import arrowInActRight from '@/../public/assets/icon_arrow_inact_right_large.png';
 import type { PaginationProps } from '@/interfaces/paginationInterface';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function Pagination({ currentPage, totalPages, onPageChange, hasNext = false, type }: PaginationProps) {
   const maxPageNumbers = 5;
@@ -19,7 +17,16 @@ export default function Pagination({ currentPage, totalPages, onPageChange, hasN
       {type === 'default' ? (
         <>
           <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
-            <Image src={currentPage === 1 ? arrowInActLeft : arrowActLeft} alt="화살표" />
+            <Image
+              src={
+                currentPage === 1
+                  ? `${S3_BASE_URL}/icon_arrow_inact_left_large.svg`
+                  : `${S3_BASE_URL}/icon_arrow_act_left_large.svg`
+              }
+              alt="화살표"
+              width={40}
+              height={40}
+            />
           </button>
           <div className="flex gap-[0.6rem]">
             {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
@@ -33,17 +40,44 @@ export default function Pagination({ currentPage, totalPages, onPageChange, hasN
             ))}
           </div>
           <button onClick={() => onPageChange(currentPage + 1)} disabled={!hasNext || currentPage === totalPages}>
-            <Image src={!hasNext || currentPage === totalPages ? arrowInActRight : arrowActRight} alt="화살표" />
+            <Image
+              src={
+                !hasNext || currentPage === totalPages
+                  ? `${S3_BASE_URL}/icon_arrow_inact_right_large.svg`
+                  : `${S3_BASE_URL}/icon_arrow_act_right_large.svg`
+              }
+              alt="화살표"
+              width={40}
+              height={40}
+            />
           </button>
         </>
       ) : type === 'small' ? (
         <div className="flex items-center w-[9.7rem] justify-between">
           <div className="flex items-center">
             <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
-              <Image src={currentPage === 1 ? arrowInActLeft : arrowActLeft} alt="화살표" />
+              <Image
+                src={
+                  currentPage === 1
+                    ? `${S3_BASE_URL}/icon_arrow_inact_left_large.svg`
+                    : `${S3_BASE_URL}/icon_arrow_act_left_large.svg`
+                }
+                alt="화살표"
+                width={40}
+                height={40}
+              />
             </button>
             <button onClick={() => onPageChange(currentPage + 1)} disabled={!hasNext || currentPage === totalPages}>
-              <Image src={!hasNext || currentPage === totalPages ? arrowInActRight : arrowActRight} alt="화살표" />
+              <Image
+                src={
+                  !hasNext || currentPage === totalPages
+                    ? `${S3_BASE_URL}/icon_arrow_inact_right_large.svg`
+                    : `${S3_BASE_URL}/icon_arrow_act_right_large.svg`
+                }
+                alt="화살표"
+                width={40}
+                height={40}
+              />
             </button>
           </div>
           <div className="flex gap-[0.4rem] items-center">
@@ -56,10 +90,28 @@ export default function Pagination({ currentPage, totalPages, onPageChange, hasN
         <div>
           <div className="flex items-center">
             <button onClick={() => onPageChange(currentPage + 1)} disabled={!hasNext || currentPage === totalPages}>
-              <Image src={!hasNext || currentPage === totalPages ? arrowInActLeft : arrowActLeft} alt="화살표" />
+              <Image
+                src={
+                  !hasNext || currentPage === totalPages
+                    ? `${S3_BASE_URL}/icon_arrow_inact_left_large.svg`
+                    : `${S3_BASE_URL}/icon_arrow_act_left_large.svg`
+                }
+                alt="화살표"
+                width={40}
+                height={40}
+              />
             </button>
             <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
-              <Image src={currentPage === 1 ? arrowInActRight : arrowActRight} alt="화살표" />
+              <Image
+                src={
+                  currentPage === 1
+                    ? `${S3_BASE_URL}/icon_arrow_inact_right_large.svg`
+                    : `${S3_BASE_URL}/icon_arrow_act_right_large.svg`
+                }
+                alt="화살표"
+                width={40}
+                height={40}
+              />
             </button>
           </div>
         </div>

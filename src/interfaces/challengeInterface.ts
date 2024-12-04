@@ -101,3 +101,9 @@ export interface MyParticipateDataDetail {
   createdAt: string;
   status: 'finished' | 'onGoing';
 }
+
+export interface ChallengeApplyDropdownProps {
+  setSelectedOption: (option: string) => void;
+  selectedOption: string;
+  setTypeError: (error: boolean) => void;
+}

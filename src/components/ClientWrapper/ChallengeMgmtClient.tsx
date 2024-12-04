@@ -4,13 +4,14 @@ import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-quer
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchChallengeApplication } from '@/api/challengeService';
 import FilterBar from '@/components/FilterBar/FilterBar';
 import type { ChallengeApplicationClientProps } from '@/interfaces/bodyInterface';
 import useStore from '@/store/store';
 import ChallengeApplicationBody from '../Body/ChallengeApplicationBody';
 import Pagination from '../Pagination/Pagination';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeMgmtClient() {
   const router = useRouter();
@@ -66,7 +67,7 @@ export default function ChallengeMgmtClient() {
   if (isLoading) {
     return (
       <div className="flex w-full justify-center items-center min-h-screen">
-        <Image src={loading} alt="loading" />
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />
       </div>
     );
   }

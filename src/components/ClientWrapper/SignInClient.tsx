@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signIn } from '@/api/signService';
 import useStore from '@/store/store';
 import SignInput from '../Input/SignInput';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -48,9 +49,11 @@ export default function SignIn() {
       <div className="md:w-[51.8rem] sm:w-[34.3rem]">
         <div className="flex justify-center">
           <Image
-            src={logoImg}
+            src={`${S3_BASE_URL}/img_logo_pc.svg`}
             alt="로고 이미지"
             priority
+            width={335}
+            height={67}
             className="block md:w-[37.5rem] sm:w-3/4 md:mt-[12.7rem] sm:mt-[8.65rem] mb-[4rem]"
           />
         </div>
