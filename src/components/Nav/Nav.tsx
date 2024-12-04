@@ -108,12 +108,24 @@ export default function Nav() {
                 )}
               </div>
             </div>
-            <div className="flex md:gap-[1.6rem] sm:gap-[1rem] items-center justify-center cursor-pointer">
-              <Image src={translate} alt="번역" onClick={() => setIsModalOpen(true)} width={24} height={24} />
+            <div className="flex md:gap-[1.6rem] sm:gap-[1rem] items-center justify-center">
+              <Image
+                src={translate}
+                alt="번역"
+                onClick={() => setIsModalOpen(true)}
+                width={24}
+                height={24}
+                className="cursor-pointer"
+              />
               {userStatus === 'normal' ? (
                 <>
                   <div className="relative">
-                    <Image src={bell} alt="벨" onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)} />
+                    <Image
+                      src={bell}
+                      alt="벨"
+                      onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
+                      className="cursor-pointer"
+                    />
                     {/* 빨간 색 점 표시 */}
                     {/* {unreadNotificationCount > 0 && (
                       <span className="absolute right-0 top-0 w-[0.8rem] h-[0.8rem] bg-red-500 rounded-full"></span>
