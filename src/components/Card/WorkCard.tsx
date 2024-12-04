@@ -142,7 +142,6 @@ export default function WorkCard({ data, user }: WorkDataProps) {
     }
     setLiked(prevLiked => !prevLiked);
   };
-  console.log(data);
 
   return (
     <div
