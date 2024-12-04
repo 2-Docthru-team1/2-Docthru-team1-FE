@@ -1,7 +1,6 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import food from '@/../public/temporaryAssets/Food.svg';
 import { getFeedbackList } from '@/api/workService';
 import type { ChallengeMostLikedCardProps, ChallengeMostLikedCardWorksProps } from '@/interfaces/cardInterface';
 
