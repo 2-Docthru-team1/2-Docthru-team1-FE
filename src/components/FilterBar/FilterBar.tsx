@@ -2,13 +2,12 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import filter from '@/../public/assets/ic_filter.png';
-import activeFilter from '@/../public/assets/icon_filter_active.png';
-import search from '@/../public/assets/icon_search.png';
 import type { ChallengeOption, FilterBarProps, Option } from '@/interfaces/filterBarInterface';
 import useStore from '@/store/store';
 import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdown';
 import Dropdown from '../Dropdown/Dropdown';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 const filterBarWidths = {
   challenge: 'lg:w-[69.6rem]',
@@ -153,12 +152,18 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
           >
             {getSelectedSortLabel()}
           </p>
-          <Image src={isFilterApplied ? activeFilter : filter} alt="깔때기" width={16} height={16} layout="fixed" />
+          <Image
+            src={isFilterApplied ? `${S3_BASE_URL}/icon_filter_active.svg` : `${S3_BASE_URL}/ic_filter.svg`}
+            alt="깔때기"
+            width={16}
+            height={16}
+            layout="fixed"
+          />
         </div>
         <div
           className={`h-full border border-gray-200 rounded-[2rem] flex items-center gap-[0.4rem] p-[0.4rem] bg-primary-white ${searchBarType}`}
         >
-          <Image src={search} alt="돋보기" />
+          <Image src={`${S3_BASE_URL}/icon_search.svg`} alt="돋보기" width={24} height={24} />
           <input
             className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 placeholder:text-gray-400 flex items-center w-full focus:outline-none"
             placeholder="Search recipe"
