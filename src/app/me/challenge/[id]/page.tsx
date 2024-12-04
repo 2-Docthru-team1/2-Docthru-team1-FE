@@ -19,6 +19,13 @@ export default function AdminChallengeDetailClient() {
   const [currentData, setCurrentData] = useState<ChallengeApplicationDetailHeaderData | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      router.push('/');
+    }
+  }, []);
+
   const itemsPerPage = 1;
   const totalPages =
     currentData && typeof currentData.number === 'number' ? Math.max(1, Math.ceil(challengeMgmtTotalCount / itemsPerPage)) : 1;

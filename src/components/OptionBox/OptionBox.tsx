@@ -5,9 +5,7 @@ import { useEffect, useState } from 'react';
 import clock from '@/../public/assets/icon_deadline_clock_large.png';
 import type { OptionBoxProps } from '@/interfaces/optionboxInterface';
 
-// TODO: 추후 button Link는 수정 예정입니다.
-
-export default function OptionBox({ type, id, date }: OptionBoxProps) {
+export default function OptionBox({ type, id, date, url }: OptionBoxProps) {
   const [buttonText, setButtonText] = useState('Participate Challenge');
   const isFinished = type === 'finished';
   const bgColor = type === 'finished' ? 'bg-gray-200' : 'bg-primary-beige';
@@ -47,7 +45,7 @@ export default function OptionBox({ type, id, date }: OptionBoxProps) {
           <p className="font-normal text-[1.3rem] leading-[1.551rem] text-gray-600">Closing on {formatDate(date)}</p>
         </div>
         <div className="flex md:flex-col items-center gap-[0.8rem] md:w-[25.3rem] sm: w-[31rem]">
-          <Link href="https://www.example.com" className="w-full">
+          <Link href={url} target="_blank" rel="noopener noreferrer" className="w-full">
             <button className="rounded-[0.8rem] bg-primary-blue w-full h-[4rem] font-bold text-[1.4rem] leading-[2.6rem] text-primary-white">
               See Content
             </button>
