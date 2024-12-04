@@ -2,12 +2,11 @@
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
-import plus from '@/../public/assets/icon_add_photo_plus.png';
-import close from '@/../public/assets/icon_out_circle_small.png';
+import React, { useRef } from 'react';
 import type { ChallengeBodyProps } from '@/interfaces/challengeInterface';
 import 'react-quill-new/dist/quill.snow.css';
 
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function ChallengeBody({
@@ -92,7 +91,7 @@ export default function ChallengeBody({
                   className="w-full h-full object-cover"
                 />
                 <Image
-                  src={close}
+                  src={`${S3_BASE_URL}/icon_out_circle_small.svg`}
                   alt="엑스"
                   onClick={() => handleRemoveImage(index)}
                   className="mt-[0.7rem] mr-[0.7rem] absolute top-0 right-0 cursor-pointer"
@@ -104,7 +103,7 @@ export default function ChallengeBody({
                 className="w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center cursor-pointer bg-primary-white rounded-[0.5rem]"
                 onClick={handleImageClick}
               >
-                <Image src={plus} alt="더하기" width={40} height={40} />
+                <Image src={`${S3_BASE_URL}/icon_add_photo_plus.svg`} alt="더하기" width={40} height={40} />
               </div>
             )}
           </div>

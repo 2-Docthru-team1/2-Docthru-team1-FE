@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import door from '@/../public/assets/icon_red_door.png';
 import type { ChallengeHeaderProps } from '@/interfaces/challengeInterface';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeHeader({ onSubmit, isCardClicked }: ChallengeHeaderProps) {
   const { id } = useParams();
@@ -25,7 +26,7 @@ export default function ChallengeHeader({ onSubmit, isCardClicked }: ChallengeHe
             onClick={handleQuit}
           >
             <span className="hidden md:inline">Quit</span>
-            <Image src={door} alt="문" />
+            <Image src={`${S3_BASE_URL}/icon_red_door.svg`} alt="문" />
           </button>
           <button className="lg:w-[9rem] md:w-[9rem] sm:w-[8rem] rounded-[0.8rem] border border-gray-700 py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] leading-[1.909rem]">
             Save
