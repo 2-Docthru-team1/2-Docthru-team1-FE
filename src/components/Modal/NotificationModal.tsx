@@ -15,12 +15,12 @@ export default function ProfileModal({ notifications }: NotificationModalProps) 
 
   return (
     <div className="w-full h-full">
-      <div className="w-[34.3rem] h-[51.9rem] bg-primary-white rounded-[0.8rem] border-2 border-gray-200 flex flex-col">
+      <div className="md:w-[34.3rem] sm:w-[27rem] md:h-[51.9rem] sm:h-[35rem] bg-primary-white rounded-[0.8rem] border-2 border-gray-200 flex flex-col">
         <div className="flex justify-between p-[1.6rem] ">
           <p className="text-gray-700 font-semibold text-[1.6rem]">Notification</p>
           <Image src={closeImg} alt="close" width={24} height={24} />
         </div>
-        <div className="flex flex-col overflow-y-auto h-[45.5rem]">
+        <div className="flex flex-col overflow-y-auto md:h-[45.5rem] sm:h-[23.6rem]">
           {notifications.map((data, index) => (
             <div key={index}>
               <div className="flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem]">

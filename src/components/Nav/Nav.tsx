@@ -10,6 +10,7 @@ import adminProfile from '@/../public/assets/img_profile_admin.png';
 import userProfile from '@/../public/assets/img_profile_member.png';
 import useStore from '@/store/store';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
+import NotificationModal from '../Modal/NotificationModal';
 import ProfileModal from '../Modal/ProfileModal';
 
 export default function Nav() {
@@ -22,9 +23,15 @@ export default function Nav() {
   const isMgmt = pathname.startsWith('/auth');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   const { name, role } = useStore();
+
+  const notifications = [
+    { content: '새로운 알림입니다.', time: '2024-12-04 10:30:00' },
+    { content: '업데이트가 완료되었습니다.', time: '2024-12-04 09:45:00' }
+  ];
 
   return (
     <div className="w-full h-full flex justify-center">
@@ -76,7 +83,16 @@ export default function Nav() {
               <Image src={translate} alt="번역" onClick={() => setIsModalOpen(true)} width={24} height={24} />
               {userStatus === 'normal' ? (
                 <>
-                  <Image src={bell} alt="벨" />
+                  <div className="relative">
+                    <Image src={bell} alt="벨" onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)} />
+                    {isNotificationModalOpen && (
+                      <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
+                        {/* socket 연결해서 데이터 받기 notifications={notifications} */}
+                        {/* 닫기 버튼 onClose={() => setIsModalOpen(false)} */}
+                        <NotificationModal notifications={notifications} />
+                      </div>
+                    )}
+                  </div>
                   <div className="relative">
                     <Image
                       src={userProfile}
