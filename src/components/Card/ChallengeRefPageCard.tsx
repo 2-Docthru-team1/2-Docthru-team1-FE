@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import click from '@/../public/assets/icon_click.png';
 import close from '@/../public/assets/icon_out_circle_large.png';
 import ref from '@/../public/assets/icon_ref.png';
@@ -11,6 +11,33 @@ import type { ChallengeRefPageCardProps } from '@/interfaces/ChallengeRefInterfa
 export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardProps) {
   const [showLinkButton, setShowLinkButton] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
+  const [isPcScreen, setIsPcScreen] = useState<boolean>(false);
+  const [isTabletScreen, setIsTabletScreen] = useState<boolean>(false);
+  const [isMobileScreen, setIsMobileScreen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const updatePcScreenSize = () => {
+      setIsPcScreen(window.innerWidth >= 1200);
+    };
+    const updateTabletScreenSize = () => {
+      setIsTabletScreen(window.innerWidth < 1200);
+    };
+    const updateMobileScreenSize = () => {
+      setIsMobileScreen(window.innerWidth < 744);
+    };
+    updatePcScreenSize();
+    updateTabletScreenSize();
+    updateMobileScreenSize();
+    window.addEventListener('pcResize', updatePcScreenSize);
+    window.addEventListener('tabletResize', updateTabletScreenSize);
+    window.addEventListener('mobileResize', updateMobileScreenSize);
+    return () => {
+      window.removeEventListener('pcResize', updatePcScreenSize);
+      window.removeEventListener('tabletResize', updateTabletScreenSize);
+      window.removeEventListener('mobileResize', updateMobileScreenSize);
+    };
+  }, []);
+  const [processedUrl, setProcessedUrl] = useState<string>('');
 
   const handleRefButtonClick = useCallback(() => {
     setShowLinkButton(true);
@@ -26,11 +53,22 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
     setShowIframe(true);
   }, []);
 
+  useEffect(() => {
+    if (embedUrl) {
+      if (embedUrl.includes('youtube.com/watch?v=')) {
+        const videoId = embedUrl.split('v=')[1]?.split('&')[0];
+        setProcessedUrl(`https://www.youtube.com/embed/${videoId}`);
+      } else {
+        setProcessedUrl(embedUrl);
+      }
+    }
+  }, [embedUrl]);
+
   return (
-    <div className="relative w-full h-full rounded-lg overflow-hidden flex justify-end items-start">
+    <div className="relative lg:w-full md:w-[31.4rem] lg:h-[60rem] md:h-[65rem] sm:w-full sm:h-[36rem] rounded-lg overflow-hidden flex justify-end items-start">
       {!showLinkButton ? (
         <div
-          className="mt-[7.6rem] w-[5.2rem] h-[9.9rem] flex items-center justify-center rounded-tl-[2.4rem] rounded-bl-[2.4rem] border-2 border-gray-100 bg-primary-white"
+          className="mt-[7.6rem] lg:w-[5.2rem] lg:h-[9.9rem] md:w-[6.9rem] md:h-[5.2rem] sm:w-[6.9rem] sm:h-[5.2rem]  flex items-center justify-center rounded-tl-[2.4rem] rounded-bl-[2.4rem] border-2 border-gray-100 bg-primary-white"
           style={{ boxShadow: '0 4px 4px 4px #585C820D' }}
         >
           <button
@@ -42,11 +80,11 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           </button>
         </div>
       ) : (
-        <div className="flex w-[60.8rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
+        <div className="flex lg:w-[36.8rem] md:w-[30rem] sm:w-[36rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
           <Image src={close} alt="닫기" onClick={handleRefCloseButtonClick} className="cursor-pointer" />
-          <Link href={embedUrl}>
+          <Link href={processedUrl} target="_blank" rel="noopener noreferrer">
             <button
-              className="flex items-center font-bold text-[1.4rem] leading-[2.6rem] text-gray-700"
+              className="flex items-center font-bold text-[1.4rem] leading-[2.6rem] text-gray-700 whitespace-nowrap"
               onClick={handleLinkButtonClick}
             >
               Open Link
@@ -55,7 +93,25 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           </Link>
         </div>
       )}
-      {showIframe && <iframe src={embedUrl} title="Embedded Content" width={640} height="100%" allowFullScreen />}
+      {showIframe &&
+        (processedUrl.includes('youtube.com') ? (
+          <iframe
+            src={processedUrl}
+            title="Embedded Content"
+            width={isMobileScreen ? 640 : isTabletScreen ? 314 : isPcScreen ? 400 : 0}
+            height="100%"
+            allowFullScreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          />
+        ) : (
+          <iframe
+            src={processedUrl}
+            title="Embedded Content"
+            width={isMobileScreen ? 640 : isTabletScreen ? 314 : isPcScreen ? 400 : 0}
+            height="100%"
+            allowFullScreen
+          />
+        ))}
     </div>
   );
 }

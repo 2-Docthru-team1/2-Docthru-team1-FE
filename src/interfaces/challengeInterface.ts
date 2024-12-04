@@ -51,6 +51,21 @@ export interface requestUser {
   name: string;
 }
 
+export interface ChallengeHeaderProps {
+  onSubmit: () => void;
+  isCardClicked: boolean;
+}
+
+export interface ChallengeBodyProps {
+  title: string;
+  setTitle: (value: string) => void;
+  content: string;
+  setContent: (value: string) => void;
+  images: File[];
+  setImages: React.Dispatch<React.SetStateAction<File[]>>;
+  isCardClicked: boolean;
+}
+
 export interface MyRequestData {
   totalCount: number;
   list: MyRequestDataDetail[];

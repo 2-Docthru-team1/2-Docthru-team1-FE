@@ -134,6 +134,7 @@ export interface ChallengeDetailContentCardData {
   deadline: string;
   imageUrl: string;
   imageUrl2: string;
+  embedUrl: string;
 }
 
 export interface requestUserData {

@@ -132,6 +132,21 @@ export const fetchAdminChallengeDetailNext = async (id: string) => {
   }
 };
 
+export const fetchRegisterWork = async (id: string, title: string, content: string, imageCount: number) => {
+  const requestBody = {
+    title: title,
+    content: content,
+    imageCount: imageCount
+  };
+
+  try {
+    const response = await postRequest(`/challenges/${id}/works`, requestBody);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to patch work');
+  }
+};
+
 export const fetchMyOngoingChallenge = async (page: number, pageSize: number, keyword?: string) => {
   const params = {
     page: page,
