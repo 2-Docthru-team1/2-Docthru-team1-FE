@@ -51,10 +51,9 @@ instance.interceptors.response.use(
         });
 
         const response = await refreshInstance.post('/auth/refresh');
-        const { accessToken, refreshToken: newRefreshToken } = response.data;
+        const { accessToken } = response.data;
 
         localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', newRefreshToken);
         request.headers.Authorization = `Bearer ${accessToken}`;
         return instance(request);
       } catch (refreshError) {
