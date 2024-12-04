@@ -1,15 +1,15 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import AdminProfile from '@/../public/assets/img_profile_admin.png';
-import MemProfile from '@/../public/assets/img_profile_member.png';
 import type { ProfileModalProps } from '@/interfaces/userInterface';
 import useStore from '@/store/store';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ProfileModal({ name, role }: ProfileModalProps) {
   const router = useRouter();
 
   const isMem = role === 'normal' ? true : false;
-  const profileImg = role === 'normal' ? MemProfile : AdminProfile;
+  const profileImg = role === 'normal' ? `${S3_BASE_URL}/img_profile_member.svg` : `${S3_BASE_URL}/img_profile_admin.svg`;
   const userRole = role === 'normal' ? 'Koo-koo' : 'Admin';
 
   const handleSignOut = () => {
