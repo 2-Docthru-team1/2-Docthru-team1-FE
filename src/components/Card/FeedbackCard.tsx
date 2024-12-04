@@ -94,7 +94,7 @@ export default function FeedbackCard({
     >
       <div className="flex flex-col  lg:w-full md:w-full sm:w-full">
         <ul
-          className="flex-col flex items-center
+          className="flex-col flex items-center list-none
         md:w-full
         sm:w-full"
         >
@@ -120,7 +120,7 @@ export default function FeedbackCard({
                   <div className="flex justify-between items-center gap-[3rem] mb-[1.2rem]">
                     <div className="flex gap-[1rem] items-center">
                       <div className="w-[3.2rem] h-[3.2rem] relative">
-                        <Image src={userImg} alt="유저 이미지" layout="fill" />
+                        <Image src={userImg} alt="유저 이미지" fill />
                       </div>
                       <div>
                         <p className="text-[1.4rem] font-medium text-gray-800">{comment.owner.name}</p>

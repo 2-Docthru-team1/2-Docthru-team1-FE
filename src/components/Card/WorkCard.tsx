@@ -189,9 +189,9 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         sm:gap-[0.5rem]"
         >
           {data.owner.role === 'admin' ? (
-            <Image src={admin} alt="어드민 이미지" width={24} height={24} priority />
+            <Image src={admin} alt="어드민 이미지" width={24} height={24} />
           ) : (
-            <Image src={member} alt="유저이미지" width={24} height={24} priority />
+            <Image src={member} alt="유저이미지" width={24} height={24} />
           )}
           <p className="text-[1.4rem] font-medium text-gray-800">{data.owner.name}</p>
           <p
@@ -207,7 +207,6 @@ export default function WorkCard({ data, user }: WorkDataProps) {
             alt={liked ? '활성 하트' : '비활성 하트'}
             width={24}
             height={24}
-            priority
             onClick={toggleLike}
             className="cursor-pointer"
           />
