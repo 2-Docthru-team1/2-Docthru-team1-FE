@@ -85,7 +85,7 @@ export default function Nav() {
                       className="cursor-pointer"
                     />
                     {isProfileModalOpen && (
-                      <div className="z-[15] absolute right-0 top-full mt-[0.8rem]">
+                      <div className="z-[30] absolute right-0 top-full mt-[0.8rem]">
                         <ProfileModal name={name ?? 'Unknown'} role={role ?? 'normal'} />
                       </div>
                     )}
@@ -102,7 +102,7 @@ export default function Nav() {
                     className="cursor-pointer"
                   />
                   {isProfileModalOpen && (
-                    <div className="z-[15] absolute right-0 top-full mt-[0.8rem]">
+                    <div className="z-[30] absolute right-0 top-full mt-[0.8rem]">
                       <ProfileModal name={name ?? 'Unknown'} role={role ?? 'admin'} />
                     </div>
                   )}

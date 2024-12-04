@@ -25,7 +25,8 @@ Default.args = {
     },
     deadline: '2024-12-31T23:59:59.000Z',
     imageUrl: 'https://example.com/image1.jpg',
-    imageUrl2: 'https://example.com/image2.jpg'
+    imageUrl2: 'https://example.com/image2.jpg',
+    embedUrl: 'https://youtube.com/embed/sample-video'
   }
 };
 
@@ -43,6 +44,7 @@ WithDifferentType.args = {
     },
     deadline: '2024-11-30T23:59:59.000Z',
     imageUrl: 'https://example.com/image3.jpg',
-    imageUrl2: 'https://example.com/image4.jpg'
+    imageUrl2: 'https://example.com/image4.jpg',
+    embedUrl: 'https://example.com/embedded-content'
   }
 };
