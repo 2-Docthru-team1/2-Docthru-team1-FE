@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import close from '@/../public/assets/icon_close.png';
 import type { ClosableModalProps } from '@/interfaces/modalInterface';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;

@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
-import closeImg from '@/../public/assets/icon_close.png';
 import type { NotificationModalProps } from '@/interfaces/modalInterface';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
