@@ -95,7 +95,7 @@ export default function SignUpClient() {
       <div className="flex justify-center w-[33.5rem] h-[6.7rem] sm:px-[4.6rem] sm:w-[25rem] sm:h-[5rem] relative lg:mt-0 md:mt-[12rem] sm:mt-[9.9rem]">
         <Image src={`${S3_BASE_URL}/img_logo_pc.svg`} alt="로고 이미지" className="mt-[5rem]" fill priority />
       </div>
-      <div className="flex justify-center mt-[8rem] relative sm:px-[1.6rem] sm:w-full md:px-[10rem] md:w-full">
+      <div className="flex justify-center mt-[8rem] relative lg:w-full lg:px-0 sm:px-[1.6rem] sm:w-full md:px-[10rem] md:w-full">
         <form className="w-full flex flex-col items-center justify-center sm:px-[0.1rem]" onSubmit={handleSubmit}>
           <SignInput
             type="email"
@@ -108,7 +108,9 @@ export default function SignUpClient() {
             required
           />
           {touched.email && errors.email && (
-            <span className="text-error-red text-[1.2rem] font-normal absolute top-[7.3rem] pl-[1.2rem] ">{errors.email}</span>
+            <span className="text-error-red text-[1.2rem] font-normal absolute top-[7.3rem] lg:pl-[1.2rem] md:pl-[1.2rem] lg:w-[51.8rem] md:max-w-[51.8rem] md:w-full sm:w-full sm:max-w-[51.8rem] sm:px-[1.8rem]">
+              {errors.email}
+            </span>
           )}
           <SignInput
             type="text"
@@ -121,7 +123,9 @@ export default function SignUpClient() {
             required
           />
           {touched.name && errors.name && (
-            <span className="text-error-red text-[1.2rem] font-normal absolute top-[16.9rem] pl-[1.2rem] ">{errors.name}</span>
+            <span className="text-error-red text-[1.2rem] font-normal absolute top-[16.9rem] lg:pl-[1.2rem] md:pl-[1.2rem] lg:w-[51.8rem] md:max-w-[51.8rem] md:w-full sm:w-full sm:max-w-[51.8rem] sm:px-[1.8rem]">
+              {errors.name}
+            </span>
           )}
           <SignInput
             type="password"
@@ -134,7 +138,7 @@ export default function SignUpClient() {
             required
           />
           {touched.password && errors.password && (
-            <span className="text-error-red text-[1.2rem] font-normal absolute top-[26.3rem] pl-[1.2rem] ">
+            <span className="text-error-red text-[1.2rem] font-normal absolute top-[26.3rem] lg:pl-[1.2rem] md:pl-[1.2rem] lg:w-[51.8rem] md:max-w-[51.8rem] md:w-full sm:w-full sm:max-w-[51.8rem] sm:px-[1.8rem]">
               {errors.password}
             </span>
           )}
@@ -149,14 +153,14 @@ export default function SignUpClient() {
             required
           />
           {touched.passwordConfirmation && errors.passwordConfirmation && (
-            <span className="text-error-red text-[1.2rem] font-normal absolute top-[36rem] pl-[1.2rem] ">
+            <span className="text-error-red text-[1.2rem] font-normal absolute top-[36rem] lg:pl-[1.2rem] md:pl-[1.2rem] lg:w-[51.8rem] md:max-w-[51.8rem] md:w-full sm:w-full sm:max-w-[51.8rem] sm:px-[1.8rem]">
               {errors.passwordConfirmation}
             </span>
           )}
           <button
             type="submit"
             disabled={!isFormValid || isLoading}
-            className={`lg:w-[51.8rem] md:w-[51.8rem] h-[4.8rem] rounded-[0.8rem] border-none text-[1.6rem] font-semibold text-primary-white sm:w-full sm:max-w-[51.8rem] ${isFormValid ? 'bg-primary-beige cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}
+            className={`lg:w-[51.8rem] lg:mt-[1rem] md:w-[51.8rem] h-[4.8rem] rounded-[0.8rem] border-none text-[1.6rem] font-semibold text-primary-white sm:w-full sm:max-w-[51.8rem] ${isFormValid ? 'bg-primary-beige cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}
           >
             Sign up
           </button>

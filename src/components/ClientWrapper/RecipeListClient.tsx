@@ -132,7 +132,7 @@ export default function RecipeListClient({ adminchallengeData }: AdminListClient
         </div>
         <div className="flex flex-col gap-[1.6rem] justify-center items-center w-full">
           <div
-            className="flex z-[1000] w-full
+            className="flex z-[20] w-full
           lg:flex-row lg:justify-between lg:items-center 
           md:flex-col
           sm:flex-col "
