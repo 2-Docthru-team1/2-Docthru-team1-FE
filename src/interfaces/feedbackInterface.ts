@@ -12,7 +12,8 @@ export interface FeedbackData {
 
 export interface FeedbackCardProps {
   comments: FeedbackData[];
-  user: UserData;
+  userId: string | null;
+  userRole: 'admin' | 'normal' | null;
 }
 
 export interface FeedbackResponse {

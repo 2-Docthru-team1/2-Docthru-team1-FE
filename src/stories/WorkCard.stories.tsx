@@ -12,20 +12,14 @@ const data = {
   images: [{ imageUrl: '/temporaryAssets/food.svg' }],
   content: 'I did it for like one hour!! Look at thissss! I finally made it!',
   owner: { id: 'u123', name: 'Named', role: 'koo-koo' },
-  likeUsers: { id: 'user1' }
-};
-
-const user = {
-  id: 'u123',
-  role: 'normal' as 'normal'
+  workLikes: [{ userId: 'user1' }]
 };
 
 export default {
   title: 'Components/WorkCard',
   component: WorkCard,
   args: {
-    data,
-    user
+    data
   },
   parameters: {
     layout: 'centered'
@@ -36,5 +30,6 @@ const Template: StoryFn<WorkDataProps> = args => <WorkCard {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   data,
-  user
+  userId: 'u123',
+  userRole: 'normal'
 };

@@ -15,7 +15,7 @@ import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
-export default function WorkCard({ data, user }: WorkDataProps) {
+export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
   if (!data) return null;
   const router = useRouter();
 
@@ -30,11 +30,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
-  const [liked, setLiked] = useState(
-    Array.isArray(data.likeUsers)
-      ? data.likeUsers.some((likeUser: { id: string }) => likeUser.id === user.id)
-      : data.likeUsers.id === user.id
-  );
+  const [liked, setLiked] = useState(data.workLikes.some(likeUser => likeUser.userId === userId));
 
   const openImg = () => setIsImageOpen(true);
   const closeImg = () => setIsImageOpen(false);
@@ -90,7 +86,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           queryClient.setQueryData(['work', workId], (oldData: any) => ({
             ...oldData,
             likeCount: oldData.likeCount + 1,
-            likeUsers: [...oldData.likeUsers, { id: user.id }]
+            likeUsers: [...oldData.likeUsers, { id: userId }]
           }));
           return { previousWork };
         },
@@ -112,7 +108,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           queryClient.setQueryData(['work', workId], (oldData: any) => ({
             ...oldData,
             likeCount: oldData.likeCount - 1,
-            likeUsers: oldData.likeUsers.filter((data: any) => data.id !== user.id)
+            likeUsers: oldData.likeUsers.filter((data: any) => data.id !== userId)
           }));
 
           return { previousWork };
@@ -160,7 +156,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         >
           {data.title}
         </p>
-        {(user?.id === data?.owner?.id || user.role === 'admin') && (
+        {(userId === data?.owner?.id || userRole === 'admin') && (
           <div className="relative">
             <Image
               src={`${S3_BASE_URL}/icon_kebab.svg`}
@@ -169,7 +165,6 @@ export default function WorkCard({ data, user }: WorkDataProps) {
               className="cursor-pointer"
               width={24}
               height={24}
-              priority
             />
             <div onClick={handleCancelClick} className="absolute right-[0] top-[4.4rem]">
               {isDropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
@@ -224,16 +219,16 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         md:w-[47.6rem] md:h-[47.9rem]
         sm:w-[30rem] sm:h-[30rem] "
         >
-          <div className="flex">
-            <Image
-              src={data.images.length === 1 ? data.images[0].imageUrl : data.images[currentOrder].imageUrl}
-              alt="작업물 이미지"
-              fill
-              className="object-cover"
-              onClick={openImg}
-              priority
-            />
-          </div>
+          <Image
+            src={data.images.length === 1 ? data.images[0].imageUrl : data.images[currentOrder].imageUrl}
+            alt="작업물 이미지"
+            fill
+            sizes="(max-width: 744px) 30rem, (max-width: 1200px) 47.6rem"
+            className="object-cover"
+            onClick={openImg}
+            priority
+            placeholder="blur"
+          />
         </div>
         {data.images.length > 1 ? (
           <div className="flex items-center lg:h-[47.9rem]">

@@ -14,7 +14,8 @@ import CancelDropdown from '../Dropdown/CancelDropdown';
 
 export default function FeedbackCard({
   comments,
-  user,
+  userId,
+  userRole,
   fetchNextPage,
   hasNextPage,
   isFetchingNextPage
@@ -159,7 +160,7 @@ export default function FeedbackCard({
                         </button>
                       </div>
                     )}
-                    {(user.id === comment.ownerId || user.role === 'admin') &&
+                    {(userId === comment.ownerId || userRole === 'admin') &&
                       editingCommentId !== comment.id &&
                       deletingCommentId !== comment.id && (
                         <div className="flex-col relative">
@@ -174,7 +175,7 @@ export default function FeedbackCard({
                           <div className="absolute right-0">
                             {openDropdownId === comment.id && (
                               <>
-                                {user.role !== 'admin' && (
+                                {userRole !== 'admin' && (
                                   <div onClick={() => handleEditClick(comment)}>
                                     <CancelDropdown onCancel={() => handleEditClick(comment)}>Edit</CancelDropdown>
                                   </div>

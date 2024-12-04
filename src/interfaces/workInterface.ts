@@ -13,14 +13,13 @@ export interface WorkDetailData {
     name: string;
     role: string;
   };
-  likeUsers: {
-    id: string;
-  };
+  workLikes: { userId: string }[];
 }
 
 export interface WorkDataProps {
   data: WorkDetailData | null;
-  user: UserData;
+  userId: string | null;
+  userRole: 'admin' | 'normal' | null;
 }
 
 export interface WorkInputProps {
