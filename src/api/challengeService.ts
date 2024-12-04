@@ -10,10 +10,9 @@ export const fetchChallenge = async (page: number, pageSize: number, queryParams
   }
 };
 
-export const fetchRanker = async () => {
+export const fetchRanker = async (queryParams: string = '') => {
   try {
-    const response = await getRequest('http://localhost:3000/rankerMockData.json');
-    // const response = await getRequest('https://2-docthru-team1-n10tvnaef-team1-hancook.vercel.app/rankerMockData.json');
+    const response = await getRequest(`/users/top-like/${queryParams}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get ranker');

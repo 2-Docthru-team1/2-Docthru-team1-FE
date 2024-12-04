@@ -42,20 +42,20 @@ export default function Nav() {
   // ];
 
   const [notificationsFinished, setNotificationsFinished] = useState<NotificationFinished[]>([]);
-  useEffect(() => {
-    const socket = io('http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com', {
-      auth: {
-        token: localStorage.getItem('accessToken')
-      }
-    });
-    socket.on('challengeStatusChangedFinished', notificationsFinished => {
-      setNotificationsFinished(prevNotifications => [...prevNotifications, notificationsFinished]);
-    });
+  // useEffect(() => {
+  //   const socket = io('http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com', {
+  //     auth: {
+  //       token: localStorage.getItem('accessToken')
+  //     }
+  //   });
+  //   socket.on('challengeStatusChangedFinished', notificationsFinished => {
+  //     setNotificationsFinished(prevNotifications => [...prevNotifications, notificationsFinished]);
+  //   });
 
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   useEffect(() => {
     setIsNotificationModalOpen(false);
