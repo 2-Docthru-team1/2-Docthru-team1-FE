@@ -44,7 +44,7 @@ instance.interceptors.response.use(
         if (!refreshToken) throw new Error('Not refreshToken');
 
         const refreshInstance = axios.create({
-          baseURL: `&{BASE_URL}`,
+          baseURL: `${BASE_URL}`,
           headers: {
             Authorization: `Bearer ${refreshToken}`
           }
