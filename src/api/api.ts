@@ -1,4 +1,5 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios';
+import { access } from 'fs';
 import https from 'https';
 import useStore from '@/store/store';
 
@@ -37,20 +38,29 @@ instance.interceptors.response.use(
   async err => {
     const request = err.config;
     if (err.response?.status === 401 && !request._retry) {
-      const refreshInstance = axios.create({
-        baseURL: `${BASE_URL}`,
-        withCredentials: true
-      });
-
+      request._retry = true;
       try {
-        await refreshInstance.post('/auth/refresh', undefined);
-        request._retry = true;
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (!refreshToken) throw new Error('Not refreshToken');
+
+        const refreshInstance = axios.create({
+          baseURL: `&{BASE_URL}`,
+          headers: {
+            Authorization: `Bearer ${refreshToken}`
+          }
+        });
+
+        const response = await refreshInstance.post('/auth/refresh');
+        const { accessToken, refreshToken: newRefreshToken } = response.data;
+
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', newRefreshToken);
+        request.headers.Authorization = `Bearer ${accessToken}`;
         return instance(request);
       } catch (refreshError) {
-        console.log(refreshError);
-        // const { logout } = useStore.getState();
-        // logout();
-        // window.location.href = '/';
+        const { logout } = useStore.getState();
+        logout();
+        window.location.href = '/';
       }
     } else if (err.response?.status !== 401) {
       console.error(err);
