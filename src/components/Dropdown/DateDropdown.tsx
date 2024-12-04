@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import calendarIcon from '@/../public/assets/icon_calendar.png';
 import type { DateDropdownProps } from '@/interfaces/dropdownInterface';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;

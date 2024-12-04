@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import filter from '@/../public/assets/ic_filter.png';
 import useStore from '@/store/store';
 
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
+
 interface SortDropdownProps {
   type: string;
   sortOption: string;
@@ -53,7 +55,7 @@ export default function ChallengeApplicationDropdown({ type, sortOption, onSortS
           >
             {selectedUIOption}
           </p>
-          <Image src={filter} alt="Filter" />
+          <Image src={`${S3_BASE_URL}/ic_filter.svg`} alt="Filter" width={16} height={16} />
         </div>
       ) : null}
       {isDropdownOpen && (
