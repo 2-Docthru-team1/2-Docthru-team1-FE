@@ -67,7 +67,7 @@ export default function ChallengeMgmtClient() {
   if (isLoading) {
     return (
       <div className="flex w-full justify-center items-center min-h-screen">
-        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={20} height={20} />
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />
       </div>
     );
   }
