@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import bell from '@/../public/assets/icon_bell_default.png';
 import translate from '@/../public/assets/icon_translate.png';
 import logo from '@/../public/assets/img_logo_pc.png';
@@ -28,10 +28,16 @@ export default function Nav() {
 
   const { name, role } = useStore();
 
+  // TODO Socket 통신으로 데이터 받아오는 거 변경하기
   const notifications = [
-    { content: '새로운 알림입니다.', time: '2024-12-04 10:30:00' },
-    { content: '업데이트가 완료되었습니다.', time: '2024-12-04 09:45:00' }
+    { content: '새로운 알림입니다.', time: '2024-12-04T08:29:07.703Z' },
+    { content: '업데이트가 완료되었습니다.', time: '2024-12-04T06:39:07.703Z' }
   ];
+
+  useEffect(() => {
+    setIsNotificationModalOpen(false);
+    setIsProfileModalOpen(false);
+  }, [pathname]);
 
   return (
     <div className="w-full h-full flex justify-center">
@@ -87,7 +93,7 @@ export default function Nav() {
                     <Image src={bell} alt="벨" onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)} />
                     {isNotificationModalOpen && (
                       <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
-                        {/* socket 연결해서 데이터 받기 notifications={notifications} */}
+                        {/* socket 연결해서 데이터 받기*/}
                         <NotificationModal notifications={notifications} onClose={() => setIsNotificationModalOpen(false)} />
                       </div>
                     )}
