@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import pw_on from '@/../public/assets/icon_ps_vis_on.png';
-import pw_off from '@/../public/assets/icon_pw_vis_off.png';
 import type { SignInputProps } from '@/interfaces/signInterface';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function SignInput({ type, label, placeholder, value, onChange, ...props }: SignInputProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +33,13 @@ export default function SignInput({ type, label, placeholder, value, onChange, .
               onClick={togglePasswordVisibility}
               className="absolute right-[2rem] top-[50%] transform -translate-y-[50%] focus:outline-none"
             >
-              <Image src={showPassword ? pw_on : pw_off} alt="Toggle password visibility" className="w-[2.4rem] h-[2.4rem]" />
+              <Image
+                src={showPassword ? `${S3_BASE_URL}/icon_ps_vis_on.svg` : `${S3_BASE_URL}/icon_pw_vis_off.svg`}
+                width={24}
+                height={24}
+                alt="Toggle password visibility"
+                className="w-[2.4rem] h-[2.4rem]"
+              />
             </button>
           </div>
         ) : (

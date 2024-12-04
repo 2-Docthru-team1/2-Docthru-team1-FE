@@ -3,10 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import click from '@/../public/assets/icon_click.png';
-import close from '@/../public/assets/icon_out_circle_large.png';
-import ref from '@/../public/assets/icon_ref.png';
 import type { ChallengeRefPageCardProps } from '@/interfaces/ChallengeRefInterface';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardProps) {
   const [showLinkButton, setShowLinkButton] = useState(false);
@@ -75,20 +74,27 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
             onClick={handleRefButtonClick}
             className="flex flex-col items-center font-semibold text-[1.6rem] leading-[1.909rem] text-gray-500"
           >
-            <Image src={ref} alt="ref" />
+            <Image src={`${S3_BASE_URL}/ic_ref.svg`} alt="ref" width={24} height={24} />
             Ref
           </button>
         </div>
       ) : (
         <div className="flex lg:w-[36.8rem] md:w-[30rem] sm:w-[36rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
-          <Image src={close} alt="닫기" onClick={handleRefCloseButtonClick} className="cursor-pointer" />
+          <Image
+            src={`${S3_BASE_URL}/icon_out_circle_small.svg`}
+            alt="닫기"
+            onClick={handleRefCloseButtonClick}
+            className="cursor-pointer"
+            width={32}
+            height={32}
+          />
           <Link href={processedUrl} target="_blank" rel="noopener noreferrer">
             <button
               className="flex items-center font-bold text-[1.4rem] leading-[2.6rem] text-gray-700 whitespace-nowrap"
               onClick={handleLinkButtonClick}
             >
               Open Link
-              <Image src={click} alt="화살표" />
+              <Image src={`${S3_BASE_URL}/icon_click.svg`} alt="화살표" width={24} height={24} />
             </button>
           </Link>
         </div>

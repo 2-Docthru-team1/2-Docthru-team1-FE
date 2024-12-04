@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import profileMem from '@/../public/assets/img_profile_member.png';
 import type { ChallengeDetailContentCardProps } from '@/interfaces/cardInterface';
 import ChipCard from '../Chip/ChipCard';
 import ChipCategory from '../Chip/ChipCategory';
 import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 import OptionBox from '../OptionBox/OptionBox';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeDetailContentCard({ type, data }: ChallengeDetailContentCardProps) {
   const [modalImage, setModalImage] = useState<string>('');
@@ -66,7 +67,7 @@ export default function ChallengeDetailContentCard({ type, data }: ChallengeDeta
             <div className="flex flex-col w-[86.5rem] lg:w-[86.5rem] md:w-[39.7rem] sm:w-[34.5rem] gap-[2.4rem]">
               <p className="font-normal text-[1.6rem] md:w-[39.9rem] leading-[2.08rem] text-gray-700">{data.description}</p>
               <div className="flex items-center gap-[0.8rem] md:w-[39.9rem]">
-                <Image src={profileMem} alt="프로필" width={24} height={24} />
+                <Image src={`${S3_BASE_URL}/img_profile_member.svg`} alt="프로필" width={24} height={24} />
                 <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-800">{data.requestUser.name}</p>
               </div>
             </div>

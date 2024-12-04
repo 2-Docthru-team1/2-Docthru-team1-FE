@@ -4,10 +4,11 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import inactiveHeart from '@/../public/assets/icon_heart_inact_small.png';
-import food from '@/../public/temporaryAssets/Food.svg';
 import { fetchRecipe } from '@/api/recipeService';
 import type { RecipeDetailData } from '@/interfaces/recipelistInterface';
 import DetailTextCard from '../Card/DetailTextCard';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function RecipeDetailClient() {
   const { id } = useParams();
@@ -25,8 +26,14 @@ export default function RecipeDetailClient() {
   }, [id]);
 
   if (!recipe) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex w-full justify-center items-center min-h-screen">
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />
+      </div>
+    );
   }
+
+  console.log(recipe, 'AWEFWE');
 
   const NutritionData = {
     calories: recipe.calories,
@@ -51,7 +58,7 @@ export default function RecipeDetailClient() {
       md:w-[69.6rem] md:h-[33rem]
       sm:w-[34.3rem] sm:h-[29.4rem]"
       >
-        <Image src={food} alt="음식 이미지" layout="fill" objectFit="cover" objectPosition="center" />
+        <Image src={recipe.images[0]} alt="음식 이미지" layout="fill" objectFit="cover" objectPosition="center" />
       </div>
       <div
         className="mt-[2rem] flex flex-col gap-[1rem]
@@ -77,7 +84,7 @@ export default function RecipeDetailClient() {
             {recipe.title}
           </p>
           <div className="flex gap-[0.4rem] items-center">
-            <Image src={inactiveHeart} alt="하트" width={24} height={24} />
+            <Image src={`${S3_BASE_URL}/icon_heart_inactive_large.svg`} alt="하트" width={24} height={24} />
             <p
               className="font-medium leading-[1.671rem] text-gray-700
             lg:text-[1.4rem]
