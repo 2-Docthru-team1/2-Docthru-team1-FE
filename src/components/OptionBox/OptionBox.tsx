@@ -42,7 +42,7 @@ export default function OptionBox({ type, id, date, url }: OptionBoxProps) {
     <div className="md:w-[28.5rem] md:h-[17.6rem] sm:w-[34.3rem] sm:h-[10.4rem] rounded-[1.6rem] border-2 border-gray-100 flex items-center justify-center bg-primary-white">
       <div className="md:w-[25.3rem] flex flex-col gap-[1.6rem]">
         <div className="flex items-center justify-center gap-[0.4rem]">
-          <Image src={`${S3_BASE_URL}/icon_deadline_clock.svg`} alt="시계" />
+          <Image src={`${S3_BASE_URL}/icon_deadline_clock.svg`} alt="시계" width={24} height={24} />
           <p className="font-normal text-[1.3rem] leading-[1.551rem] text-gray-600">Closing on {formatDate(date)}</p>
         </div>
         <div className="flex md:flex-col items-center gap-[0.8rem] md:w-[25.3rem] sm: w-[31rem]">

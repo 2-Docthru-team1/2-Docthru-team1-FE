@@ -88,7 +88,8 @@ export default function ChallengeDetailClient() {
                   id: challengeStatusMedium.list[0].id,
                   likeCount: challengeStatusMedium.list[0].likeCount,
                   description: challengeStatusMedium.list[0].content,
-                  createdAt: challengeStatusMedium.list[0].createdAt
+                  createdAt: challengeStatusMedium.list[0].createdAt,
+                  images: challengeStatusMedium.list[0].images
                 }}
               />
             )}

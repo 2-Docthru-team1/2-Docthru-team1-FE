@@ -13,7 +13,7 @@ export default function ChipCard({ type }: ChipCardProps) {
         </div>
       ) : (
         <div className="w-[19.3rem] py-[0.8rem] px-[1.2rem] rounded-[2.4rem] bg-gray-700 gap-[0.4rem] flex items-center justify-center">
-          <Image src={`${S3_BASE_URL}/ic_deadline_clock_white.svg`} alt="시계" />
+          <Image src={`${S3_BASE_URL}/ic_deadline_clock_white.svg`} alt="시계" width={16} height={16} />
           <p className="font-medium text-[1.3rem] leading-[1.551rem] text-[#ffffff] items-center justify-center flex">
             The challenge has ended
           </p>
