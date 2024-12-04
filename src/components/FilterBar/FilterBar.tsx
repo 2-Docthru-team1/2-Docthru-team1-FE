@@ -16,7 +16,7 @@ const filterBarWidths = {
 };
 
 const sortBarWidths = {
-  challenge: 'lg:w-[14rem] md:w-[12.1rem] sm:w-[10rem]',
+  challenge: 'lg:w-[14rem] md:w-[12.1rem] sm:w-[10.9rem]',
   admin: 'w-[18.1rem]'
 };
 
@@ -81,7 +81,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
 
   const getSelectedSortLabel = () => {
     if (isFilterApplied) {
-      return `Filtered (${selectedCount})`;
+      return `Filtered(${selectedCount})`;
     }
     if (type === 'admin' && selectedSort) {
       const adminOptions = optionsByType.admin;
@@ -114,7 +114,7 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
       const currentKeyword = e.currentTarget.value.trim();
       setKeyword(currentKeyword || '');
       if (!currentKeyword) {
-        window.location.reload();
+        setKeyword('');
         return;
       }
     }
@@ -141,19 +141,19 @@ export default function FilterBar({ type, onFilterApply }: FilterBarProps) {
 
   return (
     <div className="z-20">
-      <div className={`h-[4rem] gap-[1.2rem] justify-between items-center flex ${filterBarType}`}>
+      <div className={`h-[4rem] md:gap-[2rem] sm:gap-[0.6rem] justify-between items-center flex ${filterBarType}`}>
         <div
-          className={`flex justify-between items-center h-full rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] gap-[1rem] cursor-pointer ${sortBarType}
+          className={`flex justify-between items-center rounded-[0.8rem] border border-gray-200 px-[1.2rem] py-[0.8rem] cursor-pointer ${sortBarType}
             ${isFilterApplied ? 'bg-gray-700' : 'bg-primary-white'}`}
           onClick={handleToggleDropdown}
         >
           <p
-            className={`font-normal text-[1.6rem] leading-[1.909rem] 
+            className={`font-normal lg:text-[1.6rem] sm:text-[1.4rem] leading-[1.909rem] 
             ${isFilterApplied ? 'text-primary-white' : 'text-gray-400'} ${type === 'admin' && getSelectedSortLabel() === 'Sort' ? 'text-gray-400' : 'text-gray-700'}`}
           >
             {getSelectedSortLabel()}
           </p>
-          <Image src={isFilterApplied ? activeFilter : filter} alt="깔때기" />
+          <Image src={isFilterApplied ? activeFilter : filter} alt="깔때기" width={16} height={16} layout="fixed" />
         </div>
         <div
           className={`h-full border border-gray-200 rounded-[2rem] flex items-center gap-[0.4rem] p-[0.4rem] bg-primary-white ${searchBarType}`}
