@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 import bell from '@/../public/assets/icon_bell_default.png';
 import translate from '@/../public/assets/icon_translate.png';
 import logo from '@/../public/assets/img_logo_pc.png';
@@ -12,6 +13,12 @@ import useStore from '@/store/store';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
 import NotificationModal from '../Modal/NotificationModal';
 import ProfileModal from '../Modal/ProfileModal';
+
+interface NotificationFinished {
+  challengeId: string;
+  message: string;
+  createdAt: string;
+}
 
 export default function Nav() {
   const userStatus = useStore(state => state.userStatus);
@@ -29,10 +36,26 @@ export default function Nav() {
   const { name, role } = useStore();
 
   // TODO Socket 통신으로 데이터 받아오는 거 변경하기
-  const notifications = [
-    { content: '새로운 알림입니다.', time: '2024-12-04T08:29:07.703Z' },
-    { content: '업데이트가 완료되었습니다.', time: '2024-12-04T06:39:07.703Z' }
-  ];
+  // const notifications = [
+  //   { content: '새로운 알림입니다.', time: '2024-12-04T08:29:07.703Z' },
+  //   { content: '업데이트가 완료되었습니다.', time: '2024-12-04T06:39:07.703Z' }
+  // ];
+
+  const [notificationsFinished, setNotificationsFinished] = useState<NotificationFinished[]>([]);
+  useEffect(() => {
+    const socket = io('http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com', {
+      auth: {
+        token: localStorage.getItem('accessToken')
+      }
+    });
+    socket.on('challengeStatusChangedFinished', notificationsFinished => {
+      setNotificationsFinished(prevNotifications => [...prevNotifications, notificationsFinished]);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     setIsNotificationModalOpen(false);
@@ -91,10 +114,16 @@ export default function Nav() {
                 <>
                   <div className="relative">
                     <Image src={bell} alt="벨" onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)} />
+                    {/* 빨간 색 점 표시 */}
+                    {/* {unreadNotificationCount > 0 && (
+                      <span className="absolute right-0 top-0 w-[0.8rem] h-[0.8rem] bg-red-500 rounded-full"></span>
+                    )} */}
                     {isNotificationModalOpen && (
                       <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
-                        {/* socket 연결해서 데이터 받기*/}
-                        <NotificationModal notifications={notifications} onClose={() => setIsNotificationModalOpen(false)} />
+                        <NotificationModal
+                          notificationsFinished={notificationsFinished}
+                          onClose={() => setIsNotificationModalOpen(false)}
+                        />
                       </div>
                     )}
                   </div>
