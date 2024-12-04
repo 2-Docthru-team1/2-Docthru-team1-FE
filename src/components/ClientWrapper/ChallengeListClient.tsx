@@ -4,7 +4,6 @@ import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-quer
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import plus from '@/../public/assets/icon_plus_medium.png';
 import { fetchChallenge } from '@/api/challengeService';
 import ChallengeCard from '@/components/Card/ChallengeCard';
@@ -15,6 +14,8 @@ import MonthlyChallengeCard from '../Card/MonthlyChallengeCard';
 import MonthlyRankerCard from '../Card/MonthlyRankerCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Pagination from '../Pagination/Pagination';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeListClient({ adminchallengeData, rankerData }: ChallengeListClientProps) {
   const router = useRouter();
@@ -84,7 +85,7 @@ export default function ChallengeListClient({ adminchallengeData, rankerData }: 
   if (isLoading) {
     return (
       <div className="flex w-full justify-center items-center min-h-screen">
-        <Image src={loading} alt="loading" />
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />
       </div>
     );
   }
@@ -158,7 +159,13 @@ export default function ChallengeListClient({ adminchallengeData, rankerData }: 
                   className="md:w-[20.5rem] sm:h-[3.7rem] sm:w-[18.1rem] bg-primary-beige text-primary-white border rounded-[1.95rem] flex items-center gap-[0.8rem] lg:col-start-3 lg:col-end-4 sm:col-start-2 sm:col-end-3"
                 >
                   <span className="md:text-[1.6rem] sm:text-[1.4rem] ml-[1.3rem]">Request a Challenge</span>
-                  <Image src={plus} alt="plus" className="md:mr-[1.6rem] sm:mr-[1.1rem]" />
+                  <Image
+                    src={`${S3_BASE_URL}/icon_plus.svg`}
+                    alt="plus"
+                    className="md:mr-[1.6rem] sm:mr-[1.1rem]"
+                    width={16}
+                    height={16}
+                  />
                 </button>
               )}
             </div>

@@ -3,11 +3,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import arrow from '@/../public/assets/icon_click.png';
 import { fetchUpdateStatus } from '@/api/challengeService';
 import type { ChallengeApplicationDetailBody } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
 import ConfirmModal from '../Modal/ConfirmModal';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeApplicationDetailBody({ type, data }: ChallengeApplicationDetailBody) {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -70,7 +71,7 @@ export default function ChallengeApplicationDetailBody({ type, data }: Challenge
             className="flex gap-[0.4rem] items-center justify-center font-bold text-[1.4rem] leading-[2.6rem] text-gray-700"
           >
             Open Link
-            <Image src={arrow} alt="arrow" />
+            <Image src={`${S3_BASE_URL}/icon_click.svg`} alt="arrow" width={24} height={24} />
           </Link>
         </div>
       </div>

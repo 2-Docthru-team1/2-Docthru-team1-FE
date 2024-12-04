@@ -3,9 +3,6 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import clock from '@/../public/assets/icon_deadline_clock_large.png';
-import toggle from '@/../public/assets/icon_kebab_toggle.png';
-import profile from '@/../public/assets/img_profile_member.png';
 import { fetchChallengeAbortReason, fetchUpdateStatus } from '@/api/challengeService';
 import type { ChallengeApplicationDetailHeader } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
@@ -13,6 +10,8 @@ import ChipCategory from '../Chip/ChipCategory';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
 import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeApplicationDetailHeader({ type, data }: ChallengeApplicationDetailHeader) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -181,7 +180,14 @@ export default function ChallengeApplicationDetailHeader({ type, data }: Challen
           {data.status === 'onGoing' && type === 'admin' && (
             <>
               <div className="relative z-10">
-                <Image src={toggle} alt="toggle" onClick={handleDropdownClick} className="cursor-pointer" />
+                <Image
+                  src={`${S3_BASE_URL}/icon_kebab.svg`}
+                  alt="toggle"
+                  width={24}
+                  height={24}
+                  onClick={handleDropdownClick}
+                  className="cursor-pointer"
+                />
                 <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
                   {dropdownOpen && <CancelDropdown onCancel={handleAbortModalOpen}>Abort</CancelDropdown>}
                 </div>
@@ -191,7 +197,14 @@ export default function ChallengeApplicationDetailHeader({ type, data }: Challen
           {type === 'normal' && data.status === 'onGoing' && (
             <>
               <div className="relative z-10">
-                <Image src={toggle} alt="toggle" onClick={handleDropdownClick} className="cursor-pointer" />
+                <Image
+                  src={`${S3_BASE_URL}/icon_kebab.svg`}
+                  alt="toggle"
+                  onClick={handleDropdownClick}
+                  className="cursor-pointer"
+                  width={24}
+                  height={24}
+                />
                 <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
                   {dropdownOpen && <CancelDropdown onCancel={handleCancelModalOpen}>Cancel</CancelDropdown>}
                 </div>
@@ -207,11 +220,11 @@ export default function ChallengeApplicationDetailHeader({ type, data }: Challen
         <p className="font-normal text-[1.6rem] leading-[2.08rem] text-gray-700">{data.description}</p>
         <div className="flex w-[30rem] justify-between items-center">
           <div className="flex gap-[0.8rem] items-center">
-            <Image src={profile} width={24} height={24} alt="profile" />
+            <Image src={`${S3_BASE_URL}/img_profile_member.svg`} width={24} height={24} alt="profile" />
             <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-800">{data.requestUser.name}</p>
           </div>
           <div className="flex gap-[0.44rem] items-center">
-            <Image src={clock} alt="clock" />
+            <Image src={`${S3_BASE_URL}/icon_deadline_clock.svg`} alt="clock" width={24} height={24} />
             <p className="font-normal text-[1.3rem] leading-[1.551rem] text-gray-600">Closing on {formatDate(data.deadline)}</p>
           </div>
         </div>

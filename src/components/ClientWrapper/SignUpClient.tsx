@@ -9,9 +9,10 @@ import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signUp } from '@/api/authService';
 import type { SignUpData } from '@/interfaces/userInterface';
-import useStore from '@/store/store';
 import useSignUpValidate from '../../../hooks/useSignUpValidate';
 import SignInput from '../Input/SignInput';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function SignUpClient() {
   const router = useRouter();
@@ -68,11 +69,7 @@ export default function SignUpClient() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        {/* <div className="relative w-[16rem] h-[16rem]">
-          <div className="absolute inset-0 w-full h-full border-[4rem] border-t-[4rem] border-gray-300 border-t-primary-blue rounded-full animate-spin"></div>
-          <span className="absolute inset-0 flex justify-center items-center text-[1.5rem] text-gray-500">Loading...</span>
-        </div> */}
-        <Image src={loading} alt="loading" />
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="로딩" width={200} height={200} />
       </div>
     );
   }
@@ -95,8 +92,8 @@ export default function SignUpClient() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="flex justify-center lg:w-[33.5rem] lg:h-[6.7rem] sm:px-[4.6rem] sm:w-[25rem] sm:h-[5rem] relative lg:mt-0 md:mt-[2rem] sm:mt-[3rem]">
-        <Image src={logoImg} alt="로고 이미지" className="mt-[5rem]" fill priority />
+      <div className="flex justify-center w-[33.5rem] h-[6.7rem] sm:px-[4.6rem] sm:w-[25rem] sm:h-[5rem] relative lg:mt-0 md:mt-[12rem] sm:mt-[9.9rem]">
+        <Image src={`${S3_BASE_URL}/img_logo_pc.svg`} alt="로고 이미지" className="mt-[5rem]" fill priority />
       </div>
       <div className="flex justify-center mt-[8rem] relative lg:w-full lg:px-0 sm:px-[1.6rem] sm:w-full md:px-[10rem] md:w-full">
         <form className="w-full flex flex-col items-center justify-center sm:px-[0.1rem]" onSubmit={handleSubmit}>
