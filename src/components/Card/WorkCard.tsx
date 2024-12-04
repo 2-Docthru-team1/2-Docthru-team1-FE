@@ -1,11 +1,13 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import DOMPurify from 'dompurify';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { deleteWorkDetail, likePost, unLikePost } from '@/api/workService';
 import type { WorkDataProps } from '@/interfaces/workInterface';
+import 'quill/dist/quill.snow.css';
 import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
@@ -36,6 +38,21 @@ export default function WorkCard({ data, user }: WorkDataProps) {
 
   const openImg = () => setIsImageOpen(true);
   const closeImg = () => setIsImageOpen(false);
+
+  const sanitizedContent = DOMPurify.sanitize(data.content, {
+    FORBID_TAGS: ['script'],
+    ALLOWED_TAGS: ['p', 'strong', 'em', 'u', 'ul', 'ol', 'li', 'br', 'span'],
+    ALLOWED_ATTR: ['style', 'class']
+  });
+
+  const cleanListTags = (content: string) => {
+    let cleanedContent = content.replace(/data-list="[^"]*"/g, '');
+    cleanedContent = cleanedContent.replace(/contenteditable="false"/g, '');
+    return cleanedContent;
+  };
+
+  const cleanedContent = cleanListTags(sanitizedContent);
+
   const handleNextImage = () => {
     setCurrentOrder(prevOrder => (prevOrder === ImgOrder.first ? ImgOrder.second : ImgOrder.first));
   };
@@ -86,7 +103,6 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         }
       }),
 
-      // 좋아요 취소 Mutation
       unLikeMutate: useMutation({
         mutationFn: () => unLikePost(workId),
 
@@ -219,29 +235,26 @@ export default function WorkCard({ data, user }: WorkDataProps) {
               priority
             />
           </div>
-          {!(data.images.length === 1) ? (
-            <div className="flex items-center">
-              <Image
-                src={`${S3_BASE_URL}/btn_photo_swipe.svg`}
-                alt="다음 이미지 버튼"
-                onClick={handleNextImage}
-                className="cursor-pointer"
-                width={40}
-                height={40}
-              />
-            </div>
-          ) : (
-            <div></div>
-          )}
         </div>
-        <p
-          className="font-normal text-gray-800 
+        {data.images.length > 1 ? (
+          <div className="flex items-center lg:h-[47.9rem]">
+            <Image
+              src={`${S3_BASE_URL}/btn_photo_swipe.svg`}
+              alt="다음 이미지 버튼"
+              onClick={handleNextImage}
+              className="cursor-pointer"
+              width={40}
+              height={40}
+            />
+          </div>
+        ) : null}
+        <div
+          className="font-normal text-gray-800 lg:pl-0 md:pl-0 sm:pl-[1rem]
         lg:mt-0 text-[1.6rem]
         md:mt-[2rem] md:self-start
         sm:mt-[1.6rem] sm:self-start"
-        >
-          {data.content}
-        </p>{' '}
+          dangerouslySetInnerHTML={{ __html: cleanedContent }}
+        />
       </div>
       {isImageOpen && (
         <ImageEnlargeModal
