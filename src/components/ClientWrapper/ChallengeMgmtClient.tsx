@@ -13,14 +13,16 @@ import ChallengeApplicationBody from '../Body/ChallengeApplicationBody';
 import Pagination from '../Pagination/Pagination';
 
 export default function ChallengeMgmtClient() {
-  const { role } = useStore();
   const router = useRouter();
+
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
+    const role = localStorage.getItem('role');
     if (!accessToken || role !== 'admin') {
       router.push('/');
     }
   }, []);
+
   const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

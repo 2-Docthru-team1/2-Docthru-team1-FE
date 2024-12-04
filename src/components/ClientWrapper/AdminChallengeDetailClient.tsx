@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchAdminChallengeDetailNext, fetchAdminChallengeDetailPrev, fetchChallenge_detail } from '@/api/challengeService';
 import type { ChallengeApplicationDetailHeaderData } from '@/interfaces/challengeInterface';
 import useStore from '@/store/store';
@@ -11,12 +10,16 @@ import ChallengeApplicationDetailBody from '../Body/ChallengeApplicationDetailBo
 import ChallengeApplicationDetailHeader from '../Header/ChallengeApplicationDetailHeader';
 import Pagination from '../Pagination/Pagination';
 
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
+
 export default function AdminChallengeDetailClient() {
   const { id } = useParams();
   const router = useRouter();
-  const { challengeMgmtTotalCount, role } = useStore();
+  const { challengeMgmtTotalCount } = useStore();
+
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
+    const role = localStorage.getItem('role');
     if (!accessToken || role !== 'admin') {
       router.push('/');
     }
@@ -68,7 +71,7 @@ export default function AdminChallengeDetailClient() {
   if (!currentData) {
     return (
       <div className="flex items-center justify-center h-[100vh]">
-        <Image src={loading} alt="로딩" />
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="로딩" width={200} height={200} />
       </div>
     );
   }
