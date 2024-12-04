@@ -10,9 +10,15 @@ import type { MonthlyChallengeCardProps } from '@/interfaces/cardInterface';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
 
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
+
 export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCardProps) {
   if (!data) {
-    return <div>로딩 중...</div>;
+    return (
+      <div className="flex items-center justify-center h-[100vh]">
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />
+      </div>
+    );
   }
 
   const { id, title, mediaType, status, deadline } = data;
@@ -64,14 +70,21 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
         <div className="p-[2.4rem]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-[1.2rem]">
-              <Image src={crownIcon} alt="Recommended" />
+              <Image src={`${S3_BASE_URL}/icon_crown.svg`} alt="Recommended" width={17} height={17} />
               <div>
                 <ChipCard type={status} />
               </div>
             </div>
             {role === 'admin' ? (
               <div className="relative z-10">
-                <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
+                <Image
+                  src={`${S3_BASE_URL}/icon_kebab.svg`}
+                  alt="More Options"
+                  onClick={handledropdownClick}
+                  className="cursor-pointer"
+                  width={24}
+                  height={24}
+                />
                 <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
                   {dropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Abort</CancelDropdown>}
                 </div>
@@ -96,7 +109,7 @@ export default function MonthlyChallengeCard({ data, role }: MonthlyChallengeCar
           <div className="w-[29.5rem] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
 
           <div className="flex items-center gap-[0.2rem]">
-            <Image src={clockIcon} alt="Deadline" />
+            <Image src={`${S3_BASE_URL}/icon_deadline_clock.svg`} alt="Deadline" width={24} height={24} />
             <div className="text-[1.3rem] text-gray-500">Closing on {formattedDeadline}</div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import close from '@/../public/assets/icon_close.png';
-import check from '@/../public/assets/icon_confirm_modal_check.png';
 import type { ConfirmModalProps } from '@/interfaces/modalInterface';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ConfirmModal({ onCancel, onDelete, role, abortReason, setAbortReason, onApprove }: ConfirmModalProps) {
   return (
@@ -11,7 +11,7 @@ export default function ConfirmModal({ onCancel, onDelete, role, abortReason, se
           <div className="flex fixed max-w-[49.6rem] sm:w-[34.3rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center items-center w-full rounded-[1.2rem] p-[2.4rem] bg-primary-white">
             <div className="flex justify-between items-center mb-[2.4rem] w-full">
               <p className="text-[1.8rem] font-bold text-gray-700 leading-[1.8rem]">Reason for Decline</p>
-              <Image src={close} alt="close" className="cursor-pointer" onClick={onCancel} />
+              <Image src={`${S3_BASE_URL}/icon_close.svg`} alt="close" className="cursor-pointer" onClick={onCancel} />
             </div>
             <div className="w-full mb-[1.5rem] flex flex-col gap-[0.8rem]">
               <p className="font-normal text-[1.6rem] leading-[2.6rem]">Content</p>
@@ -35,7 +35,7 @@ export default function ConfirmModal({ onCancel, onDelete, role, abortReason, se
         <div className="flex fixed max-w-[29.8rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center items-center w-full rounded-[1.2rem] p-[2.4rem] bg-primary-white gap-[1.5rem]">
           <div className="flex-col justify-center items-center mb-[1.5rem]">
             <div className="flex justify-center mb-[2rem]">
-              <Image src={check} alt="체크 이미지" width={24} height={24} />
+              <Image src={`${S3_BASE_URL}/icon_confirm_modal_check.svg`} alt="체크 이미지" width={24} height={24} />
             </div>
             <p className="text-[1.6rem] font-medium text-gray-700 text-center">Are you sure you want to approve?</p>
           </div>
@@ -59,7 +59,7 @@ export default function ConfirmModal({ onCancel, onDelete, role, abortReason, se
         <div className="flex fixed max-w-[29.8rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center items-center w-full rounded-[1.2rem] p-[2.4rem] bg-primary-white gap-[1.5rem]">
           <div className="flex-col justify-center items-center mb-[1.5rem]">
             <div className="flex justify-center mb-[1.5rem]">
-              <Image src={check} alt="체크 이미지" width={24} height={24} />
+              <Image src={`${S3_BASE_URL}/icon_confirm_modal_check.svg`} alt="체크 이미지" width={24} height={24} />
             </div>
             <p className="text-[1.6rem] font-medium text-gray-700">Are you sure you want to cancel?</p>
           </div>

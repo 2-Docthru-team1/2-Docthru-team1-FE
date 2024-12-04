@@ -1,15 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import filter from '@/../public/assets/ic_filter.png';
-import useStore from '@/store/store';
+import { useState } from 'react';
+import type { SortDropdownProps } from '@/interfaces/dropdownInterface';
 
-interface SortDropdownProps {
-  type: string;
-  sortOption: string;
-  onSortSelect: (apiValue: string) => void;
-}
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 const optionsMap: { [key: string]: string } = {
   Pending: 'pending',
@@ -53,7 +48,7 @@ export default function ChallengeApplicationDropdown({ type, sortOption, onSortS
           >
             {selectedUIOption}
           </p>
-          <Image src={filter} alt="Filter" />
+          <Image src={`${S3_BASE_URL}/ic_filter.svg`} alt="Filter" width={16} height={16} />
         </div>
       ) : null}
       {isDropdownOpen && (

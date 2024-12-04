@@ -5,12 +5,6 @@ import DOMPurify from 'dompurify';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import nextImage from '@/../public/assets/btn_photo_swipe.png';
-import activeHeart from '@/../public/assets/icon_heart_active_large.png';
-import inactiveHeart from '@/../public/assets/icon_heart_inactive_large.png';
-import kebab from '@/../public/assets/icon_kebab_cancel.png';
-import admin from '@/../public/assets/img_profile_admin.png';
-import member from '@/../public/assets/img_profile_member.png';
 import { deleteWorkDetail, likePost, unLikePost } from '@/api/workService';
 import type { WorkDataProps } from '@/interfaces/workInterface';
 import 'quill/dist/quill.snow.css';
@@ -18,6 +12,8 @@ import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
 import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function WorkCard({ data, user }: WorkDataProps) {
   if (!data) return null;
@@ -167,7 +163,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         {(user?.id === data?.owner?.id || user.role === 'admin') && (
           <div className="relative">
             <Image
-              src={kebab}
+              src={`${S3_BASE_URL}/icon_kebab.svg`}
               alt="드롭다운 이미지"
               onClick={handleDropdownClick}
               className="cursor-pointer"
@@ -189,9 +185,9 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         sm:gap-[0.5rem]"
         >
           {data.owner.role === 'admin' ? (
-            <Image src={admin} alt="어드민 이미지" width={24} height={24} />
+            <Image src={`${S3_BASE_URL}/img_profile_admin.svg`} alt="어드민 이미지" width={24} height={24} />
           ) : (
-            <Image src={member} alt="유저이미지" width={24} height={24} />
+            <Image src={`${S3_BASE_URL}/img_profile_member.svg`} alt="유저이미지" width={24} height={24} />
           )}
           <p className="text-[1.4rem] font-medium text-gray-800">{data.owner.name}</p>
           <p
@@ -203,7 +199,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
             {role}
           </p>
           <Image
-            src={liked ? activeHeart : inactiveHeart}
+            src={liked ? `${S3_BASE_URL}/icon_heart_active_large.svg` : `${S3_BASE_URL}/icon_heart_inactive_large.svg`}
             alt={liked ? '활성 하트' : '비활성 하트'}
             width={24}
             height={24}
@@ -242,7 +238,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
         {data.images.length > 1 ? (
           <div className="flex items-center lg:h-[47.9rem]">
             <Image
-              src={nextImage}
+              src={`${S3_BASE_URL}/btn_photo_swipe.svg`}
               alt="다음 이미지 버튼"
               onClick={handleNextImage}
               className="cursor-pointer"

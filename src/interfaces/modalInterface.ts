@@ -19,3 +19,13 @@ export interface ImageModalProps {
   alt: string;
   onClose: () => void;
 }
+
+export interface NotificationModalProps {
+  notifications: Notification[];
+  onClose: () => void;
+}
+
+export interface Notification {
+  content: string;
+  time: string;
+}

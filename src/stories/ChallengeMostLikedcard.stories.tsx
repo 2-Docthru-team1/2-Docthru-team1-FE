@@ -20,6 +20,10 @@ Default.args = {
       id: 'Alice',
       name: 'Alice Johnson'
     },
-    Feedback: []
+    images: [
+      {
+        imageUrl: 'example'
+      }
+    ]
   }
 };
