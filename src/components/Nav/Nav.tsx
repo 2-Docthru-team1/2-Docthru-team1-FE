@@ -88,8 +88,7 @@ export default function Nav() {
                     {isNotificationModalOpen && (
                       <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
                         {/* socket 연결해서 데이터 받기 notifications={notifications} */}
-                        {/* 닫기 버튼 onClose={() => setIsModalOpen(false)} */}
-                        <NotificationModal notifications={notifications} />
+                        <NotificationModal notifications={notifications} onClose={() => setIsNotificationModalOpen(false)} />
                       </div>
                     )}
                   </div>
