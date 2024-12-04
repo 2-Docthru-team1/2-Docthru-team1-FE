@@ -95,7 +95,7 @@ export default function SignUpClient() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="flex justify-center w-[33.5rem] h-[6.7rem] sm:px-[4.6rem] sm:w-[25rem] sm:h-[5rem] relative lg:mt-0 md:mt-[12rem] sm:mt-[9.9rem]">
+      <div className="flex justify-center lg:w-[33.5rem] lg:h-[6.7rem] sm:px-[4.6rem] sm:w-[25rem] sm:h-[5rem] relative lg:mt-0 md:mt-[2rem] sm:mt-[3rem]">
         <Image src={logoImg} alt="로고 이미지" className="mt-[5rem]" fill priority />
       </div>
       <div className="flex justify-center mt-[8rem] relative lg:w-full lg:px-0 sm:px-[1.6rem] sm:w-full md:px-[10rem] md:w-full">
