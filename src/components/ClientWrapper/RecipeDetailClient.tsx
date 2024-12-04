@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import inactiveHeart from '@/../public/assets/icon_heart_inact_small.png';
 import food from '@/../public/temporaryAssets/Food.svg';
 import { fetchRecipe } from '@/api/recipeService';
@@ -25,7 +26,11 @@ export default function RecipeDetailClient() {
   }, [id]);
 
   if (!recipe) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Image src={loading} alt="loading" />
+      </div>
+    );
   }
 
   const NutritionData = {
@@ -48,8 +53,8 @@ export default function RecipeDetailClient() {
       <div
         className="relative overflow-hidden
       lg:w-[120rem] lg:h-[33rem]
-      md:w-[69.6rem] md:h-[33rem]
-      sm:w-[34.3rem] sm:h-[29.4rem]"
+      md:max-w-[120rem] md:min-w-[69.6rem] md:w-full md:h-[33rem]
+      sm:max-w-[69.6rem] sm:min-w-[34.3rem] sm:w-full sm:h-[29.4rem]"
       >
         <Image src={food} alt="음식 이미지" layout="fill" objectFit="cover" objectPosition="center" />
       </div>
@@ -107,8 +112,8 @@ export default function RecipeDetailClient() {
         md:flex-col md:gap-[4rem] md:mb-[4rem]
         sm:flex-col sm:gap-[2.8rem] sm:mb-[2.8rem]"
         >
-          <DetailTextCard type="ingredient" content={recipe.ingredients} className="lg: order-1 md:order-2 sm:order-2" />
-          <DetailTextCard type="nutrition" content={NutritionData} className="lg: order-2 md:order-1 sm:order-1" />
+          <DetailTextCard type="ingredient" content={recipe.ingredients} className="lg:order-1 md:order-2 sm:order-2" />
+          <DetailTextCard type="nutrition" content={NutritionData} className="lg:order-2 md:order-1 sm:order-1" />
         </div>
         <div
           className="flex 
@@ -116,8 +121,8 @@ export default function RecipeDetailClient() {
         md:flex-col md:gap-[4rem] md:mb-[4rem]
         sm:flex-col sm:gap-[2.8rem] sm:mb-[2.8rem]"
         >
-          <DetailTextCard type="direction" content={recipe.direction} className="lg: order-1 md:order-2 sm:order-2" />
-          <DetailTextCard type="benefit" content={recipe.benefits} className="lg: order-2 md:order-1 sm:order-1" />
+          <DetailTextCard type="direction" content={recipe.direction} className="lg:order-1 md:order-2 sm:order-2" />
+          <DetailTextCard type="benefit" content={recipe.benefits} className="lg:order-2 md:order-1 sm:order-1" />
         </div>
       </div>
     </div>
