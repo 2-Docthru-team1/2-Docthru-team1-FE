@@ -32,7 +32,7 @@ export default function ProfileModal({ name, role }: ProfileModalProps) {
             <p className="font-medium text-[1.2rem] leading-[1.432rem] text-gray-500">{userRole}</p>
           </div>
         </div>
-        <div className="border border-gray-200 w-full" /> {/* 직선 */}
+        <div className="border border-gray-200 w-full" />
         <div className="flex flex-col gap-[1.2rem]">
           {isMem ? (
             <p className="font-medium text-[1.6rem] leading-[1.909rem] text-gray-600" onClick={handleRouteMyPage}>
