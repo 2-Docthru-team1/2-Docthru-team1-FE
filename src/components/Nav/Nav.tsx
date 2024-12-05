@@ -36,8 +36,9 @@ export default function Nav() {
 
   const { name, role } = useStore();
 
-  //     transports: ['polling' ,'websocket'],
-  //     secure: true,
+  // NOTE 혹시 몰라 둔 socket 설정
+  // transports: ['polling' ,'websocket'],
+  // secure: true,
   const [notificationsFinished, setNotificationsFinished] = useState<NotificationFinished[]>([]);
   // const [unreadNotificationCount, setUnreadNotificationCount] = useState<number>(0); // 읽지 않은 알림 개수
 
@@ -49,6 +50,17 @@ export default function Nav() {
       console.error('Error fetching notifications:', error);
     }
   };
+  const setupWebSocket = (token: string) => {
+    const socket = io('http://15.165.57.191', {
+      auth: { token }
+    });
+
+    socket.on('challengeStatusChangedFinished', notificationsFinished => {
+      setNotificationsFinished(prevNotifications => [notificationsFinished, ...prevNotifications].slice(0, 15));
+    });
+
+    return socket;
+  };
   useEffect(() => {
     // // 로컬 스토리지에서 알림 상태를 불러옵니다.
     // const storedNotifications = localStorage.getItem('notifications');
@@ -57,23 +69,22 @@ export default function Nav() {
     //   setNotificationsFinished(notifications);
     //   setUnreadNotificationCount(notifications.filter((n: NotificationFinished) => !n.isRead).length);
     // }
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      console.warn('Access token not found.');
+      return;
+    }
     fetchNotifications();
-    const socket = io('http://15.165.57.191', {
-      auth: {
-        token: localStorage.getItem('accessToken')
-      }
-    });
-    socket.on('challengeStatusChangedFinished', notificationsFinished => {
-      setNotificationsFinished(prevNotifications => [notificationsFinished, ...prevNotifications].slice(0, 15));
-      // // 알림이 15개 이상이면 가장 오래된 알림을 삭제
-      // const updatedNotifications = [...prevNotifications, newNotification];
-      // if (updatedNotifications.length > 15) {
-      //   updatedNotifications.shift(); // 가장 오래된 알림 제거
-      // }
-      // // 알림을 로컬 스토리지에 저장
-      // localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
-      // return updatedNotifications;
-    });
+    const socket = setupWebSocket(accessToken);
+
+    // // 알림이 15개 이상이면 가장 오래된 알림을 삭제
+    // const updatedNotifications = [...prevNotifications, newNotification];
+    // if (updatedNotifications.length > 15) {
+    //   updatedNotifications.shift(); // 가장 오래된 알림 제거
+    // }
+    // // 알림을 로컬 스토리지에 저장
+    // localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+    // return updatedNotifications;
     // // 읽지 않은 알림 개수 업데이트
     // setUnreadNotificationCount(prevCount => prevCount + 1);
 
