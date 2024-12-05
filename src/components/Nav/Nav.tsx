@@ -37,6 +37,11 @@ export default function Nav() {
   const { name, role } = useStore();
 
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const handleNotificationClick = (challengeId: string) => {
+    if (challengeId) {
+      router.push(`/challengeList/${challengeId}`);
+    }
+  };
 
   const fetchNotifications = async () => {
     try {
@@ -157,7 +162,11 @@ export default function Nav() {
                     )} */}
                     {isNotificationModalOpen && (
                       <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
-                        <NotificationModal notifications={notifications} onClose={() => setIsNotificationModalOpen(false)} />
+                        <NotificationModal
+                          notifications={notifications}
+                          onClose={() => setIsNotificationModalOpen(false)}
+                          onNotificationClick={handleNotificationClick}
+                        />
                       </div>
                     )}
                   </div>

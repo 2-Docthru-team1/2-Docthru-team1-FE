@@ -3,7 +3,7 @@ import Image from 'next/image';
 import closeImg from '@/../public/assets/icon_close.png';
 import type { NotificationModalProps } from '@/interfaces/modalInterface';
 
-export default function ProfileModal({ notifications, onClose }: NotificationModalProps) {
+export default function NotificationModal({ notifications, onClose, onNotificationClick }: NotificationModalProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
@@ -25,7 +25,10 @@ export default function ProfileModal({ notifications, onClose }: NotificationMod
           ) : (
             notifications.map((data, index) => (
               <div key={index}>
-                <div className="flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem]">
+                <div
+                  className="flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer"
+                  onClick={() => onNotificationClick(data.challengeId)}
+                >
                   <div className="text-[1.4rem] leading-[1.671rem] text-gray-700">{data.message}</div>
                   <div className="text-[1.4rem] leading-[1.671rem] text-gray-400">{formatDate(data.createdAt)}</div>
                 </div>
