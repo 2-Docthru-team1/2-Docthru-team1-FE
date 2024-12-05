@@ -29,6 +29,11 @@ export default function Nav() {
   const { name, role } = useStore();
 
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
+  const updateUnreadStatus = (notifications: Notification[]) => {
+    setHasUnreadNotifications(notifications.some(notification => !notification.isRead));
+  };
+
   const handleNotificationClick = (challengeId: string, workId: string) => {
     if (challengeId && workId) {
       router.push(`/challengeList/${workId}/${challengeId}`);
@@ -41,6 +46,7 @@ export default function Nav() {
     try {
       const serverNotifications = await getNotification();
       setNotifications(serverNotifications);
+      updateUnreadStatus(serverNotifications);
     } catch (error) {
       console.error('Error fetching notifications:', error);
     }
@@ -50,34 +56,33 @@ export default function Nav() {
       auth: { token }
     });
 
-    socket.on('challengeStatusChangedFinished', notifications => {
-      setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
+    socket.on('challengeStatusChangedFinished', newNotification => {
+      setNotifications(prev => {
+        const updated = [newNotification, ...prev].slice(0, 15);
+        updateUnreadStatus(updated);
+        return updated;
+      });
     });
 
-    socket.on('newFeedback', notifications => {
-      const asd = setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
-      console.log(asd);
+    socket.on('newFeedback', newNotification => {
+      setNotifications(prev => {
+        const updated = [newNotification, ...prev].slice(0, 15);
+        updateUnreadStatus(updated);
+        return updated;
+      });
     });
-
-    // const sendChallengeUpdate = (challengeId: string, status: string) => {
-    //   socket.emit('updateChallengeStatus', { challengeId, status }, response => {
-    //     console.log('Server response:', response); // 서버의 응답 처리
-    //   });
-    // };
-
-    // // 예: 특정 데이터를 emit
-    // sendChallengeUpdate('challenge123', 'completed');
 
     return socket;
   };
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      console.warn('Access token not found.');
-      return;
-    }
-    fetchNotifications();
+    if (!accessToken) return;
+    const initializeNotifications = async () => {
+      await fetchNotifications();
+    };
+
+    initializeNotifications();
     const socket = setupWebSocket(accessToken);
 
     return () => {
@@ -95,6 +100,13 @@ export default function Nav() {
       fetchNotifications();
     }
   }, [isNotificationModalOpen]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) return;
+
+    fetchNotifications();
+  }, [localStorage.getItem('accessToken')]);
 
   return (
     <div className="w-full h-full flex justify-center">
@@ -157,22 +169,13 @@ export default function Nav() {
                 <>
                   <div className="relative">
                     <Image
-                      src={`${S3_BASE_URL}/icon_bell_default.svg`}
+                      src={`${S3_BASE_URL}/${hasUnreadNotifications ? 'icon_bell_noti.svg' : 'icon_bell_default.svg'}`}
                       alt="default_bell"
                       width={24}
                       height={24}
                       onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
                       className="cursor-pointer"
                     />
-                    {/* 알림 오면 아래 이미지 */}
-                    {/* <Image
-                      src={`${S3_BASE_URL}/icon_bell_noti.svg`}
-                      alt="noti_bell"
-                      width={24}
-                      height={24}
-                      onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
-                      className="cursor-pointer"
-                    /> */}
                     {isNotificationModalOpen && (
                       <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
                         <NotificationModal
