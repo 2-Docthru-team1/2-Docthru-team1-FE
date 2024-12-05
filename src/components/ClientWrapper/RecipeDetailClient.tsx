@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { fetchLikePost, fetchRecipe, fetchUnlikePost } from '@/api/recipeService';
 import type { RecipeDetailData } from '@/interfaces/recipelistInterface';
 import DetailTextCard from '../Card/DetailTextCard';
@@ -34,9 +34,7 @@ export default function RecipeDetailClient() {
       likeMutate: useMutation({
         mutationFn: async () => await fetchLikePost(String(id)),
         onMutate: async () => {
-          console.log('Mutating to like the recipe');
           const previousRecipe = queryClient.getQueryData(['recipe', id]);
-          console.log(previousRecipe, 'reicpaefionawpe;isdn');
           queryClient.setQueryData(['recipe', id], (oldData: any) => ({
             ...oldData,
             likeCount: oldData.likeCount + 1,
@@ -46,8 +44,6 @@ export default function RecipeDetailClient() {
         },
 
         onError: (context: any) => {
-          console.error('Error during like mutation:', context);
-
           const previousRecipe = context.previousRecipe;
           if (previousRecipe) {
             queryClient.setQueryData(['recipe', id], previousRecipe);
@@ -55,7 +51,6 @@ export default function RecipeDetailClient() {
         },
 
         onSettled: () => {
-          console.log('Like mutation settled. Invalidating recipe query...');
           queryClient.invalidateQueries({ queryKey: ['recipe', id] });
         }
       }),
@@ -64,7 +59,6 @@ export default function RecipeDetailClient() {
         mutationFn: () => fetchUnlikePost(String(id)),
 
         onMutate: async () => {
-          console.log('Mutating to unlike the recipe');
           const previousRecipe = queryClient.getQueryData(['recipe', id]);
 
           queryClient.setQueryData(['recipe', id], (oldData: any) => ({
@@ -77,11 +71,9 @@ export default function RecipeDetailClient() {
         },
 
         onError: (context: any) => {
-          console.error('Error during unlike mutation:', context);
           queryClient.setQueryData(['recipe', id], context.previousRecipe);
         },
         onSettled: () => {
-          console.log('Unlike mutation settled. Invalidating recipe query...');
           queryClient.invalidateQueries({ queryKey: ['recipe', id] });
         }
       })
@@ -91,7 +83,6 @@ export default function RecipeDetailClient() {
   const { likeMutate, unLikeMutate } = useLikeMutation(String(id));
 
   const toggleLike = () => {
-    console.log('Toggling like status. Current liked state:', liked);
     if (liked) {
       unLikeMutate.mutate();
     } else {
