@@ -45,19 +45,21 @@ export default function Nav() {
         <div className="w-full md:px-[2.4rem] sm:px-[1.5rem] flex justify-center">
           <div className="lg:max-w-[120rem] lg:w-full sm:w-full flex justify-between items-center">
             <div className="md:gap-[2.4rem] flex items-center justify-center">
-              <Image
-                className="md:w-[14.6rem] md:h-[2.92rem] sm:w-[10rem] sm:h-[2rem] cursor-pointer sm:mr-[0.8rem]"
-                src={logo}
-                alt="로고"
-                onClick={() => {
-                  if (userStatus !== 'loggedOut') {
-                    router.push('/recipeList');
-                  } else {
-                    router.push('/');
-                  }
-                }}
-              />
-
+              <div className="relative md:w-[14.6rem] md:h-[2.92rem] sm:w-[10rem] sm:h-[2rem] cursor-pointer sm:mr-[0.8rem]">
+                <Image
+                  fill
+                  src={logo}
+                  alt="로고"
+                  sizes="(max-width: 744px) 10rem, (max-width: 1200px) 14.6rem"
+                  onClick={() => {
+                    if (userStatus !== 'loggedOut') {
+                      router.push('/recipeList');
+                    } else {
+                      router.push('/');
+                    }
+                  }}
+                />
+              </div>
               <div className="flex">
                 {userStatus !== 'loggedOut' && (
                   <>
@@ -90,7 +92,13 @@ export default function Nav() {
               {userStatus === 'normal' ? (
                 <>
                   <div className="relative">
-                    <Image src={bell} alt="벨" onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)} />
+                    <Image
+                      src={bell}
+                      alt="벨"
+                      width={24}
+                      height={24}
+                      onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
+                    />
                     {isNotificationModalOpen && (
                       <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
                         {/* socket 연결해서 데이터 받기*/}
@@ -101,6 +109,8 @@ export default function Nav() {
                   <div className="relative">
                     <Image
                       src={userProfile}
+                      width={24}
+                      height={24}
                       alt="프로필"
                       onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                       className="cursor-pointer"
