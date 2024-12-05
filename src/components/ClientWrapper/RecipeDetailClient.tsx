@@ -1,11 +1,10 @@
 'use client';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
-import inactiveHeart from '@/../public/assets/icon_heart_inact_small.png';
-import { fetchRecipe } from '@/api/recipeService';
+import { fetchLikePost, fetchRecipe, fetchUnlikePost } from '@/api/recipeService';
 import type { RecipeDetailData } from '@/interfaces/recipelistInterface';
 import DetailTextCard from '../Card/DetailTextCard';
 
@@ -13,6 +12,8 @@ const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function RecipeDetailClient() {
   const { id } = useParams();
+  if (!id) return null;
+  const [userId, setUserId] = useState<string | null>(null);
 
   const [recipe, setRecipe] = useState<RecipeDetailData | null>(null);
 
@@ -25,6 +26,74 @@ export default function RecipeDetailClient() {
       getRecipe();
     }
   }, [id]);
+
+  useEffect(() => {
+    if (recipe && userId) {
+      setLiked(recipe.likeUsers.some(likeUser => likeUser.id === userId));
+    }
+  }, [recipe, userId]);
+
+  const [liked, setLiked] = useState(recipe?.likeUsers.some(likeUser => likeUser.id === userId));
+
+  const useLikeMutation = (id: string) => {
+    const queryClient = useQueryClient();
+
+    return {
+      likeMutate: useMutation({
+        mutationFn: async () => await fetchLikePost(String(id)),
+        onMutate: async () => {
+          const previousRecipe = queryClient.getQueryData(['recipe', id]);
+          queryClient.setQueryData(['recipe', id], (oldData: any) => ({
+            ...oldData,
+            likeCount: oldData.likeCount + 1,
+            recipeLikes: [...oldData.recipeLikes, { userId: userId }]
+          }));
+          return { previousRecipe };
+        },
+
+        onError: (context: any) => {
+          queryClient.setQueryData(['recipe', id], context.previousRecipe);
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries({ queryKey: ['recipe', id] });
+        }
+      }),
+
+      unLikeMutate: useMutation({
+        mutationFn: () => fetchUnlikePost(String(id)),
+
+        onMutate: async () => {
+          const previousRecipe = queryClient.getQueryData(['recipe', id]);
+
+          queryClient.setQueryData(['recipe', id], (oldData: any) => ({
+            ...oldData,
+            likeCount: oldData.likeCount - 1,
+            recipeLikes: oldData.recipeLikes.filter((data: any) => data.userId !== userId)
+          }));
+
+          return { previousRecipe };
+        },
+
+        onError: (context: any) => {
+          queryClient.setQueryData(['recipe', id], context.previousRecipe);
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries({ queryKey: ['recipe', id] });
+        }
+      })
+    };
+  };
+
+  const { likeMutate, unLikeMutate } = useLikeMutation(String(id));
+
+  const toggleLike = () => {
+    if (liked) {
+      unLikeMutate.mutate();
+    } else {
+      likeMutate.mutate();
+    }
+    setLiked(prevLiked => !prevLiked);
+  };
 
   if (!recipe) {
     return (
@@ -83,7 +152,14 @@ export default function RecipeDetailClient() {
             {recipe.title}
           </p>
           <div className="flex gap-[0.4rem] items-center">
-            <Image src={`${S3_BASE_URL}/icon_heart_inactive_large.svg`} alt="하트" width={24} height={24} />
+            <Image
+              src={liked ? `${S3_BASE_URL}/icon_heart_active_large.svg` : `${S3_BASE_URL}/icon_heart_inactive_large.svg`}
+              alt={liked ? '활성 하트' : '비활성 하트'}
+              width={24}
+              height={24}
+              onClick={toggleLike}
+              className="cursor-pointer"
+            />
             <p
               className="font-medium leading-[1.671rem] text-gray-700
             lg:text-[1.4rem]

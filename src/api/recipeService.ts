@@ -1,4 +1,4 @@
-import { getRequest } from './api';
+import { deleteRequest, getRequest, postRequest } from './api';
 
 export const fetchMenu = async (page: number, pageSize: number, search: string, sort: string) => {
   try {
@@ -15,5 +15,23 @@ export const fetchRecipe = async (id: string) => {
     return response.data;
   } catch (error) {
     throw new Error('Failed to get recipe');
+  }
+};
+
+export const fetchLikePost = async (id: string) => {
+  try {
+    const response = await postRequest(`/recipe/${id}/like`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to create like');
+  }
+};
+
+export const fetchUnlikePost = async (id: string) => {
+  try {
+    const response = await deleteRequest(`recipe/${id}/like`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to create unlike');
   }
 };

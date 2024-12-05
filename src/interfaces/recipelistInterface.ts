@@ -21,6 +21,11 @@ export interface RecipeDetailData {
   sodium: number;
   sugars: number;
   title: string;
+  likeUsers: likeUserData[];
+}
+
+export interface likeUserData {
+  id: string;
 }
 
 export interface AdminData {
