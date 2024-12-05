@@ -21,11 +21,11 @@ export interface ImageModalProps {
 }
 
 export interface NotificationModalProps {
-  notificationsFinished: NotificationFinished[];
+  notifications: Notification[];
   onClose: () => void;
 }
 
-export interface NotificationFinished {
+export interface Notification {
   challengeId: string;
   message: string;
   createdAt: string;
