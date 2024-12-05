@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { fetchChallenge_detail, fetchRegisterWork } from '@/api/challengeService';
 import { uploadImageToEC2 } from '@/api/uploadService';
@@ -11,6 +11,8 @@ import ChallengeHeader from '../Header/ChallengeHeader';
 export default function ChallengeTryClient() {
   const { id } = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const workId = searchParams.get('workId') || '';
 
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -73,7 +75,7 @@ export default function ChallengeTryClient() {
       ${isCardClicked ? 'md:w-[38.8rem] sm:order-2' : 'md:w-full sm:order-1'}`}
       >
         <div className="w-full flex justify-center">
-          <ChallengeHeader onSubmit={handleSubmit} isCardClicked={isCardClicked} />
+          <ChallengeHeader onSubmit={handleSubmit} isCardClicked={isCardClicked} workId={workId} />
         </div>
         <div className="mt-[2.4rem] mb-[5rem] w-full flex justify-center lg:px-0 md:pl-[0.2rem] md:pr-0 sm:px-[0.6rem]">
           <ChallengeBody
@@ -84,6 +86,7 @@ export default function ChallengeTryClient() {
             images={uploadImages}
             setImages={setUploadImages}
             isCardClicked={isCardClicked}
+            workId={workId}
           />
         </div>
       </div>

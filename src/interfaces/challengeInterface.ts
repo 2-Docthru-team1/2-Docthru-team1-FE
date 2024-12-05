@@ -54,6 +54,7 @@ export interface requestUser {
 export interface ChallengeHeaderProps {
   onSubmit: () => void;
   isCardClicked: boolean;
+  workId: string;
 }
 
 export interface ChallengeBodyProps {
@@ -64,6 +65,7 @@ export interface ChallengeBodyProps {
   images: File[];
   setImages: React.Dispatch<React.SetStateAction<File[]>>;
   isCardClicked: boolean;
+  workId: string;
 }
 
 export interface MyRequestData {

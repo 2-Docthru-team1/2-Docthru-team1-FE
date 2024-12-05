@@ -5,9 +5,6 @@ import { format } from 'date-fns';
 import Image from 'next/image';
 import { type ChangeEvent, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import kebab from '@/../public/assets/icon_kebab_cancel.png';
-import more from '@/../public/assets/icon_more.png';
-import userImg from '@/../public/assets/img_profile_member.png';
 import { deleteFeedback, patchFeedback } from '@/api/feedbackService';
 import type { FeedbackCardProps } from '@/interfaces/feedbackInterface';
 import CancelDropdown from '../Dropdown/CancelDropdown';
@@ -73,14 +70,14 @@ export default function FeedbackCard({
     }
   });
 
-  const handleEdit = () => {
-    mutation.mutate(editingContent);
+  const handleEdit = async () => {
+    await mutation.mutate(editingContent);
     setEditingContent('');
     setEditingCommentId('');
   };
 
-  const handleDelete = () => {
-    deleteMutation.mutate();
+  const handleDelete = async () => {
+    await deleteMutation.mutate();
     setDeletingCommentId('');
   };
 
@@ -167,7 +164,7 @@ export default function FeedbackCard({
                       deletingCommentId !== comment.id && (
                         <div className="flex-col relative">
                           <Image
-                            src={`${S3_BASE_URL}/icon_kebab_cancel.svg`}
+                            src={`${S3_BASE_URL}/icon_kebab.svg`}
                             alt="드롭다운 이미지"
                             onClick={() => handleMenuClick(comment.id)}
                             className="cursor-pointer"

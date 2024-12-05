@@ -1,15 +1,33 @@
+'use client';
+
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
+import { patchWorkDetail } from '@/api/workService';
 import type { ChallengeHeaderProps } from '@/interfaces/challengeInterface';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
-export default function ChallengeHeader({ onSubmit, isCardClicked }: ChallengeHeaderProps) {
+export default function ChallengeHeader({ onSubmit, isCardClicked, workId }: ChallengeHeaderProps) {
   const { id } = useParams();
   const router = useRouter();
 
   const handleQuit = () => {
     router.push(`/challengeList/${id}`);
+  };
+
+  const mutation = useMutation({
+    mutationFn: () => patchWorkDetail(workId),
+    onSuccess: () => {
+      router.push(`/challengeList/${id}/${workId}`);
+    },
+    onError: () => {
+      alert('Failed to patch the work. Please try again.');
+    }
+  });
+
+  const handleWorkEdit = () => {
+    mutation.mutate();
   };
 
   return (
@@ -32,7 +50,12 @@ export default function ChallengeHeader({ onSubmit, isCardClicked }: ChallengeHe
             Save
           </button>
           <button
-            onClick={onSubmit}
+            onClick={() => {
+              if (workId) {
+                handleWorkEdit();
+              }
+              onSubmit();
+            }}
             className="lg:w-[9rem] md:w-[9rem] sm:w-[9rem] rounded-[0.8rem] bg-primary-blue py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] text-primary-white leading-[1.909rem]"
           >
             Submit

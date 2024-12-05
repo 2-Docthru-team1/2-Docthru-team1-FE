@@ -54,15 +54,23 @@ export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
     setCurrentOrder(prevOrder => (prevOrder === ImgOrder.first ? ImgOrder.second : ImgOrder.first));
   };
   const handleDropdownClick = () => setIsDropdownOpen(prev => !prev);
+
   const handleCancelClick = () => {
     setIsDropdownOpen(false);
     setIsModalOpen(true);
   };
+
+  const handleEditClick = () => {
+    setIsDropdownOpen(false);
+    router.push(`/challengeList/${data.challengeId}/edit?workId=${data.id}`);
+  };
+
   const handleModalCancel = () => {
     setIsModalOpen(false);
   };
+
   const mutation = useMutation({
-    mutationFn: async () => await deleteWorkDetail(data.id),
+    mutationFn: () => deleteWorkDetail(data.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['work'] });
       router.push(`/challengeList/${data.challengeId}`);
@@ -71,9 +79,11 @@ export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
       alert('Failed to delete the work. Please try again.');
     }
   });
-  const handleDeleteWork = async () => {
+
+  const handleDeleteWork = () => {
     mutation.mutate();
   };
+
   const role = data.owner.role === 'normal' ? 'Koo-koo' : data.owner.role;
 
   const useLikeMutation = (workId: string) => {
@@ -171,8 +181,9 @@ export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
                 width={24}
                 height={24}
               />
-              <div onClick={handleCancelClick} className="absolute right-[0] top-[4.4rem]">
-                {isDropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
+              <div className="absolute right-[0] top-[4.4rem]">
+                {isDropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Delete</CancelDropdown>}
+                {isDropdownOpen && <CancelDropdown onCancel={handleEditClick}>Edit</CancelDropdown>}
               </div>
             </div>
           )}
