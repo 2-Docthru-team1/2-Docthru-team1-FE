@@ -92,7 +92,7 @@ export default function ChallengeBody({
                 className="relative w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center"
               >
                 <Image
-                  src={!workId ? URL.createObjectURL(file) : work.images.imageUrl}
+                  src={!workId ? URL.createObjectURL(file) : work.images[index].imageUrl}
                   alt={`업로드된 이미지 ${index + 1}`}
                   width={170}
                   height={170}
