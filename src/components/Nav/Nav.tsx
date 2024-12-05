@@ -29,8 +29,10 @@ export default function Nav() {
   const { name, role } = useStore();
 
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const handleNotificationClick = (challengeId: string) => {
-    if (challengeId) {
+  const handleNotificationClick = (challengeId: string, workId: string) => {
+    if (challengeId && workId) {
+      router.push(`/challengeList/${workId}/${challengeId}`);
+    } else if (challengeId) {
       router.push(`/challengeList/${challengeId}`);
     }
   };
@@ -52,10 +54,19 @@ export default function Nav() {
       setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
     });
 
-    // TODO 댓글 알림 배포되면 연결 예정.
-    // socket.on('newFeedback', notifications => {
-    //   setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
-    // });
+    socket.on('newFeedback', notifications => {
+      const asd = setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
+      console.log(asd);
+    });
+
+    // const sendChallengeUpdate = (challengeId: string, status: string) => {
+    //   socket.emit('updateChallengeStatus', { challengeId, status }, response => {
+    //     console.log('Server response:', response); // 서버의 응답 처리
+    //   });
+    // };
+
+    // // 예: 특정 데이터를 emit
+    // sendChallengeUpdate('challenge123', 'completed');
 
     return socket;
   };

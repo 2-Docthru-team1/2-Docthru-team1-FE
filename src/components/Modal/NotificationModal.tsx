@@ -19,7 +19,7 @@ export default function NotificationModal({ notifications, onClose, onNotificati
       if (!isRead) {
         await patchIsReadTrue(id);
       }
-      onNotificationClick(challengeId);
+      onNotificationClick(challengeId, workId);
     } catch (error) {
       console.error('Error updating notification status:', error);
     }
@@ -46,7 +46,7 @@ export default function NotificationModal({ notifications, onClose, onNotificati
             notifications.map((data, index) => (
               <div key={index}>
                 <div
-                  className={`flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer hover:bg-gray-100 hover:shadow-lg transition-all duration-500 ${
+                  className={`flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer hover:bg-gray-100 hover:shadow-lg transition-all duration-300 ${
                     data.isRead ? 'opacity-50' : ''
                   }`}
                   onClick={() => handleNotificationClick(data.challengeId, data.id, data.isRead, data.workId ? data.workId : '')}
