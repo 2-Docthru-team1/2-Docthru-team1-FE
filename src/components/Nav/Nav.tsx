@@ -60,9 +60,10 @@ export default function Nav() {
       setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
     });
 
-    socket.on('newFeedback', notifications => {
-      setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
-    });
+    // TODO 댓글 알림 배포되면 연결 예정.
+    // socket.on('newFeedback', notifications => {
+    //   setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
+    // });
 
     return socket;
   };

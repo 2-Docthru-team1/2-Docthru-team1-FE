@@ -26,7 +26,7 @@ export default function NotificationModal({ notifications, onClose, onNotificati
             notifications.map((data, index) => (
               <div key={index}>
                 <div
-                  className="flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer"
+                  className="flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer hover:bg-gray-100 hover:shadow-lg transition-all duration-500"
                   onClick={() => onNotificationClick(data.challengeId)}
                 >
                   <div className="text-[1.4rem] leading-[1.671rem] text-gray-700">{data.message}</div>
