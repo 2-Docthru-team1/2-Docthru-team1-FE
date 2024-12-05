@@ -2,11 +2,8 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
 import { fetchChallenge_detail, fetchRegisterWork } from '@/api/challengeService';
 import { uploadImageToEC2 } from '@/api/uploadService';
-import 'react-toastify/dist/ReactToastify.css';
 import ChallengeBody from '../Body/ChallengeBody';
 import ChallengeRefPageCard from '../Card/ChallengeRefPageCard';
 import ChallengeHeader from '../Header/ChallengeHeader';
@@ -16,17 +13,18 @@ export default function ChallengeTryClient() {
   const { id } = useParams();
   const router = useRouter();
   const [userId, setUserId] = useState<string | null>(null);
-  const [isToastVisible, setToastVisible] = useState(true);
+  const [isToastVisible, setToastVisible] = useState(false);
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
-    setUserId(storedUserId);
-
-    const savedData = localStorage.getItem(`challengeTrySaveData-${userId}-${id}`);
-    if (savedData) {
-      setToastVisible(true);
+    if (storedUserId) {
+      setUserId(storedUserId);
+      const savedData = localStorage.getItem(`challengeTrySaveData-${storedUserId}-${id}`);
+      if (savedData) {
+        setToastVisible(true);
+      }
     }
-  }, []);
+  }, [id]);
 
   const restoreData = () => {
     const savedData = localStorage.getItem(`challengeTrySaveData-${userId}-${id}`);

@@ -16,7 +16,10 @@ export default function ToastComponent({ onClose, duration = 10000, onYesClick }
   }, [duration, onClose]);
 
   return (
-    <div className="flex justify-between lg:w-[89rem] md:w-[69.6rem] md:h-[4.8rem] sm:w-[34.3rem] sm:w-[5rem] p-[0.8rem] border border-gray-200 bg-primary-white rounded-[0.8rem]">
+    <div
+      className="flex justify-between lg:w-[89rem] md:w-[69.6rem] md:h-[4.8rem] sm:w-[34.3rem] sm:w-[5rem] p-[0.8rem] border border-gray-200 bg-primary-white rounded-[0.8rem]
+    fixed bottom-4 left-[calc(50%-2.5%)] transform -translate-x-1/2 w-[90%]"
+    >
       <div className="flex gap-[0.8rem] items-center">
         <Image src={`${S3_BASE_URL}/icon_close.svg`} alt="X" width={24} height={24} onClick={onClose} />
         <p className="font-medium text-[1.4rem] leading-[1.671rem] text-gray-700">
