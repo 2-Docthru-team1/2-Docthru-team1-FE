@@ -3,14 +3,15 @@
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { fetchMyFinishedChallenge, fetchMyOngoingChallenge, fetchMyRequestChallenge } from '@/api/challengeService';
 import useStore from '@/store/store';
 import ChallengeApplicationBody from '../Body/ChallengeApplicationBody';
 import ChallengeCard from '../Card/ChallengeCard';
 import MyChallengeHeader from '../Header/MyChallengeHeader';
 import Pagination from '../Pagination/Pagination';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function MyChallengeClient() {
   const router = useRouter();
@@ -33,17 +34,30 @@ export default function MyChallengeClient() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
-  useEffect(() => {
-    if (activeTab === 'applied') {
-      setItemsPerPage(10);
-    } else if (activeTab === 'participating' || activeTab === 'finished') {
+  useLayoutEffect(() => {
+    const handleResize = () => {
       const width = window.innerWidth;
-      if (width >= 1200) {
-        setItemsPerPage(4);
-      } else if (width >= 375) {
-        setItemsPerPage(2);
+
+      if (activeTab === 'applied') {
+        setItemsPerPage(10);
+      } else if (activeTab === 'participating' || activeTab === 'finished') {
+        if (width >= 1200) {
+          setItemsPerPage(4);
+        } else if (width < 1200 && width >= 744) {
+          setItemsPerPage(2);
+        } else {
+          setItemsPerPage(2);
+        }
       }
-    }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [activeTab]);
 
   useEffect(() => {
@@ -138,8 +152,8 @@ export default function MyChallengeClient() {
 
   if (ongoingLoading || finishedLoading || requestLoading) {
     return (
-      <div className="flex items-center justify-center h-[100vh]">
-        <Image src={loading} alt="loading" />
+      <div className="flex w-full justify-center items-center min-h-screen">
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />
       </div>
     );
   }
@@ -168,7 +182,7 @@ export default function MyChallengeClient() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center md:p-[2.4rem] sm:p-[1.6rem]">
       <MyChallengeHeader activeTab={activeTab} onTabChange={handleTabChange} />
       {activeTab === 'participating' &&
         (participateOngoingChallenge.totalCount === 0 ? (
@@ -176,9 +190,13 @@ export default function MyChallengeClient() {
             <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-400">There is no challenge participate yet</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 my-[2rem]">
+          <div className="lg:grid lg:grid-cols-2 sm:flex sm:flex-col gap-4 my-[2rem]">
             {participateOngoingChallenge.list.map((item: any, index: number) => (
-              <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
+              <div
+                key={index}
+                onClick={() => handleClickEvent(item.id)}
+                className="cursor-pointer lg:w-full md:w-[calc(100vw-6rem)] sm:w-[calc(100vw-3.5rem)]"
+              >
                 <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
               </div>
             ))}
@@ -191,9 +209,13 @@ export default function MyChallengeClient() {
             <p className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-400">There is no challenge participate yet</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 my-[2rem]">
+          <div className="lg:grid lg:grid-cols-2 sm:flex sm:flex-col gap-4 my-[2rem]">
             {participateFinishedChallenge.list.slice(0, 4).map((item: any, index: number) => (
-              <div key={index} onClick={() => handleClickEvent(item.id)} className="cursor-pointer">
+              <div
+                key={index}
+                onClick={() => handleClickEvent(item.id)}
+                className="cursor-pointer lg:w-full md:w-[calc(100vw-6rem)] sm:w-[calc(100vw-3.5rem)]"
+              >
                 <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
               </div>
             ))}
@@ -202,7 +224,7 @@ export default function MyChallengeClient() {
 
       {activeTab === 'applied' && (
         <>
-          <div className="my-[2.4rem]">
+          <div className="my-[2.4rem] max-w-full lg:justify-center sm:justify-start flex sm:overflow-x-auto sm:overflow-y-hidden">
             <ChallengeApplicationBody type="normal" data={requestChallenge.list} />
           </div>
         </>
