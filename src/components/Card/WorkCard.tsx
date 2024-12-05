@@ -2,6 +2,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -15,7 +16,7 @@ import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
-export default function WorkCard({ data, user }: WorkDataProps) {
+export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
   if (!data) return null;
   const router = useRouter();
 
@@ -30,11 +31,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
-  const [liked, setLiked] = useState(
-    Array.isArray(data.likeUsers)
-      ? data.likeUsers.some((likeUser: { id: string }) => likeUser.id === user.id)
-      : data.likeUsers.id === user.id
-  );
+  const [liked, setLiked] = useState(data.workLikes.some(likeUser => likeUser.userId === userId));
 
   const openImg = () => setIsImageOpen(true);
   const closeImg = () => setIsImageOpen(false);
@@ -90,7 +87,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           queryClient.setQueryData(['work', workId], (oldData: any) => ({
             ...oldData,
             likeCount: oldData.likeCount + 1,
-            likeUsers: [...oldData.likeUsers, { id: user.id }]
+            workLikes: [...oldData.workLikes, { userId: userId }]
           }));
           return { previousWork };
         },
@@ -112,7 +109,7 @@ export default function WorkCard({ data, user }: WorkDataProps) {
           queryClient.setQueryData(['work', workId], (oldData: any) => ({
             ...oldData,
             likeCount: oldData.likeCount - 1,
-            likeUsers: oldData.likeUsers.filter((data: any) => data.id !== user.id)
+            workLikes: oldData.workLikes.filter((data: any) => data.userId !== userId)
           }));
 
           return { previousWork };
@@ -140,92 +137,93 @@ export default function WorkCard({ data, user }: WorkDataProps) {
   };
 
   return (
-    <div
-      className="flex flex-col gap-[1rem] mt-[2rem] 
+    <>
+      <Head>
+        <link rel="preload" href={data.images[0].imageUrl} as="image" />
+      </Head>
+      <div
+        className="flex flex-col gap-[1rem] mt-[2rem] 
     lg:w-[120rem] lg:px-0  
     md:w-full  md:px-[2.7rem] 
     sm:w-full sm:px-[1.2rem]"
-    >
-      <div
-        className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center
+      >
+        <div
+          className="border-b border-b-gray-200 pb-[1.5rem] flex justify-between items-center
     
       md:w-full 
       sm:w-full"
-      >
-        <p
-          className="text-[2.4rem] font-bold text-left text-gray-700 
+        >
+          <p
+            className="text-[2.4rem] font-bold text-left text-gray-700 
         lg:text-[2.4rem]
         md:text-[2.4rem]
         sm:text-[2rem]"
-        >
-          {data.title}
-        </p>
-        {(user?.id === data?.owner?.id || user.role === 'admin') && (
-          <div className="relative">
-            <Image
-              src={`${S3_BASE_URL}/icon_kebab.svg`}
-              alt="드롭다운 이미지"
-              onClick={handleDropdownClick}
-              className="cursor-pointer"
-              width={24}
-              height={24}
-              priority
-            />
-            <div onClick={handleCancelClick} className="absolute right-[0] top-[4.4rem]">
-              {isDropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
+          >
+            {data.title}
+          </p>
+          {(userId === data?.owner?.id || userRole === 'admin') && (
+            <div className="relative">
+              <Image
+                src={`${S3_BASE_URL}/icon_kebab.svg`}
+                alt="드롭다운 이미지"
+                onClick={handleDropdownClick}
+                className="cursor-pointer"
+                width={24}
+                height={24}
+              />
+              <div onClick={handleCancelClick} className="absolute right-[0] top-[4.4rem]">
+                {isDropdownOpen && <CancelDropdown onCancel={handleCancelClick}>Cancel</CancelDropdown>}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-      <div className="flex items-center justify-between border-b border-b-gray-200 pb-[1.5rem] mb-[1rem]">
-        <div
-          className="flex items-center 
+          )}
+        </div>
+        <div className="flex items-center justify-between border-b border-b-gray-200 pb-[1.5rem] mb-[1rem]">
+          <div
+            className="flex items-center 
         lg:gap-[0.5rem]
         md:gap-[0.5rem]
         sm:gap-[0.5rem]"
-        >
-          {data.owner.role === 'admin' ? (
-            <Image src={`${S3_BASE_URL}/img_profile_admin.svg`} alt="어드민 이미지" width={24} height={24} priority />
-          ) : (
-            <Image src={`${S3_BASE_URL}/img_profile_member.svg`} alt="유저이미지" width={24} height={24} priority />
-          )}
-          <p className="text-[1.4rem] font-medium text-gray-800">{data.owner.name}</p>
-          <p
-            className="text-[1.2rem] font-medium text-gray-500 
+          >
+            {data.owner.role === 'admin' ? (
+              <Image src={`${S3_BASE_URL}/img_profile_admin.svg`} alt="어드민 이미지" width={24} height={24} />
+            ) : (
+              <Image src={`${S3_BASE_URL}/img_profile_member.svg`} alt="유저이미지" width={24} height={24} />
+            )}
+            <p className="text-[1.4rem] font-medium text-gray-800">{data.owner.name}</p>
+            <p
+              className="text-[1.2rem] font-medium text-gray-500 
           lg:mr-[0.5rem]
           md:mr-[0.5rem]
           sm:mr-[0.5rem]"
-          >
-            {role}
-          </p>
-          <Image
-            src={liked ? `${S3_BASE_URL}/icon_heart_active_large.svg` : `${S3_BASE_URL}/icon_heart_inactive_large.svg`}
-            alt={liked ? '활성 하트' : '비활성 하트'}
-            width={24}
-            height={24}
-            priority
-            onClick={toggleLike}
-            className="cursor-pointer"
-          />
-          <p className="text-[1.4rem] font-medium text-gray-800">{formattedNumber}</p>
+            >
+              {role}
+            </p>
+            <Image
+              src={liked ? `${S3_BASE_URL}/icon_heart_active_large.svg` : `${S3_BASE_URL}/icon_heart_inactive_large.svg`}
+              alt={liked ? '활성 하트' : '비활성 하트'}
+              width={24}
+              height={24}
+              onClick={toggleLike}
+              className="cursor-pointer"
+            />
+            <p className="text-[1.4rem] font-medium text-gray-800">{formattedNumber}</p>
+          </div>
+          <div>
+            <p className="text-[1.4rem] font-medium text-gray-400">{formattedDate}</p>
+          </div>
         </div>
-        <div>
-          <p className="text-[1.4rem] font-medium text-gray-400">{formattedDate}</p>
-        </div>
-      </div>
-      <div
-        className="flex border-b border-b-gray-200 pb-[4rem] 
+        <div
+          className="flex border-b border-b-gray-200 pb-[4rem] 
       lg:flex-row lg:items-start 
       md:flex-col md:items-center
       sm:flex-col sm:items-center"
-      >
-        <div
-          className="mr-[0.3rem] relative cursor-pointer
+        >
+          <div
+            className="mr-[0.3rem] relative cursor-pointer
         lg:w-[47.6rem] lg:h-[47.9rem]
         md:w-[47.6rem] md:h-[47.9rem]
         sm:w-[30rem] sm:h-[30rem] "
-        >
-          <div className="flex">
+          >
             <Image
               src={data.images.length === 1 ? data.images[0].imageUrl : data.images[currentOrder].imageUrl}
               alt="작업물 이미지"
@@ -235,35 +233,35 @@ export default function WorkCard({ data, user }: WorkDataProps) {
               priority
             />
           </div>
-        </div>
-        {data.images.length > 1 ? (
-          <div className="flex items-center lg:h-[47.9rem]">
-            <Image
-              src={`${S3_BASE_URL}/btn_photo_swipe.svg`}
-              alt="다음 이미지 버튼"
-              onClick={handleNextImage}
-              className="cursor-pointer"
-              width={40}
-              height={40}
-            />
-          </div>
-        ) : null}
-        <div
-          className="font-normal text-gray-800 lg:pl-0 md:pl-0 sm:pl-[1rem]
+          {data.images.length > 1 ? (
+            <div className="flex items-center lg:h-[47.9rem]">
+              <Image
+                src={`${S3_BASE_URL}/btn_photo_swipe.svg`}
+                alt="다음 이미지 버튼"
+                onClick={handleNextImage}
+                className="cursor-pointer"
+                width={40}
+                height={40}
+              />
+            </div>
+          ) : null}
+          <div
+            className="font-normal text-gray-800 lg:pl-0 md:pl-0 sm:pl-[1rem]
         lg:mt-0 text-[1.6rem]
         md:mt-[2rem] md:self-start
         sm:mt-[1.6rem] sm:self-start"
-          dangerouslySetInnerHTML={{ __html: cleanedContent }}
-        />
+            dangerouslySetInnerHTML={{ __html: cleanedContent }}
+          />
+        </div>
+        {isImageOpen && (
+          <ImageEnlargeModal
+            src={data.images.length === 1 ? data.images[0].imageUrl : data.images[currentOrder].imageUrl}
+            alt="작업물 이미지"
+            onClose={closeImg}
+          />
+        )}
+        {isModalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
       </div>
-      {isImageOpen && (
-        <ImageEnlargeModal
-          src={data.images.length === 1 ? data.images[0].imageUrl : data.images[currentOrder].imageUrl}
-          alt="작업물 이미지"
-          onClose={closeImg}
-        />
-      )}
-      {isModalOpen && <ConfirmModal onCancel={handleModalCancel} onDelete={handleDeleteWork} />}
-    </div>
+    </>
   );
 }

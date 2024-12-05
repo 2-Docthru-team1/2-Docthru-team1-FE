@@ -25,6 +25,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="preconnect" href="https://hancook-bucket.s3.ap-northeast-2.amazonaws.com" />
+        <link rel="dns-prefetch" href="https://hancook-bucket.s3.ap-northeast-2.amazonaws.com" />
       </head>
       <body className={pretendard.className}>
         <ReactQueryProviders>
