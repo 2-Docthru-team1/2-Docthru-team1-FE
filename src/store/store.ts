@@ -76,6 +76,11 @@ const useStore = create<StoreState>(set => ({
       localStorage.removeItem('name');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('challengeTrySaveData-')) {
+          localStorage.removeItem(key);
+        }
+      });
     }
   },
 

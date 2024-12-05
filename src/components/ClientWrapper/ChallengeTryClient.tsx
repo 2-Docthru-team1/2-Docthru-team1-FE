@@ -2,8 +2,11 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { fetchChallenge_detail, fetchRegisterWork } from '@/api/challengeService';
 import { uploadImageToEC2 } from '@/api/uploadService';
+import 'react-toastify/dist/ReactToastify.css';
 import ChallengeBody from '../Body/ChallengeBody';
 import ChallengeRefPageCard from '../Card/ChallengeRefPageCard';
 import ChallengeHeader from '../Header/ChallengeHeader';
@@ -11,6 +14,25 @@ import ChallengeHeader from '../Header/ChallengeHeader';
 export default function ChallengeTryClient() {
   const { id } = useParams();
   const router = useRouter();
+
+  useEffect(() => {
+    const savedData = localStorage.getItem(`challengeTrySaveData-${id}`);
+    if (savedData) {
+      toast.info('저장된 데이터가 있습니다. 복원하시겠습니까?', {
+        position: 'bottom-center',
+        autoClose: false,
+        closeOnClick: true,
+        onClick: () => restoreData(savedData)
+      });
+    }
+  }, []);
+
+  const restoreData = (savedData: string) => {
+    const { title, content } = JSON.parse(savedData);
+    setTitle(title);
+    setContent(content);
+    toast.success('데이터를 복원했습니다.', { position: 'top-right', autoClose: 2000 });
+  };
 
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -66,6 +88,7 @@ export default function ChallengeTryClient() {
 
   const handleSave = () => {
     const challengeData = {
+      id,
       title,
       content,
       images: uploadImages.map(file => ({
@@ -74,7 +97,7 @@ export default function ChallengeTryClient() {
       }))
     };
 
-    localStorage.setItem('challengeTrySaveData', JSON.stringify(challengeData));
+    localStorage.setItem(`challengeTrySaveData-${id}`, JSON.stringify(challengeData));
     alert('Saved to local storage!');
   };
 
@@ -100,6 +123,7 @@ export default function ChallengeTryClient() {
             isCardClicked={isCardClicked}
           />
         </div>
+        <ToastContainer />
       </div>
       <div onClick={handleCardClick} className={`${!isCardClicked ? 'sm:order-2' : 'sm:order-1'} lg:order-2 md:order-2`}>
         <ChallengeRefPageCard embedUrl={embedUrl} />

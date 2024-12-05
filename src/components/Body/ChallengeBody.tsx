@@ -55,19 +55,11 @@ export default function ChallengeBody({
   };
 
   useEffect(() => {
-    const savedData = localStorage.getItem('challengeData');
+    const savedData = localStorage.getItem('challengeTrySaveData');
     if (savedData) {
-      const { title, content, images } = JSON.parse(savedData);
+      const { title, content } = JSON.parse(savedData);
       setTitle(title);
       setContent(content);
-      setImages(
-        images.map((image: { name: string; url: string }) => {
-          const blob = fetch(image.url)
-            .then(res => res.blob())
-            .then(blob => new File([blob], image.name, { type: blob.type }));
-          return blob;
-        })
-      );
     }
   }, []);
 
