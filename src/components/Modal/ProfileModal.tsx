@@ -35,11 +35,11 @@ export default function ProfileModal({ name, role }: ProfileModalProps) {
         <div className="border border-gray-200 w-full" />
         <div className="flex flex-col gap-[1.2rem]">
           {isMem ? (
-            <p className="font-medium text-[1.6rem] leading-[1.909rem] text-gray-600" onClick={handleRouteMyPage}>
+            <p className="font-medium text-[1.6rem] leading-[1.909rem] text-gray-600 cursor-pointer" onClick={handleRouteMyPage}>
               My Challenge
             </p>
           ) : null}
-          <p className="font-medium text-[1.6rem] leading-[1.909rem] text-error-red" onClick={handleSignOut}>
+          <p className="font-medium text-[1.6rem] leading-[1.909rem] text-error-red cursor-pointer" onClick={handleSignOut}>
             Sign out
           </p>
         </div>

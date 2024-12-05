@@ -75,7 +75,7 @@ export default function ChallengeBody({
       />
       <div className="border border-gray-200 w-full my-[2.4rem]" />
       <div className="bg-primary-white p-[1.5rem] rounded-[2rem]">
-        <div className="border-none bg-white rounded-lg shadow-sm">
+        <div className="border-none rounded-lg shadow-sm">
           <ReactQuill
             theme="snow"
             value={content}
