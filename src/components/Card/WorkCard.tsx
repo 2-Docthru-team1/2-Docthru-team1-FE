@@ -86,7 +86,7 @@ export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
           queryClient.setQueryData(['work', workId], (oldData: any) => ({
             ...oldData,
             likeCount: oldData.likeCount + 1,
-            likeUsers: [...oldData.likeUsers, { id: userId }]
+            workLikes: [...oldData.workLikes, { userId: userId }]
           }));
           return { previousWork };
         },
@@ -108,7 +108,7 @@ export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
           queryClient.setQueryData(['work', workId], (oldData: any) => ({
             ...oldData,
             likeCount: oldData.likeCount - 1,
-            likeUsers: oldData.likeUsers.filter((data: any) => data.id !== userId)
+            workLieks: oldData.workLikes.filter((data: any) => data.userId !== userId)
           }));
 
           return { previousWork };
@@ -227,7 +227,6 @@ export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
             className="object-cover"
             onClick={openImg}
             priority
-            placeholder="blur"
           />
         </div>
         {data.images.length > 1 ? (
