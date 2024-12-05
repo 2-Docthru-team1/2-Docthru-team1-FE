@@ -102,7 +102,7 @@ export default function DateDropdown({ setSelectedDate, selectedDate, setTypeErr
           placeholder="YY/MM/DD"
           className="font-normal text-[1.6rem] leading-[1.909rem] text-gray-700 bg-transparent outline-none placeholder:text-[1.6rem] placeholder-gray-400"
         />
-        <Image src={`${S3_BASE_URL}/ic_calendar.svg`} alt="calendar" className="cursor-pointer" />
+        <Image src={`${S3_BASE_URL}/ic_calendar.svg`} alt="calendar" className="cursor-pointer" width={32} height={32} />
       </div>
 
       {isErrorTriggered && !selectedDate && (

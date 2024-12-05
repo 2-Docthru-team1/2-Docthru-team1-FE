@@ -6,7 +6,7 @@ import type { ChallengeHeaderProps } from '@/interfaces/challengeInterface';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
-export default function ChallengeHeader({ onSubmit, isCardClicked, workId, onEdit }: ChallengeHeaderProps) {
+export default function ChallengeHeader({ onSubmit, isCardClicked, workId, onEdit, onSave }: ChallengeHeaderProps) {
   const { id } = useParams();
   const router = useRouter();
 
@@ -30,7 +30,10 @@ export default function ChallengeHeader({ onSubmit, isCardClicked, workId, onEdi
             <span className="hidden md:inline">Quit</span>
             <Image src={`${S3_BASE_URL}/icon_red_door.svg`} alt="문" width={24} height={24} />
           </button>
-          <button className="lg:w-[9rem] md:w-[9rem] sm:w-[8rem] rounded-[0.8rem] border border-gray-700 py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] leading-[1.909rem]">
+          <button
+            className="lg:w-[9rem] md:w-[9rem] sm:w-[8rem] rounded-[0.8rem] bg-primary-white border border-gray-700 py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] leading-[1.909rem]"
+            onClick={onSave}
+          >
             Save
           </button>
           <button

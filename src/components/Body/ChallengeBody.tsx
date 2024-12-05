@@ -70,6 +70,15 @@ export default function ChallengeBody({
     ]
   };
 
+  useEffect(() => {
+    const savedData = localStorage.getItem('challengeTrySaveData');
+    if (savedData) {
+      const { title, content } = JSON.parse(savedData);
+      setTitle(title);
+      setContent(content);
+    }
+  }, []);
+
   return (
     <div
       className={`border-none lg:w-[87.1rem] lg:px-0 ${isCardClicked ? 'md:w-[38.8rem]' : 'md:w-full'} md:max-w-[87.1rem] md:px-0 sm:w-full sm:max-w-[69.6rem] sm:pl-0`}
@@ -82,7 +91,7 @@ export default function ChallengeBody({
       />
       <div className="border border-gray-200 w-full my-[2.4rem]" />
       <div className="bg-primary-white p-[1.5rem] rounded-[2rem]">
-        <div className="border-none bg-white rounded-lg shadow-sm">
+        <div className="border-none rounded-lg shadow-sm">
           <ReactQuill
             theme="snow"
             value={content}
@@ -121,6 +130,8 @@ export default function ChallengeBody({
                   alt="엑스"
                   onClick={() => handleRemoveImage(index)}
                   className="mt-[0.7rem] mr-[0.7rem] absolute top-0 right-0 cursor-pointer"
+                  width={32}
+                  height={32}
                 />
               </div>
             ))}

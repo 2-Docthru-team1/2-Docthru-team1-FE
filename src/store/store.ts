@@ -76,6 +76,7 @@ const useStore = create<StoreState>(set => ({
       localStorage.removeItem('name');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+      localStorage.removeItem('challengeMgmtTotalCount');
     }
   },
 

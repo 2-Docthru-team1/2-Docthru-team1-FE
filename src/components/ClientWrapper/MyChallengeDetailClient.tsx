@@ -49,12 +49,12 @@ export default function MyChallengeDetailClient() {
   }
 
   return (
-    <div className="w-full justify-center items-center flex pt-[2.4rem] pb-[7rem] flex-col">
-      <div>
+    <div className="w-full md: p-[2rem] justify-center items-center flex pt-[2.4rem] pb-[7rem] flex-col">
+      <div className="w-full">
         <ChallengeApplicationDetailHeader type="normal" data={currentData} />
       </div>
-      <div className="border border-gray-200 w-[120rem] mt-[4rem] mb-[4rem]" />
-      <div className="w-[120rem]">
+      <div className="border border-gray-200 lg:w-[120rem] sm:w-full mt-[4rem] mb-[4rem]" />
+      <div className="lg:w-[120rem] sm:w-full">
         <ChallengeApplicationDetailBody type="normal" data={currentData} />
       </div>
     </div>

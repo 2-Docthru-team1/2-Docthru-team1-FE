@@ -179,7 +179,7 @@ export default function ChallengeListClient({ adminchallengeData, rankerData }: 
           <div className="flex justify-between items-center grid lg:grid-cols-2 sm:grid-cols-1 grid-rows-2 md:gap-[2.4rem] sm:gap-[1.4rem]">
             {challenges.list.map((data: ChallengeData) => (
               <div key={data.id} onClick={() => handleChallengeClick(data.id)} className="cursor-pointer">
-                <ChallengeCard data={data} userId={id} role={role} />
+                <ChallengeCard type="challenge" data={data} userId={id} role={role} />
               </div>
             ))}
           </div>

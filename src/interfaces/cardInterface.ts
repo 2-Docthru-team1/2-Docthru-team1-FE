@@ -49,6 +49,7 @@ export interface ownerData {
 }
 
 export interface ChallengeCardProps {
+  type: 'challenge' | 'ongoing' | 'finish';
   data: ChallengeData | null;
   userId: string | null;
   role: 'admin' | 'normal' | null;

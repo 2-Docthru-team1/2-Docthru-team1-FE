@@ -4,22 +4,14 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import bell from '@/../public/assets/icon_bell_default.png';
-import translate from '@/../public/assets/icon_translate.png';
-import logo from '@/../public/assets/img_logo_pc.png';
-import adminProfile from '@/../public/assets/img_profile_admin.png';
-import userProfile from '@/../public/assets/img_profile_member.png';
 import { getNotification } from '@/api/userService';
+import type { Notification } from '@/interfaces/modalInterface';
 import useStore from '@/store/store';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
 import NotificationModal from '../Modal/NotificationModal';
 import ProfileModal from '../Modal/ProfileModal';
 
-interface Notification {
-  message: string;
-  challengeId: string;
-  createdAt: string;
-}
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function Nav() {
   const userStatus = useStore(state => state.userStatus);
@@ -102,7 +94,7 @@ export default function Nav() {
               <div className="relative md:w-[14.6rem] md:h-[2.92rem] sm:w-[10rem] sm:h-[2rem] cursor-pointer sm:mr-[0.8rem]">
                 <Image
                   fill
-                  src={logo}
+                  src={`${S3_BASE_URL}/img_logo_pc.svg`}
                   alt="로고"
                   sizes="(max-width: 744px) 10rem, (max-width: 1200px) 14.6rem"
                   onClick={() => {
@@ -143,7 +135,7 @@ export default function Nav() {
             </div>
             <div className="flex md:gap-[1.6rem] sm:gap-[1rem] items-center justify-center">
               <Image
-                src={translate}
+                src={`${S3_BASE_URL}/icon_translate.svg`}
                 alt="번역"
                 onClick={() => setIsModalOpen(true)}
                 width={24}
@@ -154,7 +146,7 @@ export default function Nav() {
                 <>
                   <div className="relative">
                     <Image
-                      src={bell}
+                      src={`${S3_BASE_URL}/icon_bell_default.svg`}
                       alt="벨"
                       width={24}
                       height={24}
@@ -177,10 +169,10 @@ export default function Nav() {
                   </div>
                   <div className="relative">
                     <Image
-                      src={userProfile}
-                      width={24}
-                      height={24}
-                      alt="프로필"
+                      src={`${S3_BASE_URL}/img_profile_member.svg`}
+                      width={32}
+                      height={32}
+                      alt="유저 프로필"
                       onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                       className="cursor-pointer"
                     />
@@ -194,10 +186,10 @@ export default function Nav() {
               ) : userStatus === 'admin' ? (
                 <div className="relative">
                   <Image
-                    src={adminProfile}
-                    alt="프로필"
-                    width={24}
-                    height={24}
+                    src={`${S3_BASE_URL}/img_profile_admin.svg`}
+                    alt="어드민 프로필"
+                    width={32}
+                    height={32}
                     onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                     className="cursor-pointer"
                   />

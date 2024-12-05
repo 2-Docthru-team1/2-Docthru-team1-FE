@@ -19,7 +19,7 @@ export default function NotificationModal({ notifications, onClose, onNotificati
         <div className="flex justify-between p-[1.6rem] ">
           <p className="text-gray-700 font-semibold text-[1.6rem]">Notification</p>
           <Image
-            src={`${S3_BASE_URL}/icon_close`}
+            src={`${S3_BASE_URL}/icon_close.svg`}
             alt="close"
             width={24}
             height={24}

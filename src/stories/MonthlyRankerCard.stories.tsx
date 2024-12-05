@@ -6,9 +6,7 @@ export default {
   title: 'Components/MonthlyRankerCard',
   component: MonthlyRankerCard
 };
-
 const Template: StoryFn<MonthlyRankerCardProps> = args => <MonthlyRankerCard {...args} />;
-
 export const Default = Template.bind({});
 Default.args = {
   data: [
@@ -41,7 +39,6 @@ Default.args = {
     }
   ]
 };
-
 export const LeaderFocused = Template.bind({});
 LeaderFocused.args = {
   data: [
@@ -74,7 +71,6 @@ LeaderFocused.args = {
     }
   ]
 };
-
 export const EmptyRankers = Template.bind({});
 EmptyRankers.args = {
   data: []

@@ -56,6 +56,7 @@ export interface ChallengeHeaderProps {
   onEdit: () => void;
   isCardClicked: boolean;
   workId: string;
+  onSave: () => void;
 }
 
 export interface ChallengeBodyProps {

@@ -10,7 +10,7 @@ import ConfirmModal from '../Modal/ConfirmModal';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
-export default function ChallengeCard({ data, userId, role }: ChallengeCardProps) {
+export default function ChallengeCard({ type, data, userId, role }: ChallengeCardProps) {
   if (!data) {
     return (
       <div className="flex w-full justify-center items-center min-h-screen">
@@ -68,7 +68,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
 
   return (
     <div
-      className="bg-primary-white lg:w-[58.8rem] md:w-[calc(100vw-2.6rem)] sm:w-[calc(100vw-1.8rem)] gap-[1rem] rounded-[0.8rem] border-[0.2rem] border-solid border-gray-200"
+      className="bg-primary-white lg:w-[58.8rem] gap-[1rem] rounded-[0.8rem] border-[0.2rem] border-solid border-gray-200"
       onClick={handleCardClick}
     >
       <div>
@@ -99,10 +99,24 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
           <div>
             <ChipCategoryCard mediaType={mediaType} />
           </div>
-          <div className="lg:w-[54rem] sm:w-[calc(100vw-9.6rem)] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
-          <div className="flex items-center gap-[0.2rem]">
-            <Image src={`${S3_BASE_URL}/icon_deadline_clock.svg`} alt="Deadline" width={24} height={24} />
-            <div className="text-[1.3rem] text-gray-500">Closing on {formatDate(deadline)}</div>
+          <div className="lg:w-[54rem] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
+          <div className="flex justify-between">
+            <div className="flex items-center gap-[0.2rem]">
+              <Image src={`${S3_BASE_URL}/icon_deadline_clock.svg`} alt="Deadline" width={24} height={24} />
+              <div className="text-[1.3rem] text-gray-500">Closing on {formatDate(deadline)}</div>
+            </div>
+            {type === 'finish' && (
+              <div className="cursor-pointer flex items-center gap-[0.6rem] justify-center rounded-[3.05rem] border border-gray-400 w-[14.3rem] h-[3.3rem]">
+                <p className="font-bold text-[1.4rem] leading-[1.671rem] color-gray-700">View my work</p>
+                <Image src={`${S3_BASE_URL}/icon_document.svg`} alt="view my work" width={24} height={24} />
+              </div>
+            )}
+            {type === 'ongoing' && (
+              <div className="cursor-pointer flex items-center gap-[0.6rem] justify-center rounded-[3.05rem] border border-gray-400 w-[14.3rem] h-[3.3rem]">
+                <p className="font-bold text-[1.4rem] leading-[1.671rem] color-gray-700">Keep going</p>
+                <Image src={`${S3_BASE_URL}/icon_keep_going_arrow.svg`} alt="keep going" width={24} height={24} />
+              </div>
+            )}
           </div>
         </div>
       </div>
