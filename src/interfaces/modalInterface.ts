@@ -30,6 +30,7 @@ export interface Notification {
   challengeId: string;
   message: string;
   createdAt: string;
-  id?: string;
-  isRead?: boolean;
+  id: string;
+  isRead: boolean;
+  workId?: string;
 }

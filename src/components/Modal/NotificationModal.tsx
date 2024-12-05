@@ -14,7 +14,7 @@ export default function NotificationModal({ notifications, onClose, onNotificati
     return format(date, 'yyyy-MM-dd HH:mm:ss');
   };
 
-  const handleNotificationClick = async (challengeId: string, id: string, isRead: boolean) => {
+  const handleNotificationClick = async (challengeId: string, id: string, isRead: boolean, workId: string) => {
     try {
       if (!isRead) {
         await patchIsReadTrue(id);
@@ -46,12 +46,10 @@ export default function NotificationModal({ notifications, onClose, onNotificati
             notifications.map((data, index) => (
               <div key={index}>
                 <div
-                  className="flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer hover:bg-gray-100 hover:shadow-lg transition-all duration-500 ${
+                  className={`flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer hover:bg-gray-100 hover:shadow-lg transition-all duration-500 ${
                     data.isRead ? 'opacity-50' : ''
-                  }`"
-                  onClick={() =>
-                    handleNotificationClick(data.challengeId, data.id ? data.id : '', data.isRead ? data.isRead : false)
-                  }
+                  }`}
+                  onClick={() => handleNotificationClick(data.challengeId, data.id, data.isRead, data.workId ? data.workId : '')}
                 >
                   <div className="text-[1.4rem] leading-[1.671rem] text-gray-700">{data.message}</div>
                   <div className="text-[1.4rem] leading-[1.671rem] text-gray-400">{formatDate(data.createdAt)}</div>
