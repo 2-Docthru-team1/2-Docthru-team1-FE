@@ -178,8 +178,10 @@ export default function MyChallengeClient() {
   };
 
   const handleClickEvent = (id: string) => {
-    router.push(`/me/${id}`);
+    router.push(`/challengeList/${id}`);
   };
+
+  console.log(participateFinishedChallenge);
 
   return (
     <div className="flex flex-col justify-center items-center md:p-[2.4rem] sm:p-[1.6rem]">
@@ -197,7 +199,7 @@ export default function MyChallengeClient() {
                 onClick={() => handleClickEvent(item.id)}
                 className="cursor-pointer lg:w-full md:w-[calc(100vw-6rem)] sm:w-[calc(100vw-3.5rem)]"
               >
-                <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
+                <ChallengeCard type="ongoing" data={item} userId={item.requestUser.id} role="normal" />
               </div>
             ))}
           </div>
@@ -216,7 +218,7 @@ export default function MyChallengeClient() {
                 onClick={() => handleClickEvent(item.id)}
                 className="cursor-pointer lg:w-full md:w-[calc(100vw-6rem)] sm:w-[calc(100vw-3.5rem)]"
               >
-                <ChallengeCard data={item} userId={item.requestUser.id} role="normal" />
+                <ChallengeCard type="finish" data={item} userId={item.requestUser.id} role="normal" />
               </div>
             ))}
           </div>
