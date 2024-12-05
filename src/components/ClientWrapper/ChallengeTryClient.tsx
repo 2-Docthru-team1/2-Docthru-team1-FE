@@ -2,8 +2,11 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { fetchChallenge_detail, fetchRegisterWork } from '@/api/challengeService';
 import { uploadImageToEC2 } from '@/api/uploadService';
+import 'react-toastify/dist/ReactToastify.css';
 import ChallengeBody from '../Body/ChallengeBody';
 import ChallengeRefPageCard from '../Card/ChallengeRefPageCard';
 import ChallengeHeader from '../Header/ChallengeHeader';
@@ -11,6 +14,26 @@ import ChallengeHeader from '../Header/ChallengeHeader';
 export default function ChallengeTryClient() {
   const { id } = useParams();
   const router = useRouter();
+  const userId = localStorage.getItem('userId');
+
+  useEffect(() => {
+    const savedData = localStorage.getItem(`challengeTrySaveData-${userId}-${id}`);
+    if (savedData) {
+      toast.info('저장된 데이터가 있습니다. 복원하시겠습니까?', {
+        position: 'bottom-center',
+        autoClose: false,
+        closeOnClick: true,
+        onClick: () => restoreData(savedData)
+      });
+    }
+  }, []);
+
+  const restoreData = (savedData: string) => {
+    const { title, content } = JSON.parse(savedData);
+    setTitle(title);
+    setContent(content);
+    toast.success('데이터를 복원했습니다.', { position: 'top-right', autoClose: 2000 });
+  };
 
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -59,9 +82,29 @@ export default function ChallengeTryClient() {
 
       alert('Submit Successfully!');
       router.push(`/challengeList/${work.challengeId}`);
+
+      if (typeof window !== 'undefined') {
+        Object.keys(localStorage).forEach(key => {
+          if (key.startsWith(`challengeTrySaveData-${work.challengeId}-${userId}-`)) {
+            localStorage.removeItem(key);
+          }
+        });
+      }
     } catch (error) {
       alert('Error submitting the form. Please try again.');
     }
+  };
+
+  const handleSave = () => {
+    const challengeData = {
+      id,
+      title,
+      content
+    };
+
+    localStorage.setItem(`challengeTrySaveData-${userId}-${id}`, JSON.stringify(challengeData));
+    alert('Saved to local storage!');
+    router.push(`/challengeList/${id}`);
   };
 
   return (
@@ -73,7 +116,7 @@ export default function ChallengeTryClient() {
       ${isCardClicked ? 'md:w-[38.8rem] sm:order-2' : 'md:w-full sm:order-1'}`}
       >
         <div className="w-full flex justify-center">
-          <ChallengeHeader onSubmit={handleSubmit} isCardClicked={isCardClicked} />
+          <ChallengeHeader onSubmit={handleSubmit} isCardClicked={isCardClicked} onSave={handleSave} />
         </div>
         <div className="mt-[2.4rem] mb-[5rem] w-full flex justify-center lg:px-0 md:pl-[0.2rem] md:pr-0 sm:px-[0.6rem]">
           <ChallengeBody
@@ -86,6 +129,7 @@ export default function ChallengeTryClient() {
             isCardClicked={isCardClicked}
           />
         </div>
+        <ToastContainer />
       </div>
       <div onClick={handleCardClick} className={`${!isCardClicked ? 'sm:order-2' : 'sm:order-1'} lg:order-2 md:order-2`}>
         <ChallengeRefPageCard embedUrl={embedUrl} />

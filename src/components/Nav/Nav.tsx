@@ -178,8 +178,8 @@ export default function Nav() {
                   <div className="relative">
                     <Image
                       src={userProfile}
-                      width={24}
-                      height={24}
+                      width={32}
+                      height={32}
                       alt="프로필"
                       onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                       className="cursor-pointer"
@@ -196,8 +196,8 @@ export default function Nav() {
                   <Image
                     src={adminProfile}
                     alt="프로필"
-                    width={24}
-                    height={24}
+                    width={32}
+                    height={32}
                     onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                     className="cursor-pointer"
                   />

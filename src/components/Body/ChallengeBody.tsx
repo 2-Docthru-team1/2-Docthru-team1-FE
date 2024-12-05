@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { ChallengeBodyProps } from '@/interfaces/challengeInterface';
 import 'react-quill-new/dist/quill.snow.css';
 
@@ -54,6 +54,15 @@ export default function ChallengeBody({
     ]
   };
 
+  useEffect(() => {
+    const savedData = localStorage.getItem('challengeTrySaveData');
+    if (savedData) {
+      const { title, content } = JSON.parse(savedData);
+      setTitle(title);
+      setContent(content);
+    }
+  }, []);
+
   return (
     <div
       className={`border-none lg:w-[87.1rem] lg:px-0 ${isCardClicked ? 'md:w-[38.8rem]' : 'md:w-full'} md:max-w-[87.1rem] md:px-0 sm:w-full sm:max-w-[69.6rem] sm:pl-0`}
@@ -95,6 +104,8 @@ export default function ChallengeBody({
                   alt="엑스"
                   onClick={() => handleRemoveImage(index)}
                   className="mt-[0.7rem] mr-[0.7rem] absolute top-0 right-0 cursor-pointer"
+                  width={32}
+                  height={32}
                 />
               </div>
             ))}
