@@ -7,7 +7,6 @@ import type { ChallengeMostLikedCardProps, ChallengeMostLikedCardWorksProps } fr
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardProps) {
-  console.log(data);
   const [viewFeedback, setViewFeedback] = useState(false);
   const [workData, setWorkData] = useState<ChallengeMostLikedCardWorksProps>();
 

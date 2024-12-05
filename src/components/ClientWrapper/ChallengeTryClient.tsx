@@ -28,12 +28,10 @@ export default function ChallengeTryClient() {
 
   const restoreData = () => {
     const savedData = localStorage.getItem(`challengeTrySaveData-${userId}-${id}`);
-    console.log(savedData);
     if (savedData) {
       const { title, content } = JSON.parse(savedData);
       setTitle(title);
       setContent(content);
-      console.log(title, content, 'click!!!!!!!!!!!');
     }
     setToastVisible(false);
   };

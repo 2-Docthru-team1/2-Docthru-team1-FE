@@ -60,10 +60,6 @@ export default function MyChallengeClient() {
     };
   }, [activeTab]);
 
-  useEffect(() => {
-    console.log('Category value:', category); // category 값 확인
-  }, [category]);
-
   const {
     data: participateOngoingChallenge,
     isLoading: ongoingLoading,
@@ -180,8 +176,6 @@ export default function MyChallengeClient() {
   const handleClickEvent = (id: string) => {
     router.push(`/challengeList/${id}`);
   };
-
-  console.log(participateFinishedChallenge);
 
   return (
     <div className="flex flex-col justify-center items-center md:p-[2.4rem] sm:p-[1.6rem]">
