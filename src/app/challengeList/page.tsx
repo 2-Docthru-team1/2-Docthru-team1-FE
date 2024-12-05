@@ -1,35 +1,11 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import Image from 'next/image';
-import { fetchAdminChallenge, fetchChallenge } from '@/api/challengeService';
+import { fetchAdminChallenge, fetchChallenge, fetchRanker } from '@/api/challengeService';
 import ChallengeListClient from '@/components/ClientWrapper/ChallengeListClient';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default async function ChallengeListPage() {
-  const rankerData = [
-    {
-      id: '1',
-      name: 'Alice Kim',
-      profileImage: '/assets/img_profile_member.png',
-      totalLikes: 3288,
-      role: 'koo-koo'
-    },
-    {
-      id: '2',
-      name: 'Bob Lee',
-      profileImage: '/assets/img_profile_member.png',
-      totalLikes: 2145,
-      role: 'koo-koo'
-    },
-    {
-      id: '3',
-      name: 'Charlie Park',
-      profileImage: '/assets/img_profile_member.png',
-      totalLikes: 1209,
-      role: 'koo-koo'
-    }
-  ];
-
   const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
   const monthParams = `?monthly=${currentMonth}`;
 
@@ -41,6 +17,8 @@ export default async function ChallengeListPage() {
     queryFn: () => fetchChallenge(1, 4, '')
   });
   const dehydratedState = dehydrate(queryClient);
+
+  const rankerData = await fetchRanker(currentMonth);
 
   const Data = {
     adminchallengeData,

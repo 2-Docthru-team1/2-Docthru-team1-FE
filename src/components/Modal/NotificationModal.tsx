@@ -4,7 +4,7 @@ import type { NotificationModalProps } from '@/interfaces/modalInterface';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
-export default function ProfileModal({ notifications, onClose }: NotificationModalProps) {
+export default function NotificationModal({ notifications, onClose, onNotificationClick }: NotificationModalProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
@@ -28,15 +28,22 @@ export default function ProfileModal({ notifications, onClose }: NotificationMod
           />
         </div>
         <div className="flex flex-col overflow-y-auto md:h-[45.5rem] sm:h-[23.6rem]">
-          {notifications.map((data, index) => (
-            <div key={index}>
-              <div className="flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem]">
-                <div className="text-[1.4rem] leading-[1.671rem] text-gray-700">{data.content}</div>
-                <div className="text-[1.4rem] leading-[1.671rem] text-gray-400">{formatDate(data.time)}</div>
+          {notifications.length === 0 ? (
+            <p className="text-center text-gray-400 text-[1.5rem] pt-[10rem]">No notifications here yet.</p>
+          ) : (
+            notifications.map((data, index) => (
+              <div key={index}>
+                <div
+                  className="flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer hover:bg-gray-100 hover:shadow-lg transition-all duration-500"
+                  onClick={() => onNotificationClick(data.challengeId)}
+                >
+                  <div className="text-[1.4rem] leading-[1.671rem] text-gray-700">{data.message}</div>
+                  <div className="text-[1.4rem] leading-[1.671rem] text-gray-400">{formatDate(data.createdAt)}</div>
+                </div>
+                {index < notifications.length - 1 && <hr className="border-gray-200" />}
               </div>
-              {index < notifications.length - 1 && <hr className="border-gray-200" />}
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

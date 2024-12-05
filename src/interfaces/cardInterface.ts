@@ -95,10 +95,14 @@ export interface MonthlyRankerCardProps {
 }
 
 export interface MonthlyRankerCard {
+  owner: Ranker;
+  likeCount: number;
+}
+
+export interface Ranker {
   id: string;
   name: string;
   profileImage?: string;
-  totalLikes: number;
   role: string;
 }
 

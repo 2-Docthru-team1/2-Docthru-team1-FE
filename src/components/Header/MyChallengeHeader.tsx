@@ -42,7 +42,7 @@ export default function MyChallengeHeader({ activeTab, onTabChange }: { activeTa
   };
 
   return (
-    <div className="pt-[2.4rem] w-[120rem] flex flex-col">
+    <div className="lg:pt-[2.4rem] lg:max-w-[120rem] sm:w-full flex flex-col">
       <div className="flex justify-between items-center">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700">My Challenge</p>
         <button
