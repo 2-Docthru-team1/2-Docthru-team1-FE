@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import DOMPurify from 'dompurify';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { getFeedbackList } from '@/api/workService';
@@ -10,6 +11,20 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
   console.log(data);
   const [viewFeedback, setViewFeedback] = useState(false);
   const [workData, setWorkData] = useState<ChallengeMostLikedCardWorksProps>();
+
+  const sanitizedContent = DOMPurify.sanitize(data.description, {
+    FORBID_TAGS: ['script'],
+    ALLOWED_TAGS: ['p', 'strong', 'em', 'u', 'ul', 'ol', 'li', 'br', 'span'],
+    ALLOWED_ATTR: ['style', 'class']
+  });
+
+  const cleanListTags = (content: string) => {
+    let cleanedContent = content.replace(/data-list="[^"]*"/g, '');
+    cleanedContent = cleanedContent.replace(/contenteditable="false"/g, '');
+    return cleanedContent;
+  };
+
+  const cleanedContent = cleanListTags(sanitizedContent);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -68,7 +83,10 @@ export default function ChallengeMostLikedCard({ data }: ChallengeMostLikedCardP
             <p className="text-medium text-[1.4rem] leading-[1.671rem] text-gray-400">{formatDate(data.createdAt)}</p>
           </div>
           <div className="flex">
-            <p className="font-normal text-[1.6rem] leading-[2.56rem] text-gray-800">{data.description}</p>
+            <div
+              className="font-normal text-[1.6rem] leading-[2.56rem] text-gray-800"
+              dangerouslySetInnerHTML={{ __html: cleanedContent }}
+            />
           </div>
         </div>
       </div>
