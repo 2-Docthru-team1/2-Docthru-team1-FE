@@ -71,16 +71,18 @@ const useStore = create<StoreState>(set => ({
   logout: () => {
     set({ id: null, role: null, userStatus: 'loggedOut', name: null });
     if (typeof window !== 'undefined') {
+      const { id } = useStore.getState();
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith(`challengeTrySaveData-${id}-`)) {
+          localStorage.removeItem(key);
+        }
+      });
       localStorage.removeItem('userId');
       localStorage.removeItem('role');
       localStorage.removeItem('name');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
-      Object.keys(localStorage).forEach(key => {
-        if (key.startsWith('challengeTrySaveData-')) {
-          localStorage.removeItem(key);
-        }
-      });
+      localStorage.removeItem('challengeMgmtTotalCount');
     }
   },
 

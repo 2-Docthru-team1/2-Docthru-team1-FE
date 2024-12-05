@@ -14,9 +14,10 @@ import ChallengeHeader from '../Header/ChallengeHeader';
 export default function ChallengeTryClient() {
   const { id } = useParams();
   const router = useRouter();
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    const savedData = localStorage.getItem(`challengeTrySaveData-${id}`);
+    const savedData = localStorage.getItem(`challengeTrySaveData-${userId}-${id}`);
     if (savedData) {
       toast.info('저장된 데이터가 있습니다. 복원하시겠습니까?', {
         position: 'bottom-center',
@@ -81,6 +82,14 @@ export default function ChallengeTryClient() {
 
       alert('Submit Successfully!');
       router.push(`/challengeList/${work.challengeId}`);
+
+      if (typeof window !== 'undefined') {
+        Object.keys(localStorage).forEach(key => {
+          if (key.startsWith(`challengeTrySaveData-${work.challengeId}-${userId}-`)) {
+            localStorage.removeItem(key);
+          }
+        });
+      }
     } catch (error) {
       alert('Error submitting the form. Please try again.');
     }
@@ -90,15 +99,12 @@ export default function ChallengeTryClient() {
     const challengeData = {
       id,
       title,
-      content,
-      images: uploadImages.map(file => ({
-        name: file.name,
-        url: URL.createObjectURL(file)
-      }))
+      content
     };
 
-    localStorage.setItem(`challengeTrySaveData-${id}`, JSON.stringify(challengeData));
+    localStorage.setItem(`challengeTrySaveData-${userId}-${id}`, JSON.stringify(challengeData));
     alert('Saved to local storage!');
+    router.push(`/challengeList/${id}`);
   };
 
   return (
