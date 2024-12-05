@@ -147,16 +147,21 @@ export default function Nav() {
                   <div className="relative">
                     <Image
                       src={`${S3_BASE_URL}/icon_bell_default.svg`}
-                      alt="벨"
+                      alt="default_bell"
                       width={24}
                       height={24}
                       onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
                       className="cursor-pointer"
                     />
-                    {/* 빨간 색 점 표시 */}
-                    {/* {unreadNotificationCount > 0 && (
-                      <span className="absolute right-0 top-0 w-[0.8rem] h-[0.8rem] bg-red-500 rounded-full"></span>
-                    )} */}
+                    {/* 알림 오면 아래 이미지 */}
+                    {/* <Image
+                      src={`${S3_BASE_URL}/icon_bell_noti.svg`}
+                      alt="noti_bell"
+                      width={24}
+                      height={24}
+                      onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
+                      className="cursor-pointer"
+                    /> */}
                     {isNotificationModalOpen && (
                       <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
                         <NotificationModal
