@@ -1,0 +1,9 @@
+GET http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/recipes/0260ef21-b450-4b72-be11-0dceb78be30d
+
+###
+POST http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/recipes/0260ef21-b450-4b72-be11-0dceb78be30d/like
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlODM5NGNjYy03MzU5LTRjMTYtYWIzNy00ZWQ5NjcxMTQ2YTQiLCJpYXQiOjE3MzM0MDQ4NzksImV4cCI6MTczMzQwODQ3OX0.w5x65b3guByjEzYd7_j15IPrNBE2mdNsYHB-vRPT9rE
+
+###
+DELETE http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com/recipes/0260ef21-b450-4b72-be11-0dceb78be30d/like
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlODM5NGNjYy03MzU5LTRjMTYtYWIzNy00ZWQ5NjcxMTQ2YTQiLCJpYXQiOjE3MzM0MDQ4NzksImV4cCI6MTczMzQwODQ3OX0.w5x65b3guByjEzYd7_j15IPrNBE2mdNsYHB-vRPT9rE

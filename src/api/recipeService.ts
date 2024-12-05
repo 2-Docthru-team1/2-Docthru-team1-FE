@@ -20,7 +20,7 @@ export const fetchRecipe = async (id: string) => {
 
 export const fetchLikePost = async (id: string) => {
   try {
-    const response = await postRequest(`/recipe/${id}/like`);
+    const response = await postRequest(`/recipes/${id}/like`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to create like');
@@ -29,7 +29,7 @@ export const fetchLikePost = async (id: string) => {
 
 export const fetchUnlikePost = async (id: string) => {
   try {
-    const response = await deleteRequest(`recipe/${id}/like`);
+    const response = await deleteRequest(`/recipes/${id}/like`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to create unlike');
