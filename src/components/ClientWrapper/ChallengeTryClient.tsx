@@ -122,57 +122,57 @@ export default function ChallengeTryClient() {
     } catch (error) {
       alert('Error editting the form. Please try again.');
     }
-    const handleSave = () => {
-      const challengeData = {
-        id,
-        title,
-        content
-      };
-
-      localStorage.setItem(`challengeTrySaveData-${userId}-${id}`, JSON.stringify(challengeData));
-      alert('Saved to local storage!');
-      router.push(`/challengeList/${id}`);
-    };
-
-    const hideToast = () => {
-      setToastVisible(false);
-    };
-
-    return (
-      <div
-        className={`flex justify-center w-full lg:flex-row lg:items-start md:flex-row md:items-start ${!isCardClicked ? 'sm:flex-row sm:items-start' : 'sm:flex-col sm:items-center'}`}
-      >
-        <div
-          className={`flex-1 flex-col items-center justify-center flex lg:mr-[3.8rem] md:mr-0 sm:mr-0 lg:px-0 md:pl-[1.5rem] md:pr-[0] sm:px-[3.4rem] lg:w-[120rem] sm:w-full lg:order-1 md:order-1
-      ${isCardClicked ? 'md:w-[38.8rem] sm:order-2' : 'md:w-full sm:order-1'}`}
-        >
-          <div className="w-full flex justify-center">
-            <ChallengeHeader
-              onSubmit={handleSubmit}
-              onEdit={handleEdit}
-              isCardClicked={isCardClicked}
-              workId={workId}
-              onSave={handleSave}
-            />
-          </div>
-          <div className="mt-[2.4rem] mb-[5rem] w-full flex justify-center lg:px-0 md:pl-[0.2rem] md:pr-0 sm:px-[0.6rem]">
-            <ChallengeBody
-              title={title}
-              setTitle={setTitle}
-              content={content}
-              setContent={setContent}
-              images={uploadImages}
-              setImages={setUploadImages}
-              isCardClicked={isCardClicked}
-              workId={workId}
-            />
-          </div>
-          {isToastVisible && <ToastComponent onClose={hideToast} duration={10000} onYesClick={restoreData} />}
-        </div>
-        <div onClick={handleCardClick} className={`${!isCardClicked ? 'sm:order-2' : 'sm:order-1'} lg:order-2 md:order-2`}>
-          <ChallengeRefPageCard embedUrl={embedUrl} />
-        </div>
-      </div>
-    );
   };
+  const handleSave = () => {
+    const challengeData = {
+      id,
+      title,
+      content
+    };
+
+    localStorage.setItem(`challengeTrySaveData-${userId}-${id}`, JSON.stringify(challengeData));
+    alert('Saved to local storage!');
+    router.push(`/challengeList/${id}`);
+  };
+
+  const hideToast = () => {
+    setToastVisible(false);
+  };
+
+  return (
+    <div
+      className={`flex justify-center w-full lg:flex-row lg:items-start md:flex-row md:items-start ${!isCardClicked ? 'sm:flex-row sm:items-start' : 'sm:flex-col sm:items-center'}`}
+    >
+      <div
+        className={`flex-1 flex-col items-center justify-center flex lg:mr-[3.8rem] md:mr-0 sm:mr-0 lg:px-0 md:pl-[1.5rem] md:pr-[0] sm:px-[3.4rem] lg:w-[120rem] sm:w-full lg:order-1 md:order-1
+      ${isCardClicked ? 'md:w-[38.8rem] sm:order-2' : 'md:w-full sm:order-1'}`}
+      >
+        <div className="w-full flex justify-center">
+          <ChallengeHeader
+            onSubmit={handleSubmit}
+            onEdit={handleEdit}
+            isCardClicked={isCardClicked}
+            workId={workId}
+            onSave={handleSave}
+          />
+        </div>
+        <div className="mt-[2.4rem] mb-[5rem] w-full flex justify-center lg:px-0 md:pl-[0.2rem] md:pr-0 sm:px-[0.6rem]">
+          <ChallengeBody
+            title={title}
+            setTitle={setTitle}
+            content={content}
+            setContent={setContent}
+            images={uploadImages}
+            setImages={setUploadImages}
+            isCardClicked={isCardClicked}
+            workId={workId}
+          />
+        </div>
+        {isToastVisible && <ToastComponent onClose={hideToast} duration={10000} onYesClick={restoreData} />}
+      </div>
+      <div onClick={handleCardClick} className={`${!isCardClicked ? 'sm:order-2' : 'sm:order-1'} lg:order-2 md:order-2`}>
+        <ChallengeRefPageCard embedUrl={embedUrl} />
+      </div>
+    </div>
+  );
 }
