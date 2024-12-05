@@ -1,8 +1,6 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useState } from 'react';
-import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
-import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
 import { fetchUpdateStatus } from '@/api/challengeService';
 import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';
@@ -10,9 +8,15 @@ import type { ChallengeCardProps } from '@/interfaces/cardInterface';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
 
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
+
 export default function ChallengeCard({ data, userId, role }: ChallengeCardProps) {
   if (!data) {
-    return <div>로딩 중...</div>;
+    return (
+      <div className="flex w-full justify-center items-center min-h-screen">
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />
+      </div>
+    );
   }
 
   const { id, title, deadline, status, mediaType, requestUser } = data;
@@ -75,7 +79,14 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
             </div>
             {role === 'admin' || userId === requestUser.id ? (
               <div className="relative z-10">
-                <Image src={kebabToggle} alt="More Options" onClick={handledropdownClick} className="cursor-pointer" />
+                <Image
+                  src={`${S3_BASE_URL}/icon_kebab.svg`}
+                  alt="More Options"
+                  onClick={handledropdownClick}
+                  className="cursor-pointer"
+                  width={24}
+                  height={24}
+                />
                 <div className="absolute right-[1rem] top-[2.5rem]" onClick={e => e.stopPropagation()}>
                   {dropdownOpen && (
                     <CancelDropdown onCancel={handleCancelClick}>{role === 'admin' ? 'Abort' : 'Cancel'}</CancelDropdown>
@@ -90,7 +101,7 @@ export default function ChallengeCard({ data, userId, role }: ChallengeCardProps
           </div>
           <div className="lg:w-[54rem] sm:w-[calc(100vw-9.6rem)] border-b border-gray-200 mt-[2rem] mb-[1.2rem]" />
           <div className="flex items-center gap-[0.2rem]">
-            <Image src={clockIcon} alt="Deadline" />
+            <Image src={`${S3_BASE_URL}/icon_deadline_clock.svg`} alt="Deadline" width={24} height={24} />
             <div className="text-[1.3rem] text-gray-500">Closing on {formatDate(deadline)}</div>
           </div>
         </div>

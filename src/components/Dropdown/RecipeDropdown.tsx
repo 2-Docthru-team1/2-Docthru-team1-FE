@@ -1,6 +1,4 @@
-import { useRouter } from 'next/navigation';
 import type { RecipeDropdownProps } from '@/interfaces/dropdownInterface';
-import useStore from '@/store/store';
 
 export default function Dropdown({ items, onApply }: RecipeDropdownProps) {
   return (

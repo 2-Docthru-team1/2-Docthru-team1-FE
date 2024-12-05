@@ -3,10 +3,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { type ChangeEvent, useState } from 'react';
-import activeSubmit from '@/../public/assets/btn_feedback_active.png';
-import inactiveSubmit from '@/../public/assets/btn_feedback_inactive.png';
 import { postFeedback } from '@/api/workService';
 import type { WorkInputProps } from '@/interfaces/workInterface';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function WorkInput({ data }: WorkInputProps) {
   if (!data) return null;
@@ -69,9 +69,9 @@ export default function WorkInput({ data }: WorkInputProps) {
         sm:self-start"
         >
           {isInputEmpty() ? (
-            <Image src={activeSubmit} alt="active 제출 이미지" width={40} height={40} />
+            <Image src={`${S3_BASE_URL}/btn_feedback_active.svg`} alt="active 제출 이미지" width={40} height={40} />
           ) : (
-            <Image src={inactiveSubmit} alt="inactive 제출 이미지" width={40} height={40} />
+            <Image src={`${S3_BASE_URL}/btn_feedback_inactive.svg`} alt="inactive 제출 이미지" width={40} height={40} />
           )}
         </button>
       </form>

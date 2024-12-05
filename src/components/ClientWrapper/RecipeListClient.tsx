@@ -5,19 +5,16 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
-import { fetchAdminChallenge } from '@/api/challengeService';
 import { fetchMenu } from '@/api/recipeService';
 import RecipeCard from '@/components/Card/RecipeCard';
 import type { RecipeData } from '@/interfaces/cardInterface';
-import type { AdminData, RecipeListClientProps } from '@/interfaces/recipelistInterface';
+import type { AdminListClientProps, RecipeListClientProps } from '@/interfaces/recipelistInterface';
 import useStore from '@/store/store';
 import MonthlyChallengeCard from '../Card/MonthlyChallengeCard';
 import RecipeFilterBar from '../FilterBar/RecipeFilterBar';
 import Pagination from '../Pagination/Pagination';
 
-interface AdminListClientProps {
-  adminchallengeData: AdminData[];
-}
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function RecipeListClient({ adminchallengeData }: AdminListClientProps) {
   const router = useRouter();
@@ -93,7 +90,7 @@ export default function RecipeListClient({ adminchallengeData }: AdminListClient
   if (isLoading) {
     return (
       <div className="flex w-full justify-center items-center min-h-screen">
-        <Image src={loading} alt="loading" />
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />
       </div>
     );
   }
@@ -135,7 +132,7 @@ export default function RecipeListClient({ adminchallengeData }: AdminListClient
         </div>
         <div className="flex flex-col gap-[1.6rem] justify-center items-center w-full">
           <div
-            className="flex z-[1000] w-full
+            className="flex z-[20] w-full
           lg:flex-row lg:justify-between lg:items-center 
           md:flex-col
           sm:flex-col "

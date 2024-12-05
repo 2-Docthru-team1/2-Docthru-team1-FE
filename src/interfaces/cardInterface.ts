@@ -156,8 +156,13 @@ export interface ChallengeMostLikedCardData {
   description: string;
   createdAt: string;
   owner: ownerData;
-  Feedback?: string[];
   id: string;
+  images: imagesData[];
+}
+
+export interface imagesData {
+  imageUrl: string;
+  imageUrl2?: string;
 }
 
 export interface FeedbackData {

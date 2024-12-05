@@ -3,17 +3,19 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
-import { getUser } from '@/api/userService';
 import { getFeedbackList } from '@/api/workService';
 import { getWorkDetail } from '@/api/workService';
 import type { FeedbackResponse } from '@/interfaces/feedbackInterface';
+import useStore from '@/store/store';
 import FeedbackCard from '../Card/FeedbackCard';
 import WorkCard from '../Card/WorkCard';
 import WorkInput from '../Input/WorkInput';
 
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
+
 export default function WorkDetailClient() {
   const { id } = useParams();
+  const { id: userId, role: userRole } = useStore();
   const workId = String(id);
   const {
     data: work,
@@ -44,15 +46,10 @@ export default function WorkDetailClient() {
     initialPageParam: 1
   });
 
-  const { data: user, isLoading: userLoading } = useQuery({
-    queryKey: ['user'],
-    queryFn: () => getUser()
-  });
-
-  if (workLoading || feedbackLoading || userLoading) {
+  if (workLoading || feedbackLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Image src={loading} alt="loading" />
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="로딩" width={200} height={200} />
       </div>
     );
   }
@@ -67,11 +64,12 @@ export default function WorkDetailClient() {
 
   return (
     <div className="flex flex-col w-full items-center justify-center">
-      <WorkCard data={work} user={user} />
+      <WorkCard data={work} userId={userId} userRole={userRole} />
       <WorkInput data={work} />
       <FeedbackCard
         comments={feedback ? feedback.pages.flatMap(page => page.list) : []}
-        user={user}
+        userId={userId}
+        userRole={userRole}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}

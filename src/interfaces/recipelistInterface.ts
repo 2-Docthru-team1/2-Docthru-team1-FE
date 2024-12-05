@@ -30,3 +30,7 @@ export interface AdminData {
   status: 'onGoing' | 'finished';
   deadline: string;
 }
+
+export interface AdminListClientProps {
+  adminchallengeData: AdminData[];
+}

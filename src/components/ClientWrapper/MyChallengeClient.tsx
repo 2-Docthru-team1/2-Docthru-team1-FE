@@ -20,8 +20,11 @@ export default function MyChallengeClient() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
+    const role = localStorage.getItem('role');
     if (!accessToken) {
       router.push('/');
+    } else if (role === 'admin') {
+      router.push('/recipeList');
     }
   }, []);
 

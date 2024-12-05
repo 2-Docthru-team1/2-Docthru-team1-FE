@@ -1,15 +1,14 @@
 'use client';
 
-import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
-import plus from '@/../public/assets/icon_add_photo_plus.png';
-import close from '@/../public/assets/icon_out_circle_small.png';
 import { fetchChallengeRequest } from '@/api/challengeService';
 import { uploadImageToEC2 } from '@/api/uploadService';
 import ChallengeApplyDropdown from '../Dropdown/ChallengeApplyDropdown';
 import DateDropdown from '../Dropdown/DateDropdown';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeRequestClient() {
   const router = useRouter();
@@ -106,7 +105,7 @@ export default function ChallengeRequestClient() {
 
     try {
       const res = await fetchChallengeRequest(data);
-      const { challenge, uploadUrls } = res;
+      const { uploadUrls } = res;
 
       await Promise.all(
         images.map(async (image, index) => {
@@ -206,10 +205,12 @@ export default function ChallengeRequestClient() {
                   className="w-full h-full object-cover"
                 />
                 <Image
-                  src={close}
+                  src={`${S3_BASE_URL}/icon_out_circle_small.svg`}
                   alt="Remove"
                   onClick={() => handleRemoveImage(index)}
                   className="mt-[0.7rem] mr-[0.7rem] absolute top-0 right-0 cursor-pointer"
+                  width={24}
+                  height={24}
                 />
               </div>
             ))}
@@ -218,7 +219,7 @@ export default function ChallengeRequestClient() {
                 className="w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center cursor-pointer bg-primary-white rounded-[0.5rem]"
                 onClick={handleImageClick}
               >
-                <Image src={plus} alt="Add" width={40} height={40} />
+                <Image src={`${S3_BASE_URL}/icon_add_photo_plus.svg`} alt="Add" width={40} height={40} />
               </div>
             )}
           </div>

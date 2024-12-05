@@ -12,9 +12,12 @@ import { deleteFeedback, patchFeedback } from '@/api/feedbackService';
 import type { FeedbackCardProps } from '@/interfaces/feedbackInterface';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
+
 export default function FeedbackCard({
   comments,
-  user,
+  userId,
+  userRole,
   fetchNextPage,
   hasNextPage,
   isFetchingNextPage
@@ -94,7 +97,7 @@ export default function FeedbackCard({
     >
       <div className="flex flex-col  lg:w-full md:w-full sm:w-full">
         <ul
-          className="flex-col flex items-center
+          className="flex-col flex items-center list-none
         md:w-full
         sm:w-full"
         >
@@ -120,7 +123,7 @@ export default function FeedbackCard({
                   <div className="flex justify-between items-center gap-[3rem] mb-[1.2rem]">
                     <div className="flex gap-[1rem] items-center">
                       <div className="w-[3.2rem] h-[3.2rem] relative">
-                        <Image src={userImg} alt="유저 이미지" layout="fill" />
+                        <Image src={`${S3_BASE_URL}/img_profile_member.svg`} alt="유저 이미지" fill />
                       </div>
                       <div>
                         <p className="text-[1.4rem] font-medium text-gray-800">{comment.owner.name}</p>
@@ -159,12 +162,12 @@ export default function FeedbackCard({
                         </button>
                       </div>
                     )}
-                    {(user.id === comment.ownerId || user.role === 'admin') &&
+                    {(userId === comment.ownerId || userRole === 'admin') &&
                       editingCommentId !== comment.id &&
                       deletingCommentId !== comment.id && (
                         <div className="flex-col relative">
                           <Image
-                            src={kebab}
+                            src={`${S3_BASE_URL}/icon_kebab_cancel.svg`}
                             alt="드롭다운 이미지"
                             onClick={() => handleMenuClick(comment.id)}
                             className="cursor-pointer"
@@ -174,7 +177,7 @@ export default function FeedbackCard({
                           <div className="absolute right-0">
                             {openDropdownId === comment.id && (
                               <>
-                                {user.role !== 'admin' && (
+                                {userRole !== 'admin' && (
                                   <div onClick={() => handleEditClick(comment)}>
                                     <CancelDropdown onCancel={() => handleEditClick(comment)}>Edit</CancelDropdown>
                                   </div>
@@ -210,7 +213,7 @@ export default function FeedbackCard({
       </div>
       {hasNextPage && (
         <div ref={ref}>
-          <Image src={more} alt="더보기 이미지" width={40} height={40} />
+          <Image src={`${S3_BASE_URL}/icon_more.svg`} alt="더보기 이미지" width={40} height={40} />
         </div>
       )}
     </div>

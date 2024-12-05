@@ -1,13 +1,9 @@
 import Image from 'next/image';
-import { useEffect } from 'react';
-import activeCheckBox from '@/../public/assets/btn_active_checkbox.png';
-import inActiveCheckBox from '@/../public/assets/btn_inactive_checkbox.png';
-import activeRadio from '@/../public/assets/btn_radio_checked.png';
-import inactiveRadio from '@/../public/assets/btn_radio_unchecked.png';
-import close from '@/../public/assets/ic_out.png';
 import type { CategoryType, DropdownProps } from '@/interfaces/dropdownInterface';
 import type { ChallengeOption, Option } from '@/interfaces/filterBarInterface';
 import useStore from '@/store/store';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 const dropdownWidths = {
   language: 'md:w-[44.8rem] sm:w-[31.1rem]',
@@ -64,7 +60,14 @@ export default function Dropdown({ isOpen, items, onSelect, type, onApply, onClo
         <div className="w-full border-2 border-gray-200 rounded-[0.8rem]">
           <div className="flex justify-between px-[1.6rem] pt-[1.6rem]">
             <p className="font-semibold text-[1.6rem] leading-[1.909rem] text-gray-700">Sort</p>
-            <Image src={close} alt="닫기" onClick={() => onClose()} className="cursor-pointer" />
+            <Image
+              src={`${S3_BASE_URL}/ic_out.svg`}
+              alt="닫기"
+              onClick={() => onClose()}
+              className="cursor-pointer"
+              width={24}
+              height={24}
+            />
           </div>
           <div key="view-section" className="pt-[1.2rem] pb-[1.4rem] px-[1.6rem]">
             <div className="font-semibold text-[1.4rem] leading-[1.671rem] text-gray-700 mt-[1.1rem] mb-[1.2rem]">
@@ -73,10 +76,16 @@ export default function Dropdown({ isOpen, items, onSelect, type, onApply, onClo
             {orderBy.map(item => (
               <div key={`view-${item.value}`} className="flex mb-[0.4rem] items-center gap-[0.4rem]">
                 <Image
-                  src={selectedView === item.value ? activeRadio : inactiveRadio}
+                  src={
+                    selectedView === item.value
+                      ? `${S3_BASE_URL}/btn_radio_checked.svg`
+                      : `${S3_BASE_URL}/btn_radio_unchecked.svg`
+                  }
                   alt="radio"
                   className="cursor-pointer"
                   onClick={() => handleSelect(item.value, 'orderBy')}
+                  width={24}
+                  height={24}
                 />
                 <p
                   onClick={() => handleSelect(item.value, 'orderBy')}
@@ -93,10 +102,16 @@ export default function Dropdown({ isOpen, items, onSelect, type, onApply, onClo
             {mediaType.map(item => (
               <div key={`media-${item.value}`} className="flex items-center gap-[0.4rem] mb-[0.4rem]">
                 <Image
-                  src={selectedMedia?.includes(item.value) ? activeCheckBox : inActiveCheckBox}
+                  src={
+                    selectedMedia?.includes(item.value)
+                      ? `${S3_BASE_URL}/btn_active_checkbox.svg`
+                      : `${S3_BASE_URL}/btn_inactive_checkbox.svg`
+                  }
                   alt="checkbox"
                   className="cursor-pointer"
                   onClick={() => handleSelect(item.value, 'mediaType')}
+                  width={24}
+                  height={24}
                 />
                 <p
                   onClick={() => handleSelect(item.value, 'mediaType')}
@@ -113,10 +128,16 @@ export default function Dropdown({ isOpen, items, onSelect, type, onApply, onClo
             {status.map(item => (
               <div key={`status-${item.value}`} className="flex mb-[0.4rem] items-center gap-[0.4rem]">
                 <Image
-                  src={selectedStatus === item.value ? activeRadio : inactiveRadio}
+                  src={
+                    selectedStatus === item.value
+                      ? `${S3_BASE_URL}/btn_radio_checked.svg`
+                      : `${S3_BASE_URL}/btn_radio_unchecked.svg`
+                  }
                   alt="radio"
                   className="cursor-pointer"
                   onClick={() => handleSelect(item.value, 'status')}
+                  width={24}
+                  height={24}
                 />
                 <p
                   onClick={() => handleSelect(item.value, 'status')}
