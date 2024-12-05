@@ -6,7 +6,7 @@ import type { ToastProps } from '@/interfaces/toastInterface';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
-export default function ToastComponent({ message, onClose, duration = 3000 }: ToastProps) {
+export default function ToastComponent({ message, onClose, duration = 10000 }: ToastProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
