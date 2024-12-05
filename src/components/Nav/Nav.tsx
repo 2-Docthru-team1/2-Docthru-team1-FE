@@ -15,8 +15,8 @@ import NotificationModal from '../Modal/NotificationModal';
 import ProfileModal from '../Modal/ProfileModal';
 
 interface NotificationFinished {
-  challengeId: string;
   message: string;
+  challengeId: string;
   createdAt: string;
 }
 
@@ -35,27 +35,24 @@ export default function Nav() {
 
   const { name, role } = useStore();
 
-  // TODO Socket 통신으로 데이터 받아오는 거 변경하기
-  // const notifications = [
-  //   { content: '새로운 알림입니다.', time: '2024-12-04T08:29:07.703Z' },
-  //   { content: '업데이트가 완료되었습니다.', time: '2024-12-04T06:39:07.703Z' }
-  // ];
-
+  //     transports: ['polling'],
+  //     secure: true,
   const [notificationsFinished, setNotificationsFinished] = useState<NotificationFinished[]>([]);
-  // useEffect(() => {
-  //   const socket = io('http://ec2-15-165-57-191.ap-northeast-2.compute.amazonaws.com', {
-  //     auth: {
-  //       token: localStorage.getItem('accessToken')
-  //     }
-  //   });
-  //   socket.on('challengeStatusChangedFinished', notificationsFinished => {
-  //     setNotificationsFinished(prevNotifications => [...prevNotifications, notificationsFinished]);
-  //   });
 
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const socket = io('http://15.165.57.191', {
+      auth: {
+        token: localStorage.getItem('accessToken')
+      }
+    });
+    socket.on('challengeStatusChangedFinished', notificationsFinished => {
+      setNotificationsFinished(prevNotifications => [...prevNotifications, notificationsFinished]);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     setIsNotificationModalOpen(false);
