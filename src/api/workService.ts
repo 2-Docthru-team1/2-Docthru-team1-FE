@@ -1,4 +1,4 @@
-import { deleteRequest, getRequest, patchRequest, postRequest } from './api';
+import { deleteRequest, getRequest, postRequest } from './api';
 
 export const getWorkDetail = async (workId: string) => {
   try {
@@ -6,15 +6,6 @@ export const getWorkDetail = async (workId: string) => {
     return res.data;
   } catch (error) {
     throw new Error('Failed to get works.');
-  }
-};
-
-export const patchWorkDetail = async (workId: string) => {
-  try {
-    const res = await patchRequest(`works/${workId}`);
-    return res.data;
-  } catch (error) {
-    throw new Error('Failed to patch works.');
   }
 };
 

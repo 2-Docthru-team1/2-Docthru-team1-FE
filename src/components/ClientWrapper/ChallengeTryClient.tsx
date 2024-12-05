@@ -1,8 +1,9 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { fetchChallenge_detail, fetchRegisterWork } from '@/api/challengeService';
+import { fetchChallenge_detail, fetchPatchWork, fetchRegisterWork } from '@/api/challengeService';
 import { uploadImageToEC2 } from '@/api/uploadService';
 import ChallengeBody from '../Body/ChallengeBody';
 import ChallengeRefPageCard from '../Card/ChallengeRefPageCard';
@@ -66,6 +67,31 @@ export default function ChallengeTryClient() {
     }
   };
 
+  const handleEdit = async () => {
+    if (!title.trim() || !content.trim() || uploadImages.length === 0) {
+      if (!title.trim()) setTitleError(true);
+      if (!content.trim()) setContentError(true);
+      return;
+    }
+
+    try {
+      const res = await fetchPatchWork(workId, title, content, uploadImages.length);
+      const { work, uploadUrls } = res;
+
+      await Promise.all(
+        uploadImages.map(async (image, index) => {
+          const uploadUrl = uploadUrls[index]?.uploadUrl;
+          return uploadImageToEC2(uploadUrl, image);
+        })
+      );
+
+      alert('Edit Successfully!');
+      router.push(`/challengeList/${work.challengeId}/${workId}`);
+    } catch (error) {
+      alert('Error editting the form. Please try again.');
+    }
+  };
+
   return (
     <div
       className={`flex justify-center w-full lg:flex-row lg:items-start md:flex-row md:items-start ${!isCardClicked ? 'sm:flex-row sm:items-start' : 'sm:flex-col sm:items-center'}`}
@@ -75,7 +101,7 @@ export default function ChallengeTryClient() {
       ${isCardClicked ? 'md:w-[38.8rem] sm:order-2' : 'md:w-full sm:order-1'}`}
       >
         <div className="w-full flex justify-center">
-          <ChallengeHeader onSubmit={handleSubmit} isCardClicked={isCardClicked} workId={workId} />
+          <ChallengeHeader onSubmit={handleSubmit} onEdit={handleEdit} isCardClicked={isCardClicked} workId={workId} />
         </div>
         <div className="mt-[2.4rem] mb-[5rem] w-full flex justify-center lg:px-0 md:pl-[0.2rem] md:pr-0 sm:px-[0.6rem]">
           <ChallengeBody

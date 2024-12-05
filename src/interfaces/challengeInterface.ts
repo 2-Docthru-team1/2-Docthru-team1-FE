@@ -53,6 +53,7 @@ export interface requestUser {
 
 export interface ChallengeHeaderProps {
   onSubmit: () => void;
+  onEdit: () => void;
   isCardClicked: boolean;
   workId: string;
 }

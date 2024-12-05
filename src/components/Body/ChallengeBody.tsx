@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { getWorkDetail } from '@/api/workService';
 import type { ChallengeBodyProps } from '@/interfaces/challengeInterface';
 import 'react-quill-new/dist/quill.snow.css';
@@ -21,6 +21,19 @@ export default function ChallengeBody({
   isCardClicked,
   workId
 }: ChallengeBodyProps) {
+  const { data: work } = useQuery({
+    queryKey: ['work', workId],
+    queryFn: () => getWorkDetail(workId),
+    enabled: !!workId
+  });
+
+  useEffect(() => {
+    if (work) {
+      setTitle(work.title.replace(/<\/?[^>]+(>|$)/g, ''));
+      setContent(work.content.replace(/<\/?[^>]+(>|$)/g, ''));
+    }
+  }, [work, setTitle, setContent]);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleContentChange = (value: string) => {
@@ -57,19 +70,14 @@ export default function ChallengeBody({
     ]
   };
 
-  const { data: work } = useQuery({
-    queryKey: ['work', workId],
-    queryFn: () => getWorkDetail(workId)
-  });
-
   return (
     <div
       className={`border-none lg:w-[87.1rem] lg:px-0 ${isCardClicked ? 'md:w-[38.8rem]' : 'md:w-full'} md:max-w-[87.1rem] md:px-0 sm:w-full sm:max-w-[69.6rem] sm:pl-0`}
     >
       <input
-        value={!workId ? title : work.title}
+        value={title}
         onChange={e => setTitle(e.target.value)}
-        placeholder={!workId ? 'Title goes here' : work.title}
+        placeholder={'Title goes here'}
         className="mt-[2.4rem] w-full placeholder:gray-400 placeholder:font-semibold font-bold text-[2rem] placeholder:leading-[2.387rem] text-gray-700 focus:outline-none leading-[2.6rem] bg-gray-50"
       />
       <div className="border border-gray-200 w-full my-[2.4rem]" />
@@ -77,10 +85,10 @@ export default function ChallengeBody({
         <div className="border-none bg-white rounded-lg shadow-sm">
           <ReactQuill
             theme="snow"
-            value={!workId ? content : work.content}
+            value={content}
             onChange={handleContentChange}
             modules={modules}
-            placeholder={!workId ? 'Please write your challenge' : work.content}
+            placeholder={'Please write your challenge'}
           />
         </div>
         <div className="mt-[10rem] flex flex-col gap-[0.8rem] font-semibold text-[2rem] leading-[2.6rem]">
@@ -91,13 +99,23 @@ export default function ChallengeBody({
                 key={index}
                 className="relative w-[17.1rem] h-[17.1rem] border border-[#E3E0DC] flex items-center justify-center"
               >
-                <Image
-                  src={!workId ? URL.createObjectURL(file) : work.images[index].imageUrl}
-                  alt={`업로드된 이미지 ${index + 1}`}
-                  width={170}
-                  height={170}
-                  className="w-full h-full object-cover"
-                />
+                {work ? (
+                  <Image
+                    src={work.images[0].imageUrl}
+                    alt={`업로드된 이미지 ${index + 1}`}
+                    width={170}
+                    height={170}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={URL.createObjectURL(file)}
+                    alt={`업로드된 이미지 ${index + 1}`}
+                    width={170}
+                    height={170}
+                    className="w-full h-full object-cover"
+                  />
+                )}
                 <Image
                   src={`${S3_BASE_URL}/icon_out_circle_small.svg`}
                   alt="엑스"

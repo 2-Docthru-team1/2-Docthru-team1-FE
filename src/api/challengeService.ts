@@ -146,6 +146,21 @@ export const fetchRegisterWork = async (id: string, title: string, content: stri
   }
 };
 
+export const fetchPatchWork = async (id: string, title: string, content: string, imageCount: number) => {
+  const requestBody = {
+    title: title,
+    content: content,
+    imageCount: imageCount
+  };
+
+  try {
+    const response = await patchRequest(`/works/${id}`, requestBody);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to patch work');
+  }
+};
+
 export const fetchMyOngoingChallenge = async (page: number, pageSize: number, keyword?: string) => {
   const params = {
     page: page,
