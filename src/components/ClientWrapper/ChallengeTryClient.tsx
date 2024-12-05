@@ -64,6 +64,20 @@ export default function ChallengeTryClient() {
     }
   };
 
+  const handleSave = () => {
+    const challengeData = {
+      title,
+      content,
+      images: uploadImages.map(file => ({
+        name: file.name,
+        url: URL.createObjectURL(file)
+      }))
+    };
+
+    localStorage.setItem('challengeTrySaveData', JSON.stringify(challengeData));
+    alert('Saved to local storage!');
+  };
+
   return (
     <div
       className={`flex justify-center w-full lg:flex-row lg:items-start md:flex-row md:items-start ${!isCardClicked ? 'sm:flex-row sm:items-start' : 'sm:flex-col sm:items-center'}`}
@@ -73,7 +87,7 @@ export default function ChallengeTryClient() {
       ${isCardClicked ? 'md:w-[38.8rem] sm:order-2' : 'md:w-full sm:order-1'}`}
       >
         <div className="w-full flex justify-center">
-          <ChallengeHeader onSubmit={handleSubmit} isCardClicked={isCardClicked} />
+          <ChallengeHeader onSubmit={handleSubmit} isCardClicked={isCardClicked} onSave={handleSave} />
         </div>
         <div className="mt-[2.4rem] mb-[5rem] w-full flex justify-center lg:px-0 md:pl-[0.2rem] md:pr-0 sm:px-[0.6rem]">
           <ChallengeBody

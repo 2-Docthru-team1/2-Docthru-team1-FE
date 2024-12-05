@@ -54,6 +54,7 @@ export interface requestUser {
 export interface ChallengeHeaderProps {
   onSubmit: () => void;
   isCardClicked: boolean;
+  onSave: () => void;
 }
 
 export interface ChallengeBodyProps {
