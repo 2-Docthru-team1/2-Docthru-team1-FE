@@ -10,30 +10,34 @@ import 'react-toastify/dist/ReactToastify.css';
 import ChallengeBody from '../Body/ChallengeBody';
 import ChallengeRefPageCard from '../Card/ChallengeRefPageCard';
 import ChallengeHeader from '../Header/ChallengeHeader';
+import ToastComponent from '../Toast/Toast';
 
 export default function ChallengeTryClient() {
   const { id } = useParams();
   const router = useRouter();
   const [userId, setUserId] = useState<string | null>(null);
+  const [isToastVisible, setToastVisible] = useState(true);
 
   useEffect(() => {
-    setUserId(localStorage.getItem('userId'));
+    const storedUserId = localStorage.getItem('userId');
+    setUserId(storedUserId);
+
     const savedData = localStorage.getItem(`challengeTrySaveData-${userId}-${id}`);
     if (savedData) {
-      toast.info('저장된 데이터가 있습니다. 복원하시겠습니까?', {
-        position: 'bottom-center',
-        autoClose: false,
-        closeOnClick: true,
-        onClick: () => restoreData(savedData)
-      });
+      setToastVisible(true);
     }
   }, []);
 
-  const restoreData = (savedData: string) => {
-    const { title, content } = JSON.parse(savedData);
-    setTitle(title);
-    setContent(content);
-    toast.success('데이터를 복원했습니다.', { position: 'top-right', autoClose: 2000 });
+  const restoreData = () => {
+    const savedData = localStorage.getItem(`challengeTrySaveData-${userId}-${id}`);
+    console.log(savedData);
+    if (savedData) {
+      const { title, content } = JSON.parse(savedData);
+      setTitle(title);
+      setContent(content);
+      console.log(title, content, 'click!!!!!!!!!!!');
+    }
+    setToastVisible(false);
   };
 
   const [title, setTitle] = useState('');
@@ -108,6 +112,10 @@ export default function ChallengeTryClient() {
     router.push(`/challengeList/${id}`);
   };
 
+  const hideToast = () => {
+    setToastVisible(false);
+  };
+
   return (
     <div
       className={`flex justify-center w-full lg:flex-row lg:items-start md:flex-row md:items-start ${!isCardClicked ? 'sm:flex-row sm:items-start' : 'sm:flex-col sm:items-center'}`}
@@ -130,7 +138,7 @@ export default function ChallengeTryClient() {
             isCardClicked={isCardClicked}
           />
         </div>
-        <ToastContainer />
+        {isToastVisible && <ToastComponent onClose={hideToast} duration={10000} onYesClick={restoreData} />}
       </div>
       <div onClick={handleCardClick} className={`${!isCardClicked ? 'sm:order-2' : 'sm:order-1'} lg:order-2 md:order-2`}>
         <ChallengeRefPageCard embedUrl={embedUrl} />
