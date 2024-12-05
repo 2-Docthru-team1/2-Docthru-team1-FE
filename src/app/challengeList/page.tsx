@@ -1,6 +1,6 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import Image from 'next/image';
-import { fetchAdminChallenge, fetchChallenge } from '@/api/challengeService';
+import { fetchAdminChallenge, fetchChallenge, fetchRanker } from '@/api/challengeService';
 import ChallengeListClient from '@/components/ClientWrapper/ChallengeListClient';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
