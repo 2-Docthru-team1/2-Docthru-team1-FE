@@ -3,15 +3,23 @@
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 import bell from '@/../public/assets/icon_bell_default.png';
 import translate from '@/../public/assets/icon_translate.png';
 import logo from '@/../public/assets/img_logo_pc.png';
 import adminProfile from '@/../public/assets/img_profile_admin.png';
 import userProfile from '@/../public/assets/img_profile_member.png';
+import { getNotification } from '@/api/userService';
 import useStore from '@/store/store';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
 import NotificationModal from '../Modal/NotificationModal';
 import ProfileModal from '../Modal/ProfileModal';
+
+interface Notification {
+  message: string;
+  challengeId: string;
+  createdAt: string;
+}
 
 export default function Nav() {
   const userStatus = useStore(state => state.userStatus);
@@ -28,16 +36,62 @@ export default function Nav() {
 
   const { name, role } = useStore();
 
-  // TODO Socket 통신으로 데이터 받아오는 거 변경하기
-  const notifications = [
-    { content: '새로운 알림입니다.', time: '2024-12-04T08:29:07.703Z' },
-    { content: '업데이트가 완료되었습니다.', time: '2024-12-04T06:39:07.703Z' }
-  ];
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const handleNotificationClick = (challengeId: string) => {
+    if (challengeId) {
+      router.push(`/challengeList/${challengeId}`);
+    }
+  };
+
+  const fetchNotifications = async () => {
+    try {
+      const serverNotifications = await getNotification();
+      setNotifications(serverNotifications);
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    }
+  };
+  const setupWebSocket = (token: string) => {
+    const socket = io('http://15.165.57.191', {
+      auth: { token }
+    });
+
+    socket.on('challengeStatusChangedFinished', notifications => {
+      setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
+    });
+
+    // TODO 댓글 알림 배포되면 연결 예정.
+    // socket.on('newFeedback', notifications => {
+    //   setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
+    // });
+
+    return socket;
+  };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      console.warn('Access token not found.');
+      return;
+    }
+    fetchNotifications();
+    const socket = setupWebSocket(accessToken);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     setIsNotificationModalOpen(false);
     setIsProfileModalOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (isNotificationModalOpen) {
+      fetchNotifications();
+    }
+  }, [isNotificationModalOpen]);
 
   return (
     <div className="w-full h-full flex justify-center">
@@ -87,8 +141,15 @@ export default function Nav() {
                 )}
               </div>
             </div>
-            <div className="flex md:gap-[1.6rem] sm:gap-[1rem] items-center justify-center cursor-pointer">
-              <Image src={translate} alt="번역" onClick={() => setIsModalOpen(true)} width={24} height={24} />
+            <div className="flex md:gap-[1.6rem] sm:gap-[1rem] items-center justify-center">
+              <Image
+                src={translate}
+                alt="번역"
+                onClick={() => setIsModalOpen(true)}
+                width={24}
+                height={24}
+                className="cursor-pointer"
+              />
               {userStatus === 'normal' ? (
                 <>
                   <div className="relative">
@@ -98,11 +159,19 @@ export default function Nav() {
                       width={24}
                       height={24}
                       onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
+                      className="cursor-pointer"
                     />
+                    {/* 빨간 색 점 표시 */}
+                    {/* {unreadNotificationCount > 0 && (
+                      <span className="absolute right-0 top-0 w-[0.8rem] h-[0.8rem] bg-red-500 rounded-full"></span>
+                    )} */}
                     {isNotificationModalOpen && (
                       <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
-                        {/* socket 연결해서 데이터 받기*/}
-                        <NotificationModal notifications={notifications} onClose={() => setIsNotificationModalOpen(false)} />
+                        <NotificationModal
+                          notifications={notifications}
+                          onClose={() => setIsNotificationModalOpen(false)}
+                          onNotificationClick={handleNotificationClick}
+                        />
                       </div>
                     )}
                   </div>
