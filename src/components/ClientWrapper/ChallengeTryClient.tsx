@@ -14,9 +14,10 @@ import ChallengeHeader from '../Header/ChallengeHeader';
 export default function ChallengeTryClient() {
   const { id } = useParams();
   const router = useRouter();
-  const userId = localStorage.getItem('userId');
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    setUserId(localStorage.getItem('userId'));
     const savedData = localStorage.getItem(`challengeTrySaveData-${userId}-${id}`);
     if (savedData) {
       toast.info('저장된 데이터가 있습니다. 복원하시겠습니까?', {
