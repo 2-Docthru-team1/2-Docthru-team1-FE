@@ -1,4 +1,4 @@
-import { deleteRequest, getRequest, postRequest } from './api';
+import { deleteRequest, getRequest, patchRequest, postRequest } from './api';
 
 export const getWorkDetail = async (workId: string) => {
   try {
@@ -14,6 +14,15 @@ export const deleteWorkDetail = async (workId: string) => {
     await deleteRequest(`/works/${workId}`);
   } catch (error) {
     throw new Error('Failed to delete works.');
+  }
+};
+
+export const patchWorkDetail = async (workId: string, content: string, title: string) => {
+  try {
+    const res = await patchRequest(`/works/${workId}`, { content, title });
+    return res.data;
+  } catch (error) {
+    throw new Error('Failed to edit work.');
   }
 };
 

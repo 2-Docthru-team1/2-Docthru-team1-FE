@@ -1,10 +1,11 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { fetchChallenge_detail, fetchPatchWork, fetchRegisterWork } from '@/api/challengeService';
+import { fetchChallenge_detail, fetchRegisterWork } from '@/api/challengeService';
 import { uploadImageToEC2 } from '@/api/uploadService';
+import { patchWorkDetail } from '@/api/workService';
 import ChallengeBody from '../Body/ChallengeBody';
 import ChallengeRefPageCard from '../Card/ChallengeRefPageCard';
 import ChallengeHeader from '../Header/ChallengeHeader';
@@ -99,30 +100,23 @@ export default function ChallengeTryClient() {
     }
   };
 
-  const handleEdit = async () => {
-    if (!title.trim() || !content.trim() || uploadImages.length === 0) {
-      if (!title.trim()) setTitleError(true);
-      if (!content.trim()) setContentError(true);
-      return;
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: () => patchWorkDetail(workId, content, title),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['work'] });
+      router.push(`/challengeList/${id}/${workId}`);
+    },
+    onError: () => {
+      alert('Failed to edit the work. Please try again.');
     }
+  });
 
-    try {
-      const res = await fetchPatchWork(workId, title, content, uploadImages.length);
-      const { work, uploadUrls } = res;
-
-      await Promise.all(
-        uploadImages.map(async (image, index) => {
-          const uploadUrl = uploadUrls[index]?.uploadUrl;
-          return uploadImageToEC2(uploadUrl, image);
-        })
-      );
-
-      alert('Edit Successfully!');
-      router.push(`/challengeList/${work.challengeId}/${workId}`);
-    } catch (error) {
-      alert('Error editting the form. Please try again.');
-    }
+  const handleEdit = () => {
+    mutation.mutate();
   };
+
   const handleSave = () => {
     const challengeData = {
       id,

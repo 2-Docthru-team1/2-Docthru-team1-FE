@@ -14,6 +14,10 @@ export default function ChallengeHeader({ onSubmit, isCardClicked, workId, onEdi
     router.push(`/challengeList/${id}`);
   };
 
+  const handleBack = () => {
+    router.push(`/challengeList/${id}/${workId}`);
+  };
+
   return (
     <div
       className={`flex items-center justify-center mt-[3.6rem] lg:w-[87.1rem] lg:px-0 ${isCardClicked ? 'md:w-[38.8rem]' : 'md:w-full'} md:pl-0 md:max-w-[87.1rem] sm:w-full sm:max-w-[69.6rem] sm:pl-0`}
@@ -25,7 +29,7 @@ export default function ChallengeHeader({ onSubmit, isCardClicked, workId, onEdi
         <div className="flex justify-end lg:gap-[0.8rem] md:gap-[0.8rem] sm:gap-[0.3rem] w-full max-w-[28.9rem]">
           <button
             className="flex items-center bg-[#FFE7E7] rounded-[0.8rem] py-[0.8rem] px-[1.2rem] gap-[0.5rem] lg:w-[9rem] ld:max-w-[9rem] md:w-[9rem] md:max-w-[9rem] sm:w-full sm:max-w-[4rem] font-semibold text-[1.6rem] leading-[1.909rem] text-[#F24744] justify-center "
-            onClick={handleQuit}
+            onClick={workId ? handleBack : handleQuit}
           >
             <span className="hidden md:inline">Quit</span>
             <Image src={`${S3_BASE_URL}/icon_red_door.svg`} alt="문" width={24} height={24} />
