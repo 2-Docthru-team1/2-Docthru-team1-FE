@@ -11,7 +11,6 @@ const Template: StoryFn<ToastProps> = args => <ToastComponent {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  message: 'This is a toast message!',
   onClose: () => alert('Toast closed!'),
   duration: 10000
 };
