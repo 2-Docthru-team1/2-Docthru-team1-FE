@@ -9,6 +9,7 @@ import translate from '@/../public/assets/icon_translate.png';
 import logo from '@/../public/assets/img_logo_pc.png';
 import adminProfile from '@/../public/assets/img_profile_admin.png';
 import userProfile from '@/../public/assets/img_profile_member.png';
+import { getNotification } from '@/api/userService';
 import useStore from '@/store/store';
 import ClosableModalClient from '../ClientWrapper/ClosableModalClient';
 import NotificationModal from '../Modal/NotificationModal';
@@ -35,24 +36,64 @@ export default function Nav() {
 
   const { name, role } = useStore();
 
-  //     transports: ['polling'],
+  //     transports: ['polling' ,'websocket'],
   //     secure: true,
   const [notificationsFinished, setNotificationsFinished] = useState<NotificationFinished[]>([]);
+  // const [unreadNotificationCount, setUnreadNotificationCount] = useState<number>(0); // 읽지 않은 알림 개수
 
+  const fetchNotifications = async () => {
+    try {
+      const serverNotifications = await getNotification();
+      setNotificationsFinished(serverNotifications);
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    }
+  };
   useEffect(() => {
+    // // 로컬 스토리지에서 알림 상태를 불러옵니다.
+    // const storedNotifications = localStorage.getItem('notifications');
+    // if (storedNotifications) {
+    //   const notifications = JSON.parse(storedNotifications);
+    //   setNotificationsFinished(notifications);
+    //   setUnreadNotificationCount(notifications.filter((n: NotificationFinished) => !n.isRead).length);
+    // }
+    fetchNotifications();
     const socket = io('http://15.165.57.191', {
       auth: {
         token: localStorage.getItem('accessToken')
       }
     });
     socket.on('challengeStatusChangedFinished', notificationsFinished => {
-      setNotificationsFinished(prevNotifications => [...prevNotifications, notificationsFinished]);
+      setNotificationsFinished(prevNotifications => [notificationsFinished, ...prevNotifications].slice(0, 15));
+      // // 알림이 15개 이상이면 가장 오래된 알림을 삭제
+      // const updatedNotifications = [...prevNotifications, newNotification];
+      // if (updatedNotifications.length > 15) {
+      //   updatedNotifications.shift(); // 가장 오래된 알림 제거
+      // }
+      // // 알림을 로컬 스토리지에 저장
+      // localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+      // return updatedNotifications;
     });
+    // // 읽지 않은 알림 개수 업데이트
+    // setUnreadNotificationCount(prevCount => prevCount + 1);
 
     return () => {
       socket.disconnect();
     };
   }, []);
+
+  // const handleNotificationClick = () => {
+  //   // 알림 모달을 열 때, 읽지 않은 알림을 읽음 처리
+  //   setIsNotificationModalOpen(!isNotificationModalOpen);
+  //   if (unreadNotificationCount > 0) {
+  //     setUnreadNotificationCount(0);
+  //     // 읽은 알림은 로컬 스토리지에서 업데이트
+  //     setNotificationsFinished(prevNotifications =>
+  //       prevNotifications.map(notification => ({ ...notification, isRead: true }))
+  //     );
+  //     localStorage.setItem('notifications', JSON.stringify(notificationsFinished));
+  //   }
+  // };
 
   useEffect(() => {
     setIsNotificationModalOpen(false);
