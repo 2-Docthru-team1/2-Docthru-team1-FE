@@ -78,9 +78,11 @@ export default function Nav() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    setAccessToken(token);
-  }, []);
+    if (userStatus === 'normal' || userStatus === 'admin') {
+      const token = localStorage.getItem('accessToken');
+      setAccessToken(token);
+    }
+  }, [userStatus]);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -96,7 +98,6 @@ export default function Nav() {
   useEffect(() => {
     setIsNotificationModalOpen(false);
     setIsProfileModalOpen(false);
-    fetchNotifications();
   }, [pathname]);
 
   useEffect(() => {
