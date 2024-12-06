@@ -207,7 +207,7 @@ export default function Nav() {
                 </div>
               ) : (
                 <button
-                  className="whitespace-nowrap flex rounded-[0.8rem] px-[2.4rem] py-[1.1rem] gap-[1rem] bg-primary-blue font-semibold text-[1.6rem] leading-[1.909rem] text-primary-white"
+                  className="whitespace-nowrap flex rounded-[0.8rem] md:px-[2.4rem] md:py-[1.1rem] sm:px-[1.9rem] sm:py-[0.7rem] gap-[1rem] bg-primary-blue font-semibold md:text-[1.6rem] sm:text-[1.3rem] md:leading-[1.909rem] sm:leading-[1.551rem] text-primary-white"
                   onClick={() => router.push('/signIn')}
                 >
                   Sign in
