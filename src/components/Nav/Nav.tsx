@@ -30,6 +30,8 @@ export default function Nav() {
 
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+
   const updateUnreadStatus = (notifications: Notification[]) => {
     setHasUnreadNotifications(notifications.some(notification => !notification.isRead));
   };
@@ -43,6 +45,8 @@ export default function Nav() {
   };
 
   const fetchNotifications = async () => {
+    const token = accessToken || localStorage.getItem('accessToken');
+    if (!token) return;
     const serverNotifications = await getNotification();
     setNotifications(serverNotifications);
     updateUnreadStatus(serverNotifications);
@@ -74,19 +78,24 @@ export default function Nav() {
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
-    if (!token) return;
+    setAccessToken(token);
+  }, []);
+
+  useEffect(() => {
+    if (!accessToken) return;
 
     fetchNotifications();
-    const socket = setupWebSocket(token);
+    const socket = setupWebSocket(accessToken);
 
     return () => {
       socket.disconnect();
     };
-  }, [localStorage.getItem('accessToken')]);
+  }, [accessToken]);
 
   useEffect(() => {
     setIsNotificationModalOpen(false);
     setIsProfileModalOpen(false);
+    fetchNotifications();
   }, [pathname]);
 
   useEffect(() => {
