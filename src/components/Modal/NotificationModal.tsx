@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
+import { patchIsReadTrue } from '@/api/userService';
 import type { NotificationModalProps } from '@/interfaces/modalInterface';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
@@ -11,6 +12,13 @@ export default function NotificationModal({ notifications, onClose, onNotificati
       return '';
     }
     return format(date, 'yyyy-MM-dd HH:mm:ss');
+  };
+
+  const handleNotificationClick = async (challengeId: string, id: string, isRead: boolean, workId: string) => {
+    if (!isRead) {
+      await patchIsReadTrue(id);
+    }
+    onNotificationClick(challengeId, workId);
   };
 
   return (
@@ -34,8 +42,10 @@ export default function NotificationModal({ notifications, onClose, onNotificati
             notifications.map((data, index) => (
               <div key={index}>
                 <div
-                  className="flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer hover:bg-gray-100 hover:shadow-lg transition-all duration-500"
-                  onClick={() => onNotificationClick(data.challengeId)}
+                  className={`flex flex-col gap-[1rem] px-[1.6rem] py-[1.2rem] cursor-pointer hover:bg-gray-100 hover:shadow-lg transition-all duration-300 ${
+                    data.isRead ? 'opacity-50' : ''
+                  }`}
+                  onClick={() => handleNotificationClick(data.challengeId, data.id, data.isRead, data.workId ? data.workId : '')}
                 >
                   <div className="text-[1.4rem] leading-[1.671rem] text-gray-700">{data.message}</div>
                   <div className="text-[1.4rem] leading-[1.671rem] text-gray-400">{formatDate(data.createdAt)}</div>

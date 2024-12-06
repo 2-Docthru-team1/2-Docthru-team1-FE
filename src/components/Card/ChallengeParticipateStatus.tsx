@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import crown from '@/../public/assets/icon_crown_small.png';
 import type { ChallengeParticipateStatusProps } from '@/interfaces/cardInterface';
 import Pagination from '../Pagination/Pagination';
 import ChallengeParticipantCard from './ChallengeParticipantCard';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function ChallengeParticipateStatus({ list, totalCount }: ChallengeParticipateStatusProps) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -74,7 +75,7 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
                   {rank === 1 ? (
                     <div className="flex justify-center flex-col mt-[2rem] w-[27.8rem]">
                       <div className="bg-gray-700 rounded-[1.6rem] py-[0.2rem] px-[0.7rem] flex items-center justify-center w-[5.1rem]">
-                        <Image src={crown} alt="Crown" />
+                        <Image src={`${S3_BASE_URL}/icon_crown.svg`} alt="Crown" width={17} height={17} />
                         <p className="font-medium text-[1.4rem] leading-[1.671rem] text-primary-beige flex items-center">
                           {String(formatRank(rank))}
                         </p>

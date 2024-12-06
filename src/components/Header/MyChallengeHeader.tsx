@@ -3,8 +3,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import plus from '@/../public/assets/icon_plus_medium.png';
-import search from '@/../public/assets/icon_search.png';
 import useStore from '@/store/store';
 import ChallengeApplicationDropdown from '../Dropdown/ChallengeApplicationDropdown';
 

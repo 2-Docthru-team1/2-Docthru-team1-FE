@@ -4,7 +4,6 @@ import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-quer
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
 import { fetchMenu } from '@/api/recipeService';
 import RecipeCard from '@/components/Card/RecipeCard';
 import type { RecipeData } from '@/interfaces/cardInterface';

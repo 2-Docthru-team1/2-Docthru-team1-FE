@@ -4,10 +4,9 @@ import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-quer
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import plus from '@/../public/assets/icon_plus_medium.png';
 import { fetchChallenge } from '@/api/challengeService';
 import ChallengeCard from '@/components/Card/ChallengeCard';
-import type { ChallengeData, ChallengePaginationProps, MonthlyChallengeData } from '@/interfaces/cardInterface';
+import type { ChallengeData, ChallengePaginationProps } from '@/interfaces/cardInterface';
 import type { ChallengeListClientProps } from '@/interfaces/challengelistInterface';
 import useStore from '@/store/store';
 import MonthlyChallengeCard from '../Card/MonthlyChallengeCard';
