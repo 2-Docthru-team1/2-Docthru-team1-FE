@@ -43,14 +43,11 @@ export default function Nav() {
   };
 
   const fetchNotifications = async () => {
-    try {
-      const serverNotifications = await getNotification();
-      setNotifications(serverNotifications);
-      updateUnreadStatus(serverNotifications);
-    } catch (error) {
-      console.error('Error fetching notifications:', error);
-    }
+    const serverNotifications = await getNotification();
+    setNotifications(serverNotifications);
+    updateUnreadStatus(serverNotifications);
   };
+
   const setupWebSocket = (token: string) => {
     const socket = io('http://15.165.57.191', {
       auth: { token }
@@ -76,19 +73,16 @@ export default function Nav() {
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) return;
-    const initializeNotifications = async () => {
-      await fetchNotifications();
-    };
+    const token = localStorage.getItem('accessToken');
+    if (!token) return;
 
-    initializeNotifications();
-    const socket = setupWebSocket(accessToken);
+    fetchNotifications();
+    const socket = setupWebSocket(token);
 
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [localStorage.getItem('accessToken')]);
 
   useEffect(() => {
     setIsNotificationModalOpen(false);
@@ -100,13 +94,6 @@ export default function Nav() {
       fetchNotifications();
     }
   }, [isNotificationModalOpen]);
-
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    if (!token) return;
-
-    fetchNotifications();
-  }, [localStorage.getItem('accessToken')]);
 
   return (
     <div className="w-full h-full flex justify-center">

@@ -15,14 +15,10 @@ export default function NotificationModal({ notifications, onClose, onNotificati
   };
 
   const handleNotificationClick = async (challengeId: string, id: string, isRead: boolean, workId: string) => {
-    try {
-      if (!isRead) {
-        await patchIsReadTrue(id);
-      }
-      onNotificationClick(challengeId, workId);
-    } catch (error) {
-      console.error('Error updating notification status:', error);
+    if (!isRead) {
+      await patchIsReadTrue(id);
     }
+    onNotificationClick(challengeId, workId);
   };
 
   return (
