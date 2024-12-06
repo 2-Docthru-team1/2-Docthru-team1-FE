@@ -187,8 +187,6 @@ export const fetchMyRequestChallenge = async (page: number, pageSize: number, ke
 
   try {
     const response = await getRequest('/challenges/my-requests', { params });
-    console.log(response.data);
-    console.log(filter);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get my request challenge data');

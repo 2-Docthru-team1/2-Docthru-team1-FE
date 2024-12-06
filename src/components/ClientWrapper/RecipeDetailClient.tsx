@@ -34,8 +34,6 @@ export default function RecipeDetailClient() {
     );
   }
 
-  console.log(recipe, 'AWEFWE');
-
   const NutritionData = {
     calories: recipe.calories,
     carbs: recipe.carbs,
