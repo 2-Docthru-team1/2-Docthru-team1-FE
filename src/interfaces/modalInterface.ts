@@ -23,11 +23,14 @@ export interface ImageModalProps {
 export interface NotificationModalProps {
   notifications: Notification[];
   onClose: () => void;
-  onNotificationClick: (challengeId: string) => void;
+  onNotificationClick: (challengeId: string, workId: string) => void;
 }
 
 export interface Notification {
   challengeId: string;
   message: string;
   createdAt: string;
+  id: string;
+  isRead: boolean;
+  workId?: string;
 }

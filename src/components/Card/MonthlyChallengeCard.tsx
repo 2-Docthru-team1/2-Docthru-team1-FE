@@ -1,8 +1,5 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import crownIcon from '@/../public/assets/icon_crown.png';
-import clockIcon from '@/../public/assets/icon_deadline_clock_large.png';
-import kebabToggle from '@/../public/assets/icon_kebab_toggle.png';
 import { fetchUpdateStatus } from '@/api/challengeService';
 import ChipCard from '@/components/Chip/ChipCard';
 import ChipCategoryCard from '@/components/Chip/ChipCategory';

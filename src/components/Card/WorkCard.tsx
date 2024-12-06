@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { deleteWorkDetail, likePost, unLikePost } from '@/api/workService';
 import type { WorkDataProps } from '@/interfaces/workInterface';
-import 'quill/dist/quill.snow.css';
 import { Formatter, useFormatter } from '../../../hooks/useFormatter';
 import CancelDropdown from '../Dropdown/CancelDropdown';
 import ConfirmModal from '../Modal/ConfirmModal';
