@@ -54,7 +54,8 @@ export default function Nav() {
 
   const setupWebSocket = (token: string) => {
     const socket = io('http://15.165.57.191', {
-      auth: { token }
+      auth: { token },
+      withCredentials: true
     });
 
     socket.on('challengeStatusChangedFinished', newNotification => {
