@@ -1,9 +1,11 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { fetchChallenge_detail, fetchRegisterWork } from '@/api/challengeService';
 import { uploadImageToEC2 } from '@/api/uploadService';
+import { patchWorkDetail } from '@/api/workService';
 import ChallengeBody from '../Body/ChallengeBody';
 import ChallengeRefPageCard from '../Card/ChallengeRefPageCard';
 import ChallengeHeader from '../Header/ChallengeHeader';
@@ -12,6 +14,8 @@ import ToastComponent from '../Toast/Toast';
 export default function ChallengeTryClient() {
   const { id } = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const workId = searchParams.get('workId') || '';
   const [userId, setUserId] = useState<string | null>(null);
   const [isToastVisible, setToastVisible] = useState(false);
 
@@ -96,6 +100,37 @@ export default function ChallengeTryClient() {
     }
   };
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const res = await patchWorkDetail(workId, content, title, uploadImages.length);
+      const { work, uploadUrls } = res;
+      await Promise.all(
+        uploadImages.map(async (image, index) => {
+          const uploadUrl = uploadUrls[index]?.uploadUrl;
+          if (uploadUrl) {
+            await uploadImageToEC2(uploadUrl, image);
+          }
+        })
+      );
+
+      return work;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['work'] });
+      alert('Edit Successfully!');
+      router.push(`/challengeList/${id}/${workId}`);
+    },
+    onError: () => {
+      alert('Failed to edit the work. Please try again.');
+    }
+  });
+
+  const handleEdit = () => {
+    mutation.mutate();
+  };
+
   const handleSave = () => {
     const challengeData = {
       id,
@@ -121,7 +156,13 @@ export default function ChallengeTryClient() {
       ${isCardClicked ? 'md:w-[38.8rem] sm:order-2' : 'md:w-full sm:order-1'}`}
       >
         <div className="w-full flex justify-center">
-          <ChallengeHeader onSubmit={handleSubmit} isCardClicked={isCardClicked} onSave={handleSave} />
+          <ChallengeHeader
+            onSubmit={handleSubmit}
+            onEdit={handleEdit}
+            isCardClicked={isCardClicked}
+            workId={workId}
+            onSave={handleSave}
+          />
         </div>
         <div className="mt-[2.4rem] mb-[5rem] w-full flex justify-center lg:px-0 md:pl-[0.2rem] md:pr-0 sm:px-[0.6rem]">
           <ChallengeBody
@@ -132,6 +173,7 @@ export default function ChallengeTryClient() {
             images={uploadImages}
             setImages={setUploadImages}
             isCardClicked={isCardClicked}
+            workId={workId}
           />
         </div>
         {isToastVisible && <ToastComponent onClose={hideToast} duration={10000} onYesClick={restoreData} />}

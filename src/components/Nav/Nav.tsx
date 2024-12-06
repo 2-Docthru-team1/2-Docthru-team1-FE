@@ -38,7 +38,7 @@ export default function Nav() {
 
   const handleNotificationClick = (challengeId: string, workId: string) => {
     if (challengeId && workId) {
-      router.push(`/challengeList/${workId}/${challengeId}`);
+      router.push(`/challengeList/${challengeId}/${workId}`);
     } else if (challengeId) {
       router.push(`/challengeList/${challengeId}`);
     }

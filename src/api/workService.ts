@@ -1,4 +1,5 @@
-import { deleteRequest, getRequest, postRequest } from './api';
+import { request } from 'http';
+import { deleteRequest, getRequest, patchRequest, postRequest } from './api';
 
 export const getWorkDetail = async (workId: string) => {
   try {
@@ -14,6 +15,19 @@ export const deleteWorkDetail = async (workId: string) => {
     await deleteRequest(`/works/${workId}`);
   } catch (error) {
     throw new Error('Failed to delete works.');
+  }
+};
+
+export const patchWorkDetail = async (workId: string, content: string, title: string, imageCount: number | null) => {
+  try {
+    const requestBody: Record<string, any> = { content, title };
+    if (imageCount !== null && imageCount !== undefined && imageCount !== 0) {
+      requestBody.imageCount = imageCount;
+    }
+    const res = await patchRequest(`/works/${workId}`, requestBody);
+    return res.data;
+  } catch (error) {
+    throw new Error('Failed to edit work.');
   }
 };
 

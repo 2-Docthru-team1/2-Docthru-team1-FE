@@ -14,7 +14,7 @@ import WorkInput from '../Input/WorkInput';
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function WorkDetailClient() {
-  const { id } = useParams();
+  const { workId: id } = useParams();
   const { id: userId, role: userRole } = useStore();
   const workId = String(id);
   const {

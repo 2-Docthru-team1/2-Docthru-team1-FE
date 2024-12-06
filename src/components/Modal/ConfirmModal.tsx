@@ -68,7 +68,7 @@ export default function ConfirmModal({ onCancel, onDelete, role, abortReason, se
             <div className="flex justify-center mb-[1.5rem]">
               <Image src={`${S3_BASE_URL}/icon_confirm_modal_check.svg`} alt="체크 이미지" width={24} height={24} />
             </div>
-            <p className="text-[1.6rem] font-medium text-gray-700">Are you sure you want to cancel?</p>
+            <p className="text-[1.6rem] font-medium text-gray-700">Are you sure you want to Delete?</p>
           </div>
           <div className="flex gap-[0.8rem]">
             <button

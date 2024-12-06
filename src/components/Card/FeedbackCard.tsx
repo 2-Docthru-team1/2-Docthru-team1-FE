@@ -70,14 +70,14 @@ export default function FeedbackCard({
     }
   });
 
-  const handleEdit = () => {
-    mutation.mutate(editingContent);
+  const handleEdit = async () => {
+    await mutation.mutate(editingContent);
     setEditingContent('');
     setEditingCommentId('');
   };
 
-  const handleDelete = () => {
-    deleteMutation.mutate();
+  const handleDelete = async () => {
+    await deleteMutation.mutate();
     setDeletingCommentId('');
   };
 
