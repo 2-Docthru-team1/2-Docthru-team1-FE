@@ -3,8 +3,6 @@
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
-import inactiveHeart from '@/../public/assets/icon_heart_inact_small.png';
 import { fetchRecipe } from '@/api/recipeService';
 import type { RecipeDetailData } from '@/interfaces/recipelistInterface';
 import DetailTextCard from '../Card/DetailTextCard';

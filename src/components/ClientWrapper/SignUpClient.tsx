@@ -5,8 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import loading from '@/../public/assets/Message@1x-1.0s-200px-200px.svg';
-import logoImg from '@/../public/assets/img_logo_pc.png';
 import { signUp } from '@/api/authService';
 import type { SignUpData } from '@/interfaces/userInterface';
 import useSignUpValidate from '../../../hooks/useSignUpValidate';

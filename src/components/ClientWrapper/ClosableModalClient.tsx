@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import toggleDown from '@/../public/assets/ic_toggle_down.png';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import ClosableModal from '@/components/Modal/ClosableModal';
+
+const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 const options = [
   { label: 'English (default)', value: 'english' },
@@ -52,7 +53,7 @@ export default function ClosableModalClient({ isOpen, setIsModalOpen }: Closable
             >
               {getSelectedLanguageLabel() || 'Language'}
             </p>
-            <Image src={toggleDown} alt="아래 화살표" />
+            <Image src={`${S3_BASE_URL}/${isDropdownOpen ? 'ic_toggle_up.svg' : 'ic_toggle_down.svg'}`} alt="아래 화살표" />
           </div>
           {isDropdownOpen && (
             <Dropdown
