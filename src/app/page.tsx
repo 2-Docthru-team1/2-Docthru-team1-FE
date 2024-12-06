@@ -10,16 +10,24 @@ const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 export default function Home() {
   const router = useRouter();
   const [currentImage, setCurrentImage] = useState(`${S3_BASE_URL}/img_pc_landing.svg`);
+  const [logoSize, setLogoSize] = useState({ width: 462, height: 92 });
+  const [landingSize, setLandingSize] = useState({ width: 1173, height: 729 });
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width >= 1200) {
         setCurrentImage(`${S3_BASE_URL}/img_pc_landing.svg`);
+        setLogoSize({ width: 462, height: 92.4 });
+        setLandingSize({ width: 1173, height: 729 });
       } else if (width >= 744) {
         setCurrentImage(`${S3_BASE_URL}/img_tablet_landing.svg`);
+        setLogoSize({ width: 462, height: 92 });
+        setLandingSize({ width: 715, height: 607.7 });
       } else {
         setCurrentImage(`${S3_BASE_URL}/img_mobile_landing.svg`);
+        setLogoSize({ width: 230, height: 45.8 });
+        setLandingSize({ width: 343.34, height: 317.16 });
       }
     };
 
@@ -41,6 +49,8 @@ export default function Home() {
       <Image
         src={currentImage}
         alt="Korean flag with seaweed paper"
+        width={landingSize.width}
+        height={landingSize.width}
         className="absolute lg:top-[45rem] md:top-[33rem] sm:top-[27rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         priority
       />
@@ -49,6 +59,8 @@ export default function Home() {
           <Image
             src={`${S3_BASE_URL}/img_logo_pc.svg`}
             alt="HanCook Logo"
+            width={logoSize.width}
+            height={logoSize.height}
             className="md:w-[46.2rem] md:h-auto sm:w-[23rem] sm:h-auto"
           />
           <p className="mt-[1.2rem] md:text-[2rem] sm:text-[1.4rem] font-semibold text-gray-700 md:leading-[2.6rem] sm:leading-[1.8rem]">
