@@ -16,7 +16,6 @@ import ImageEnlargeModal from '../Modal/ImageEnlargeModal';
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
-  window.scrollTo(0, 0);
   if (!data) return null;
   const router = useRouter();
 
