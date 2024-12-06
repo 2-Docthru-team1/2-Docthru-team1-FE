@@ -25,3 +25,9 @@ export interface WorkDataProps {
 export interface WorkInputProps {
   data: WorkDetailData | null;
 }
+
+export interface WorkType {
+  title: string;
+  content: string;
+  images: { imageUrl: string }[];
+}

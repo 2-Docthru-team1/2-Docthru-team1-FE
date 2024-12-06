@@ -103,9 +103,23 @@ export default function ChallengeTryClient() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: () => patchWorkDetail(workId, content, title),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['work'] });
+    mutationFn: async () => {
+      const res = await patchWorkDetail(workId, content, title, uploadImages.length);
+      const { work, uploadUrls } = res;
+      await Promise.all(
+        uploadImages.map(async (image, index) => {
+          const uploadUrl = uploadUrls[index]?.uploadUrl;
+          if (uploadUrl) {
+            await uploadImageToEC2(uploadUrl, image);
+          }
+        })
+      );
+
+      return work;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['work'] });
+      alert('Edit Successfully!');
       router.push(`/challengeList/${id}/${workId}`);
     },
     onError: () => {
