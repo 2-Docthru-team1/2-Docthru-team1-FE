@@ -1,9 +1,10 @@
 'use client';
 
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { fetchRecipe } from '@/api/recipeService';
+import { useState } from 'react';
+import { fetchLikePost, fetchRecipe, fetchUnlikePost } from '@/api/recipeService';
 import type { RecipeDetailData } from '@/interfaces/recipelistInterface';
 import DetailTextCard from '../Card/DetailTextCard';
 
@@ -11,35 +12,109 @@ const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
 export default function RecipeDetailClient() {
   const { id } = useParams();
+  if (!id) return null;
 
-  const [recipe, setRecipe] = useState<RecipeDetailData | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (typeof id === 'string') {
-      const getRecipe = async () => {
-        const data = await fetchRecipe(id);
-        setRecipe(data);
-      };
-      getRecipe();
+  const {
+    data: recipeDetail,
+    isLoading: recipeDetailLoading,
+    error: recipeDetailError
+  } = useQuery<RecipeDetailData>({
+    queryKey: ['recipe', id],
+    queryFn: () => fetchRecipe(String(id))
+  });
+
+  const [liked, setLiked] = useState(recipeDetail?.likeUsers?.some(likeUser => likeUser.id === userId));
+
+  const useLikeMutation = (id: string) => {
+    const queryClient = useQueryClient();
+
+    return {
+      likeMutate: useMutation({
+        mutationFn: async () => await fetchLikePost(String(id)),
+        onMutate: async () => {
+          const previousRecipe = queryClient.getQueryData(['recipe', id]);
+          queryClient.setQueryData(['recipe', id], (oldData: any) => ({
+            ...oldData,
+            likeCount: oldData.likeCount + 1,
+            likeUsers: [...oldData.likeUsers, { id: userId }]
+          }));
+          return { previousRecipe };
+        },
+
+        onError: (context: any) => {
+          const previousRecipe = context.previousRecipe;
+          if (previousRecipe) {
+            queryClient.setQueryData(['recipe', id], previousRecipe);
+          }
+        },
+
+        onSettled: () => {
+          queryClient.invalidateQueries({ queryKey: ['recipe', id] });
+        }
+      }),
+
+      unLikeMutate: useMutation({
+        mutationFn: () => fetchUnlikePost(String(id)),
+
+        onMutate: async () => {
+          const previousRecipe = queryClient.getQueryData(['recipe', id]);
+
+          queryClient.setQueryData(['recipe', id], (oldData: any) => ({
+            ...oldData,
+            likeCount: oldData.likeCount - 1,
+            likeUsers: oldData.likeUsers.filter((data: any) => data.id !== userId)
+          }));
+
+          return { previousRecipe };
+        },
+
+        onError: (context: any) => {
+          queryClient.setQueryData(['recipe', id], context.previousRecipe);
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries({ queryKey: ['recipe', id] });
+        }
+      })
+    };
+  };
+
+  const { likeMutate, unLikeMutate } = useLikeMutation(String(id));
+
+  const toggleLike = () => {
+    if (liked) {
+      unLikeMutate.mutate();
+    } else {
+      likeMutate.mutate();
     }
-  }, [id]);
+    setLiked(prevLiked => !prevLiked);
+  };
 
-  if (!recipe) {
+  if (recipeDetailLoading || !recipeDetail) {
     return (
-      <div className="flex w-full justify-center items-center min-h-screen">
-        <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />
+      <div className="flex justify-center items-center min-h-screen">
+        <Image src={`${S3_BASE_URL}/loading.svg`} alt="로딩" width={200} height={200} />
+      </div>
+    );
+  }
+
+  if (recipeDetailError) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 text-[1.5rem]">Failed to load data. Please try again later.</p>
       </div>
     );
   }
 
   const NutritionData = {
-    calories: recipe.calories,
-    carbs: recipe.carbs,
-    fat: recipe.fat,
-    fiber: recipe.fiber,
-    protein: recipe.protein,
-    sodium: recipe.sodium,
-    sugars: recipe.sugars
+    calories: recipeDetail.calories,
+    carbs: recipeDetail.carbs,
+    fat: recipeDetail.fat,
+    fiber: recipeDetail.fiber,
+    protein: recipeDetail.protein,
+    sodium: recipeDetail.sodium,
+    sugars: recipeDetail.sugars
   };
 
   return (
@@ -55,7 +130,7 @@ export default function RecipeDetailClient() {
       md:max-w-[120rem] md:min-w-[69.6rem] md:w-full md:h-[33rem]
       sm:max-w-[69.6rem] sm:min-w-[34.3rem] sm:w-full sm:h-[29.4rem]"
       >
-        <Image src={recipe.images[0]} alt="음식 이미지" layout="fill" objectFit="cover" objectPosition="center" />
+        <Image src={recipeDetail.images[0]} alt="음식 이미지" layout="fill" objectFit="cover" objectPosition="center" />
       </div>
       <div
         className="mt-[2rem] flex flex-col gap-[1rem]
@@ -69,7 +144,7 @@ export default function RecipeDetailClient() {
         md:text-[2rem]
         sm:text-[1.4rem]"
         >
-          {recipe.category}
+          {recipeDetail.category}
         </p>
         <div className="flex w-full gap-[2rem] items-center">
           <p
@@ -78,17 +153,24 @@ export default function RecipeDetailClient() {
           md:text-[3.2rem]
           sm:text-[2.4rem]"
           >
-            {recipe.title}
+            {recipeDetail.title}
           </p>
           <div className="flex gap-[0.4rem] items-center">
-            <Image src={`${S3_BASE_URL}/icon_heart_inactive_large.svg`} alt="하트" width={24} height={24} />
+            <Image
+              src={liked ? `${S3_BASE_URL}/icon_heart_active_large.svg` : `${S3_BASE_URL}/icon_heart_inactive_large.svg`}
+              alt={liked ? '활성 하트' : '비활성 하트'}
+              width={24}
+              height={24}
+              onClick={toggleLike}
+              className="cursor-pointer"
+            />
             <p
               className="font-medium leading-[1.671rem] text-gray-700
             lg:text-[1.4rem]
             md:text-[1.4rem]
             sm:text-[1.3rem]"
             >
-              {recipe.likeCount}
+              {recipeDetail.likeCount}
             </p>
           </div>
         </div>
@@ -111,7 +193,7 @@ export default function RecipeDetailClient() {
         md:flex-col md:gap-[4rem] md:mb-[4rem]
         sm:flex-col sm:gap-[2.8rem] sm:mb-[2.8rem]"
         >
-          <DetailTextCard type="ingredient" content={recipe.ingredients} className="lg:order-1 md:order-2 sm:order-2" />
+          <DetailTextCard type="ingredient" content={recipeDetail.ingredients} className="lg:order-1 md:order-2 sm:order-2" />
           <DetailTextCard type="nutrition" content={NutritionData} className="lg:order-2 md:order-1 sm:order-1" />
         </div>
         <div
@@ -120,8 +202,8 @@ export default function RecipeDetailClient() {
         md:flex-col md:gap-[4rem] md:mb-[4rem]
         sm:flex-col sm:gap-[2.8rem] sm:mb-[2.8rem]"
         >
-          <DetailTextCard type="direction" content={recipe.direction} className="lg:order-1 md:order-2 sm:order-2" />
-          <DetailTextCard type="benefit" content={recipe.benefits} className="lg:order-2 md:order-1 sm:order-1" />
+          <DetailTextCard type="direction" content={recipeDetail.direction} className="lg:order-1 md:order-2 sm:order-2" />
+          <DetailTextCard type="benefit" content={recipeDetail.benefits} className="lg:order-2 md:order-1 sm:order-1" />
         </div>
       </div>
     </div>
