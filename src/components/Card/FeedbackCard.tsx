@@ -164,7 +164,7 @@ export default function FeedbackCard({
                       deletingCommentId !== comment.id && (
                         <div className="flex-col relative">
                           <Image
-                            src={`${S3_BASE_URL}/icon_kebab_cancel.svg`}
+                            src={`${S3_BASE_URL}/icon_kebab.svg`}
                             alt="드롭다운 이미지"
                             onClick={() => handleMenuClick(comment.id)}
                             className="cursor-pointer"
