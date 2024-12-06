@@ -43,7 +43,7 @@ export default function ChallengeParticipantCard({ initialData, type }: Challeng
               <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.feedbackCount}</p>
             </div>
             <div className="flex gap-[0.4rem]">
-              <Image src={`${S3_BASE_URL}/icon_heart_inactive_large`} alt="하트" width={16} height={16} />
+              <Image src={`${S3_BASE_URL}/icon_heart_inactive_large.svg`} alt="하트" width={16} height={16} />
               <p className="font-medium text-[1.2rem] leading-[1.8rem]">{data.likeCount}</p>
             </div>
           </div>
