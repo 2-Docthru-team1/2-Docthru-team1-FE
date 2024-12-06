@@ -53,7 +53,12 @@ export default function ClosableModalClient({ isOpen, setIsModalOpen }: Closable
             >
               {getSelectedLanguageLabel() || 'Language'}
             </p>
-            <Image src={`${S3_BASE_URL}/${isDropdownOpen ? 'ic_toggle_up.svg' : 'ic_toggle_down.svg'}`} alt="아래 화살표" />
+            <Image
+              src={`${S3_BASE_URL}/${isDropdownOpen ? 'ic_toggle_up.svg' : 'ic_toggle_down.svg'}`}
+              alt="아래 화살표"
+              width={24}
+              height={24}
+            />
           </div>
           {isDropdownOpen && (
             <Dropdown
