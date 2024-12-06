@@ -157,7 +157,7 @@ export default function Nav() {
                   <div className="relative">
                     <Image
                       src={`${S3_BASE_URL}/${hasUnreadNotifications ? 'icon_bell_noti.svg' : 'icon_bell_default.svg'}`}
-                      alt="default_bell"
+                      alt="bell"
                       width={24}
                       height={24}
                       onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
