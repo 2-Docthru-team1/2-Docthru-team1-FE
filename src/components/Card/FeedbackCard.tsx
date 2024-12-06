@@ -210,7 +210,7 @@ export default function FeedbackCard({
       </div>
       {hasNextPage && (
         <div ref={ref}>
-          <Image src={`${S3_BASE_URL}/icon_more.svg`} alt="더보기 이미지" width={40} height={40} />
+          <Image src={`${S3_BASE_URL}/icon_more.png`} alt="더보기 이미지" width={40} height={40} />
         </div>
       )}
     </div>
