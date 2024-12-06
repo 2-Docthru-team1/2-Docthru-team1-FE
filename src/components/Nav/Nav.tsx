@@ -29,50 +29,60 @@ export default function Nav() {
   const { name, role } = useStore();
 
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const handleNotificationClick = (challengeId: string) => {
-    if (challengeId) {
+  const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
+  const updateUnreadStatus = (notifications: Notification[]) => {
+    setHasUnreadNotifications(notifications.some(notification => !notification.isRead));
+  };
+
+  const handleNotificationClick = (challengeId: string, workId: string) => {
+    if (challengeId && workId) {
+      router.push(`/challengeList/${workId}/${challengeId}`);
+    } else if (challengeId) {
       router.push(`/challengeList/${challengeId}`);
     }
   };
 
   const fetchNotifications = async () => {
-    try {
-      const serverNotifications = await getNotification();
-      setNotifications(serverNotifications);
-    } catch (error) {
-      console.error('Error fetching notifications:', error);
-    }
+    const serverNotifications = await getNotification();
+    setNotifications(serverNotifications);
+    updateUnreadStatus(serverNotifications);
   };
+
   const setupWebSocket = (token: string) => {
     const socket = io('http://15.165.57.191', {
       auth: { token }
     });
 
-    socket.on('challengeStatusChangedFinished', notifications => {
-      setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
+    socket.on('challengeStatusChangedFinished', newNotification => {
+      setNotifications(prev => {
+        const updated = [newNotification, ...prev].slice(0, 15);
+        updateUnreadStatus(updated);
+        return updated;
+      });
     });
 
-    // TODO 댓글 알림 배포되면 연결 예정.
-    // socket.on('newFeedback', notifications => {
-    //   setNotifications(prevNotifications => [notifications, ...prevNotifications].slice(0, 15));
-    // });
+    socket.on('newFeedback', newNotification => {
+      setNotifications(prev => {
+        const updated = [newNotification, ...prev].slice(0, 15);
+        updateUnreadStatus(updated);
+        return updated;
+      });
+    });
 
     return socket;
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      console.warn('Access token not found.');
-      return;
-    }
+    const token = localStorage.getItem('accessToken');
+    if (!token) return;
+
     fetchNotifications();
-    const socket = setupWebSocket(accessToken);
+    const socket = setupWebSocket(token);
 
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [localStorage.getItem('accessToken')]);
 
   useEffect(() => {
     setIsNotificationModalOpen(false);
@@ -146,17 +156,13 @@ export default function Nav() {
                 <>
                   <div className="relative">
                     <Image
-                      src={`${S3_BASE_URL}/icon_bell_default.svg`}
-                      alt="벨"
+                      src={`${S3_BASE_URL}/${hasUnreadNotifications ? 'icon_bell_noti.svg' : 'icon_bell_default.svg'}`}
+                      alt="bell"
                       width={24}
                       height={24}
                       onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
                       className="cursor-pointer"
                     />
-                    {/* 빨간 색 점 표시 */}
-                    {/* {unreadNotificationCount > 0 && (
-                      <span className="absolute right-0 top-0 w-[0.8rem] h-[0.8rem] bg-red-500 rounded-full"></span>
-                    )} */}
                     {isNotificationModalOpen && (
                       <div className="z-[30] absolute right-0 top-full mt-[1.2rem]">
                         <NotificationModal
