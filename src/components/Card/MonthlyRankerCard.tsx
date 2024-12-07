@@ -41,7 +41,7 @@ export default function MonthlyRankerCard({ data }: MonthlyRankerCardProps) {
             </div>
             <div>
               <div className="text-[1.4rem] text-gray-700">Total Likes</div>
-              <div className="text-[2rem] text-gray-800">
+              <div className="text-[2rem] text-right text-gray-800">
                 {ranker.likeCount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
               </div>
             </div>
