@@ -16,7 +16,6 @@ export default function AdminChallengeDetailClient() {
   const { id } = useParams();
   const router = useRouter();
   const { challengeMgmtTotalCount } = useStore();
-  console.log(challengeMgmtTotalCount, 'challengeMgmtTotalCount');
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -31,22 +30,18 @@ export default function AdminChallengeDetailClient() {
 
   const itemsPerPage = 1;
   const totalPages = Math.max(1, Math.ceil(challengeMgmtTotalCount / itemsPerPage));
-  console.log(totalPages, 'total pages');
 
   const handlePageChange = async (page: number) => {
     if (page === currentPage) return;
 
     setCurrentPage(page);
-    console.log(page, 'current Page');
 
     let response;
 
     if (page < currentPage) {
       response = await fetchAdminChallengeDetailPrev(String(id));
-      console.log('prev', response);
     } else if (page > currentPage) {
       response = await fetchAdminChallengeDetailNext(String(id));
-      console.log('next', response);
     }
 
     if (response) {

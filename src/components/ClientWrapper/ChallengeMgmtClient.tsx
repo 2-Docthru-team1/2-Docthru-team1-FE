@@ -60,7 +60,7 @@ export default function ChallengeMgmtClient() {
 
   useEffect(() => {
     if (challengeApply) {
-      setChallengeMgmtTotalCount(challengeApply?.totalCount || 0);
+      setChallengeMgmtTotalCount(challengeApply?.list[0].number || 0);
     }
   }, [challengeApply]);
 
