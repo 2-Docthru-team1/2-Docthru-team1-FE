@@ -181,9 +181,7 @@ export default function Dropdown({ isOpen, items, onSelect, type, onApply, onClo
   return (
     <div className={`absolute ${dropdownType} mt-[0.8rem] z-20`}>
       {isOpen && (
-        <div className="flex items-center justify-center flex-col rounded-[0.8rem] bg-primary-white border border-gray-300">
-          {renderItems()}
-        </div>
+        <div className="flex items-center justify-center flex-col rounded-[0.8rem] bg-primary-white">{renderItems()}</div>
       )}
     </div>
   );
