@@ -231,7 +231,7 @@ export default function WorkCard({ data, userId, userRole }: WorkDataProps) {
       sm:flex-col sm:items-center"
         >
           <div
-            className="mr-[0.3rem] relative cursor-pointer
+            className="mr-[4rem] relative cursor-pointer
         lg:w-[47.6rem] lg:h-[47.9rem]
         md:w-[47.6rem] md:h-[47.9rem]
         sm:w-[30rem] sm:h-[30rem] "
