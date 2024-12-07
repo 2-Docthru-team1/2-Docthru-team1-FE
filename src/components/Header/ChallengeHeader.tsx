@@ -20,7 +20,7 @@ export default function ChallengeHeader({ onSubmit, isCardClicked, workId, onEdi
 
   return (
     <div
-      className={`flex items-center justify-center mt-[3.6rem] lg:w-[87.1rem] lg:px-0 ${isCardClicked ? 'md:w-[38.8rem]' : 'md:w-full'} md:pl-0 md:max-w-[87.1rem] sm:w-full sm:max-w-[69.6rem] sm:pl-0`}
+      className={`flex items-center justify-center mt-[3.6rem] lg:w-[70rem] lg:px-0 ${isCardClicked ? 'md:w-[38.8rem]' : 'md:w-full'} md:pl-0 md:max-w-[87.1rem] sm:w-full sm:max-w-[69.6rem] sm:pl-0`}
     >
       <div className="flex w-full h-[4rem] justify-between items-center lg:gap-0 md:gap-0 sm:gap-[1rem]">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-700 lg:text-[2rem] md:text-[2rem] md:whitespace-normal sm:text-[1.6rem] sm:whitespace-normal">

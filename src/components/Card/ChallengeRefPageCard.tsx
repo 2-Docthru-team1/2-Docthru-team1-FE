@@ -104,7 +104,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           <iframe
             src={processedUrl}
             title="Embedded Content"
-            width={isPcScreen ? 640 : isTabletScreen ? 314 : isMobileScreen ? 400 : 0}
+            width={isPcScreen ? 450 : isTabletScreen ? 314 : isMobileScreen ? 400 : 0}
             height="100%"
             allowFullScreen
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -113,7 +113,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           <iframe
             src={processedUrl}
             title="Embedded Content"
-            width={isPcScreen ? 640 : isTabletScreen ? 314 : isMobileScreen ? 400 : 0}
+            width={isPcScreen ? 450 : isTabletScreen ? 314 : isMobileScreen ? 400 : 0}
             height="100%"
             allowFullScreen
           />

@@ -82,7 +82,7 @@ export default function ChallengeBody({
 
   return (
     <div
-      className={`border-none lg:w-[87.1rem] lg:px-0 ${isCardClicked ? 'md:w-[38.8rem]' : 'md:w-full'} md:max-w-[87.1rem] md:px-0 sm:w-full sm:max-w-[69.6rem] sm:pl-0`}
+      className={`border-none lg:w-[70rem] lg:px-0 ${isCardClicked ? 'md:w-[38.8rem]' : 'md:w-full'} md:max-w-[87.1rem] md:px-0 sm:w-full sm:max-w-[69.6rem] sm:pl-0`}
     >
       <input
         value={title}
