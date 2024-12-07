@@ -24,8 +24,6 @@ export default async function ChallengeListPage() {
 
   const dehydratedState = dehydrate(queryClient);
 
-  // const rankerData = await fetchRanker(currentMonth);
-
   const Data = {
     adminchallengeData
   };
