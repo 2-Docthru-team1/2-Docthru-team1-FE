@@ -21,6 +21,12 @@ export default function ChallengeListClient({ adminchallengeData, rankerData }: 
   const { id, role, keyword, setKeyword } = useStore();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [rankers, setRankers] = useState(rankerData);
+
+  useEffect(() => {
+    setRankers(rankerData);
+  }, [rankerData]);
+
   useEffect(() => {
     const updateItemsPerPage = () => {
       const width = window.innerWidth;
@@ -200,7 +206,7 @@ export default function ChallengeListClient({ adminchallengeData, rankerData }: 
       </div>
       <div className="lg:mb-[2.4rem] md:mb-[3.2rem] sm:mb-[1.6rem]">
         <p className="font-semibold text-[2rem] leading-[2.387rem] text-gray-800 mb-[2.4rem]">This Month's Ranker</p>
-        <MonthlyRankerCard data={rankerData} />
+        <MonthlyRankerCard data={rankers} />
       </div>
     </div>
   );
