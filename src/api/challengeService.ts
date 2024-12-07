@@ -75,7 +75,6 @@ export const fetchUpdateStatus = async (challengeId: string, newStatus: string, 
     });
     return response.data;
   } catch (error) {
-    console.error('Failed to update challenge status:', error);
     throw error;
   }
 };

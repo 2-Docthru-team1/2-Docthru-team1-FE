@@ -14,12 +14,6 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    console.log('Request Config:', {
-      url: config.url,
-      method: config.method,
-      baseURL: config.baseURL,
-      data: config.data
-    });
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('accessToken');
       if (token) {
@@ -62,7 +56,7 @@ instance.interceptors.response.use(
         window.location.href = '/';
       }
     } else if (err.response?.status !== 401) {
-      console.error(err);
+      throw err;
     }
     return Promise.reject(err);
   }
