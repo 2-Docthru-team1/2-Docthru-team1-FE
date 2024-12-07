@@ -27,7 +27,7 @@ export default function ChallengeHeader({ onSubmit, isCardClicked, workId, onEdi
           Write your challenge
         </p>
         <div className="flex justify-end lg:gap-[0.8rem] md:gap-[0.8rem] sm:gap-[0.3rem] w-full max-w-[28.9rem]">
-          <div className="sm: w-[21.4rem] sm:flex sm:justify-between">
+          <div className="lg:w-[28rem] md:w-[23rem] sm: w-[21.4rem] sm:flex sm:justify-between">
             <button
               className="flex items-center bg-[#FFE7E7] rounded-[0.8rem] lg:py-[0.8rem] lg:px-[1.2rem] gap-[0.5rem] lg:w-[9rem] ld:max-w-[9rem] md:w-[4rem] md:h-[4rem] sm:w-[4rem] sm:h-[4rem] font-semibold text-[1.6rem] leading-[1.909rem] text-[#F24744] justify-center "
               onClick={workId ? handleBack : handleQuit}

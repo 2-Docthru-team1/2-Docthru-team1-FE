@@ -65,7 +65,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
 
   return (
     <div
-      className={`relative lg:w-full md:w-[31.4rem] md:h-full sm:h-[36rem] rounded-lg overflow-hidden flex justify-end items-start ${showIframe ? 'sm:w-[37.5rem]' : null}`}
+      className={`relative lg:w-full md:h-full sm:h-[36rem] rounded-lg overflow-hidden flex justify-end items-start ${showIframe ? 'lg:w-[45rem] md:w-[31.4rem] sm:w-[37.5rem]' : null}`}
     >
       {!showLinkButton ? (
         <div
