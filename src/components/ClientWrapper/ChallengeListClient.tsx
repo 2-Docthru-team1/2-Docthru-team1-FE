@@ -59,7 +59,6 @@ export default function ChallengeListClient({ adminchallengeData }: ChallengeLis
     queryKey: ['rankers', currentMonth],
     queryFn: () => fetchRanker(currentMonth),
     staleTime: 0,
-    // cacheTime: 0,
     refetchOnWindowFocus: true
   });
 
