@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #111827;
+  font-family: Pretendard;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.ql-snow {
+  border: none !important;
+}
+
+.ql-editor {
+  border: none !important;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25.6px;
+  color: #262626;
+}
+
+.ql-snow .ql-tooltip {
+  border: none !important;
+}
+
+.ql-editor::before {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25.6px;
+  color: #a3a3a3 !important;
+  font-style: normal !important;
+}
+
+.shadow-sm {
+  box-shadow: none !important;
+}
+
+.ql-size-small {
+  font-size: 1.3rem;
+}
+
+.ql-size-medium {
+  font-size: 1.6rem;
+}
+
+.ql-size-large {
+  font-size: 1.8rem;
+}
+
+.ql-size-huge {
+  font-size: 2.4rem;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 10px;
+}

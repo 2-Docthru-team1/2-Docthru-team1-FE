@@ -1,0 +1,135 @@
+[
+  {
+    "id": "d4e8cde5-47f4-4e5e-8e0b-8c5b2d9c2b5d",
+    "createdAt": "2024-11-18T00:00:00.000Z",
+    "updatedAt": "2024-11-18T00:00:00.000Z",
+    "deleteAt": null,
+    "title": "title 1",
+    "description": "content 1",
+    "likeCount": 15,
+    "likeUsers": [],
+    "Feedback": [
+      { "userNickname": "Alice", "createdAt": "2024-11-31T00:00:00.000Z", "comment": "Great content!" },
+      { "userNickname": "Alice", "createdAt": "2024-11-31T00:00:00.000Z", "comment": "Very useful." },
+      { "userNickname": "Alice", "createdAt": "2024-11-31T00:00:00.000Z", "comment": "Would recommend to others." }
+    ],
+    "ownerId": "Alice",
+    "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
+    "images": ["/temporaryAssets/food.svg"],
+    "role": "normal"
+  },
+  {
+    "id": "a2b3c4d5-67e8-9f0a-1b2c-3d4e5f6a7b8c",
+    "createdAt": "2024-11-18T00:00:00.000Z",
+    "updatedAt": "2024-11-18T00:00:00.000Z",
+    "deleteAt": null,
+    "title": "title 2",
+    "description": "content 2",
+    "likeCount": 12,
+    "likeUsers": [],
+    "Feedback": [
+      { "userNickname": "Bob", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Informative!" },
+      { "userNickname": "Bob", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Helped me a lot." }
+    ],
+    "ownerId": "Bob",
+    "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
+    "images": ["/temporaryAssets/food.svg"],
+    "role": "normal"
+  },
+  {
+    "id": "f1e2d3c4-5b6a-7f8e-9g0h-1i2j3k4l5m6",
+    "createdAt": "2024-11-18T00:00:00.000Z",
+    "updatedAt": "2024-11-18T00:00:00.000Z",
+    "deleteAt": null,
+    "title": "title 3",
+    "description": "content 3",
+    "likeCount": 10,
+    "likeUsers": [],
+    "Feedback": [
+      { "userNickname": "Charlie", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Very insightful." },
+      { "userNickname": "Charlie", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "I learned something new." }
+    ],
+    "ownerId": "Charlie",
+    "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
+    "images": ["/temporaryAssets/food.svg"],
+    "role": "normal"
+  },
+  {
+    "id": "b1c2d3e4-5f6a-7b8c-9d0e-1f2g3h4i5j6k",
+    "createdAt": "2024-11-18T00:00:00.000Z",
+    "updatedAt": "2024-11-18T00:00:00.000Z",
+    "deleteAt": null,
+    "title": "title 4",
+    "description": "content 4",
+    "likeCount": 8,
+    "likeUsers": [],
+    "Feedback": [{ "userNickname": "David", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Interesting perspective." }],
+    "ownerId": "David",
+    "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
+    "images": ["/temporaryAssets/food.svg"],
+    "role": "normal"
+  },
+  {
+    "id": "c0d1e2f3-4g5h-6i7j-8k9l-0m1n2o3p4q5r",
+    "createdAt": "2024-11-18T00:00:00.000Z",
+    "updatedAt": "2024-11-18T00:00:00.000Z",
+    "deleteAt": null,
+    "title": "title 5",
+    "description": "content 5",
+    "likeCount": 5,
+    "likeUsers": [],
+    "Feedback": [{ "userNickname": "Eva", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Could use more examples." }],
+    "ownerId": "Eva",
+    "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
+    "images": ["/temporaryAssets/food.svg"],
+    "role": "normal"
+  },
+  {
+    "id": "a4b5c6d7-e8f9-0g1h-2i3j-4k5l6m7n8o9p",
+    "createdAt": "2024-11-18T00:00:00.000Z",
+    "updatedAt": "2024-11-18T00:00:00.000Z",
+    "deleteAt": null,
+    "title": "title 6",
+    "description": "content 6",
+    "likeCount": 3,
+    "likeUsers": [],
+    "Feedback": [
+      { "userNickname": "Frank", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Needs more depth." },
+      { "userNickname": "Frank", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Not very clear." }
+    ],
+    "ownerId": "Frank",
+    "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
+    "images": ["/temporaryAssets/food.svg"],
+    "role": "normal"
+  },
+  {
+    "id": "b6c7d8e9-f0g1-h2i3-j4k5-l6m7n8o9p0q1",
+    "createdAt": "2024-11-18T00:00:00.000Z",
+    "updatedAt": "2024-11-18T00:00:00.000Z",
+    "deleteAt": null,
+    "title": "title 7",
+    "description": "content 7",
+    "likeCount": 1,
+    "likeUsers": [],
+    "Feedback": [{ "userNickname": "Grace", "createdAt": "2024-11-18T00:00:00.000Z", "comment": "Not very engaging." }],
+    "ownerId": "Grace",
+    "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
+    "images": ["/temporaryAssets/food.svg"],
+    "role": "normal"
+  },
+  {
+    "id": "e7f8g9h0-i1j2-k3l4-m5n6-o7p8q9r0s1t2",
+    "createdAt": "2024-11-18T00:00:00.000Z",
+    "updatedAt": "2024-11-18T00:00:00.000Z",
+    "deleteAt": null,
+    "title": "title 8",
+    "description": "content 8",
+    "likeCount": 0,
+    "likeUsers": [],
+    "Feedback": [],
+    "ownerId": "Hannah",
+    "challengeId": "166cc4d7-d09b-4a82-a213-5e94a47c95b9",
+    "images": ["/temporaryAssets/food.svg"],
+    "role": "normal"
+  }
+]
