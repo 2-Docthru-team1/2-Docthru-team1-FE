@@ -4,7 +4,7 @@ import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-quer
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { fetchChallenge } from '@/api/challengeService';
+import { fetchChallenge, fetchRanker } from '@/api/challengeService';
 import ChallengeCard from '@/components/Card/ChallengeCard';
 import type { ChallengeData, ChallengePaginationProps } from '@/interfaces/cardInterface';
 import type { ChallengeListClientProps } from '@/interfaces/challengelistInterface';
@@ -16,17 +16,11 @@ import Pagination from '../Pagination/Pagination';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
 
-export default function ChallengeListClient({ adminchallengeData, rankerData }: ChallengeListClientProps) {
+export default function ChallengeListClient({ adminchallengeData }: ChallengeListClientProps) {
   const router = useRouter();
   const { id, role, keyword, setKeyword } = useStore();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
-  const [rankers, setRankers] = useState(rankerData);
-
-  useEffect(() => {
-    setRankers(rankerData);
-  }, [rankerData]);
-
   useEffect(() => {
     const updateItemsPerPage = () => {
       const width = window.innerWidth;
@@ -59,6 +53,15 @@ export default function ChallengeListClient({ adminchallengeData, rankerData }: 
   };
 
   const queryParams = createQueryParams(orderBy, mediaType, status, keyword);
+
+  const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
+  const { data: rankers } = useQuery({
+    queryKey: ['rankers', currentMonth],
+    queryFn: () => fetchRanker(currentMonth),
+    staleTime: 0,
+    // cacheTime: 0,
+    refetchOnWindowFocus: true
+  });
 
   const {
     data: challenges,
