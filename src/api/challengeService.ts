@@ -12,9 +12,7 @@ export const fetchChallenge = async (page: number, pageSize: number, queryParams
 
 export const fetchRanker = async (queryParams: string = '') => {
   try {
-    const response = await getRequest(`/users/top-like/${queryParams}`, {
-      headers: { 'Cache-Control': 'no-store' }
-    });
+    const response = await getRequest(`/users/top-like/${queryParams}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get ranker');
@@ -23,9 +21,7 @@ export const fetchRanker = async (queryParams: string = '') => {
 
 export const fetchAdminChallenge = async (queryParams: string = '') => {
   try {
-    const response = await getRequest(`/challenges/monthly${queryParams}`, {
-      headers: { 'Cache-Control': 'no-store' }
-    });
+    const response = await getRequest(`/challenges/monthly${queryParams}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to get admin challenge data');
