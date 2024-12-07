@@ -79,7 +79,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           </button>
         </div>
       ) : (
-        <div className="flex lg:w-[36.8rem] md:w-[30rem] sm:w-[36rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
+        <div className="flex lg:w-[64rem] md:w-[30rem] sm:w-full lg:pl-[2rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
           <Image
             src={`${S3_BASE_URL}/icon_out_circle_small.svg`}
             alt="닫기"
@@ -104,7 +104,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           <iframe
             src={processedUrl}
             title="Embedded Content"
-            width={isMobileScreen ? 640 : isTabletScreen ? 314 : isPcScreen ? 400 : 0}
+            width={isPcScreen ? 640 : isTabletScreen ? 314 : isMobileScreen ? 400 : 0}
             height="100%"
             allowFullScreen
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -113,7 +113,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           <iframe
             src={processedUrl}
             title="Embedded Content"
-            width={isMobileScreen ? 640 : isTabletScreen ? 314 : isPcScreen ? 400 : 0}
+            width={isPcScreen ? 640 : isTabletScreen ? 314 : isMobileScreen ? 400 : 0}
             height="100%"
             allowFullScreen
           />

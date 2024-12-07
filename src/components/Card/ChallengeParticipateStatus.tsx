@@ -74,7 +74,7 @@ export default function ChallengeParticipateStatus({ list, totalCount }: Challen
                 <div className="inline-flex items-center gap-[2rem]">
                   {rank === 1 ? (
                     <div className="flex justify-center flex-col mt-[2rem] w-[27.8rem]">
-                      <div className="bg-gray-700 rounded-[1.6rem] py-[0.2rem] px-[0.7rem] flex items-center justify-center w-[5.1rem]">
+                      <div className="bg-gray-700 gap-[0.6rem] rounded-[1.6rem] py-[0.2rem] px-[0.7rem] flex items-center justify-center w-[5.1rem]">
                         <Image src={`${S3_BASE_URL}/icon_crown.svg`} alt="Crown" width={8} height={7} />
                         <p className="font-medium text-[1.4rem] leading-[1.671rem] text-primary-beige flex items-center">
                           {String(formatRank(rank))}
