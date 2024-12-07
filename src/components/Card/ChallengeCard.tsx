@@ -19,6 +19,8 @@ export default function ChallengeCard({ type, data, userId, role }: ChallengeCar
     );
   }
 
+  console.log(data, userId, 'userusersuser');
+
   const { id, title, deadline, status, mediaType, requestUser } = data;
 
   const formatDate = (dateString: string) => {
