@@ -178,7 +178,10 @@ export default function ChallengeTryClient() {
         </div>
         {isToastVisible && <ToastComponent onClose={hideToast} duration={10000} onYesClick={restoreData} />}
       </div>
-      <div onClick={handleCardClick} className={`${!isCardClicked ? 'sm:order-2' : 'sm:order-1'} lg:order-2 md:order-2`}>
+      <div
+        onClick={handleCardClick}
+        className={`${!isCardClicked ? 'sm:order-2' : 'sm:order-1'} md:h-[100vh] lg:order-2 md:order-2`}
+      >
         <ChallengeRefPageCard embedUrl={embedUrl} />
       </div>
     </div>

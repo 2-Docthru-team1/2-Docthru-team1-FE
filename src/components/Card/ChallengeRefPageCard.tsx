@@ -64,7 +64,9 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
   }, [embedUrl]);
 
   return (
-    <div className="relative lg:w-full md:w-[31.4rem] lg:h-[60rem] md:h-[65rem] sm:w-full sm:h-[36rem] rounded-lg overflow-hidden flex justify-end items-start">
+    <div
+      className={`relative lg:w-full md:w-[31.4rem] md:h-full sm:h-[36rem] rounded-lg overflow-hidden flex justify-end items-start ${showIframe ? 'sm:w-[37.5rem]' : null}`}
+    >
       {!showLinkButton ? (
         <div
           className="mt-[7.6rem] lg:w-[5.2rem] lg:h-[9.9rem] md:w-[6.9rem] md:h-[5.2rem] sm:w-[6.9rem] sm:h-[5.2rem]  flex items-center justify-center rounded-tl-[2.4rem] rounded-bl-[2.4rem] border-2 border-gray-100 bg-primary-white"
@@ -79,7 +81,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           </button>
         </div>
       ) : (
-        <div className="flex lg:w-[64rem] md:w-[30rem] sm:w-full lg:pl-[2rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
+        <div className="flex lg:w-[45rem] md:w-[30rem] sm:w-[37.5rem] lg:pl-[2rem] justify-between items-center absolute top-4 right-4 bg-[#F6F8FA80] opacity-50 px-4 py-2 rounded-[1rem] gap-[0.2rem]">
           <Image
             src={`${S3_BASE_URL}/icon_out_circle_small.svg`}
             alt="닫기"
@@ -104,7 +106,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           <iframe
             src={processedUrl}
             title="Embedded Content"
-            width={isPcScreen ? 450 : isTabletScreen ? 314 : isMobileScreen ? 400 : 0}
+            width={isPcScreen ? 450 : isTabletScreen ? 314 : isMobileScreen ? 375 : 0}
             height="100%"
             allowFullScreen
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -113,7 +115,7 @@ export default function ChallengeRefPageCard({ embedUrl }: ChallengeRefPageCardP
           <iframe
             src={processedUrl}
             title="Embedded Content"
-            width={isPcScreen ? 450 : isTabletScreen ? 314 : isMobileScreen ? 400 : 0}
+            width={isPcScreen ? 450 : isTabletScreen ? 314 : isMobileScreen ? 375 : 0}
             height="100%"
             allowFullScreen
           />

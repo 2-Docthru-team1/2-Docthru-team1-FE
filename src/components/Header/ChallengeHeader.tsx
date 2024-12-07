@@ -27,25 +27,27 @@ export default function ChallengeHeader({ onSubmit, isCardClicked, workId, onEdi
           Write your challenge
         </p>
         <div className="flex justify-end lg:gap-[0.8rem] md:gap-[0.8rem] sm:gap-[0.3rem] w-full max-w-[28.9rem]">
-          <button
-            className="flex items-center bg-[#FFE7E7] rounded-[0.8rem] py-[0.8rem] px-[1.2rem] gap-[0.5rem] lg:w-[9rem] ld:max-w-[9rem] md:w-[4rem] md:max-w-[9rem] sm:w-full sm:max-w-[4rem] font-semibold text-[1.6rem] leading-[1.909rem] text-[#F24744] justify-center "
-            onClick={workId ? handleBack : handleQuit}
-          >
-            <span className="hidden md:inline md:max-lg:hidden">Quit</span>
-            <Image src={`${S3_BASE_URL}/icon_red_door.svg`} alt="문" width={24} height={24} />
-          </button>
-          <button
-            className="lg:w-[9rem] md:w-[9rem] sm:w-[8rem] rounded-[0.8rem] bg-primary-white border border-gray-700 py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] leading-[1.909rem]"
-            onClick={onSave}
-          >
-            Save
-          </button>
-          <button
-            onClick={workId ? onEdit : onSubmit}
-            className="lg:w-[9rem] md:w-[9rem] sm:w-[9rem] rounded-[0.8rem] bg-primary-blue py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] text-primary-white leading-[1.909rem]"
-          >
-            Submit
-          </button>
+          <div className="sm: w-[21.4rem] sm:flex sm:justify-between">
+            <button
+              className="flex items-center bg-[#FFE7E7] rounded-[0.8rem] lg:py-[0.8rem] lg:px-[1.2rem] gap-[0.5rem] lg:w-[9rem] ld:max-w-[9rem] md:w-[4rem] md:h-[4rem] sm:w-[4rem] sm:h-[4rem] font-semibold text-[1.6rem] leading-[1.909rem] text-[#F24744] justify-center "
+              onClick={workId ? handleBack : handleQuit}
+            >
+              <span className="hidden md:inline md:max-lg:hidden">Quit</span>
+              <Image src={`${S3_BASE_URL}/icon_red_door.svg`} alt="문" width={24} height={24} />
+            </button>
+            <button
+              className="lg:w-[9rem] md:w-[9rem] sm:w-[8rem] sm:h-[4rem] rounded-[0.8rem] bg-primary-white border border-gray-700 py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] leading-[1.909rem]"
+              onClick={onSave}
+            >
+              Save
+            </button>
+            <button
+              onClick={workId ? onEdit : onSubmit}
+              className="lg:w-[9rem] md:w-[9rem] sm:w-[9rem] rounded-[0.8rem] bg-primary-blue py-[0.3rem] px-[1.6rem] font-semibold text-[1.6rem] text-primary-white leading-[1.909rem]"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </div>
