@@ -12,24 +12,29 @@ export default async function ChallengeListPage() {
   const adminchallengeData = await fetchAdminChallenge(monthParams);
 
   const queryClient = new QueryClient();
+
   queryClient.prefetchQuery({
     queryKey: ['challenges'],
     queryFn: () => fetchChallenge(1, 4, '')
   });
+  queryClient.prefetchQuery({
+    queryKey: ['rankers', currentMonth],
+    queryFn: () => fetchRanker(currentMonth)
+  });
+
   const dehydratedState = dehydrate(queryClient);
 
-  const rankerData = await fetchRanker(currentMonth);
+  // const rankerData = await fetchRanker(currentMonth);
 
   const Data = {
-    adminchallengeData,
-    rankerData
+    adminchallengeData
   };
 
   return (
     <HydrationBoundary state={dehydratedState}>
       <div>
         {Object.values(Data).every(value => !!value) ? (
-          <ChallengeListClient adminchallengeData={adminchallengeData} rankerData={rankerData} />
+          <ChallengeListClient adminchallengeData={adminchallengeData} />
         ) : (
           <div className="flex w-full justify-center items-center min-h-screen">
             <Image src={`${S3_BASE_URL}/loading.svg`} alt="loading" width={200} height={200} />

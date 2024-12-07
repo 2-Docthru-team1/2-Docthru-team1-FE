@@ -2,7 +2,6 @@ import type { ChallengeData, MonthlyChallengeData, MonthlyRankerCard, requestUse
 
 export interface ChallengeListClientProps {
   adminchallengeData: MonthlyChallengeData[];
-  rankerData: MonthlyRankerCard[];
 }
 
 export interface ChallengeDetailData {
