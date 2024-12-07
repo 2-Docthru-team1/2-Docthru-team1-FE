@@ -13,7 +13,7 @@ export const fetchChallenge = async (page: number, pageSize: number, queryParams
 export const fetchRanker = async (queryParams: string = '') => {
   try {
     const response = await getRequest(`/users/top-like/${queryParams}`, {
-      headers: { 'Cache-Control': 'no-cache' }
+      headers: { 'Cache-Control': 'no-store' }
     });
     return response.data;
   } catch (error) {
@@ -24,7 +24,7 @@ export const fetchRanker = async (queryParams: string = '') => {
 export const fetchAdminChallenge = async (queryParams: string = '') => {
   try {
     const response = await getRequest(`/challenges/monthly${queryParams}`, {
-      headers: { 'Cache-Control': 'no-cache' }
+      headers: { 'Cache-Control': 'no-store' }
     });
     return response.data;
   } catch (error) {
