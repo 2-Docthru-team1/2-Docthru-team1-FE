@@ -52,6 +52,7 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 
 ## 팀원 구성
 
+<div align=center>
 <table>
   <tr>
     <td align="center" width="200">
@@ -83,9 +84,11 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
     </td>
   </tr>
 </table>
+</div>
 
 <div align=center><h1>📚 STACKS</h1></div>
 
+<div align=center>
 **FrontEnd** <br>
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
 ![React](https://img.shields.io/badge/React.js-61DAFB?style=flat&logo=react&logoColor=white)
@@ -121,6 +124,8 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat&logo=GitHubActions&logoColor=black)
 ![FSD Architecture](https://img.shields.io/badge/FSD%20Architecture-white?style=flat&logo=architect&logoColor=black)
 ![App Router](https://img.shields.io/badge/App%20Router-white?style=flat&logo=architect&logoColor=black)
+
+</div>
 
 ## R&R
 
