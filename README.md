@@ -94,6 +94,7 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
 ![React](https://img.shields.io/badge/React.js-61DAFB?style=flat&logo=react&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-FFFFFF?style=flat&logo=next.js&logoColor=black)
+![App Router](https://img.shields.io/badge/App%20Router-white?style=flat&logo=architect&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=black)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat&logo=TailwindCSS&logoColor=white)
 ![Storybook](https://img.shields.io/badge/Storybook-FF4785?style=flat&logo=Storybook&logoColor=black) <br>
@@ -109,7 +110,6 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ![S3](https://img.shields.io/badge/S3-569A31?style=flat&logo=amazon-s3&logoColor=white)
 ![EC2](https://img.shields.io/badge/EC2-FF9900?style=flat&logo=amazon-ec2&logoColor=white)
 ![PM2](https://img.shields.io/badge/PM2-2B037A?style=flat&logo=pm2&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat&logo=GitHubActions&logoColor=black)
 
 **Tools** <br>
 ![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white)
@@ -125,7 +125,6 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=Prettier&logoColor=black)
 ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=ESLint&logoColor=white)
 ![FSD Architecture](https://img.shields.io/badge/FSD%20Architecture-white?style=flat&logo=architect&logoColor=black)
-![App Router](https://img.shields.io/badge/App%20Router-white?style=flat&logo=architect&logoColor=black)
 
 </div>
 
