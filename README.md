@@ -243,10 +243,14 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 <details>
 <summary>작업물 페이지</summary>
 
-- 작업물 페이지
-- 회원가입 페이지
-- 어드민 작업물 페이지
-- 작업물 수정 페이지
+- 작업물 페이지 컴포넌트 및 반응형 구현
+- 댓글 무한스크롤 기능 구현
+- 작업물 좋아요 기능
+- 공통 취소 확인 및 이미지 확대 모달 컴포넌트 제작
+- 작업물 수정 & 삭제 기능
+- 댓글 수정 & 삭제 기능
+- 공통 수정 & 삭제 드롭다운 제작
+- 이미지 전환 기능 
 
 </details>
 
@@ -254,28 +258,38 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 <summary>로그인 및 회원가입</summary>
 
 - Validation 처리 및 에러 구현
+- API 요청에 따른 에러 메세지 alert로 표시
+- 회원가입 페이지 반응형 구현
 
 </details>
 
 <details>
-<summary>공통 컴포넌트</summary>
+<summary>어드민 작업물 페이지</summary>
 
-- 취소 확인 모달
-- 이미지 확대 모달
+- 검색, 정렬, 비동기 페이지네이션 기능 구현
+- data list 불러올 때 tanstack query의 prefetching 이용하여 SSR 구현 
 
+</details>
+
+<details>
+<summary>작업물 수정 페이지</summary>
+
+- 유저 권한이 admin일 때 작업물 및 댓글 수정 & 삭제 기능 구현
+  
 </details>
 
 <details>
 <summary>레시피 리스트 페이지</summary>
 
-- 검색, 정렬, 페이지네이션 기능 구현
+- 검색, 정렬, 비동기 페이지네이션 기능 구현
+- data list 불러올 때 tanstack query의 prefetching 이용하여 SSR 구현 
 
 </details>
 
 <details>
 <summary>챌린지 리스트 페이지</summary>
 
-- 페이지네이션 기능 구현
+- 비동기 페이지네이션 기능 구현
 
 </details>
 
@@ -296,8 +310,10 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 <details>
 <summary>기타</summary>
 
-- React Quill을 사용한 HTML 파싱
+- React Quill 텍스트 편집기로 생성한 HTML DOM에 직접 삽입
 - Axios Interceptor를 활용한 AccessToken 및 RefreshToken 처리
+- Tanstack Query layout 페이지에 초기 설정
+- TanStack Query hook & formatter hook 제작
 - Lighthouse 성능 개선
 
 </details>
