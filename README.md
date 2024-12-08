@@ -96,7 +96,7 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ![Next.js](https://img.shields.io/badge/Next.js-FFFFFF?style=flat&logo=next.js&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=black)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat&logo=TailwindCSS&logoColor=white)
-![Storybook](https://img.shields.io/badge/Storybook-FF4785?style=flat&logo=Storybook&logoColor=black)
+![Storybook](https://img.shields.io/badge/Storybook-FF4785?style=flat&logo=Storybook&logoColor=black) <br>
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=Axios&logoColor=white)
 ![Zustand](https://img.shields.io/badge/Zustand-white?style=flat&logo=architect&logoColor=black)
 ![react-toastify](https://img.shields.io/badge/react--toastify-white?style=flat&logo=architect&logoColor=black)
@@ -111,6 +111,7 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ![PM2](https://img.shields.io/badge/PM2-2B037A?style=flat&logo=pm2&logoColor=white)
 
 **Tools** <br>
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)
 ![Slack](https://img.shields.io/badge/Slack-4A154B?style=flat&logo=slack&logoColor=white)
 ![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white)
