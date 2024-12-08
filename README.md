@@ -37,7 +37,7 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 
 ### 관련 링크
 
-<b>[HanCook 사이트 바로가기](http://43.203.221.149:3000/)</b><br>
+<b>[HanCook 사이트 바로가기](http://3.39.236.234:3000/)</b><br>
 <b>[백엔드 배포 사이트](http://ec2-43-200-2-208.ap-northeast-2.compute.amazonaws.com)</b><br>
 <b>[HanCook Figma 바로가기](<https://www.figma.com/design/CdALCm6ocpye0ldqTfVAvf/%5BTEAM-1%5D-HanCook-(Copy)?m=auto&t=mysMLQtwUW72DsvI-6>)</b><br>
 <b>[HanCook API 명세서](https://app.swaggerhub.com/apis-docs/CHESHIREBIZZ/HanCook/1.0.4#/)</b> <br>
@@ -160,80 +160,80 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 <details>
 <summary>챌린지 리스트 페이지</summary>
 
-- 이달의 챌린지 카드 컴포넌트  
-- 일반 챌린지 카드 컴포넌트  
-- 이달의 랭커 카드 컴포넌트  
-- 칩 카테고리 컴포넌트  
-- Cancel/Abort 토글  
-- Abort 모달 컴포넌트  
-- 필터바(sort/keyword) 및 드롭다운  
+- 이달의 챌린지 카드 컴포넌트
+- 일반 챌린지 카드 컴포넌트
+- 이달의 랭커 카드 컴포넌트
+- 칩 카테고리 컴포넌트
+- Cancel/Abort 토글
+- Abort 모달 컴포넌트
+- 필터바(sort/keyword) 및 드롭다운
 
 </details>
 
 <details>
 <summary>챌린지 신청 페이지</summary>
 
-- datepicker 사용한 달력 컴포넌트  
-- EC2 이미지 PUT 메소드 추상화  
+- datepicker 사용한 달력 컴포넌트
+- EC2 이미지 PUT 메소드 추상화
 
 </details>
 
 <details>
 <summary>권한에 따른 페이지 설정</summary>
 
-- 어드민/유저 권한에 따른 챌린지 리스트 페이지  
-- NAV UI (페이지, 프로필, 알림)  
+- 어드민/유저 권한에 따른 챌린지 리스트 페이지
+- NAV UI (페이지, 프로필, 알림)
 
 </details>
 
 <details>
 <summary>App router layout 페이지</summary>
 
-- ClientSync Hook 적용  
-- 전체 기본 배경색 설정  
+- ClientSync Hook 적용
+- 전체 기본 배경색 설정
 
 </details>
 
 <details>
 <summary>로그인 페이지</summary>
 
-- 로그인/회원가입 인풋 컴포넌트  
+- 로그인/회원가입 인풋 컴포넌트
 
 </details>
 
 <details>
 <summary>로그인/로그아웃/유저 상태 관리</summary>
 
-- Zustand + 로컬스토리지 관리  
+- Zustand + 로컬스토리지 관리
 
 </details>
 
 <details>
 <summary>accessToken&refreshToken 관련 처리</summary>
 
-- AccessToken 및 RefreshToken 관리  
+- AccessToken 및 RefreshToken 관리
 
 </details>
 
 <details>
 <summary>실시간 Socket 알림</summary>
 
-- 알림 컴포넌트  
-- 클라이언트 코드 작성  
-- Server HTTPS SSL 문제 발견 → HTTP로 수정  
-- CORS 문제 발견 및 해결  
-- Nginx Socket 권한 설정  
+- 알림 컴포넌트
+- 클라이언트 코드 작성
+- Server HTTPS SSL 문제 발견 → HTTP로 수정
+- CORS 문제 발견 및 해결
+- Nginx Socket 권한 설정
 
 </details>
 
 <details>
 <summary>기타</summary>
 
-- CSS 디테일 관리  
-- 이달의 랭커 SSR Next.js 캐싱 문제 해결  
-- 제작한 컴포넌트 스토리북 테스트  
-- 반응형 디자인 구현 (랜딩, 로그인, 챌린지 리스트, 챌린지 신청 페이지)  
-- iframe 임베드 유튜브 영상 페이지 구현  
+- CSS 디테일 관리
+- 이달의 랭커 SSR Next.js 캐싱 문제 해결
+- 제작한 컴포넌트 스토리북 테스트
+- 반응형 디자인 구현 (랜딩, 로그인, 챌린지 리스트, 챌린지 신청 페이지)
+- iframe 임베드 유튜브 영상 페이지 구현
 
 </details>
 
@@ -244,62 +244,62 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 <details>
 <summary>작업물 페이지</summary>
 
-- 작업물 페이지  
-- 회원가입 페이지  
-- 어드민 작업물 페이지  
-- 작업물 수정 페이지  
+- 작업물 페이지
+- 회원가입 페이지
+- 어드민 작업물 페이지
+- 작업물 수정 페이지
 
 </details>
 
 <details>
 <summary>로그인 및 회원가입</summary>
 
-- Validation 처리 및 에러 구현  
+- Validation 처리 및 에러 구현
 
 </details>
 
 <details>
 <summary>공통 컴포넌트</summary>
 
-- 취소 확인 모달  
-- 이미지 확대 모달  
+- 취소 확인 모달
+- 이미지 확대 모달
 
 </details>
 
 <details>
 <summary>레시피 리스트 페이지</summary>
 
-- 검색, 정렬, 페이지네이션 기능 구현  
+- 검색, 정렬, 페이지네이션 기능 구현
 
 </details>
 
 <details>
 <summary>챌린지 리스트 페이지</summary>
 
-- 페이지네이션 기능 구현  
+- 페이지네이션 기능 구현
 
 </details>
 
 <details>
 <summary>권한 기반 라우터 설정</summary>
 
-- 페이지 권한에 따른 라우터 설정  
+- 페이지 권한에 따른 라우터 설정
 
 </details>
 
 <details>
 <summary>반응형 디자인 구현</summary>
 
-- 레시피 리스트 및 상세, 챌린지 도전하기 페이지  
+- 레시피 리스트 및 상세, 챌린지 도전하기 페이지
 
 </details>
 
 <details>
 <summary>기타</summary>
 
-- React Quill을 사용한 HTML 파싱  
-- Axios Interceptor를 활용한 AccessToken 및 RefreshToken 처리  
-- Lighthouse 성능 개선  
+- React Quill을 사용한 HTML 파싱
+- Axios Interceptor를 활용한 AccessToken 및 RefreshToken 처리
+- Lighthouse 성능 개선
 
 </details>
 
@@ -324,16 +324,16 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 <details>
 <summary>레시피 리스트 페이지</summary>
 
-- 레시피 카드 컴포넌트  
-- 레시피 리스트 페이지 제작  
+- 레시피 카드 컴포넌트
+- 레시피 리스트 페이지 제작
 
 </details>
 
 <details>
 <summary>레시피 상세 페이지</summary>
 
-- 텍스트 컴포넌트  
-- 레시피 상세 페이지 제작  
+- 텍스트 컴포넌트
+- 레시피 상세 페이지 제작
 
 </details>
 

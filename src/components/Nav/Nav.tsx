@@ -12,6 +12,7 @@ import NotificationModal from '../Modal/NotificationModal';
 import ProfileModal from '../Modal/ProfileModal';
 
 const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function Nav() {
   const userStatus = useStore(state => state.userStatus);
@@ -53,7 +54,7 @@ export default function Nav() {
   };
 
   const setupWebSocket = (token: string) => {
-    const socket = io('http://ec2-43-200-2-208.ap-northeast-2.compute.amazonaws.com', {
+    const socket = io(`${BASE_URL}`, {
       auth: { token },
       withCredentials: true
     });
