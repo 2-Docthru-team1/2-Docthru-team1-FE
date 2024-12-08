@@ -86,7 +86,6 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 
 <div align=center><h1>📚 STACKS</h1></div>
 
-<div align=center> 
 **FrontEnd** <br>
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
 ![React](https://img.shields.io/badge/React.js-61DAFB?style=flat&logo=react&logoColor=white)
@@ -123,8 +122,6 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ![FSD Architecture](https://img.shields.io/badge/FSD%20Architecture-white?style=flat&logo=architect&logoColor=black)
 ![App Router](https://img.shields.io/badge/App%20Router-white?style=flat&logo=architect&logoColor=black)
 
-</div>
-
 ## R&R
 
 **김재원**
@@ -152,13 +149,6 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ## 팀원별 구현 기능 상세
 
 **김재원**
-
-BE
-
-- 백엔드 로그인
-- JWT 토큰 구현
-
-FE
 
 - 챌린지 리스트 페이지
   - 이달의 챌린지 카드 컴포넌트
