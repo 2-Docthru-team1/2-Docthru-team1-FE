@@ -53,7 +53,7 @@ export default function Nav() {
   };
 
   const setupWebSocket = (token: string) => {
-    const socket = io('http://15.165.57.191', {
+    const socket = io('http://ec2-43-200-2-208.ap-northeast-2.compute.amazonaws.com', {
       auth: { token },
       withCredentials: true
     });
