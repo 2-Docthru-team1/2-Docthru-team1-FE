@@ -242,7 +242,7 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ### 이도엽
 
 <details>
-<summary>작업물 페이지</summary>
+<summary>페이지 제작</summary>
 
 - 작업물 페이지  
 - 회원가입 페이지  
