@@ -1,5 +1,4 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios';
-import { access } from 'fs';
 import https from 'https';
 import useStore from '@/store/store';
 
