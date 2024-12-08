@@ -155,100 +155,233 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 
 ## 팀원별 구현 기능 상세
 
-**김재원**
+### 김재원
 
-- 챌린지 리스트 페이지
-  - 이달의 챌린지 카드 컴포넌트
-  - 일반 챌린지 카드 컴포넌트
-  - 이달의 랭커 카드 컴포넌트
-  - 칩 카테고리 컴포넌트
-  - Cancel/Abort 토글
-  - Abort 모달 컴포넌트
-  - 필터바(sort/keyword) 및 드롭다운
-- 챌린지 신청 페이지
-  - datepicker 사용한 달력 컴포넌트
-  - ec2 이미지 PUT 메소드 추상화
-- 권한에 따른 페이지 설정
-  - 어드민/유저 권한에 따른 챌린지 리스트 페이지
-  - NAV UI (페이지, 프로필, 알림)
-- App router layout 페이지
-  - ClientSync Hook 적용
-  - 전체 기본 배경색 설정
-- 로그인 페이지
-  - 로그인/회원가입 인풋 컴포넌트
-- 로그인/로그아웃/유저상태 Zustand + 로컬스토리지 관리
-- accessToken&refreshToken 관련 다루기
-- 실시간 socket 알림
-  - 알림 컴포넌트
-  - 클라이언트 코드 작성
-  - Server https SSL 문제 발견 → http로 수정
-  - CORS 문제 발견 및 해결
-  - Nginx socket 권한 설정
-- 모든 페이지 CSS 디테일 관리
-- 이달의 랭커 SSR Nextjs 캐싱 문제 해결
-- 제작한 컴포넌트 스토리북 테스트
-- 랜딩, 로그인, 챌린지 리스트, 챌린지 신청 페이지 미디어 쿼리 반응형 구현
-- iframe 임베드 유튜브 영상 페이지 구현
+<details>
+<summary>챌린지 리스트 페이지</summary>
 
-**이도엽**
+- 이달의 챌린지 카드 컴포넌트  
+- 일반 챌린지 카드 컴포넌트  
+- 이달의 랭커 카드 컴포넌트  
+- 칩 카테고리 컴포넌트  
+- Cancel/Abort 토글  
+- Abort 모달 컴포넌트  
+- 필터바(sort/keyword) 및 드롭다운  
 
-- 작업물 페이지
-- 회원가입 페이지
-- 어드민 작업물 페이지
-- 작업물 수정 페이지
-- 로그인 및 회원가입 페이지 vaildation에 따른 에러 구현
-- 공통 취소 확인 및 이미지 확대 모달 컴포넌트
-- 레시피 리스트 페이지 검색, 정렬, 페이지네이션 기능 구현
-- 챌린지 리스트 페이지 페이지네이션 기능 구현
-- 각 페이지 권한에 따른 router 설정
-- 레시피 리스트 및 상세, 챌린지 도전하기 페이지 반응형 디자인 구현
-- react quill text 편집기로 생성한 html 파싱
-- axios interceptor를 이용해 accessToken 및 refreshToken 자동 header 삽입과 재발급 기능
-- lighthouse 성능 개선
+</details>
 
-**박효빈**
+<details>
+<summary>챌린지 신청 페이지</summary>
 
-- 공통 컴포넌트
-  - Nav바
-  - 언어 모달 컴포넌트
-  - 프로필 모달 컴포넌트
-  - 거절 모달 컴포넌트
-  - 필터바 컴포넌트
-  - dropdown 컴포넌트
-  - 페이지네이션 컴포넌트
-- 레시피 리스트 페이지
-  - 레시피카드 컴포넌트
-  - 레시피 리스트 페이지 제작
-- 레시피 상세페이지
-  - 레시피 상세페이지 텍스트 컴포넌트
-  - 레시피 상세페이지 제작
-- 챌린지 상세 페이지
-  - 챌린지 상세 페이지 참여자 카드 컴포넌트
-  - 챌린지 상세 페이지 참여자 현황 컴포넌트
-  - 챌린지 상세 페이지 옵션 박스
-  - 챌린지 상세 페이지 제작
-- 나의 챌린지 페이지
-  - 나의 챌린지 페이지 헤더 컴포넌트
-  - 나의 챌린지 페이지 챌린지 카드 컴포넌트
-  - 나의 챌린지 페이지 신청한 목록 컴포넌트
-  - 나의 챌린지 상세 보기 페이지 헤더
-  - 나의 챌린지 상세 보기 페이지 바디
-  - 나의 챌린지 상세 보기 페이지 삭제 기능
-  - 나의 챌린지 상세 보기 페이지
-  - 나의 챌린지 페이지 제작
-- 챌린지 도전하기 페이지
-  - 챌린지 도전하기 페이지 헤더 제작
-  - 챌린지 도전하기 페이지 바디 제작
-  - 챌린지 도전하기 페이지 ref 컴포넌트 제작
-  - 임시저장 토스트 제작
-  - 임시저장 토스트 기능 제작
-  - 챌린지 도전하기 페이지 제작
-- 어드민 신청 관리 페이지
-  - 어드민 신청 관리 페이지 헤더 제작
-  - 어드민 신청 관리 페이지 바디 제작
-  - 어드민 신청 관리 페이지 UI 제작
-- 어드민 신청 관리 상세 페이지
-  - 어드민 신청 관리 상세 페이지 헤더 제작
-  - 어드민 신청 관리 상세 페이지 바디 제작
-  - 어드민 신청 관리 상세 페이지 Status 변경 API 연결
-  - abort reason API 연결
+- datepicker 사용한 달력 컴포넌트  
+- EC2 이미지 PUT 메소드 추상화  
+
+</details>
+
+<details>
+<summary>권한에 따른 페이지 설정</summary>
+
+- 어드민/유저 권한에 따른 챌린지 리스트 페이지  
+- NAV UI (페이지, 프로필, 알림)  
+
+</details>
+
+<details>
+<summary>App router layout 페이지</summary>
+
+- ClientSync Hook 적용  
+- 전체 기본 배경색 설정  
+
+</details>
+
+<details>
+<summary>로그인 페이지</summary>
+
+- 로그인/회원가입 인풋 컴포넌트  
+
+</details>
+
+<details>
+<summary>로그인/로그아웃/유저 상태 관리</summary>
+
+- Zustand + 로컬스토리지 관리  
+
+</details>
+
+<details>
+<summary>accessToken&refreshToken 관련 처리</summary>
+
+- AccessToken 및 RefreshToken 관리  
+
+</details>
+
+<details>
+<summary>실시간 Socket 알림</summary>
+
+- 알림 컴포넌트  
+- 클라이언트 코드 작성  
+- Server HTTPS SSL 문제 발견 → HTTP로 수정  
+- CORS 문제 발견 및 해결  
+- Nginx Socket 권한 설정  
+
+</details>
+
+<details>
+<summary>기타</summary>
+
+- CSS 디테일 관리  
+- 이달의 랭커 SSR Next.js 캐싱 문제 해결  
+- 제작한 컴포넌트 스토리북 테스트  
+- 반응형 디자인 구현 (랜딩, 로그인, 챌린지 리스트, 챌린지 신청 페이지)  
+- iframe 임베드 유튜브 영상 페이지 구현  
+
+</details>
+
+---
+
+### 이도엽
+
+<details>
+<summary>작업물 페이지</summary>
+
+- 작업물 페이지  
+- 회원가입 페이지  
+- 어드민 작업물 페이지  
+- 작업물 수정 페이지  
+
+</details>
+
+<details>
+<summary>로그인 및 회원가입</summary>
+
+- Validation 처리 및 에러 구현  
+
+</details>
+
+<details>
+<summary>공통 컴포넌트</summary>
+
+- 취소 확인 모달  
+- 이미지 확대 모달  
+
+</details>
+
+<details>
+<summary>레시피 리스트 페이지</summary>
+
+- 검색, 정렬, 페이지네이션 기능 구현  
+
+</details>
+
+<details>
+<summary>챌린지 리스트 페이지</summary>
+
+- 페이지네이션 기능 구현  
+
+</details>
+
+<details>
+<summary>권한 기반 라우터 설정</summary>
+
+- 페이지 권한에 따른 라우터 설정  
+
+</details>
+
+<details>
+<summary>반응형 디자인 구현</summary>
+
+- 레시피 리스트 및 상세, 챌린지 도전하기 페이지  
+
+</details>
+
+<details>
+<summary>기타</summary>
+
+- React Quill을 사용한 HTML 파싱  
+- Axios Interceptor를 활용한 AccessToken 및 RefreshToken 처리  
+- Lighthouse 성능 개선  
+
+</details>
+
+---
+
+### 박효빈
+
+<details>
+<summary>공통 컴포넌트 제작</summary>
+
+- Nav바  
+- 언어 모달 컴포넌트  
+- 프로필 모달 컴포넌트  
+- 거절 모달 컴포넌트  
+- 필터바 컴포넌트  
+- Dropdown 컴포넌트  
+- 페이지네이션 컴포넌트  
+
+</details>
+
+<details>
+<summary>레시피 리스트 페이지</summary>
+
+- 레시피 카드 컴포넌트  
+- 레시피 리스트 페이지 제작  
+
+</details>
+
+<details>
+<summary>레시피 상세 페이지</summary>
+
+- 텍스트 컴포넌트  
+- 레시피 상세 페이지 제작  
+
+</details>
+
+<details>
+<summary>챌린지 상세 페이지</summary>
+
+- 참여자 카드 컴포넌트  
+- 참여자 현황 컴포넌트  
+- 옵션 박스  
+- 챌린지 상세 페이지 제작  
+
+</details>
+
+<details>
+<summary>나의 챌린지 페이지</summary>
+
+- 헤더 컴포넌트  
+- 챌린지 카드 컴포넌트  
+- 신청한 목록 컴포넌트  
+- 상세 보기 헤더  
+- 상세 보기 바디  
+- 상세 보기 삭제 기능  
+- 페이지 제작  
+
+</details>
+
+<details>
+<summary>챌린지 도전하기 페이지</summary>
+
+- 헤더 및 바디 제작  
+- Ref 컴포넌트 제작  
+- 임시저장 토스트 제작  
+- 페이지 제작  
+
+</details>
+
+<details>
+<summary>어드민 신청 관리 페이지</summary>
+
+- 헤더 및 바디 제작  
+- UI 제작  
+
+</details>
+
+<details>
+<summary>어드민 신청 관리 상세 페이지</summary>
+
+- 헤더 및 바디 제작  
+- Status 변경 API 연결  
+- Abort Reason API 연결  
+
+</details>
