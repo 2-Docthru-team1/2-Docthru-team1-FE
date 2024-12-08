@@ -56,7 +56,8 @@ export default function Nav() {
   const setupWebSocket = (token: string) => {
     const socket = io(`${BASE_URL}`, {
       auth: { token },
-      withCredentials: true
+      withCredentials: true,
+      transports: ['websocket']
     });
 
     socket.on('challengeStatusChangedFinished', newNotification => {
