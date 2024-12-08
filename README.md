@@ -104,11 +104,12 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ![datepicker](https://img.shields.io/badge/datepicker-white?style=flat&logo=architect&logoColor=black)
 ![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=flat&logo=Socket.io&logoColor=white)
 
-**Cloud & Deployment** <br>
+**Infrastructure** <br>
 ![Amazon AWS](https://img.shields.io/badge/Amazon%20AWS-232F3E?style=flat&logo=amazonaws&logoColor=white)
 ![S3](https://img.shields.io/badge/S3-569A31?style=flat&logo=amazon-s3&logoColor=white)
 ![EC2](https://img.shields.io/badge/EC2-FF9900?style=flat&logo=amazon-ec2&logoColor=white)
 ![PM2](https://img.shields.io/badge/PM2-2B037A?style=flat&logo=pm2&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat&logo=GitHubActions&logoColor=black)
 
 **Tools** <br>
 ![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white)
@@ -123,7 +124,6 @@ HanCook은 이러한 문제를 해결하기 위해 탄생했습니다.
 ![npm](https://img.shields.io/badge/npm-CB3837?style=flat&logo=npm&logoColor=black)
 ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=Prettier&logoColor=black)
 ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=ESLint&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat&logo=GitHubActions&logoColor=black)
 ![FSD Architecture](https://img.shields.io/badge/FSD%20Architecture-white?style=flat&logo=architect&logoColor=black)
 ![App Router](https://img.shields.io/badge/App%20Router-white?style=flat&logo=architect&logoColor=black)
 
