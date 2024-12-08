@@ -50,7 +50,7 @@ export default function MyChallengeDetailClient() {
 
   return (
     <div className="w-full md: p-[2rem] justify-center items-center flex pt-[2.4rem] pb-[7rem] flex-col">
-      <div className="w-full">
+      <div className="lg:w-[120rem] sm:w-full">
         <ChallengeApplicationDetailHeader type="normal" data={currentData} />
       </div>
       <div className="border border-gray-200 lg:w-[120rem] sm:w-full mt-[4rem] mb-[4rem]" />

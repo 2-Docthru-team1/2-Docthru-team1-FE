@@ -17,6 +17,8 @@ export default function MyChallengeClient() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
+  const { id } = useStore();
+
   const { keyword, category, setKeyword, setCategory } = useStore();
 
   useEffect(() => {
@@ -193,7 +195,7 @@ export default function MyChallengeClient() {
                 onClick={() => handleClickEvent(item.id)}
                 className="cursor-pointer lg:w-full md:w-[calc(100vw-6rem)] sm:w-[calc(100vw-3.5rem)]"
               >
-                <ChallengeCard type="ongoing" data={item} userId={item.requestUser.id} role="normal" />
+                <ChallengeCard type="ongoing" data={item} userId={id} role="normal" />
               </div>
             ))}
           </div>
@@ -212,7 +214,7 @@ export default function MyChallengeClient() {
                 onClick={() => handleClickEvent(item.id)}
                 className="cursor-pointer lg:w-full md:w-[calc(100vw-6rem)] sm:w-[calc(100vw-3.5rem)]"
               >
-                <ChallengeCard type="finish" data={item} userId={item.requestUser.id} role="normal" />
+                <ChallengeCard type="finish" data={item} userId={id} role="normal" />
               </div>
             ))}
           </div>

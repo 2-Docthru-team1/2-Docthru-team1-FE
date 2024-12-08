@@ -29,8 +29,7 @@ export default function AdminChallengeDetailClient() {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage = 1;
-  const totalPages =
-    currentData && typeof currentData.number === 'number' ? Math.max(1, Math.ceil(challengeMgmtTotalCount / itemsPerPage)) : 1;
+  const totalPages = Math.max(1, Math.ceil(challengeMgmtTotalCount / itemsPerPage));
 
   const handlePageChange = async (page: number) => {
     if (page === currentPage) return;
